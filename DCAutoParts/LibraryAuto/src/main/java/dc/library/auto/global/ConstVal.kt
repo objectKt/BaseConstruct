@@ -6,10 +6,10 @@ package dc.library.auto.global
 interface ConstVal {
 
     object Type {
-        const val TYPE_SAMPLE: String = ""
+        const val TYPE_SAMPLE: Int = 0
     }
 
     object IntentAction {
-        const val BOOT_COMPLETED = "android.intent.action.BOOT_COMPLETED"
+        const val BOOT_COMPLETED: String = "android.intent.action.BOOT_COMPLETED"
     }
 }
