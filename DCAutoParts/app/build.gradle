@@ -6,6 +6,7 @@ plugins {
 android {
     namespace 'com.android.launcher'
     compileSdk 34
+    ndkVersion '25.1.8937393'
 
     defaultConfig {
         applicationId "com.android.launcher"
@@ -27,28 +28,18 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
+    kotlinOptions { jvmTarget = '1.8' }
 
-    // 新项目里采用 layout 的分级目录设置，就可以在一个项目里同时开发多个 app 的不同布局文件
-    // 并且相同的布局可以复用，比如 common-dialog 目录下的页面弹窗 UI 等
     def listSubFile = {
         def resFolder = 'src/main/res/layouts'
         def files = file(resFolder).listFiles()
         def folders = []
-        files.each {
-            item -> folders.add(item.absolutePath)
-        }
+        files.each { item -> folders.add(item.absolutePath) }
         folders.add(file(resFolder).parentFile.absolutePath)
         return folders
     }
 
-    sourceSets {
-        main {
-            res.srcDirs = listSubFile()
-        }
-    }
+    sourceSets { main { res.srcDirs = listSubFile() } }
 
     // Flavor Dimension 配置不同的多个 app 的特性
 }
