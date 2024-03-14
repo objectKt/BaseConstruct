@@ -1,4 +1,6 @@
 [versions]
+compileVersion = "34"
+minSdkVersion = "26"
 agp = "8.3.0"
 activity = "1.8.0"
 appcompat = "1.6.1"
@@ -6,6 +8,8 @@ coreKtx = "1.10.1"
 constraintlayout = "2.1.4"
 kotlin = "1.9.0"
 material = "1.10.0"
+net = "3.6.4"
+okhttp = "4.11.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -13,6 +17,8 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 androidx-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+github-net = { module = "com.github.liangjingkanji:Net", version.ref = "net" }
+squareup-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

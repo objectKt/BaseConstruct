@@ -5,10 +5,10 @@ plugins {
 
 android {
     namespace 'dc.library.auto'
-    compileSdk 34
+    compileSdk libs.versions.compileVersion.get().toInteger()
 
     defaultConfig {
-        minSdk 26
+        minSdk libs.versions.minSdkVersion.get().toInteger()
         consumerProguardFiles "consumer-rules.pro"
     }
 

@@ -5,13 +5,13 @@ plugins {
 
 android {
     namespace 'com.android.launcher'
-    compileSdk 34
     ndkVersion '25.1.8937393'
+    compileSdk libs.versions.compileVersion.get().toInteger()
 
     defaultConfig {
         applicationId "com.android.launcher"
-        minSdk 26
-        targetSdk 34
+        minSdk libs.versions.minSdkVersion.get().toInteger()
+        targetSdk libs.versions.compileVersion.get().toInteger()
         versionCode 1
         versionName "1.0"
     }
@@ -23,13 +23,6 @@ android {
         }
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions { jvmTarget = '1.8' }
-
     def listSubFile = {
         def resFolder = 'src/main/res/layouts'
         def files = file(resFolder).listFiles()
@@ -39,6 +32,12 @@ android {
         return folders
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions { jvmTarget = '1.8' }
     sourceSets { main { res.srcDirs = listSubFile() } }
 
     // Flavor Dimension 配置不同的多个 app 的特性
@@ -48,4 +47,6 @@ dependencies {
     implementation project(":LibraryAuto")
     implementation libs.androidx.activity
     implementation libs.androidx.constraintlayout
+    implementation libs.github.net
+    implementation libs.squareup.okhttp
 }
