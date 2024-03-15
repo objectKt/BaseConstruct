@@ -10,6 +10,23 @@ kotlin = "1.9.0"
 material = "1.10.0"
 net = "3.6.4"
 okhttp = "4.11.0"
+# Old
+recyclerview = "1.3.0"
+recyclerviewSelection = "1.1.0"
+eventbus = "3.1.1"
+fastjson = "1.2.75"
+library = "2.1.3"
+free_reflection = "3.0.1"
+xPopup = "2.9.19"
+rxandroid = "3.0.2"
+rxjava = "3.1.5"
+baseRecyclerViewAdapterHelper = "3.0.6"
+mapNav = "9.8.3_3dmap9.8.3"
+mapSearch = "9.7.0"
+room = "2.5.1"
+usb = "3.5.1"
+anrwatchdog = "1.4.0"
+coreprogress = "1.0.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -19,6 +36,24 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 github-net = { module = "com.github.liangjingkanji:Net", version.ref = "net" }
 squareup-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+# Old need be changed.
+recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
+recyclerviewSelection = { module = "androidx.recyclerview:recyclerview-selection", version.ref = "recyclerviewSelection" }
+eventbus = { module = "org.greenrobot:eventbus", version.ref = "eventbus" }
+fastjson = { module = "com.alibaba:fastjson", version.ref = "fastjson" }
+library = { module = "com.wang.avi:library", version.ref = "library" }
+free-reflection = { module = "me.weishu:free_reflection", version.ref = "free_reflection" }
+popup = { module = "com.github.li-xiaojun:XPopup", version.ref = "xPopup" }
+rxandroid = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rxandroid" }
+rxjava = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjava" }
+baseRecyclerViewAdapterHelper = { module = "com.github.CymChad:BaseRecyclerViewAdapterHelper", version.ref = "baseRecyclerViewAdapterHelper" }
+mapNav = { module = "com.amap.api:navi-3dmap", version.ref = "mapNav" }
+mapSearch = { module = "com.amap.api:search", version.ref = "mapSearch" }
+roomRuntime = { module = "androidx.room:room-runtime", version.ref = "room" }
+roomCompiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+usb = { module = "com.github.mik3y:usb-serial-for-android", version.ref = "usb" }
+anrwatchdog = { module = "com.github.anrwatchdog:anrwatchdog", version.ref = "anrwatchdog" }
+coreprogress = { module = "io.github.lizhangqu:coreprogress", version.ref = "coreprogress" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

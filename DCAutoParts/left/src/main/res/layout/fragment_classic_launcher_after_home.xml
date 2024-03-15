@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/titleTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="@string/after_launcher"
+        android:textColor="@color/ffffff"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/bgV"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/bg_launcher_after"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleTV" />
+
+    <TextView
+        android:id="@+id/totalDistanceTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="@string/total_distance"
+        android:textColor="@color/ffffff"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/bgV"
+        app:layout_constraintStart_toStartOf="@id/bgV"
+        app:layout_constraintTop_toTopOf="@id/bgV" />
+
+
+    <TextView
+        android:id="@+id/qtripTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:gravity="center"
+        android:text="0.0l/100km"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@id/averageSpeedTV"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="@id/bgV"
+        app:layout_constraintTop_toBottomOf="@id/totalDistanceTV" />
+
+    <TextView
+        android:id="@+id/averageSpeedTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="0km/h"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/qtripTV"
+        app:layout_constraintEnd_toEndOf="@id/bgV"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/qtripTV" />
+
+    <TextView
+        android:id="@+id/userMileTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="0.00km"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@id/userTimeTV"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="@id/bgV"
+        app:layout_constraintTop_toBottomOf="@id/qtripTV" />
+
+    <TextView
+        android:id="@+id/userTimeTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="00:00h"
+        android:textColor="@color/colorWhite"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/userMileTV"
+        app:layout_constraintEnd_toEndOf="@id/bgV"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/userMileTV" />
+
+
+    <ImageView
+        android:id="@+id/centerIV"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="50dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/yezi"
+        app:layout_constraintEnd_toEndOf="@id/bgV"
+        app:layout_constraintStart_toStartOf="@id/bgV"
+        app:layout_constraintTop_toBottomOf="@id/totalDistanceTV" />
+
+
+    <ImageView
+        android:id="@+id/leftIV"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:layout_marginStart="20dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/seperate_left_green"
+        app:layout_constraintBottom_toBottomOf="@id/centerIV"
+        app:layout_constraintEnd_toStartOf="@id/centerIV"
+        app:layout_constraintStart_toStartOf="@id/bgV"
+        app:layout_constraintTop_toTopOf="@id/centerIV" />
+
+    <ImageView
+        android:id="@+id/rightIV"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:layout_marginEnd="20dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/seperate_right_green"
+        app:layout_constraintBottom_toBottomOf="@id/centerIV"
+        app:layout_constraintEnd_toEndOf="@id/bgV"
+        app:layout_constraintStart_toEndOf="@id/centerIV"
+        app:layout_constraintTop_toTopOf="@id/centerIV" />
+
+
+    <TextView
+        android:id="@+id/totalMileTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="0km"
+        android:textColor="@color/ffffff"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@id/totalTimeTV"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="@id/bgV"
+        app:layout_constraintTop_toBottomOf="@id/leftIV" />
+
+    <TextView
+        android:id="@+id/totalTimeTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="00:00h"
+        android:textColor="@color/ffffff"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/totalMileTV"
+        app:layout_constraintEnd_toEndOf="@id/bgV"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/totalMileTV"
+        app:layout_constraintTop_toTopOf="@id/totalMileTV" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

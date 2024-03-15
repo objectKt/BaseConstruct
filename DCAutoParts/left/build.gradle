@@ -1,0 +1,98 @@
+apply plugin: 'com.android.application'
+
+android {
+    namespace 'com.android.launcher'
+    compileSdk libs.versions.compileVersion.get().toInteger()
+
+    defaultConfig {
+        applicationId "com.android.launcher"
+        minSdk libs.versions.minSdkVersion.get().toInteger()
+        targetSdk libs.versions.compileVersion.get().toInteger()
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.debug
+    }
+
+    signingConfigs {
+        release {
+            storeFile file('../apk.jks')
+            storePassword 'dcqp231112'
+            keyAlias 'leftS223'
+            keyPassword 'dcqp231112'
+        }
+        debug {
+            storeFile file('../apk.jks')
+            storePassword 'dcqp231112'
+            keyAlias 'leftS223'
+            keyPassword 'dcqp231112'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            renderscriptOptimLevel 1
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "AutoParts" + versionCode + ".apk"
+                }
+            }
+        }
+
+        debug {
+            minifyEnabled false
+            debuggable true
+            signingConfig signingConfigs.release
+            renderscriptOptimLevel 1
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "AutoParts" + versionCode + ".apk"
+                }
+            }
+        }
+
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation libs.recyclerview
+    implementation libs.recyclerviewSelection
+    implementation libs.rxandroid
+    implementation libs.rxjava
+    implementation libs.baseRecyclerViewAdapterHelper
+    implementation libs.eventbus
+    implementation libs.fastjson
+    implementation libs.squareup.okhttp
+    implementation libs.usb
+    implementation libs.free.reflection
+    implementation libs.anrwatchdog
+    implementation libs.popup
+    implementation libs.coreprogress
+    implementation libs.mapNav
+    implementation libs.mapSearch
+    implementation libs.library
+    implementation libs.roomRuntime
+    annotationProcessor libs.roomCompiler
+    implementation project(path: ':LibraryAuto')
+    implementation project(path: ':LibraryUI')
+}
