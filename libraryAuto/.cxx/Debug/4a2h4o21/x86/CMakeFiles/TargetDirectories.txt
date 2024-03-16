@@ -1,0 +1,3 @@
+/Users/hf/Desktop/BaseConstruct/DCAutoParts/LibraryAuto/.cxx/Debug/4a2h4o21/x86/CMakeFiles/SerialPort.dir
+/Users/hf/Desktop/BaseConstruct/DCAutoParts/LibraryAuto/.cxx/Debug/4a2h4o21/x86/CMakeFiles/edit_cache.dir
+/Users/hf/Desktop/BaseConstruct/DCAutoParts/LibraryAuto/.cxx/Debug/4a2h4o21/x86/CMakeFiles/rebuild_cache.dir

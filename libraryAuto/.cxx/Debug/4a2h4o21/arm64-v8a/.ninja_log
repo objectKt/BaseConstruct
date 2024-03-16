@@ -1,0 +1,7 @@
+# ninja log v5
+0	7	0	clean	97b14d808453763
+1543	2026	1710565424710629021	../../../../build/intermediates/cxx/Debug/4a2h4o21/obj/arm64-v8a/libSerialPort.so	95ef08582c9f7b4f
+1	1543	1710565424227726648	CMakeFiles/SerialPort.dir/src/main/jni/SerialPort.c.o	9e4923dd6320009
+1	1032	1710565757971576319	CMakeFiles/SerialPort.dir/src/main/jni/SerialPort.c.o	9e4923dd6320009
+1032	1449	1710565758388827688	../../../../build/intermediates/cxx/Debug/4a2h4o21/obj/arm64-v8a/libSerialPort.so	95ef08582c9f7b4f
+1	14	0	clean	97b14d808453763
