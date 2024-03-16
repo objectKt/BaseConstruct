@@ -1,19 +1,22 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("io.objectbox")
 }
 
+def ver = libs.versions
+
 android {
-    namespace 'com.android.launcher'
+    namespace ver.appId.get().toString()
     ndkVersion '25.1.8937393'
-    compileSdk libs.versions.compileVersion.get().toInteger()
+    compileSdk ver.compileVersion.get().toInteger()
 
     defaultConfig {
-        applicationId "com.android.launcher"
-        minSdk libs.versions.minSdkVersion.get().toInteger()
-        targetSdk libs.versions.compileVersion.get().toInteger()
-        versionCode 1
-        versionName "1.0"
+        applicationId ver.appId.get().toString()
+        minSdk ver.minSdkVersion.get().toInteger()
+        targetSdk ver.compileVersion.get().toInteger()
+        versionCode ver.versionCode.get().toInteger()
+        versionName ver.versionName.get().toString()
     }
 
     buildTypes {

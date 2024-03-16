@@ -6,13 +6,13 @@ package dc.library.auto.singleton
  * 通过使用对象声明和伴生对象来实现带参数的单例
  * companion object : BaseSafeSingleton<T, A>(::T)
  */
-open class BaseSafeSingleton<out T, in A>(private val constructor: (A) -> T) {
+open class BaseSafeSingleton<out T, in A, in B>(private val constructor: (A, B) -> T) {
 
     @Volatile
     private var instance: T? = null
 
-    fun getInstance(arg: A): T =
+    fun getInstance(arg1: A, arg2: B): T =
         instance ?: synchronized(this) {
-            instance ?: constructor(arg).also { instance = it }
+            instance ?: constructor(arg1, arg2).also { instance = it }
         }
 }

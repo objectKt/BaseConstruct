@@ -1,3 +1,11 @@
+// all buildscript {} blocks must appear before any plugins {} blocks in the script
+buildscript {
+    ext.objectboxVersion = "3.8.0"
+    dependencies {
+        classpath("io.objectbox:objectbox-gradle-plugin:$objectboxVersion")
+    }
+}
+
 plugins {
     alias(libs.plugins.androidApplication) apply false
     alias(libs.plugins.jetbrainsKotlinAndroid) apply false

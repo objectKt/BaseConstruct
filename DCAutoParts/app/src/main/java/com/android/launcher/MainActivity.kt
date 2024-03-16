@@ -29,9 +29,9 @@ class MainActivity : AppCompatActivity() {
             3
         ).life(this)
         interval.subscribe {
-            SingletonTest.getInstance(applicationContext).doSomeThingsWithContext()
+            SingletonTest.getInstance(applicationContext, 0).doSomeThingsWithContext()
         }.finish {
-            SingletonTest.getInstance(applicationContext).doFinish()
+            SingletonTest.getInstance(applicationContext, 0).doFinish()
         }.start()
     }
 }

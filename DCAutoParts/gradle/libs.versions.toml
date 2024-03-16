@@ -1,6 +1,9 @@
 [versions]
 compileVersion = "34"
 minSdkVersion = "26"
+versionCode = "1"
+versionName = "1.0"
+appId = "com.android.launcher"
 agp = "8.3.0"
 activity = "1.8.0"
 appcompat = "1.6.1"
