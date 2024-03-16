@@ -1,7 +1,0 @@
-# ninja log v5
-0	7	0	clean	97b14d808453763
-180	348	1710565426117798123	../../../../build/intermediates/cxx/Debug/4a2h4o21/obj/x86_64/libSerialPort.so	1d4de52549dcde81
-1	180	1710565425950684712	CMakeFiles/SerialPort.dir/src/main/jni/SerialPort.c.o	f17a1acd12b4f971
-2	280	1710565760114642679	CMakeFiles/SerialPort.dir/src/main/jni/SerialPort.c.o	f17a1acd12b4f971
-281	438	1710565760268353911	../../../../build/intermediates/cxx/Debug/4a2h4o21/obj/x86_64/libSerialPort.so	1d4de52549dcde81
-0	17	0	clean	97b14d808453763

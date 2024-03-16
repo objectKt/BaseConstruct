@@ -1,7 +1,0 @@
-# ninja log v5
-0	14	0	clean	97b14d808453763
-276	501	1710565425265940458	../../../../build/intermediates/cxx/Debug/4a2h4o21/obj/armeabi-v7a/libSerialPort.so	487df65566466b2a
-1	276	1710565425041027466	CMakeFiles/SerialPort.dir/src/main/jni/SerialPort.c.o	a51a46a5829302ad
-1	251	1710565758850813172	CMakeFiles/SerialPort.dir/src/main/jni/SerialPort.c.o	a51a46a5829302ad
-251	422	1710565759018485455	../../../../build/intermediates/cxx/Debug/4a2h4o21/obj/armeabi-v7a/libSerialPort.so	487df65566466b2a
-1	18	0	clean	97b14d808453763
