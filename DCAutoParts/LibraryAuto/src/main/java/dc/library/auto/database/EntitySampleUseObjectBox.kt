@@ -1,4 +1,4 @@
-package com.android.launcher.database
+package dc.library.auto.database
 
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id

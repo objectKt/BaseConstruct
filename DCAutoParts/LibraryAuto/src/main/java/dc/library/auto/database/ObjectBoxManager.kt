@@ -1,4 +1,4 @@
-package com.android.launcher.common
+package dc.library.auto.database
 
 import dc.library.auto.global.ScreenCarType
 import dc.library.auto.global.ScreenWhichSide
