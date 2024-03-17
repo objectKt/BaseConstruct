@@ -33,32 +33,23 @@ import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.annotations.Nullable;
 
 public class BottomStatusView extends FrameLayout {
-    private static final String TAG = BottomStatusView.class.getSimpleName();
 
+    private static final String TAG = BottomStatusView.class.getSimpleName();
     //电子手刹警告显示
     public static volatile boolean electricalParkBrakeWaringShow = false;
-
     //电子手刹显示
     public static volatile boolean electricalParkBrakeShow = false;
-
     //黄色的p, 电子手刹警告
     private ImageView electricalparkbrakewarning;
-
     //红色的p, 当P灯为红色且常亮时，表示驻车制动系统工作正常，手刹已经拉紧。这是正常状态，没有故障。
     private ImageView electricalParkBrakeIV;
-
     //制动系统警告灯
     private ImageView brakeSystemIV;
-
     private TextView timeTV;
-
-
     private OilMeterLineView oilMeterLineView;
     private WaterTempLineView waterTempLineView;
     //剩余里程
     private TextView remainKONTV;
-
-
     private ImageView clearanceLampIV;
     private ImageView oilBoxIV;
     private ConstraintLayout waterTempCL;
@@ -68,28 +59,19 @@ public class BottomStatusView extends FrameLayout {
     private TextView holdTV;
     private WaterTempLineView waterTempView;
     private TextView unitTV;
-
-
     private boolean oilAnimationStart;
-
-
     public BottomStatusView(@NonNull Context context) {
         this(context, null);
     }
-
     public BottomStatusView(@NonNull Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
-
     public BottomStatusView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         this(context, attrs, defStyleAttr, 0);
     }
-
     public BottomStatusView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-
         LayoutInflater.from(context).inflate(R.layout.layout_bottom_status, this, true);
-
         oilBoxIV = findViewById(R.id.oilBoxIV);
         clearanceLampIV = findViewById(R.id.clearanceLampIV);
         electricalparkbrakewarning = findViewById(R.id.electricalparkbrakewarning);
@@ -105,7 +87,6 @@ public class BottomStatusView extends FrameLayout {
         oilMeterLineView = findViewById(R.id.oilMeterLineView);
         oilMeterLineCL = findViewById(R.id.oilMeterLineCL);
         waterTempCL = findViewById(R.id.waterTempCL);
-
         oilMeterLineCL.setVisibility(View.INVISIBLE);
         waterTempCL.setVisibility(View.INVISIBLE);
         showOilLineView(false);
@@ -113,11 +94,8 @@ public class BottomStatusView extends FrameLayout {
         radarPOnIV.setVisibility(View.INVISIBLE);
         hideAll();
         loadData();
-
         IconUtils.setColor(radarPOnIV, getResources().getColor(R.color.oilLineSelect));
-
         unitTV.setText(getResources().getString(R.string.mile_unit));
-
         try {
             oilAnimationStart = false;
             IconUtils.setColor(oilBoxIV, 0);
@@ -134,13 +112,11 @@ public class BottomStatusView extends FrameLayout {
         timeTV.setText(time);
     }
 
-
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         try {
             EventBus.getDefault().register(this);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -150,11 +126,9 @@ public class BottomStatusView extends FrameLayout {
     protected void onDetachedFromWindow() {
         try {
             EventBus.getDefault().unregister(this);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         super.onDetachedFromWindow();
     }
 
@@ -259,7 +233,6 @@ public class BottomStatusView extends FrameLayout {
                         carTempTV.setText(temp + "℃");
                     }
                 }
-
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -274,7 +247,6 @@ public class BottomStatusView extends FrameLayout {
                 oilMeterLineView.setCurrentOil(percent);
             }
             if (percent <= CarConstants.OIL_BOX_WARN) {
-
                 oilAnimationStart = false;
                 if (!oilAnimationStart) {
                     IconUtils.setColor(oilBoxIV, getResources().getColor(R.color.colorRed));
@@ -290,7 +262,6 @@ public class BottomStatusView extends FrameLayout {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public void updateWaterTemp(int temp) {
@@ -306,7 +277,6 @@ public class BottomStatusView extends FrameLayout {
             e.printStackTrace();
         }
     }
-
 
     public void updateTime(String time) {
         try {

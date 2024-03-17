@@ -1,28 +1,25 @@
 package com.android.launcher.airsystem;
 
 /**
-* @description: 空调温度大小指令
- *   28 AA
- *   27 A0
- *   26 96
- *   25 8C
- *   24 82
- *   23 78
- *   22 6E
- *   21 64
- *   20 5A
- *   19 50
- *   18 46
- *   17 3C
- *   16 32
- *   lo 28
-* @createDate: 2023/5/1
-*/
+ * 空调温度大小指令
+ * 28 AA
+ * 27 A0
+ * 26 96
+ * 25 8C
+ * 24 82
+ * 23 78
+ * 22 6E
+ * 21 64
+ * 20 5A
+ * 19 50
+ * 18 46
+ * 17 3C
+ * 16 32
+ * lo 28
+ */
 public class TempSizeType {
-
     //最高温度
     public static final String TEMP_HI = "B4";
-
     public static final String TEMP_28 = "AA";
     public static final String TEMP_27 = "A0";
     public static final String TEMP_26 = "96";

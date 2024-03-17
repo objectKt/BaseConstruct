@@ -5,7 +5,9 @@ import com.android.launcher.util.StringUtils;
 
 import java.util.List;
 
-//车钥匙启动车关闭车
+/**
+ * 车钥匙启动车关闭车
+ */
 public class Can1 implements CanParent {
 
     public static volatile boolean isClose = false;

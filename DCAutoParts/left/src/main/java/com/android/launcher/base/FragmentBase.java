@@ -17,21 +17,12 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * @description:
- * @createDate: 2023/6/2
- */
 public abstract class FragmentBase<T extends IPresenter> extends Fragment {
 
-
     protected T mPresenter;
-
     protected boolean isShow = false;
-
     protected String TAG;
-
     private ExecutorService executorService;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,7 +42,6 @@ public abstract class FragmentBase<T extends IPresenter> extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         LogUtils.printI(this.getClass().getSimpleName(), "onViewCreated------");
         registerEventBus();
-
         executorService = Executors.newCachedThreadPool();
         mPresenter = createPresenter();
         initView(view, savedInstanceState);
@@ -66,7 +56,6 @@ public abstract class FragmentBase<T extends IPresenter> extends Fragment {
             e.printStackTrace();
         }
     }
-
 
     public void startTask(Runnable runnable) {
         if (executorService != null) {
@@ -116,7 +105,6 @@ public abstract class FragmentBase<T extends IPresenter> extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
         unregisterEventBus();
         try {
             if (mPresenter != null) {
@@ -131,13 +119,12 @@ public abstract class FragmentBase<T extends IPresenter> extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         LogUtils.printI(this.getClass().getSimpleName(), "onDestroyView------");
     }
 
     protected void unregisterEventBus() {
         try {
-            if( EventBus.getDefault().isRegistered(this)){
+            if (EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().unregister(this);
             }
         } catch (Exception e) {
@@ -150,6 +137,4 @@ public abstract class FragmentBase<T extends IPresenter> extends Fragment {
         super.onDestroy();
         LogUtils.printI(this.getClass().getSimpleName(), "onDestroy------");
     }
-
-
 }

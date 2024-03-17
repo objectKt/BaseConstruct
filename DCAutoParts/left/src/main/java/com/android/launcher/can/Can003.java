@@ -1,16 +1,8 @@
 package com.android.launcher.can;
 
-import com.android.launcher.entity.BinaryEntity;
-import com.android.launcher.util.LogUtils;
-
 import java.util.List;
 
-/**
- * @date： 2023/12/29
- * @author: 78495
-*/
 public class Can003 implements CanParent {
-
 
     private static final String TAG = Can003.class.getSimpleName();
 

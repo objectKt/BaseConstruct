@@ -7,11 +7,9 @@ import java.util.List;
  */
 @Deprecated
 public class Can1E5 implements CanParent {
-
     public static final String COMMAND_1E5_STAT = "AA00000800000";
     public static List<String> E5;
-    //空调系统状态数据
-    public static String AIR_SYS_STATE_VALUE;
+    public static String AIR_SYS_STATE_VALUE;// 空调系统状态数据
     public static volatile String lastData = "";
 
     @Override

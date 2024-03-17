@@ -34,6 +34,6 @@ public class Can2ee implements CanParent {
             EventBus.getDefault().post(messageEvent);
             lastRadarSwitchState = radarSwitchState;
         }
-//        CommonUtil.meterHandler.get("radarback").handlerData(MeterPresentation.localMeterPresentation,back);
+        // CommonUtil.meterHandler.get("radarback").handlerData(MeterPresentation.localMeterPresentation,back);
     }
 }

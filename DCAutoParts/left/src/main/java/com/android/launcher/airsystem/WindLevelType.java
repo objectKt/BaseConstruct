@@ -1,19 +1,16 @@
 package com.android.launcher.airsystem;
 
 /**
-* @description: 风量大小
- *
- *   2E   1
- *   38   2
- *   42   3
- *   4C   4
- *   60   5
- *   78   6
- *   C8   7
-* @createDate: 2023/5/1
-*/
+ * 风量大小
+ * 2E   1
+ * 38   2
+ * 42   3
+ * 4C   4
+ * 60   5
+ * 78   6
+ * C8   7
+ */
 public class WindLevelType {
-
     public static final String LEVEL_1 = "2E";
     public static final String LEVEL_2 = "38";
     public static final String LEVEL_3 = "42";

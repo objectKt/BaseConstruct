@@ -51,4 +51,6 @@ dependencies {
     implementation libs.androidx.constraintlayout
     implementation libs.github.net
     implementation libs.squareup.okhttp
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.material
 }
