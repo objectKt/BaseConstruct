@@ -25,51 +25,17 @@ class CarModulesManager private constructor(private val screenCar: ScreenCarType
     // 可取消执行接口的集合
     private val mCancelableList: MutableList<ICancelable> = mutableListOf()
 
-    // 汽车里程功能模块
     private var mileageImpl: ModuleMileageImpl? = null
-
-    // 定时观察发动机转速和车速更新
     private var observeSpeedImpl: ModuleObserveSpeedImpl? = null
 
+    /**
+     * 汽车模块定时任务接口统一管理
+     * 增加新功能，只要增加或修改接口就可以了
+     * @author hf
+     */
     fun manageModules() {
-        mileageImpl = mileageImplInit()
-        observeSpeedImpl = observeSpeedImplInit()
-        startDoScheduleTasks()
-    }
-
-    private fun startDoScheduleTasks() {
-        mileageImpl?.let {
-            doScheduleTasks(mileageImpl?.schedulePeriod!!) {
-                // Runnable
-            }
-        }
-        observeSpeedImpl?.let {
-            doScheduleTasks(observeSpeedImpl?.schedulePeriod!!) {
-                // Runnable
-            }
-        }
-    }
-
-    private fun doScheduleTasks(period: Long, task: Runnable) {
-        val cancel: ICancelable = XTask.scheduleAtFixedRate({
-            XTask.backgroundSubmit(task)
-        }, 0, period, TimeUnit.SECONDS)
-        mCancelableList.add(cancel)
-    }
-
-    private fun observeSpeedImplInit(): ModuleObserveSpeedImpl {
-        return object : ModuleObserveSpeedImpl {
-            override val schedulePeriod: Long
-                get() = 2L
-
-            override fun postEvent(event: MessageEvent) {
-
-            }
-        }
-    }
-
-    private fun mileageImplInit(): ModuleMileageImpl {
-        return object : ModuleMileageImpl {
+        // 汽车里程功能模块
+        mileageImpl = object : ModuleMileageImpl {
             override val mileageData: CarTravelTable
                 get() = CarTravelTable.updateData()
 
@@ -83,5 +49,35 @@ class CarModulesManager private constructor(private val screenCar: ScreenCarType
 
             }
         }
+        // 定时观察发动机转速和车速更新
+        observeSpeedImpl = object : ModuleObserveSpeedImpl {
+            override val schedulePeriod: Long
+                get() = 2L
+
+            override fun postEvent(event: MessageEvent) {
+
+            }
+        }
+        startDoScheduleTasks()
+    }
+
+    private fun startDoScheduleTasks() {
+        mileageImpl?.let {
+            task(mileageImpl?.schedulePeriod!!) {
+                // Runnable
+            }
+        }
+        observeSpeedImpl?.let {
+            task(observeSpeedImpl?.schedulePeriod!!) {
+                // Runnable
+            }
+        }
+    }
+
+    private fun task(period: Long, task: Runnable) {
+        val cancel: ICancelable = XTask.scheduleAtFixedRate({
+            XTask.backgroundSubmit(task)
+        }, 0, period, TimeUnit.SECONDS)
+        mCancelableList.add(cancel)
     }
 }
