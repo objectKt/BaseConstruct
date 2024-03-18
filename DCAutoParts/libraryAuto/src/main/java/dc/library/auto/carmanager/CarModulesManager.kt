@@ -33,7 +33,7 @@ class CarModulesManager private constructor(private val screenCar: ScreenCarType
      * 增加新功能，只要增加或修改接口就可以了
      * @author hf
      */
-    fun manageModules() {
+    fun manageModulesScheduleTasks() {
         // 汽车里程功能模块
         mileageImpl = object : ModuleMileageImpl {
             override val mileageData: CarTravelTable
@@ -63,18 +63,18 @@ class CarModulesManager private constructor(private val screenCar: ScreenCarType
 
     private fun startDoScheduleTasks() {
         mileageImpl?.let {
-            task(mileageImpl?.schedulePeriod!!) {
+            scheduleTask(mileageImpl?.schedulePeriod!!) {
                 // Runnable
             }
         }
         observeSpeedImpl?.let {
-            task(observeSpeedImpl?.schedulePeriod!!) {
+            scheduleTask(observeSpeedImpl?.schedulePeriod!!) {
                 // Runnable
             }
         }
     }
 
-    private fun task(period: Long, task: Runnable) {
+    private fun scheduleTask(period: Long, task: Runnable) {
         val cancel: ICancelable = XTask.scheduleAtFixedRate({
             XTask.backgroundSubmit(task)
         }, 0, period, TimeUnit.SECONDS)
