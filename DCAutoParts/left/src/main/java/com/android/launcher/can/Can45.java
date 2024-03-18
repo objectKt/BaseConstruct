@@ -147,6 +147,8 @@ public class Can45 implements CanParent {
         String d5Binary = convertHexToBinary(d5);
         LogUtils.printI(TAG, "disposeD5----D5=" + d5 + ", d5Binary=" + d5Binary);
         if (d5Binary.length() == 8) {
+
+
             int helpIndex = 7;
             int backIndex = 6; //返回
             int silenceIndex = 5; //静音

@@ -7,6 +7,7 @@ public class AlertVo {
 
     String alertMessage;
 
+
     String alertColor;
 
     int alertImg;

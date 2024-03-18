@@ -17,7 +17,7 @@ import java.io.InputStream;
 import java.security.InvalidParameterException;
 import java.util.concurrent.LinkedTransferQueue;
 
-import dc.library.auto.serial.SerialPort;
+import com.dc.auto.library.serial.SerialPort;
 
 //import com.android.launcher.usbdriver.SendHelperCH340Can;
 
@@ -62,22 +62,22 @@ public class SerialHelperttlLd {
 
         LogUtils.printI(TAG, "打开串口----");
         RUN = false;
-//        this.mSerialPort = new SerialPort(new File("/dev/ttyS1"), 115200, 0);
+        this.mSerialPort = new SerialPort(new File("/dev/ttyS1"), 115200, 0);
 
-//        if (!this.mSerialPort.getmFd().valid()) { //串口打开失败
-//            retry();
-//        } else {
-//            mOutputStream = this.mSerialPort.getOutputStream();
-//            this.mInputStream = this.mSerialPort.getInputStream();
-//            this.mReadThread = new ReadThread();
-//            this.mReadThread.start();
-////        this.mSendThread = new SerialHelperttlLd.SendThread();
-////        this.mSendThread.setSuspendFlag();
-////        this.mSendThread.start();
-//
-//            startSendThread();
-//            _isOpen = true;
-//        }
+        if (!this.mSerialPort.getmFd().valid()) { //串口打开失败
+            retry();
+        } else {
+            mOutputStream = this.mSerialPort.getOutputStream();
+            this.mInputStream = this.mSerialPort.getInputStream();
+            this.mReadThread = new ReadThread();
+            this.mReadThread.start();
+//        this.mSendThread = new SerialHelperttlLd.SendThread();
+//        this.mSendThread.setSuspendFlag();
+//        this.mSendThread.start();
+
+            startSendThread();
+            _isOpen = true;
+        }
     }
 
     private void retry() {

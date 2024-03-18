@@ -1,5 +1,7 @@
 package com.android.launcher.can;
 
+import android.os.Build;
+
 import com.android.launcher.MessageEvent;
 import com.android.launcher.R;
 import com.android.launcher.util.AlertMessage;
@@ -24,15 +26,23 @@ public class Can2f8 implements CanParent {
 
     @Override
     public void handlerCan(List<String> msg) {
+
+
         String senddata = String.join("", msg);
+
         if (!handlermsg.equals(senddata)) {
             handlermsg = senddata;
+
             LogUtils.printI(TAG, "msg=" + msg);
+
             String alert = msg.get(2);
+
             String alert_f = alert.substring(0, 1);
+
             AlertVo alertVo = new AlertVo();
             alertVo.setAlertImg(0);
             alertVo.setAlertColor(AlertMessage.TEXT_YELLOW + "");
+
 //            if (alert_f.equals(flg_8)){
 //                alertVo.setAlertMessage( AlertMessage.ALERT_2F8_2_80);
 //                String message = FastJsonUtils.BeanToJson(alertVo);
@@ -80,6 +90,7 @@ public class Can2f8 implements CanParent {
 //                //    EventBusMeter.getInstance().postSticky(new MessageWrap("alert", message));
 //                CommonUtil.meterHandler.get("alert").handlerData(message);
 //            }
+
         }
     }
 }

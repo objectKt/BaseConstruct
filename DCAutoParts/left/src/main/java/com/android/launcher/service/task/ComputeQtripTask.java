@@ -11,8 +11,8 @@ import com.android.launcher.util.QtripUtils;
 import com.android.launcher.util.SPUtils;
 import com.android.launcher.util.UnitUtils;
 
-import com.dc.auto.library.module.module_db.entity.CarTravelTable;
-import com.dc.auto.library.module.module_db.repository.CarTravelRepository;
+import module.module_db.entity.CarTravelTable;
+import module.module_db.repository.CarTravelRepository;
 
 /**
  * 计算油耗

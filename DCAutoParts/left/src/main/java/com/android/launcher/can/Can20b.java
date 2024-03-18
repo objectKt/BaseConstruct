@@ -2,8 +2,12 @@ package com.android.launcher.can;
 
 import android.annotation.SuppressLint;
 
+import com.android.launcher.usbdriver.SendHelperUsbToRight;
+import com.android.launcher.util.LogUtils;
+
 import java.util.List;
 
+//import com.android.launcher.vo.SendToAssistant;
 @Deprecated
 //空调读取内容
 public class Can20b implements CanParent {

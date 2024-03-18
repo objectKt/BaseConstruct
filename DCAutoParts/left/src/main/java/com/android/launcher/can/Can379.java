@@ -1,5 +1,7 @@
 package com.android.launcher.can;
 
+import android.os.Build;
+
 import com.android.launcher.MessageEvent;
 import com.android.launcher.R;
 import com.android.launcher.can.status.Can379Status;

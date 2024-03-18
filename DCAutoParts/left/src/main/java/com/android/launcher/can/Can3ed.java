@@ -1,5 +1,8 @@
 package com.android.launcher.can;
 
+import android.os.Build;
+import android.util.Log;
+
 import com.android.launcher.util.CommonUtil;
 import com.android.launcher.util.LogUtils;
 

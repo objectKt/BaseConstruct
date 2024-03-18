@@ -3,13 +3,19 @@ package com.android.launcher.entity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
+
 import java.io.Serializable;
 
-public class Song implements Serializable {
+@Entity
+public class Song implements Serializable{
 
-    public static final long serialVersionUID = 1L;
+    public static final long serialVersionUID = 1L ;
 
-    public Long id;
+    @Id(autoincrement = true)
+    public Long id ;
     /**
      * 歌手
      */
@@ -37,8 +43,9 @@ public class Song implements Serializable {
      */
     private long size;
 
+    @Generated(hash = 1356921839)
     public Song(Long id, String artist, String title, byte[] image, String path,
-                String album, int duration, long size) {
+            String album, int duration, long size) {
         this.id = id;
         this.artist = artist;
         this.title = title;
@@ -49,6 +56,7 @@ public class Song implements Serializable {
         this.size = size;
     }
 
+    @Generated(hash = 87031450)
     public Song() {
     }
 
@@ -77,7 +85,7 @@ public class Song implements Serializable {
     }
 
     public String getAlbum() {
-        if (album != null) {
+        if(album != null) {
             return album;
         }
         return "未知";
@@ -88,7 +96,7 @@ public class Song implements Serializable {
     }
 
     public String getArtist() {
-        if (artist != null) {
+        if(artist != null) {
             return artist;
         }
         return "未知";

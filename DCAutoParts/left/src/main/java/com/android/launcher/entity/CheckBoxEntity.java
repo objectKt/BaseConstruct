@@ -1,20 +1,28 @@
 package com.android.launcher.entity;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
+
 import java.io.Serializable;
 
+@Entity
 public class CheckBoxEntity implements Serializable {
 
     public static final long serialVersionUID = 1L ;
 
+    @Id(autoincrement = true)
     public Long id ;
 
     public String selected ;
 
     public String checkBoxName ;
 
+    @Generated(hash = 2083221173)
     public CheckBoxEntity() {
     }
 
+    @Generated(hash = 1517895664)
     public CheckBoxEntity(Long id, String selected, String checkBoxName) {
         this.id = id;
         this.selected = selected;

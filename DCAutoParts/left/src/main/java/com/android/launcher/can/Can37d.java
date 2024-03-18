@@ -1,12 +1,19 @@
 package com.android.launcher.can;
 
+import android.os.Build;
+
 import com.android.launcher.MessageEvent;
+import com.android.launcher.util.BigDecimalUtils;
 import com.android.launcher.util.LogUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
+/**
+ * @date： 2023/12/30
+ * @author: 78495
+*/
 public class Can37d implements CanParent {
 
     public static volatile String lastData = "";

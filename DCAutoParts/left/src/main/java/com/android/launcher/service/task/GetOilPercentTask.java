@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.dc.auto.library.module.module_db.entity.CarTravelTable;
-import com.dc.auto.library.module.module_db.repository.CarTravelRepository;
+import module.module_db.entity.CarTravelTable;
+import module.module_db.repository.CarTravelRepository;
 
 /**
  * 获取剩余油量

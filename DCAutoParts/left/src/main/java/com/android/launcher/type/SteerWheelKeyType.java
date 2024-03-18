@@ -1,8 +1,9 @@
 package com.android.launcher.type;
 
 /**
- * 方向盘按键类型
- */
+* @description: 方向盘按键类型
+* @createDate: 2023/6/25
+*/
 public enum SteerWheelKeyType {
     KEY_NONE,
     KEY_OK,

@@ -1,16 +1,17 @@
 package com.android.launcher.can;
 
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
+import io.reactivex.rxjava3.annotations.NonNull;
+
 import com.android.launcher.util.CommonUtil;
 import com.android.launcher.util.LogUtils;
 
 import java.util.List;
-
-import io.reactivex.rxjava3.annotations.NonNull;
 
 //刹车p (已测试)
 public class Can17a implements CanParent {

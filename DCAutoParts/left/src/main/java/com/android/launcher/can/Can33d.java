@@ -23,25 +23,31 @@ public class Can33d implements CanParent {
 
     @Override
     public void handlerCan(List<String> msg) {
+
         String senddata = String.join("", msg);
+
+
         if (!handlermsg.equals(senddata)) {
             handlermsg = senddata;
+
+
             String flg = msg.get(2);
             BinaryEntity binaryEntity = new BinaryEntity(flg);
-            //发动机故障
-            if (binaryEntity.getB3().equals(BinaryEntity.Value.NUM_1.getValue())) {
-                MessageEvent messageEvent = new MessageEvent(MessageEvent.Type.SHOW_ENGINE_WARN);
-                messageEvent.data = true;
-                EventBus.getDefault().post(messageEvent);
-                SPUtils.putBoolean(App.getGlobalContext(), SPUtils.SP_ENGINE_WARN, true);
-            } else {
-                MessageEvent messageEvent = new MessageEvent(MessageEvent.Type.SHOW_ENGINE_WARN);
-                messageEvent.data = false;
-                EventBus.getDefault().post(messageEvent);
-                SPUtils.putBoolean(App.getGlobalContext(), SPUtils.SP_ENGINE_WARN, false);
-            }
+            if (binaryEntity != null) {
+                //发动机故障
+                if (binaryEntity.getB3().equals(BinaryEntity.Value.NUM_1.getValue())) {
+                    MessageEvent messageEvent = new MessageEvent(MessageEvent.Type.SHOW_ENGINE_WARN);
+                    messageEvent.data = true;
+                    EventBus.getDefault().post(messageEvent);
+                    SPUtils.putBoolean(App.getGlobalContext(), SPUtils.SP_ENGINE_WARN, true);
+                } else {
+                    MessageEvent messageEvent = new MessageEvent(MessageEvent.Type.SHOW_ENGINE_WARN);
+                    messageEvent.data = false;
+                    EventBus.getDefault().post(messageEvent);
+                    SPUtils.putBoolean(App.getGlobalContext(), SPUtils.SP_ENGINE_WARN, false);
+                }
 
-            //气囊故障
+                //气囊故障
 //                if(binaryEntity.getB7().equals(BinaryEntity.Value.NUM_1.getValue())){
 //                    MessageEvent messageEvent = new MessageEvent(MessageEvent.Type.SHOW_AIRBAG_FAILURE);
 //                    messageEvent.data = true;
@@ -63,6 +69,7 @@ public class Can33d implements CanParent {
 //                messageEvent.data = false;
 //                EventBus.getDefault().post(messageEvent);
 //            }
+            }
 
             LogUtils.printI(Can33d.class.getSimpleName(), "handlerCan---msg=" + msg + ", flg=" + flg + ", binaryEntity=" + binaryEntity);
 

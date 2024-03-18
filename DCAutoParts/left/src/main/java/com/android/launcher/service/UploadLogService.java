@@ -8,6 +8,7 @@ import android.os.IBinder;
 import com.android.launcher.App;
 import com.android.launcher.util.LogUtils;
 import com.android.launcher.util.LogcatHelper;
+import com.android.launcher.util.ZipLogUtil;
 
 /**
  * @description: 上传日志服务
@@ -30,7 +31,7 @@ public class UploadLogService extends Service {
         new Thread(() -> {
             try {
                 LogcatHelper.getInstance(App.getGlobalContext()).stop();
-                //ZipLogUtil.logZip();
+                ZipLogUtil.logZip();
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {

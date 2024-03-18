@@ -1,9 +1,16 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by Fernflower decompiler)
+//
+
 package com.android.launcher.util;
 
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.media.AudioManager;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
 
@@ -40,16 +47,20 @@ import com.android.launcher.can.Can379;
 import com.android.launcher.can.Can37d;
 import com.android.launcher.can.Can380;
 import com.android.launcher.can.Can39d;
-import com.android.launcher.can.Can39f;
 import com.android.launcher.can.Can3e1;
 import com.android.launcher.can.Can3ed;
 import com.android.launcher.can.Can45;
 import com.android.launcher.can.Can4B;
 import com.android.launcher.can.Can69;
+import com.android.launcher.can.Can39f;
 import com.android.launcher.can.CanParent;
 import com.android.launcher.can.Canbb;
 import com.android.launcher.can.Canbc;
 import com.android.launcher.can.Canf8;
+import com.android.launcher.dao.MileDaoUtil;
+import com.android.launcher.dao.MileSetDaoUtil;
+import com.android.launcher.dao.MileStartDaoUtil;
+import com.android.launcher.dao.ParamDaoUtil;
 import com.android.launcher.entity.Mile;
 import com.android.launcher.entity.MileSet;
 import com.android.launcher.entity.MileStart;
@@ -62,11 +73,18 @@ import com.android.launcher.usbdriver.SendHelperUsbToRight;
 import com.dc.auto.library.launcher.util.ACache;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -74,45 +92,141 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 public class FuncUtil {
+
+
     public static boolean SHUANGSHAN = false;
+
+    @Deprecated
+    public static boolean ZUOXIZNG = false;
+    public static boolean YOUXIZNG = false;
+    public static boolean ALERTHIDDEN = false;
     //是否发送
     public static boolean SENDFLG = true;
+    public static boolean TTLFLG = false;
+
     //系统音量
     public static AudioManager audioManager;
+
     //蓝牙是否连接
     public static boolean BLUETOOTHCONNCTED = false;
+
     //FM
     public static int playFMstation = 0;
     //媒体播放是在右侧还是左侧
     public static int playMediaStation = 0;  //0 表示左侧  1表示右侧
-    //通话中
+
+    //呼叫状态  主叫  mainCall  被叫  beCalled
+//    public static final String MAINCALL = "main" ;
+//    public static final String BECALLED = "becalled" ;
+
+    //    //通话中
     public static String PHONESTATUS = "";
+
     public static String yuanguang = "";
     public static boolean jinguang;
+
+
     // 信息条数
     public static int infoCount = 0;
+
     //门窗是否关好
     public static boolean doorStatus = false;
+
+
     //串口
     public static SerialHelperttlLd serialHelperttl;
     public static SerialHelperttlLd3 serialHelperttl3;
+
+    public static MileStartDaoUtil mileStartDaoUtil = new MileStartDaoUtil(App.getGlobalContext());
     public static MileStart mileStart;
+
+    public static MileSetDaoUtil mileSetDaoUtil = new MileSetDaoUtil(App.getGlobalContext());
     public static MileSet mileSet;
-    public static List<Param> params;
+
+    public static MileDaoUtil mileDaoUtil = new MileDaoUtil(App.getGlobalContext());
     public static Mile mile;
-    //    public static MileStartDaoUtil mileStartDaoUtil = new MileStartDaoUtil(App.getGlobalContext());
-//    public static MileSetDaoUtil mileSetDaoUtil = new MileSetDaoUtil(App.getGlobalContext());
-//    public static MileDaoUtil mileDaoUtil = new MileDaoUtil(App.getGlobalContext());
-//    public static ParamDaoUtil paramDaoUtil = new ParamDaoUtil(App.getGlobalContext());
+
+    public static ParamDaoUtil paramDaoUtil = new ParamDaoUtil(App.getGlobalContext());
+    public static List<Param> params;
+
     public static ACache aCache = ACache.get(App.getGlobalContext());
+
+
+//    public static String currentTime ="20220101080808";
+
+
+    public static String currentSpeed;
+
+    @Deprecated
+    public static boolean showDoor = true;
+    public static boolean usbStatus = true;
+    public static String configUsbToRight = "0";
     public static boolean degree;
 
     //是否发送保养的信息
     public static boolean isSendMaintainMessage = true;
 
+
     public FuncUtil() {
     }
+
+    public static Activity getCurrentActivity() {
+
+        try {
+            Class activityThreadClass = Class.forName("android.app.ActivityThread");
+            Object activityThread = activityThreadClass.getMethod("currentActivityThread").invoke(null);
+            Field activitiesField = activityThreadClass.getDeclaredField("mActivities");
+            activitiesField.setAccessible(true);
+            Map activities = (Map) activitiesField.get(activityThread);
+
+            for (Object activityRecord : activities.values()) {
+                Class activityRecordClass = activityRecord.getClass();
+                Field pausedField = activityRecordClass.getDeclaredField("paused");
+                pausedField.setAccessible(true);
+                if (!pausedField.getBoolean(activityRecord)) {
+                    Field activityField = activityRecordClass.getDeclaredField("activity");
+                    activityField.setAccessible(true);
+                    Activity activity = (Activity) activityField.get(activityRecord);
+                    return activity;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public static void copyFilesFassets(Context context, String oldPath, String newPath) {
+        try {
+            String fileNames[] = context.getAssets().list(oldPath);//获取assets目录下的所有文件及目录名
+            if (fileNames.length > 0) {//如果是目录
+
+            } else {//如果是文件
+                InputStream is = context.getAssets().open(oldPath);
+                FileOutputStream fos = new FileOutputStream(new File(newPath, "left2.apk"));
+                byte[] buffer = new byte[1024];
+                int byteCount = 0;
+                while ((byteCount = is.read(buffer)) != -1) {//循环从输入流读取 buffer字节
+                    fos.write(buffer, 0, byteCount);//将读取的输入流写入到输出流
+                }
+                fos.flush();//刷新缓冲区
+                is.close();
+                fos.close();
+            }
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            //如果捕捉到错误则通知UI线程
+        }
+    }
+
+    public static int HexToInt(String inHex) {
+        return Integer.parseInt(inHex, 16);
+    }
+
 
     public static byte[] toByteArray(String arg) {
         if (arg != null) {
@@ -148,16 +262,90 @@ public class FuncUtil {
         return new byte[]{};
     }
 
+
     /**
      * 获取 当前时间
+     *
+     * @return
      */
     public static String getCurrentDate() {
+
         SimpleDateFormat dfs = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return dfs.format(new Date());
     }
 
+
+    /**
+     * 计算两个时间的时间差
+     *
+     * @param currentDate
+     * @param startTime
+     * @return
+     */
+    public static String getTwoDateDifferenceFomatter(String currentDate, String startTime) {
+
+        try {
+            SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            long diff = (sd.parse(currentDate).getTime() - sd.parse(startTime).getTime()) / 1000;
+
+            Long mss = Math.abs(diff);
+            long days = mss / (1000 * 60 * 60 * 24);
+
+            long hours = (mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
+
+            long minutes = (mss % (1000 * 60 * 60)) / (1000 * 60);
+
+
+            hours = days * 24 + hours;
+
+            return hours + ":" + minutes;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return "0:0";
+
+    }
+
+
+    /**
+     * 更改时间
+     *
+     * @param dateTime
+     */
+    public static void setSystemTime(String dateTime) {
+        DateFormat parseFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        DataOutputStream dos = null;
+        try {
+            Date date = parseFormat.parse(dateTime);
+            Process process = Runtime.getRuntime().exec("su");
+            dos = new DataOutputStream(process.getOutputStream());
+            if (Build.VERSION.SDK_INT >= 25) {
+                dateTime = new SimpleDateFormat("MMddHHmmyyyy.ss").format(date); //Android 7.1
+                dos.writeBytes("date " + dateTime + "\n");
+                dos.writeBytes("busybox hwclock -w \n");
+                dos.writeBytes("exit\n");
+                dos.flush();
+
+            } else {
+                dateTime = new SimpleDateFormat("yyyyMMdd.HHmmss").format(date); //低于Android 7.1
+                dos.writeBytes("date -s " + dateTime + "\n");
+                dos.writeBytes("clock -w\n");
+                dos.writeBytes("exit\n");
+                dos.flush();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (dos != null) {
+                dos = null;
+            }
+        }
+    }
+
+
     public static void sendShellCommand(String cmd) {
-        Runtime mRuntime = Runtime.getRuntime();
+        Runtime mRuntime = Runtime.getRuntime(); //执行命令的方法
         try {
             //Process中封装了返回的结果和执行错误的结果
             Process mProcess = mRuntime.exec(cmd); //加入参数
@@ -188,42 +376,57 @@ public class FuncUtil {
 
         } catch (IOException e) {
             // 异常处理
+            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
 
     public static String getCarSpeed(String hexSpeed) {
+
         String hexs = hexSpeed.substring(1, hexSpeed.length());
         String speed = hexSpeed.substring(1, 3);
         String speedlast = hexSpeed.substring(3, 4);
+
         Integer speedi = Integer.parseInt(speed, 16);
         if (Integer.parseInt(speedlast, 16) > 10) {
             speedi = speedi + 1;
         }
+
+
         return speedi + "";
     }
 
+
     /**
      * 乘法
+     *
+     * @param speed
+     * @param bigDecimal
+     * @return
      */
     public static BigDecimal multiply(BigDecimal speed, BigDecimal bigDecimal) {
         return speed.multiply(bigDecimal);
     }
 
+
     /**
      * 设置屏幕亮度
      *
+     * @param context
      * @param brightness 范围 15- 255
      */
     public static void saveBrightness(Context context, int brightness) {
 
         try {
+//            Log.i("AAAAA",brightness+"--------------") ;
             int bright = Settings.System.getInt(context.getContentResolver(), Settings.System.SCREEN_BRIGHTNESS);
             if (bright != brightness) {
                 Uri uri = Settings.System.getUriFor(Settings.System.SCREEN_BRIGHTNESS);
                 Settings.System.putInt(App.getGlobalContext().getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, brightness);
                 context.getContentResolver().notifyChange(uri, null);
+
+
                 if (brightness == 255) {
                     //通知右侧屏幕进行屏幕亮度调节
                     String send = "AABB2300CCDD";
@@ -238,18 +441,27 @@ public class FuncUtil {
                     SendHelperUsbToRight.handler(send);
                     MeterActivity.isNightMode = true;
                 }
+
+
             }
         } catch (Settings.SettingNotFoundException e) {
             e.printStackTrace();
         }
+
+
     }
 
     /**
      * 加
+     *
+     * @param num1
+     * @param num2
+     * @return
      */
     public static BigDecimal add(BigDecimal num1, BigDecimal num2) {
         return num1.add(num2);
     }
+
 
     public static Map<String, CanParent> canHandler = new HashMap<String, CanParent>() {{
         put("1", new Can1());
@@ -295,15 +507,21 @@ public class FuncUtil {
         put("3", new Can003());
     }};
 
+
     public static String getMileJustInTime(String speed) {
         BigDecimal currentspeed = new BigDecimal(speed);
         BigDecimal currentTime = new BigDecimal("0.0000055556");
+
         BigDecimal currentmile = multiply(currentspeed, currentTime);
+
         return currentmile.toString();
     }
 
     /**
      * 获取里程
+     *
+     * @param miles
+     * @return
      */
     public static String currentMile = "0";
 
@@ -312,11 +530,15 @@ public class FuncUtil {
         for (String mile : miles) {
             BigDecimal m = new BigDecimal(currentMile);
             BigDecimal m1 = new BigDecimal(mile);
+
             BigDecimal re = m.add(m1);
             currentMile = re.toString();
         }
+
         BigDecimal realMile = new BigDecimal(currentMile).setScale(4, BigDecimal.ROUND_HALF_UP);
+
         map.put("realMile", realMile.toString());
+
         if (realMile.floatValue() > 0.00f) {
             LivingService.launchCarRunMile = BigDecimalUtils.add(String.valueOf(LivingService.launchCarRunMile), String.valueOf(realMile.floatValue()));
             LogUtils.printI(FuncUtil.class.getSimpleName(), "launchCarRunMile=" + LivingService.launchCarRunMile);
@@ -328,34 +550,43 @@ public class FuncUtil {
     }
 
     public static void initMileAndParam() {
-//        params = paramDaoUtil.queryAll();
+        // 初始化参数
+//        paramDaoUtil.deleteAll();
+        params = paramDaoUtil.queryAll();
+
         Log.i("Params", params.size() + "---------------");
         if (params.size() < 1) {
             List<Param> params = new ArrayList<>();
+
             Param param = new Param();
             param.setParamName("LAMP");
             param.setParamValue("0秒");
             params.add(param);
+
 
             Param param1 = new Param();
             param1.setParamName("LAMPBACK");
             param1.setParamValue("0秒");
             params.add(param1);
 
+
             Param param2 = new Param();
             param2.setParamName("CMS");
             param2.setParamValue("C");
             params.add(param2);
+
 
             Param param3 = new Param();
             param3.setParamName("COMMAND");
             param3.setParamValue("中");
             params.add(param3);
 
+
             Param param4 = new Param();
             param4.setParamName("AUDIOLEVEL");
             param4.setParamValue("7");
             params.add(param4);
+
 
             Param param5 = new Param();
             param5.setParamName("UNIT");
@@ -402,10 +633,12 @@ public class FuncUtil {
             param121.setParamValue("中等");
             params.add(param121);
 
+
             Param param13 = new Param();
             param13.setParamName("AIRWINDFRONT");
             param13.setParamValue("2");
             params.add(param13);
+
 
             Param param14 = new Param();
             param14.setParamName("AIRWINDMAIN");
@@ -452,19 +685,25 @@ public class FuncUtil {
             param201.setParamValue("开启");
             params.add(param201);
 
+
             Param param202 = new Param();
             param202.setParamName("WINDLEFT");
             param202.setParamValue("自动");
             params.add(param202);
 
+
             Param param21 = new Param();
             param21.setParamName("CARSETSPEED");
             param21.setParamValue("150km/h");
             params.add(param21);
-//            paramDaoUtil.insertMult(params);
+
+            paramDaoUtil.insertMult(params);
         }
+
+
         // 初始化里程
-//        mile = mileDaoUtil.queryMile();
+        mile = mileDaoUtil.queryMile();
+//        mileDaoUtil.deleteAll();
         if (mile == null) {
             Mile mile = new Mile();
             mile.setCreateDate(FuncUtil.getCurrentDate());
@@ -472,33 +711,42 @@ public class FuncUtil {
             mile.setTotleMile("0");
             mile.setUserChangeDate(FuncUtil.getCurrentDate());
             mile.setUserMile("0");
-//            mileDaoUtil.insert(mile);
+            mileDaoUtil.insert(mile);
         }
         // 初始化启动后里程
-//        mileStart = mileStartDaoUtil.queryMileStart();
+
+        mileStart = mileStartDaoUtil.queryMileStart();
+
         if (mileStart == null) {
+
             MileStart mileStart = new MileStart();
             mileStart.setStartMile("0");
             mileStart.setStartTime(FuncUtil.getCurrentDate());
-//            mileStartDaoUtil.insert(mileStart);
+            mileStartDaoUtil.insert(mileStart);
         } else {
             mileStart.setStartMile("0");
             mileStart.setStartTime(FuncUtil.getCurrentDate());
-//            mileStartDaoUtil.insert(mileStart);
+            mileStartDaoUtil.insert(mileStart);
         }
+
         //初始化复位后里程
-//        mileSet = mileSetDaoUtil.queryMileSet();
+
+        mileSet = mileSetDaoUtil.queryMileSet();
+
         if (mileSet == null) {
             MileSet mileSet = new MileSet();
             mileSet.setSetMile("0");
             mileSet.setSetTime(FuncUtil.getCurrentDate());
-//            mileSetDaoUtil.insert(mileSet);
+            mileSetDaoUtil.insert(mileSet);
         }
+
+
         //驾驶模式
         String cms = aCache.getAsString("CMS");
         if (cms == null) {
             aCache.put("CMS", "S");
         }
+
         audioManager = (AudioManager) App.getGlobalContext().getSystemService(Context.AUDIO_SERVICE);
         int AUDIOLEVEL = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 10, 0);
@@ -542,13 +790,35 @@ public class FuncUtil {
     }
 
     /**
-     * 获取油耗的百分比
+     * 获取油耗的百分比 ，
+     *
+     * @param munis
+     * @return
      */
     public static float getOilPrecent(int munis) {
+
+//        if (munis < 210) {
+//            munis = munis + 1;
+//        } else {
+//            munis = munis + 9;
+//        }
+//        if (munis < 22) { //油表视图左边距离
+//            munis = 22;
+//        }
+//        if (munis > 426) { //油表视图右边距离
+//            munis = 426;
+//        }
+
+//        munis = munis - 22;
+
         float result = BigDecimalUtils.div(Integer.toString(munis), Integer.toString(CarConstants.OIL_MAX_VALUE), 4);
+
         LogUtils.printI(FuncUtil.class.getSimpleName(), "getOilPrecent---munis=" + munis + ", result=" + result);
+
         float finalresult = BigDecimalUtils.sub("1", Float.toString(result));
+
         LogUtils.printI(FuncUtil.class.getSimpleName(), "getOilPrecent---finalresult=" + finalresult);
         return finalresult;
     }
+
 }

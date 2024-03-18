@@ -6,15 +6,20 @@ import com.android.launcher.util.DataUtils;
 import com.android.launcher.util.LogUtils;
 
 /**
- * 发动机机油液位
+ * @description: 发动机机油液位
+ * @createDate: 2023/8/17
  */
 public class Can3DCSender extends CanSenderBase {
 
     private static final String DEFAULT_DATA1 = "3008140000000000";
     private static final String DEFAULT_DATA2 = "0313060600D0010A";
+
     private String dataLength = "08";
+
     private static final String ID = "000003DC";
+
     private boolean testEngineOil = false;
+
     public static volatile boolean isSendTest = false;
 
     @Override

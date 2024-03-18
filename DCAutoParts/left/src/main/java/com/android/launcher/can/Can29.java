@@ -27,10 +27,10 @@ import java.util.TimerTask;
 //双闪
 public class Can29 implements CanParent {
 
-    public Timer timer;
-    public volatile boolean show;
+    public  Timer timer  ;
+    public volatile boolean show ;
 
-    public static volatile String lastData = "";
+    public static volatile String lastData ="";
 
     //双闪是否播放
     private boolean doubleIsPlay = false;
@@ -44,7 +44,7 @@ public class Can29 implements CanParent {
     @Override
     public void handlerCan(List<String> msg) {
 
-        Log.i("can29", msg.toString() + "-------------------");
+        Log.i("can29",msg.toString()+"-------------------") ;
 
         String emergencyFlash = msg.get(2) + msg.get(3);
         if (!emergencyFlash.equals(lastData)) {
@@ -52,23 +52,25 @@ public class Can29 implements CanParent {
 
             String status = getStatus(msg.get(2));
 
-            LogUtils.printI(Can29.class.getSimpleName(), "emergencyFlash=" + emergencyFlash);
+            LogUtils.printI(Can29.class.getSimpleName(), "emergencyFlash="+emergencyFlash);
             if (status.equals("11")) {
-                if (!doubleIsPlay) {
+                if(!doubleIsPlay){
                     doubleIsPlay = true;
                     leftIsPlay = false;
                     rightIsPlay = false;
 
-                    FuncUtil.SHUANGSHAN = true;
-                    updateVisable();
+                    FuncUtil.SHUANGSHAN = true ;
+                    FuncUtil.YOUXIZNG = true;
+                    updateVisable() ;
                     BY8302PCB.play(SoundPlayer.Type.DOUBLE_FLASH, BY8302PCB.MusicType.TURN_SIGNAL);
                     //SoundPlayer.play(SoundPlayer.Type.DOUBLE_FLASH,"zx.mp3");
 
                     flash();
                 }
-            } else if (status.equals("01")) //左转向
+            }
+            else if(status.equals("01")) //左转向
             {
-                if (!leftIsPlay) {
+                if(!leftIsPlay){
                     leftIsPlay = true;
                     rightIsPlay = false;
                     doubleIsPlay = false;
@@ -78,8 +80,8 @@ public class Can29 implements CanParent {
                     //SoundPlayer.play(SoundPlayer.Type.LEFT_TURN,"zx.mp3");
                 }
 
-            } else if (status.equals("10")) { //右转向
-                if (!rightIsPlay) {
+            }else if(status.equals("10")){ //右转向
+                if(!rightIsPlay){
                     rightIsPlay = true;
                     leftIsPlay = false;
                     doubleIsPlay = false;
@@ -89,29 +91,30 @@ public class Can29 implements CanParent {
                     //SoundPlayer.play(SoundPlayer.Type.RIGHT_TURN,"zx.mp3");
                 }
             } else if (status.equals("00")) {
-                FuncUtil.SHUANGSHAN = false;
+                FuncUtil.SHUANGSHAN = false ;
+                FuncUtil.YOUXIZNG = false;
 
-                if (leftIsPlay) {
+                if(leftIsPlay){
                     BY8302PCB.stopLeftTurn();
                     //SoundPlayer.stopLeftTurn();
                     CommonUtil.meterHandler.get("zuozhuanxiang").handlerData("00");
                     leftIsPlay = false;
                 }
-                if (rightIsPlay) {
+                if(rightIsPlay){
                     rightIsPlay = false;
                     BY8302PCB.stopRightTurn();
                     //SoundPlayer.stopRightTurn();
                     CommonUtil.meterHandler.get("youzhuanxiang").handlerData("00");
                 }
-                if (doubleIsPlay) {
+                if(doubleIsPlay){
                     doubleIsPlay = false;
                     BY8302PCB.stopDoubleFlash();
                     //SoundPlayer.stopDoubleFlash();
                 }
-                if (timer != null) {
+                if (timer!=null){
                     timer.cancel();
-                    timer = null;
-                    show = false;
+                    timer = null ;
+                    show = false ;
                     updateShow(View.INVISIBLE);
                 }
             }
@@ -136,15 +139,15 @@ public class Can29 implements CanParent {
         try {
             int value = Integer.parseInt(statusStr, 16);
             String statusBinary = Integer.toBinaryString(value);
-            if (statusBinary.length() == 7) {
-                statusBinary = "0" + statusBinary;
-            } else if (statusBinary.length() == 6) {
-                statusBinary = "00" + statusBinary;
-            } else if (statusBinary.length() <= 5) {
+            if(statusBinary.length() == 7){
+                statusBinary = "0"+ statusBinary;
+            }else if(statusBinary.length() == 6){
+                statusBinary = "00"+ statusBinary;
+            }else if(statusBinary.length() <= 5){
                 statusBinary = "00000000";
             }
             String status = statusBinary.substring(0, 2);
-            LogUtils.printI(Can29.class.getSimpleName(), "statusStr=" + statusStr + ", value=" + value + ", statusBinary=" + statusBinary + ", status=" + status);
+            LogUtils.printI(Can29.class.getSimpleName(), "statusStr="+statusStr +", value="+value +", statusBinary="+statusBinary +", status="+status);
             return status;
         } catch (Exception e) {
             e.printStackTrace();
@@ -153,33 +156,33 @@ public class Can29 implements CanParent {
     }
 
 
-    private void flash() {
-        if (timer == null) {
+    private void flash( ) {
+        if (timer==null){
             timer = new Timer();
             updateShow(View.VISIBLE);
-            show = true;
+            show= true ;
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    if (show) {
-                        updateShow(View.INVISIBLE);
-                        show = false;
-                    } else {
-                        updateShow(View.VISIBLE);
-                        show = true;
-                    }
+                        if (show){
+                            updateShow(View.INVISIBLE);
+                            show = false ;
+                        }else{
+                            updateShow(View.VISIBLE);
+                            show = true ;
+                        }
 
                 }
-            }, 130, 333);
+            },130,333);
         }
     }
 
     private void updateShow(int visible) {
         try {
-            if (View.VISIBLE == visible) {
+            if(View.VISIBLE == visible){
                 messageEventLeft.data = true;
                 messageEventRight.data = true;
-            } else {
+            }else{
                 messageEventLeft.data = false;
                 messageEventRight.data = false;
             }

@@ -1,10 +1,15 @@
 package com.android.launcher.can.status;
 
 /**
- * * D1 D2 D3 D4 D5 D6
- * * 00 00 75 50 F0 E5
+ * @description: 35d
+ *
+ *  * D1 D2 D3 D4 D5 D6
+ *  * 00 00 75 50 F0 E5
+ *
+ * @createDate: 2023/6/6
  */
 public class Can35dStatus {
+
 
     /**
      * @description: 内部照明延迟时间
@@ -16,6 +21,7 @@ public class Can35dStatus {
         DELAY_30("1E"),
         DELAY_45("2D"),
         DELAY_60("3C"); //延迟60秒
+
         private String value;
 
         public String getValue() {
@@ -49,6 +55,7 @@ public class Can35dStatus {
         }
     }
 
+
     /**
      * @description: 环境照明
      * @createDate: 2023/6/6
@@ -71,4 +78,32 @@ public class Can35dStatus {
             this.value = value;
         }
     }
+
+
+//    /**
+//    * @description: 外后视镜便捷设置
+//    * @createDate: 2023/6/6
+//    */
+//    public enum D5 {
+//
+//        //锁车时自动合拢：关， 后驶时后视镜下降：关
+//        STATUS_F0("F0"),
+//        //后驶时后视镜下降: 开
+//        STATUS_F1("F1"),
+//        //锁车时自动合拢: 开
+//        STATUS_F4("F4"),
+//        //锁车时自动合拢: 开， 后驶时后视镜下降: 开
+//        STATUS_F5("F5");
+//
+//        private String value;
+//
+//        D5(String value) {
+//            this.value = value;
+//        }
+//
+//        public String getValue() {
+//            return value;
+//        }
+//    }
+
 }

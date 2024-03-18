@@ -9,19 +9,18 @@ import android.util.Log;
 import com.android.launcher.handler.hookMessageQueue;
 import com.android.launcher.meter.MeterActivity;
 import com.android.launcher.receiver.USBBroadCastReceiver;
+import com.dc.auto.library.launcher.util.ACache;
 import com.android.launcher.util.CacheManager;
 import com.android.launcher.util.FuncUtil;
 import com.android.launcher.util.LogcatHelper;
-import com.dc.auto.library.cockroach.Cockroach;
-import com.dc.auto.library.cockroach.ExceptionHandler;
-import com.dc.auto.library.launcher.util.ACache;
+import com.dc.auto.library.global.AndroidContext;
 import com.github.anrwatchdog.ANRError;
 import com.github.anrwatchdog.ANRWatchDog;
 
 import org.greenrobot.eventbus.EventBus;
 
-import dc.library.auto.util.ContextUtil;
-
+import com.dc.auto.library.cockroach.Cockroach;
+import com.dc.auto.library.cockroach.ExceptionHandler;
 
 //import com.android.launcher.ch340.CH34xUARTDriver;
 
@@ -57,7 +56,7 @@ public class App extends Application {
         isAppStart = true;
         aCache = ACache.get(this);
         mContext = getApplicationContext();
-        ContextUtil.init(getApplicationContext());
+        AndroidContext.getInstance().init(getApplicationContext());
         Log.i("leftacc", "----------------app重新启动");
         currentMeterActivity = false;
         isRestart = true;
@@ -117,10 +116,37 @@ public class App extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        /**********************************测试部分*************************************************/
+
+
+//   new Thread(new Runnable() {
+//       @Override
+//       public void run() {
+//
+//           try {
+//               Thread.sleep(1000);
+//               while(true){
+//                   Thread.sleep(1000);
+//                   WIfiTask.sendMessage(System.currentTimeMillis()+"----");
+//               }
+////               new Thread(new Runnable() {
+////                   @Override
+////                   public void run() {
+////
+////                   }
+////               }).start();
+//           } catch (InterruptedException e) {
+//               e.printStackTrace();
+//           }
+//       }
+//   }).start();
+
     }
 
     /**
      * 获取全局Context
+     *
+     * @return
      */
     public static Context getGlobalContext() {
         return mContext;
@@ -133,22 +159,66 @@ public class App extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         aCache.put("restartApp", "restartApp");
         Intent intent = new Intent(getApplicationContext(), MeterActivity.class);
+
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         getApplicationContext().startActivity(intent);
         android.os.Process.killProcess(android.os.Process.myPid());
+
     }
 
     public void alertDialogRestartApp() {
         EventBus.getDefault().post(new MessageEvent(MessageEvent.Type.SHOW_RESTART_APP_DIALOG));
-        new Thread(() -> {
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                restartApp();
             }
-            restartApp();
         }).start();
     }
+
+    //AlertDialog 生成方法一
+//使用类 AlertDialog
+//    public void  alertDialog() {
+//
+//        Log.i("anrWatchDog","================================log") ;
+//
+//        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+//        alertDialog.setTitle("提示：系统需要升级");
+//        alertDialog.setMessage("确定要退出程序吗？");
+//        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "确定",
+//                new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        restartApp();
+//                    }
+//                });
+//
+//        alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "想一下",
+//                new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                    }
+//                });
+//
+//        alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "取消",
+//                new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//
+//                    }
+//                });
+//        alertDialog.show();
+//    }
+
 }
+

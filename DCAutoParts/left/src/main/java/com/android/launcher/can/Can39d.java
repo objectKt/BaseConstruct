@@ -5,9 +5,15 @@ import com.android.launcher.util.LogUtils;
 
 import java.util.List;
 
+/**
+ * @date： 2023/12/29
+ * @author: 78495
+ */
 public class Can39d implements CanParent {
 
+
     private static final String TAG = Can39d.class.getSimpleName();
+
     public static volatile String lastData = "";
     public static volatile String lastD0 = "";
     public static volatile String lastD1 = "";

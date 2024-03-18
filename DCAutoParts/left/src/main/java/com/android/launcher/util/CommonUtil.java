@@ -7,6 +7,8 @@ import android.media.MediaPlayer;
 import android.widget.TextView;
 
 import com.android.launcher.App;
+import com.android.launcher.dao.ParamDaoUtil;
+import com.android.launcher.entity.Param;
 import com.android.launcher.handler.HandlerAbsflg;
 import com.android.launcher.handler.HandlerAlert;
 import com.android.launcher.handler.HandlerAn;
@@ -29,6 +31,7 @@ import com.android.launcher.handler.HandlerYeshi;
 import com.android.launcher.handler.HandlerYouZhuanXiang;
 import com.android.launcher.handler.HandlerYuanGuangZhiShi;
 import com.android.launcher.handler.HandlerZouZhuanXiang;
+import com.dc.auto.library.launcher.util.ACache;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -42,6 +45,7 @@ import java.util.TimeZone;
 public class CommonUtil {
 
     public static MediaPlayer mediaPlayer;
+    public static ParamDaoUtil paramDaoUtil = new ParamDaoUtil(App.getGlobalContext());
 
     public static char[] ch = "0000000000000000".toCharArray();
     public static Map<String, String> map = new HashMap<String, String>() {{
@@ -302,6 +306,232 @@ public class CommonUtil {
         String strArrLast[] = strList.toArray(new String[strList.size()]);
 
         return strArrLast;
+    }
+
+    /**
+     * 获取 id为35d的内容
+     *
+     * @return
+     */
+    public static String getCommand35d() {
+        ACache aCache = ACache.get(App.getGlobalContext());
+
+        //内部照明
+        String LAMP = "";
+
+//        String  l = aCache.getAsString("LAMP") ;
+        Param param = paramDaoUtil.queryParamName("LAMP");
+        String l = param.getParamValue();
+        switch (l) {
+            case "0秒":
+                LAMP = "00";
+                break;
+            case "15秒":
+                LAMP = "0F";
+                break;
+            case "30秒":
+                LAMP = "1E";
+                break;
+            case "45秒":
+                LAMP = "2D";
+                break;
+            case "60秒":
+                LAMP = "3C";
+                break;
+        }
+
+        //外部照明
+        Param param1 = paramDaoUtil.queryParamName("LAMPBACK");
+        String LAMPBACK = param1.getParamValue();
+        switch (LAMPBACK) {
+            case "0秒":
+                LAMPBACK = "00";
+                break;
+            case "15秒":
+                LAMPBACK = "0F";
+                break;
+            case "30秒":
+                LAMPBACK = "1E";
+                break;
+            case "45秒":
+                LAMPBACK = "2D";
+                break;
+            case "60秒":
+                LAMPBACK = "3C";
+                break;
+        }
+        //上下车辅助
+
+        Param param2 = paramDaoUtil.queryParamName("GETTINGOFF");
+        String GETTINGOFF = param2.getParamValue();
+
+        if (GETTINGOFF.equals("关闭")) {
+            GETTINGOFF = "50";
+        }
+        if (GETTINGOFF.equals("开启")) {
+            GETTINGOFF = "55";
+        }
+
+        //后舱盖高度限制
+
+        Param param3 = paramDaoUtil.queryParamName("REAR");
+        String REAR = param3.getParamValue();
+
+        if (REAR.equals("开启")) {
+            REAR = "D";
+        }
+        if (REAR.equals("关闭")) {
+            REAR = "C";
+        }
+
+        //后舱盖高度限制
+        Param param4 = paramDaoUtil.queryParamName("MIRROR");
+        String MIRROR = param4.getParamValue();
+        if (MIRROR.equals("开启")) {
+            MIRROR = "1";
+        }
+        if (MIRROR.equals("关闭")) {
+            MIRROR = "0";
+        }
+
+        String command = LAMP + LAMPBACK + "75" + GETTINGOFF + REAR + MIRROR + "E5";
+        return command;
+    }
+
+    /**
+     * ID  1E0 05 0F BF FE FF 7F
+     *
+     * @return
+     */
+    public static String getCommand1E0() {
+
+        ACache aCache = ACache.get(App.getGlobalContext());
+
+
+        String command = "1E0050F";
+        Param param = paramDaoUtil.queryParamName("ANTI");
+//        String anti = aCache.getAsString("ANTI") ;
+        String anti = param.getParamValue();
+
+        if (anti.equals("关闭")) {
+            command = command + "7F";
+        }
+        if (anti.equals("开启")) {
+            command = command + "BF";
+        }
+
+        param = paramDaoUtil.queryParamName("INDOOR");
+        String indoor = param.getParamValue();
+        if (indoor.equals("关闭")) {
+            command = command + "FD";
+        }
+        if (indoor.equals("开启")) {
+            command = command + "FE";
+        }
+
+        command = command + "FF7F";
+        return command;
+    }
+
+
+    /**
+     * @return
+     */
+    public static String getCommand1E5() {
+
+//        ACache aCache = ACache.get(App.getGlobalContext()) ;
+
+        String command = "";
+        //ac
+        Param param = paramDaoUtil.queryParamName("AC");
+        String ac = param.getParamValue();
+        if (ac.equals("开启")) {
+            ac = "0";
+        }
+        if (ac.equals("关闭")) {
+            ac = "1";
+        }
+
+        //WINDLEFT
+        Param param1 = paramDaoUtil.queryParamName("WINDLEFT");
+        String windleft = param1.getParamValue();
+
+        if (windleft.equals("自动")) {
+            windleft = "1";
+        }
+        if (windleft.equals("手动")) {
+            windleft = "0";
+        }
+
+        Param param2 = paramDaoUtil.queryParamName("WINDLEFTSPEED");
+        // WINDLEFTSPEED
+        String windleftspeed = param2.getParamValue();
+
+        if (windleftspeed.equals("手动")) {
+            windleftspeed = "0";
+        }
+        if (windleftspeed.equals("自动")) {
+            windleftspeed = "1";
+        }
+
+        Param param3 = paramDaoUtil.queryParamName("WINDRIGHT");
+
+        String windright = "1";
+        //WINDRIGHT
+//        String windright = param3.getParamValue() ;
+//        if(windright.equals("自动")){
+//            windright="1" ;
+//        }
+//        if(windright.equals("手动")){
+//            windright="0" ;
+//        }
+        //WINDRIGHTSPEED
+
+        String windrightspeed = "1";
+//        Param param4 = paramDaoUtil.queryParamName("WINDRIGHTSPEED") ;
+//        String windrightspeed = param4.getParamValue();
+//        if(windrightspeed.equals("自动")){
+//            windrightspeed="1" ;
+//        }
+//        if(windrightspeed.equals("手动")){
+//            windrightspeed="0" ;
+//        }
+        //ONOFF
+        String onoff = "0";
+//        Param param5 = paramDaoUtil.queryParamName("ONOFF") ;
+//        String onoff = param5.getParamValue() ;
+//        if(onoff.equals("开启")){
+//            onoff="0" ;
+//        }
+//        if(onoff.equals("关闭")){
+//            onoff="1" ;
+//        }
+
+
+        String result = ac + "1" + onoff + windright + windleft + windleftspeed + windrightspeed + "1";
+
+
+        command = command + binaryString2hexString(result);
+
+        //FLOWMODEL
+        Param param6 = paramDaoUtil.queryParamName("FLOWMODEL");
+        String FLOWMODEL = param6.getParamValue();
+//        String FLOWMODEL = aCache.getAsString("FLOWMODEL") ;
+
+        if (FLOWMODEL.equals("集中")) {
+            command = command + "7A";
+        }
+        if (FLOWMODEL.equals("中等")) {
+            command = command + "6E";
+        }
+        if (FLOWMODEL.equals("扩散")) {
+            command = command + "62";
+        }
+
+        command = command + "CF";
+
+
+        return command;
     }
 
     /**

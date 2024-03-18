@@ -1,11 +1,17 @@
 package com.android.launcher.entity;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
+
 import java.io.Serializable;
 
+@Entity
 public class Mile implements Serializable {
 
     public static final long serialVersionUID = 1L ;
 
+    @Id(autoincrement = true)
     public Long id ;
 
     //总里程
@@ -23,9 +29,12 @@ public class Mile implements Serializable {
     // 当前状态
     public String currentStatus ;
 
+    @Generated(hash = 1676161150)
     public Mile() {
     }
 
+
+    @Generated(hash = 608939031)
     public Mile(Long id, String totleMile, String UserMile, String createDate, String userChangeDate, String currentStatus) {
         this.id = id;
         this.totleMile = totleMile;

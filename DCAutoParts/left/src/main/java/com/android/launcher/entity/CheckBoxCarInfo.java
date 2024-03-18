@@ -1,16 +1,26 @@
 package com.android.launcher.entity;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
+
+@Entity
 public class CheckBoxCarInfo {
 
+    @Id(autoincrement = true)
     public Long id ;
 
     public String selected ;
 
     public String checkBoxName ;
 
+
+    @Generated(hash = 1573874063)
     public CheckBoxCarInfo() {
     }
 
+
+    @Generated(hash = 1558569317)
     public CheckBoxCarInfo(Long id, String selected, String checkBoxName) {
         this.id = id;
         this.selected = selected;

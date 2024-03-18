@@ -1,7 +1,15 @@
 package com.android.launcher.entity;
 
+
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
+
+
+@Entity
 public class MileStart {
 
+    @Id(autoincrement = true)
     public Long id ;
 
     public String startTime ;
@@ -33,9 +41,11 @@ public class MileStart {
         this.startMile = startMile;
     }
 
+    @Generated(hash = 1155948733)
     public MileStart() {
     }
 
+    @Generated(hash = 857341015)
     public MileStart(Long id, String startTime, String startMile) {
         this.id = id;
         this.startTime = startTime;

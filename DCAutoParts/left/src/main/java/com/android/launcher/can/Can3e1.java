@@ -16,6 +16,10 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
+/**
+ * @date： 2023/12/26
+ * @author: 78495
+*/
 public class Can3e1 implements  CanParent{
 
     public static volatile String currentDriveModeStatus = "";

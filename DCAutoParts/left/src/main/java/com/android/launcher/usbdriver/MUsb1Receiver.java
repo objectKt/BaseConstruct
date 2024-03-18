@@ -14,7 +14,8 @@ import com.android.launcher.util.LogUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
-public class MUsb1Receiver extends BroadcastReceiver {
+
+public class MUsb1Receiver extends BroadcastReceiver{
 
     private static final String TAG = MUsb1Receiver.class.getSimpleName();
 
@@ -22,7 +23,7 @@ public class MUsb1Receiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         try {
             String action = intent.getAction();
-            LogUtils.printI(TAG, "onReceive----action=" + action);
+            LogUtils.printI(TAG, "onReceive----action="+action);
             if ("com.car.left.usb1".equals(action)) {
                 synchronized (this) {
                     UsbDevice device = (UsbDevice) intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
@@ -43,17 +44,18 @@ public class MUsb1Receiver extends BroadcastReceiver {
     }
 
     public static void write(byte[] bytes) {
-        if (!Can1.isClose) {
+        if(!Can1.isClose){
             UsbDataChannelManager.mSendQueue.put(bytes);
         }
     }
 
+
     public static void initUsbAuth(UsbDevice usbDevice) {
         try {
-            UsbManager mUsbManager = (UsbManager) App.getGlobalContext().getSystemService(Context.USB_SERVICE);
+            UsbManager  mUsbManager = (UsbManager) App.getGlobalContext().getSystemService(Context.USB_SERVICE);
             PendingIntent var3 = PendingIntent.getBroadcast(App.getGlobalContext(), 0, new Intent("com.car.left.usb1"), PendingIntent.FLAG_CANCEL_CURRENT);
             mUsbManager.requestPermission(usbDevice, var3);
-            LogUtils.printI(TAG, "initUsbAuth----" + usbDevice.getDeviceName());
+            LogUtils.printI(TAG, "initUsbAuth----"+usbDevice.getDeviceName());
         } catch (Exception e) {
             e.printStackTrace();
         }

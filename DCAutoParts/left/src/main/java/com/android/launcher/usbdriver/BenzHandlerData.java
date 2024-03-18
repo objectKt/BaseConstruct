@@ -38,8 +38,8 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.dc.auto.library.module.module_db.entity.CarTravelTable;
-import com.dc.auto.library.module.module_db.repository.CarTravelRepository;
+import module.module_db.entity.CarTravelTable;
+import module.module_db.repository.CarTravelRepository;
 
 public class BenzHandlerData {
 
@@ -48,6 +48,7 @@ public class BenzHandlerData {
     public static StringBuffer pre = new StringBuffer();
     //    public static String CHAR = "AA0000" ;
     public static StringBuffer sbttl = new StringBuffer();
+    public static SendHelperUsbToOne sendHelperUsbToOne = new SendHelperUsbToOne();
     private static ExecutorService executors = Executors.newFixedThreadPool(1);
     static Calendar calendar = Calendar.getInstance();
     public static String time;

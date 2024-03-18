@@ -17,6 +17,7 @@ okhttp = "4.11.0"
 recyclerview = "1.3.0"
 recyclerviewSelection = "1.1.0"
 eventbus = "3.1.1"
+greendao = "3.3.0"
 fastjson = "1.2.75"
 library = "2.1.3"
 free_reflection = "3.0.1"
@@ -44,6 +45,10 @@ squareup-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref
 recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
 recyclerviewSelection = { module = "androidx.recyclerview:recyclerview-selection", version.ref = "recyclerviewSelection" }
 eventbus = { module = "org.greenrobot:eventbus", version.ref = "eventbus" }
+greendao = { module = "org.greenrobot:greendao", version.ref = "greendao" }
+greendao-generator = { module = "org.greenrobot:greendao-generator", version.ref = "greendao" }
+roomRuntime = { module = "androidx.room:room-runtime", version.ref = "room" }
+roomCompiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 fastjson = { module = "com.alibaba:fastjson", version.ref = "fastjson" }
 library = { module = "com.wang.avi:library", version.ref = "library" }
 free-reflection = { module = "me.weishu:free_reflection", version.ref = "free_reflection" }
@@ -53,8 +58,6 @@ rxjava = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjava" }
 baseRecyclerViewAdapterHelper = { module = "com.github.CymChad:BaseRecyclerViewAdapterHelper", version.ref = "baseRecyclerViewAdapterHelper" }
 mapNav = { module = "com.amap.api:navi-3dmap", version.ref = "mapNav" }
 mapSearch = { module = "com.amap.api:search", version.ref = "mapSearch" }
-roomRuntime = { module = "androidx.room:room-runtime", version.ref = "room" }
-roomCompiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 usb = { module = "com.github.mik3y:usb-serial-for-android", version.ref = "usb" }
 anrwatchdog = { module = "com.github.anrwatchdog:anrwatchdog", version.ref = "anrwatchdog" }
 coreprogress = { module = "io.github.lizhangqu:coreprogress", version.ref = "coreprogress" }

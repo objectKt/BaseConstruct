@@ -1,8 +1,13 @@
 // all buildscript {} blocks must appear before any plugins {} blocks in the script
 buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
     ext.objectboxVersion = "3.8.0"
     dependencies {
         classpath("io.objectbox:objectbox-gradle-plugin:$objectboxVersion")
+        classpath("org.greenrobot:greendao-gradle-plugin:3.3.1")
     }
 }
 

@@ -19,20 +19,29 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * @description:
+ * @createDate: 2023/5/30
+ */
 public abstract class ActivityBase<T extends IPresenter> extends AppCompatActivity {
 
     protected String TAG;
+
     protected T mPresenter;
     public BottomStatusView bottomStatusView;
     public SpeedCenterView speedCenterView;
+
     private ExecutorService executorService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         try {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         } catch (Exception e) {
@@ -44,6 +53,8 @@ public abstract class ActivityBase<T extends IPresenter> extends AppCompatActivi
             e.printStackTrace();
         }
         LogUtils.printI(TAG, "onCreate------");
+
+
         try {
             int language = SPUtils.getInt(this, SPUtils.SP_SELECT_LANGUAGE, LanguageType.SYSTEM.ordinal());
             if (language == LanguageType.ZH.ordinal()) {
@@ -54,9 +65,13 @@ public abstract class ActivityBase<T extends IPresenter> extends AppCompatActivi
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         setContentView(R.layout.activity_new_meter);
+
+
         bottomStatusView = findViewById(R.id.bottomStatusView);
         speedCenterView = findViewById(R.id.speedCenterView);
+
         try {
             if (EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().unregister(this);
@@ -69,13 +84,16 @@ public abstract class ActivityBase<T extends IPresenter> extends AppCompatActivi
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         try {
             executorService = Executors.newCachedThreadPool();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         initView(savedInstanceState);
         setupData();
+
     }
 
     public void executeAsyncTask(Runnable runnable) {
@@ -88,24 +106,28 @@ public abstract class ActivityBase<T extends IPresenter> extends AppCompatActivi
     public void onMessageEvent(MessageEvent event) {
         if (event.type == MessageEvent.Type.STEER_WHEEL_TYPE) {
             if (event.data != null) {
-                int keyType = (int) event.data;
-                if (keyType == SteerWheelKeyType.KEY_BACK.ordinal()) {
-                    onBack();
-                } else if (keyType == SteerWheelKeyType.KEY_OK.ordinal()) {
-                    onOK();
-                } else if (keyType == SteerWheelKeyType.KEY_LEFT.ordinal()) {
-                    onLeft();
-                } else if (keyType == SteerWheelKeyType.KEY_RIGHT.ordinal()) {
-                    onRight();
-                } else if (keyType == SteerWheelKeyType.KEY_UP.ordinal()) {
-                    onUp();
-                } else if (keyType == SteerWheelKeyType.KEY_DOWN.ordinal()) {
-                    onDown();
+                if (event.data != null) {
+                    int keyType = (int) event.data;
+                    if (keyType == SteerWheelKeyType.KEY_BACK.ordinal()) {
+                        onBack();
+                    } else if (keyType == SteerWheelKeyType.KEY_OK.ordinal()) {
+                        onOK();
+                    } else if (keyType == SteerWheelKeyType.KEY_LEFT.ordinal()) {
+                        onLeft();
+                    } else if (keyType == SteerWheelKeyType.KEY_RIGHT.ordinal()) {
+                        onRight();
+                    } else if (keyType == SteerWheelKeyType.KEY_UP.ordinal()) {
+                        onUp();
+                    } else if (keyType == SteerWheelKeyType.KEY_DOWN.ordinal()) {
+                        onDown();
+                    }
                 }
             }
         } else {
             disposeMessageEvent(event);
         }
+
+
     }
 
     protected abstract void onDown();
@@ -122,9 +144,11 @@ public abstract class ActivityBase<T extends IPresenter> extends AppCompatActivi
 
     protected abstract void disposeMessageEvent(MessageEvent event);
 
+
     protected abstract void setupData();
 
     protected abstract void initView(Bundle savedInstanceState);
+
 
     @Override
     protected void onResume() {
@@ -168,5 +192,7 @@ public abstract class ActivityBase<T extends IPresenter> extends AppCompatActivi
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
+
 }

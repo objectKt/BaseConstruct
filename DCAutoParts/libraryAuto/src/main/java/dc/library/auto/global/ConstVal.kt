@@ -6,7 +6,7 @@ package dc.library.auto.global
 interface ConstVal {
 
     object Log {
-        const val TAG = "dc-auto-parts"
+        const val TAG: String = "dc-auto-parts"
     }
 
     object Type {

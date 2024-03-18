@@ -5,8 +5,8 @@ import android.content.Context;
 import com.android.launcher.util.AppUtils;
 import com.android.launcher.util.LogUtils;
 
-import com.dc.auto.library.module.module_db.entity.CarTravelTable;
-import com.dc.auto.library.module.module_db.repository.CarTravelRepository;
+import module.module_db.entity.CarTravelTable;
+import module.module_db.repository.CarTravelRepository;
 
 /**
  * 重置启动后数据任务

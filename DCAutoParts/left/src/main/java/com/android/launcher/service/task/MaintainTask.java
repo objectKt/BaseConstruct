@@ -5,6 +5,7 @@ import android.content.Context;
 import com.android.launcher.App;
 import com.android.launcher.MessageEvent;
 import com.android.launcher.R;
+import com.android.launcher.service.LivingService;
 import com.android.launcher.type.UnitType;
 import com.android.launcher.util.AppUtils;
 import com.android.launcher.util.BigDecimalUtils;
@@ -14,8 +15,8 @@ import com.android.launcher.util.UnitUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
-import com.dc.auto.library.module.module_db.entity.CarTravelTable;
-import com.dc.auto.library.module.module_db.repository.CarTravelRepository;
+import module.module_db.entity.CarTravelTable;
+import module.module_db.repository.CarTravelRepository;
 
 /**
  * @date： 2024/1/3

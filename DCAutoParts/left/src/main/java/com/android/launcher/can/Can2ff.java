@@ -1,5 +1,6 @@
 package com.android.launcher.can;
 
+import android.os.Build;
 import android.os.CountDownTimer;
 
 import com.android.launcher.App;
@@ -17,17 +18,21 @@ import java.util.List;
  */
 public class Can2ff implements CanParent {
 
+
     public CountDownTimer timer = null;
 
     public static volatile String lastData = "";
 
     @Override
     public void handlerCan(List<String> msg) {
+
         try {
             String data = FastJsonUtils.BeanToJson(msg);
+
             if (!lastData.equals(data)) {
                 lastData = data;
                 LogUtils.printI(Can2ff.class.getSimpleName(), "lastData=" + lastData + ", data=" + data);
+
                 SPUtils.putString(App.getGlobalContext(), SPUtils.SP_TAIYAI, lastData);
                 MessageEvent messageEvent = new MessageEvent(MessageEvent.Type.UPDATE_TAIYAI);
                 messageEvent.data = lastData;

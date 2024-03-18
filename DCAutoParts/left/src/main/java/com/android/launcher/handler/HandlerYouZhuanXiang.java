@@ -36,6 +36,7 @@ public class HandlerYouZhuanXiang implements HandlerInteface {
             updateUILeft();
             testFlash();
             run= true ;
+                FuncUtil.YOUXIZNG = true;
             BY8302PCB.play(SoundPlayer.Type.RIGHT_TURN, BY8302PCB.MusicType.TURN_SIGNAL);
 //            SoundPlayer.play(SoundPlayer.Type.RIGHT_TURN, "zx.mp3");
         }
@@ -43,6 +44,7 @@ public class HandlerYouZhuanXiang implements HandlerInteface {
             if (run){
 //                SoundPlayer.stop("zx");
             }
+            FuncUtil.YOUXIZNG = false;
             run = false ;
             show = false ;
             BY8302PCB.stopRightTurn();

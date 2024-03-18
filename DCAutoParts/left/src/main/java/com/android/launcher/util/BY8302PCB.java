@@ -3,11 +3,13 @@ package com.android.launcher.util;
 import com.android.launcher.ttl.SerialHelperttlLd3;
 
 /**
- * BY8302-16P语音板 (连续发送两条命令之间间隔在 20MS 以上，组合播放功能两条命令在 6MS 以内)
+ * @description: BY8302-16P语音板 (连续发送两条命令之间间隔在 20MS 以上，组合播放功能两条命令在 6MS 以内)
+ * @createDate: 2023/8/26
  */
 public class BY8302PCB {
 
     private static final String TAG = BY8302PCB.class.getSimpleName();
+
     //转向灯是否正在播放
     public static boolean leftTurnPlay = false;
     public static boolean rightTurnPlay = false;
@@ -25,49 +27,49 @@ public class BY8302PCB {
      * @createDate: 2023/8/26
      */
     public static synchronized void play(SoundPlayer.Type type, MusicType musicType) {
-        LogUtils.printI(TAG, "play---type=" + type.name() + ", index=" + musicType.ordinal() + "leftTurnPlay=" + leftTurnPlay +
-                ", rightTurnPlay=" + rightTurnPlay + ", doubleFlashPlay=" + doubleFlashPlay + ", safetyBeltPlay=" + safetyBeltPlay + ", radarPlay=" + radarPlay + ", isPlaying=" + isPlaying);
-        if (type == SoundPlayer.Type.LEFT_TURN) {
-            if (doubleFlashPlay) {
+        LogUtils.printI(TAG,"play---type="+type.name() + ", index="+musicType.ordinal() + "leftTurnPlay="+leftTurnPlay +
+                ", rightTurnPlay="+rightTurnPlay + ", doubleFlashPlay="+doubleFlashPlay + ", safetyBeltPlay="+safetyBeltPlay + ", radarPlay="+radarPlay + ", isPlaying="+isPlaying);
+        if(type== SoundPlayer.Type.LEFT_TURN){
+            if(doubleFlashPlay){
                 leftTurnPlay = true;
                 return;
             }
-            if (!leftTurnPlay) {
+            if(!leftTurnPlay){
 //                if(isPlaying){
 //                    stop();
 //                }
                 selectMusic(musicType.ordinal());
                 setLeftTurnPlayState();
             }
-        } else if (type == SoundPlayer.Type.RIGHT_TURN) {
-            if (doubleFlashPlay) {
+        }else if(type == SoundPlayer.Type.RIGHT_TURN){
+            if(doubleFlashPlay){
                 rightTurnPlay = true;
                 return;
             }
-            if (!rightTurnPlay) {
+            if(!rightTurnPlay){
 //                if(isPlaying){
 //                    stop();
 //                }
                 selectMusic(musicType.ordinal());
                 setRightTurnPlayState();
             }
-        } else if (type == SoundPlayer.Type.DOUBLE_FLASH) { //双闪优先级最高
+        }else if(type== SoundPlayer.Type.DOUBLE_FLASH){ //双闪优先级最高
 //            if(isPlaying){
 //                stop();
 //            }
             selectMusic(musicType.ordinal());
             setDoubleFlashPlayState();
-        } else {
-            if (!turnSignalOpen()) { //双闪第一优先级， 转向灯第二优先级
+        }else{
+            if(!turnSignalOpen()){ //双闪第一优先级， 转向灯第二优先级
 
-                if (type == SoundPlayer.Type.SAFETY_BELT && !radarPlay) { //安全带优先级最低
+                if(type == SoundPlayer.Type.SAFETY_BELT && !radarPlay){ //安全带优先级最低
 //                    if(isPlaying){
 //                        stop();
 //                    }
                     selectMusic(musicType.ordinal());
                     isPlaying = true;
                     safetyBeltPlay = true;
-                } else if (type == SoundPlayer.Type.RADAR) {
+                }else if(type == SoundPlayer.Type.RADAR){
 //                    if(isPlaying){
 //                        stop();
 //                    }
@@ -164,15 +166,15 @@ public class BY8302PCB {
         new Thread(() -> {
             try {
                 String volume = Integer.toHexString(value);
-                if (volume.length() == 1) {
-                    volume = "0" + volume;
+                if(volume.length() == 1){
+                    volume = "0" +volume;
                 }
                 String checkCode = HexDecimalUtils.xor(HexDecimalUtils.xor("04", "31"), volume);
 
                 String sendCode = "7E0431" + volume + checkCode + "EF";
 
 
-                LogUtils.printI(TAG, "volumeSetup----value=" + value + ", sendCode=" + sendCode.toUpperCase());
+                LogUtils.printI(TAG, "volumeSetup----value="+value +", sendCode="+sendCode.toUpperCase());
                 SerialHelperttlLd3.sendHex(sendCode.toUpperCase());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -192,7 +194,7 @@ public class BY8302PCB {
         }).start();
     }
 
-    public static synchronized void playStatus() {
+    public static synchronized void playStatus(){
         new Thread(() -> {
             String sendCode = "7E031013EF";
             SerialHelperttlLd3.sendHex(sendCode);
@@ -218,16 +220,16 @@ public class BY8302PCB {
     public static synchronized void selectMusic(int index) {
         new Thread(() -> {
             String indexHex = Integer.toHexString(index);
-            if (indexHex.length() == 1) {
-                indexHex = "0" + indexHex;
+            if(indexHex.length() == 1){
+                indexHex = "0" +indexHex;
             }
             String checkCode = HexDecimalUtils.xor("05", "41");
-            checkCode = HexDecimalUtils.xor(checkCode, "00");
-            checkCode = HexDecimalUtils.xor(checkCode, indexHex);
+            checkCode = HexDecimalUtils.xor(checkCode,"00");
+            checkCode = HexDecimalUtils.xor(checkCode,indexHex);
 
             String sendCode = "7E054100" + indexHex + checkCode + "EF";
 
-            LogUtils.printI(TAG, "selectMusic----index=" + index + ", sendCode=" + sendCode.toUpperCase());
+            LogUtils.printI(TAG, "selectMusic----index="+index +", sendCode="+sendCode.toUpperCase());
             SerialHelperttlLd3.sendHex(sendCode.toUpperCase());
 
 //            try {
@@ -241,14 +243,14 @@ public class BY8302PCB {
 
 
     public static void stopLeftTurn() {
-        if (leftTurnPlay) {
+        if(leftTurnPlay){
             stop();
             leftTurnPlay = false;
         }
     }
 
     public static void stopRightTurn() {
-        if (rightTurnPlay) {
+        if(rightTurnPlay){
             stop();
             rightTurnPlay = false;
         }
@@ -259,8 +261,8 @@ public class BY8302PCB {
      * @createDate: 2023/5/22
      */
     public static void stopRadar() {
-        LogUtils.printI(TAG, "stopRadar----radarPlay=" + radarPlay);
-        if (radarPlay && !turnSignalOpen()) {
+        LogUtils.printI(TAG, "stopRadar----radarPlay="+radarPlay);
+        if(radarPlay && !turnSignalOpen()){
             stop();
             radarPlay = false;
         }
@@ -271,20 +273,20 @@ public class BY8302PCB {
      * @createDate: 2023/5/22
      */
     public static void stopDoubleFlash() {
-        if (doubleFlashPlay) {
+        if(doubleFlashPlay){
             stop();
             doubleFlashPlay = false;
         }
     }
 
     public static void stopSafetyBelt() {
-        if (!isPlaying) {
+        if(!isPlaying){
             return;
         }
         new Thread(() -> {
             try {
-                LogUtils.printI(TAG, "stopSafetyBelt----radarPlay=" + radarPlay + ", turnSignalOpen=" + turnSignalOpen());
-                if (!radarPlay && !turnSignalOpen()) {
+                LogUtils.printI(TAG, "stopSafetyBelt----radarPlay="+radarPlay + ", turnSignalOpen="+turnSignalOpen());
+                if(!radarPlay && !turnSignalOpen()){
                     isPlaying = false;
                     stop();
                 }
@@ -304,7 +306,7 @@ public class BY8302PCB {
         return leftTurnPlay || rightTurnPlay || doubleFlashPlay;
     }
 
-    public enum MusicType {
+    public enum MusicType{
         NONE,
         TURN_SIGNAL, //转向灯
         RADAR, //雷达

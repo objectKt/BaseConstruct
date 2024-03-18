@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("io.objectbox")
 }
+apply plugin: 'org.greenrobot.greendao'
 
 def ver = libs.versions
 
@@ -81,6 +82,8 @@ dependencies {
     implementation libs.rxjava
     implementation libs.baseRecyclerViewAdapterHelper
     implementation libs.eventbus
+    implementation libs.greendao
+    implementation libs.greendao.generator
     implementation libs.fastjson
     implementation libs.squareup.okhttp
     implementation libs.usb

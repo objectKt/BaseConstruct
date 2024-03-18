@@ -1,5 +1,7 @@
 package com.android.launcher.can;
 
+import android.os.Build;
+
 import com.android.launcher.MessageEvent;
 import com.android.launcher.util.CommonUtil;
 import com.android.launcher.util.LogUtils;
@@ -11,8 +13,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 水温表(已测试)
- * 频率：100毫秒一次
+ * //水温表(已测试)
+ * //频率：100毫秒一次
  */
 public class Can30d implements CanParent {
 
@@ -27,18 +29,24 @@ public class Can30d implements CanParent {
 
     @Override
     public void handlerCan(List<String> msg) {
+
         try {
+
             //[30d, 8, 77, 52, 6C, FF, FF, 02, 7E, 7F]
             String tempHex = msg.get(2);
             // 转换出温度后减去40 是正常显示温度
 //            if (!lastData.equals(tempHex)) {
 //                lastData = tempHex;
+
             String data = msg.get(2);
             if ("FF".equalsIgnoreCase(data)) {
                 LogUtils.printI(Can30d.class.getSimpleName(), "data=" + data);
                 return;
             }
+
             currentWaterTemp = CommonUtil.getHexToDecimal(data) - 40;
+
+
             if (currentWaterTemp < 0) {
                 currentWaterTemp = 0;
             }
@@ -56,6 +64,7 @@ public class Can30d implements CanParent {
                 if (waterlist.size() >= 500) {
                     currentWaterTemp = getAvgTemp(waterlist);
                     LogUtils.printI(Can30d.class.getSimpleName(), "msg=" + msg + ", currentWaterTemp=" + currentWaterTemp);
+
                     waterlist.clear();
                     waterlist.add(currentWaterTemp);
                     MessageEvent messageEvent = new MessageEvent(MessageEvent.Type.UPDATE_WATER_TEMP);
@@ -64,15 +73,19 @@ public class Can30d implements CanParent {
                 }
             }
 //            }
+
+
 //            if (!msg.get(2).equals("ff")) {
 //                if (lastData.equals(tempData)) {
 //                    return;
 //                }
 //                lastData = tempData;
+
             //            Log.i("AAAAA", CommonUtil.getHexToDecimal(msg.get(2))+"====") ;
 //                int waterTemp = CommonUtil.getHexToDecimal(msg.get(2)) - 40;
 //                LogUtils.printI(Can30d.class.getSimpleName(), "msg=" + msg+", waterTemp=" + waterTemp);
             //[30d, 8, 8B, 7C, 85, FF, FF, 02, 25, 7F], waterTemp=99
+
 //                if (waterTemp < 0) {
 //                    waterTemp = 0;
 //                }
