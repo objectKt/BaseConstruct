@@ -310,7 +310,7 @@ public final class XTask {
     //================PriorityExecutorCore==================//
 
     /**
-     * 按优先级执行异步任务
+     * 按优先级执行异步任务(有 BUG，设置 priority 不起效果)
      *
      * @param task     任务
      * @param priority 优先级
@@ -366,7 +366,7 @@ public final class XTask {
     }
 
     /**
-     * 执行普通异步任务【线程的优先级是5】
+     * 执行普通异步任务【线程的优先级是5(默认情况下就是主线程)】
      *
      * @param task 任务
      * @return 取消接口

@@ -70,6 +70,14 @@ android {
     kotlinOptions { jvmTarget = '1.8' }
 }
 
+//greendao {
+//    schemaVersion 1001
+//    // 生成数据库文件的目录
+//    targetGenDir 'src/main/java'
+//    // 生成的数据库相关文件的包名
+//    daoPackage 'com.android.launcher.dao'
+//}
+
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation libs.androidx.appcompat
@@ -83,7 +91,7 @@ dependencies {
     implementation libs.baseRecyclerViewAdapterHelper
     implementation libs.eventbus
     implementation libs.greendao
-    implementation libs.greendao.generator
+    //implementation libs.greendao.generator
     implementation libs.fastjson
     implementation libs.squareup.okhttp
     implementation libs.usb

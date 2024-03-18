@@ -21,9 +21,118 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "2:4470221097674213082",
+      "lastPropertyId": "20:3317038706137286945",
+      "name": "CarTravelTable",
+      "properties": [
+        {
+          "id": "1:276014594463162544",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:5740932057420985333",
+          "name": "userMile",
+          "type": 7
+        },
+        {
+          "id": "3:6998557253946858622",
+          "name": "totalMile",
+          "type": 7
+        },
+        {
+          "id": "4:3605950642035927152",
+          "name": "subtotalMile",
+          "type": 7
+        },
+        {
+          "id": "5:7598122654268141913",
+          "name": "subtotalConsumeOil",
+          "type": 7
+        },
+        {
+          "id": "6:5053324176254937814",
+          "name": "userConsumeOil",
+          "type": 7
+        },
+        {
+          "id": "7:1663631040898675770",
+          "name": "totalConsumeOil",
+          "type": 7
+        },
+        {
+          "id": "8:8920437226524511129",
+          "name": "subtotalAverageSpeed",
+          "type": 7
+        },
+        {
+          "id": "9:6988377686357533339",
+          "name": "userAverageSpeed",
+          "type": 7
+        },
+        {
+          "id": "10:9062658344112710954",
+          "name": "totalAverageSpeed",
+          "type": 7
+        },
+        {
+          "id": "11:2461271161184518157",
+          "name": "totalRunTime",
+          "type": 7
+        },
+        {
+          "id": "12:2514967919231149736",
+          "name": "userRunTime",
+          "type": 7
+        },
+        {
+          "id": "13:869599266521658797",
+          "name": "subtotalRuntime",
+          "type": 7
+        },
+        {
+          "id": "14:3849904749320363091",
+          "name": "startComputeTime",
+          "type": 7
+        },
+        {
+          "id": "15:1461881602771177159",
+          "name": "currentQtrip",
+          "type": 7
+        },
+        {
+          "id": "16:6903258486908042243",
+          "name": "userAverageQtrip",
+          "type": 7
+        },
+        {
+          "id": "17:6881753202600119948",
+          "name": "totalAverageQtrip",
+          "type": 7
+        },
+        {
+          "id": "18:7904387228953550350",
+          "name": "data1",
+          "type": 9
+        },
+        {
+          "id": "19:4176903159162820789",
+          "name": "data2",
+          "type": 9
+        },
+        {
+          "id": "20:3317038706137286945",
+          "name": "data3",
+          "type": 9
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "1:7170914553073408495",
+  "lastEntityId": "2:4470221097674213082",
   "lastIndexId": "0:0",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

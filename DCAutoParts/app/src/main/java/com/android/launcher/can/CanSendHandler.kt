@@ -20,11 +20,11 @@ object CanSendHandler : CanSendImpl {
         when (canId) {
             CanCommand.Send.CAN3DC -> {
                 // 发动机机油液位
-                engineOilLevel()
+                doPollingTaskFixedRate()
             }
 
             CanCommand.Send.CAN3F6 -> {
-                doCAN3F6TaskFixedRate()
+                //doCAN3F6TaskFixedRate()
             }
 
             CanCommand.Send.CAN37C -> {
@@ -41,14 +41,20 @@ object CanSendHandler : CanSendImpl {
         }
     }
 
-    private fun engineOilLevel() {
-        doPollingTaskFixedRate()
-    }
-
     private fun doPollingTaskFixedRate(periodSeconds: Long = 2) {
         val cancelable: ICancelable = XTask.scheduleAtFixedRate({
-            Log.e(ConstVal.Log.TAG, "执行了发动机机油液位发送指令..., thread:" + Thread.currentThread().name)
-            FuncUtil.mockProcess(2000)
+            XTask.backgroundSubmit {
+                Log.e(ConstVal.Log.TAG, "backgroundSubmit 1 执行了发动机机油液位发送指令..., thread:${Thread.currentThread().name} priority = ${Thread.currentThread().priority}")
+                FuncUtil.mockProcess(500)
+            }
+            XTask.backgroundSubmit {
+                Log.e(ConstVal.Log.TAG, "backgroundSubmit 2 执行了发动机机油液位发送指令..., thread:${Thread.currentThread().name} priority = ${Thread.currentThread().priority}")
+                FuncUtil.mockProcess(500)
+            }
+            XTask.backgroundSubmit {
+                Log.e(ConstVal.Log.TAG, "backgroundSubmit 3 执行了发动机机油液位发送指令..., thread:${Thread.currentThread().name} priority = ${Thread.currentThread().priority}")
+                FuncUtil.mockProcess(500)
+            }
         }, 0, periodSeconds, TimeUnit.SECONDS)
         mCancelableList.add(cancelable)
     }
