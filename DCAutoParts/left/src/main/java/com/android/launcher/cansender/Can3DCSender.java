@@ -5,8 +5,6 @@ import com.android.launcher.usbdriver.MUsb1Receiver;
 import com.android.launcher.util.DataUtils;
 import com.android.launcher.util.LogUtils;
 
-import dc.library.auto.util.UtilThread;
-
 /**
  * 发动机机油液位
  */

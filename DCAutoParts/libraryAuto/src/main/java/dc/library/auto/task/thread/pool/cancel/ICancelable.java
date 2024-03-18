@@ -2,9 +2,6 @@ package dc.library.auto.task.thread.pool.cancel;
 
 /**
  * 可取消执行的实现接口
- *
- * @author xuexiang
- * @since 2021/11/2 12:20 AM
  */
 public interface ICancelable {
 

@@ -15,15 +15,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DCAutoParts"
         tools:targetApi="31">
+
         <activity
             android:name=".StartingActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -32,7 +34,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- 开机启动，静态配置可以让程序在未启动的情况下就能接收到广播 -->
+        </activity>
+
+        <!-- 开机启动，静态配置可以让程序在未启动的情况下就能接收到广播 -->
         <receiver
             android:name=".receiver.AutoStartReceiver"
             android:enabled="true"
@@ -43,6 +47,7 @@
                 <category android:name="android.intent.category.HOME" />
             </intent-filter>
         </receiver>
+
     </application>
 
 </manifest>

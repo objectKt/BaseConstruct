@@ -7,7 +7,7 @@ import android.content.Context
  * 获取 ApplicationContext
  */
 @SuppressLint("StaticFieldLeak")
-object UtilContext {
+object ContextUtil {
     private var context: Context? = null
 
     @JvmStatic
@@ -21,7 +21,7 @@ object UtilContext {
 
     @JvmStatic
     fun init(context: Context) {
-        if (UtilContext.context != null) return
-        UtilContext.context = context.applicationContext
+        if (ContextUtil.context != null) return
+        ContextUtil.context = context.applicationContext
     }
 }

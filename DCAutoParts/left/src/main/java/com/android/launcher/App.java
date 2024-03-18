@@ -20,7 +20,7 @@ import com.github.anrwatchdog.ANRWatchDog;
 
 import org.greenrobot.eventbus.EventBus;
 
-import dc.library.auto.util.UtilContext;
+import dc.library.auto.util.ContextUtil;
 
 
 //import com.android.launcher.ch340.CH34xUARTDriver;
@@ -57,7 +57,7 @@ public class App extends Application {
         isAppStart = true;
         aCache = ACache.get(this);
         mContext = getApplicationContext();
-        UtilContext.init(getApplicationContext());
+        ContextUtil.init(getApplicationContext());
         Log.i("leftacc", "----------------app重新启动");
         currentMeterActivity = false;
         isRestart = true;

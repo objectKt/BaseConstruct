@@ -5,6 +5,10 @@ package dc.library.auto.global
  */
 interface ConstVal {
 
+    object Log {
+        const val TAG = "dc-auto-parts"
+    }
+
     object Type {
         const val TYPE_SAMPLE: Int = 0
     }

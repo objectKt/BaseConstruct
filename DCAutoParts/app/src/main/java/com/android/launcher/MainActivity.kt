@@ -5,6 +5,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.android.launcher.can.CanCommand
+import com.android.launcher.can.CanSendHandler
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,5 +19,12 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        CanSendHandler.sendCan(CanCommand.Send.CAN3DC)
+        CanSendHandler.sendCan(CanCommand.Send.CAN3F6)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        CanSendHandler.cancelTask()
     }
 }
