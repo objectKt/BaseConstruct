@@ -1,4 +1,4 @@
-package com.daimajia.numberprogressbar;
+package dc.library.ui.numberprogress;
 
 public interface OnProgressBarListener {
 

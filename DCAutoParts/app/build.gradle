@@ -48,9 +48,9 @@ android {
 dependencies {
     implementation project(":libraryAuto")
     implementation libs.androidx.activity
+    implementation libs.androidx.appcompat
     implementation libs.androidx.constraintlayout
+    implementation libs.androidx.material
     implementation libs.github.net
     implementation libs.squareup.okhttp
-    implementation libs.androidx.appcompat
-    implementation libs.androidx.material
 }

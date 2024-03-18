@@ -71,6 +71,10 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.core.ktx
+    implementation libs.androidx.material
+    implementation libs.androidx.constraintlayout
     implementation libs.recyclerview
     implementation libs.recyclerviewSelection
     implementation libs.rxandroid

@@ -3,9 +3,8 @@ package com.android.launcher.dialog;
 import android.content.Context;
 import android.widget.TextView;
 
-import com.amap.api.maps.offlinemap.OfflineMapCity;
 import com.android.launcher.R;
-import com.daimajia.numberprogressbar.NumberProgressBar;
+import dc.library.ui.numberprogress.NumberProgressBar;
 import com.lxj.xpopup.core.CenterPopupView;
 
 public class MapDownloadDialog extends CenterPopupView {

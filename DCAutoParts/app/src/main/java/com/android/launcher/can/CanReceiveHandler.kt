@@ -2,9 +2,9 @@ package com.android.launcher.can
 
 object CanReceiveHandler : CanReceiveImpl {
 
-    override fun handlerCan(receiveCommand: Int, canMsg: List<String?>?) {
+    override fun canReceive(canId: Int, canMsg: List<String?>?) {
         canMsg?.let { msg ->
-            when (receiveCommand) {
+            when (canId) {
                 CanCommand.Receive.CAN001 -> {
                     // 车钥匙启动车关闭车
                     carDoorKeyHandle(msg[2])
@@ -14,6 +14,7 @@ object CanReceiveHandler : CanReceiveImpl {
                     // 雷达
                     radarHandle(msg[5])
                 }
+
                 CanCommand.Receive.CAN2F3 -> {}
             }
         }

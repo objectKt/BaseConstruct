@@ -9,7 +9,6 @@ android {
 
     defaultConfig {
         minSdk libs.versions.minSdkVersion.get().toInteger()
-        consumerProguardFiles "consumer-rules.pro"
     }
 
     compileOptions {

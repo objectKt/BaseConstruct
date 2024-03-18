@@ -3,7 +3,11 @@ package com.android.launcher.can
 interface CanCommand {
 
     object Send {
-
+        const val CAN3DC: Int = 0x03DC
+        const val CAN3F6: Int = 0x03F6
+        const val CAN37C: Int = 0x037C
+        const val CAN045: Int = 0x0045
+        const val CAN0FD: Int = 0x00FD
     }
 
     object Receive {
@@ -14,5 +18,9 @@ interface CanCommand {
 }
 
 interface CanReceiveImpl {
-    fun handlerCan(receiveCommand: Int, canMsg: List<String?>?)
+    fun canReceive(canId: Int, canMsg: List<String?>?)
+}
+
+interface CanSendImpl {
+    fun sendCan(canId: Int)
 }

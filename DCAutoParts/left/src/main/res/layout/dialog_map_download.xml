@@ -27,7 +27,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cityTv" />
 
-    <com.daimajia.numberprogressbar.NumberProgressBar
+    <dc.library.ui.numberprogress.NumberProgressBar
         android:id="@+id/numberProgressBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
