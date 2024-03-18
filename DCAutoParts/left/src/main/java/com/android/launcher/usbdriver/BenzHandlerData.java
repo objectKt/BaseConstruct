@@ -38,8 +38,8 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import module.module_db.entity.CarTravelTable;
-import module.module_db.repository.CarTravelRepository;
+import com.dc.auto.library.module.module_db.entity.CarTravelTable;
+import com.dc.auto.library.module.module_db.repository.CarTravelRepository;
 
 public class BenzHandlerData {
 

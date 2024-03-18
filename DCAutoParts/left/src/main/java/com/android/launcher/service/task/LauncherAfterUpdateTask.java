@@ -7,8 +7,8 @@ import com.android.launcher.util.AppUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
-import module.module_db.entity.CarTravelTable;
-import module.module_db.repository.CarTravelRepository;
+import com.dc.auto.library.module.module_db.entity.CarTravelTable;
+import com.dc.auto.library.module.module_db.repository.CarTravelRepository;
 
 /**
  * 启动后数据更新显示

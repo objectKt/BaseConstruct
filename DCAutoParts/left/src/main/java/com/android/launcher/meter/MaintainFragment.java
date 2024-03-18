@@ -26,8 +26,8 @@ import com.android.launcher.util.UnitUtils;
 
 import java.util.List;
 
-import module.module_db.entity.CarTravelTable;
-import module.module_db.repository.CarTravelRepository;
+import com.dc.auto.library.module.module_db.entity.CarTravelTable;
+import com.dc.auto.library.module.module_db.repository.CarTravelRepository;
 
 /**
  * 保养页面

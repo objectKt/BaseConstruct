@@ -5,7 +5,7 @@ import java.io.FileDescriptor;
 import java.util.logging.Logger;
 
 /**
- * 串口 JNI 与串口管理解耦
+ * 串口
  */
 public class SerialPort {
 

@@ -34,4 +34,3 @@ dependencyResolutionManagement {
 rootProject.name = "DCAutoParts"
 include ':app', ':left'
 include ':libraryAuto', ':libraryUI'
-include ':xtask-core'

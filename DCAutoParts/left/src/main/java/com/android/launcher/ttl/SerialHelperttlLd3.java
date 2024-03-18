@@ -13,7 +13,7 @@ import java.io.InputStream;
 import java.security.InvalidParameterException;
 import java.util.concurrent.LinkedTransferQueue;
 
-import com.dc.auto.library.serial.SerialPort;
+import dc.library.auto.serial.SerialPort;
 
 //import com.android.launcher.usbdriver.SendHelperCH340Can;
 
@@ -51,11 +51,11 @@ public class SerialHelperttlLd3 {
     public void openLLd() throws SecurityException, IOException, InvalidParameterException {
         LogUtils.printI(SerialHelperttlLd3.class.getSimpleName(), "打开串口");
         RUN = false;
-        this.mSerialPort = new SerialPort(new File("/dev/ttyS3"), 9600, 0);
-        this.mOutputStream = this.mSerialPort.getOutputStream();
-        this.mInputStream = this.mSerialPort.getInputStream();
-        this.mReadThread = new ReadThread();
-        this.mReadThread.start();
+//        this.mSerialPort = new SerialPort(new File("/dev/ttyS3"), 9600, 0);
+//        this.mOutputStream = this.mSerialPort.getOutputStream();
+//        this.mInputStream = this.mSerialPort.getInputStream();
+//        this.mReadThread = new ReadThread();
+//        this.mReadThread.start();
 //        this.mSendThread = new SerialHelperttlLd.SendThread();
 //        this.mSendThread.setSuspendFlag();
 //        this.mSendThread.start();

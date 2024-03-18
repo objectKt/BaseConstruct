@@ -17,12 +17,8 @@ import com.android.launcher.util.IconUtils;
 import com.android.launcher.util.NumberUtils;
 import com.android.launcher.util.UnitUtils;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
-import module.module_db.entity.CarTravelTable;
-import module.module_db.repository.CarTravelRepository;
+import com.dc.auto.library.module.module_db.entity.CarTravelTable;
+import com.dc.auto.library.module.module_db.repository.CarTravelRepository;
 
 /**
  * 启动后
