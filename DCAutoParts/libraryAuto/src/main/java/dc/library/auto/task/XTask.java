@@ -23,10 +23,7 @@ import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 
 /**
- * XTask对外统一API入口
- *
- * @author xuexiang
- * @since 2/7/22 1:14 PM
+ * XTask 对外统一API入口
  */
 public final class XTask {
 
