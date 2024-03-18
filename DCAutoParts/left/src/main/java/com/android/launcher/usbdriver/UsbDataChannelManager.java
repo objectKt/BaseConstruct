@@ -50,7 +50,6 @@ public class UsbDataChannelManager {
         writeTask = Executors.newSingleThreadExecutor();
     }
 
-
     public void startRun(Context context){
         UsbManager  usbManager = (UsbManager) context.getSystemService(Context.USB_SERVICE);
         List<UsbSerialDriver> allDrivers = UsbSerialProber.getDefaultProber().findAllDrivers(usbManager);

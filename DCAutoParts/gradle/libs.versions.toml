@@ -38,6 +38,7 @@ androidx-material = { group = "com.google.android.material", name = "material", 
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 github-net = { module = "com.github.liangjingkanji:Net", version.ref = "net" }
+github-usb = { module = "com.github.mik3y:usb-serial-for-android", version.ref = "usb" }
 squareup-okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 # Old need be changed.
 recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
