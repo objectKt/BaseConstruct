@@ -94,6 +94,7 @@ dependencies {
     implementation libs.mapNav
     implementation libs.mapSearch
     implementation libs.library
+    implementation("com.blankj:utilcode:1.22.0")
     implementation libs.roomRuntime
     annotationProcessor libs.roomCompiler
     implementation project(path: ':libraryAuto')

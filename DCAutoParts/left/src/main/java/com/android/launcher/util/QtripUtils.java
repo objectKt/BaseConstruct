@@ -4,13 +4,12 @@ import android.content.Context;
 
 import com.android.launcher.App;
 import com.android.launcher.service.LivingService;
+import com.dc.auto.library.module.module_db.entity.CarTravelTable;
+import com.dc.auto.library.module.module_db.repository.CarTravelRepository;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.Map;
-
-import module.module_db.entity.CarTravelTable;
-import module.module_db.repository.CarTravelRepository;
 
 /**
  * @description: 油耗工具

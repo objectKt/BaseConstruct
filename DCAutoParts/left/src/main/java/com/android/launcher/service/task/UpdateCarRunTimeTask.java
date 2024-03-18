@@ -9,8 +9,8 @@ import com.android.launcher.util.AppUtils;
 import com.android.launcher.util.BigDecimalUtils;
 import com.android.launcher.util.LogUtils;
 
-import module.module_db.entity.CarTravelTable;
-import module.module_db.repository.CarTravelRepository;
+import com.dc.auto.library.module.module_db.entity.CarTravelTable;
+import com.dc.auto.library.module.module_db.repository.CarTravelRepository;
 
 /**
  * 汽车启动后的行驶时间

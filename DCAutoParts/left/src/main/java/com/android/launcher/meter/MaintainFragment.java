@@ -23,11 +23,10 @@ import com.android.launcher.util.NumberUtils;
 import com.android.launcher.util.SPUtils;
 import com.android.launcher.util.StringUtils;
 import com.android.launcher.util.UnitUtils;
+import com.dc.auto.library.module.module_db.entity.CarTravelTable;
+import com.dc.auto.library.module.module_db.repository.CarTravelRepository;
 
 import java.util.List;
-
-import module.module_db.entity.CarTravelTable;
-import module.module_db.repository.CarTravelRepository;
 
 /**
  * 保养页面

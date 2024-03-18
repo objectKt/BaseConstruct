@@ -3,10 +3,10 @@ package com.android.launcher.dialog;
 import android.content.Context;
 import android.widget.TextView;
 
-import com.amap.api.maps.offlinemap.OfflineMapCity;
 import com.android.launcher.R;
-import com.daimajia.numberprogressbar.NumberProgressBar;
 import com.lxj.xpopup.core.CenterPopupView;
+
+import dc.library.ui.numberprogress.NumberProgressBar;
 
 /**
  * @date： 2023/12/7

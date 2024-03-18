@@ -2,9 +2,6 @@ package com.android.launcher.util;
 
 import android.os.Environment;
 
-import com.ihsanbal.logging.Level;
-import com.ihsanbal.logging.LoggingInterceptor;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -42,67 +39,67 @@ public class ZipLogUtil {
         File file1 = new File(zipPath);
         try {
 //            upload(APKUtil.UPLOADURL,file1);
-            newUpload(APKUtil.UPLOADURL, file1);
+            //newUpload(APKUtil.UPLOADURL, file1);
         } catch (Exception e) {
             e.printStackTrace();
             LogUtils.printI(ZipLogUtil.class.getSimpleName(), "logZip----Exception=" + e.getMessage());
         }
     }
 
-    private static void newUpload(String url, File file){
-
-        LoggingInterceptor loggingInterceptor = new LoggingInterceptor.Builder().setLevel(Level.BASIC)
-                .log(Platform.WARN).
-                        tag("LoggingInterceptor").build();
-
-        //client
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(180, TimeUnit.SECONDS) // 设置连接超时时间为120秒
-                .writeTimeout(180, TimeUnit.SECONDS)
-                .readTimeout(180, TimeUnit.SECONDS) // 设置连接超时时间为120秒
-                //整个调用时期的超时时间，包括解析DNS、链接、写入请求体、服务端处理、以及读取响应结果
-                .callTimeout(360, TimeUnit.SECONDS)
-                .addInterceptor(loggingInterceptor)
-                .build();
-        Request.Builder builder = new Request.Builder();
-        builder.url(url);
-
-        MultipartBody.Builder bodyBuilder = new MultipartBody.Builder();
-        bodyBuilder.setType(MultipartBody.FORM);
-        bodyBuilder.addFormDataPart("file", file.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), file));
-        MultipartBody body = bodyBuilder.build();
-
-        RequestBody requestBody = ProgressHelper.withProgress(body, new ProgressUIListener() {
-
-            @Override
-            public void onUIProgressChanged(long numBytes, long totalBytes, float percent, float speed) {
-                LogUtils.printI(ZipLogUtil.class.getSimpleName(), "onUIProgressChanged---numBytes=" + numBytes + ", totalBytes=" + (float)(totalBytes /1024f / 1024f) + "M, percent=" + 100 * percent + ", speed=" + speed);
-            }
-
-            @Override
-            public void onUIProgressFinish() {
-                super.onUIProgressFinish();
-                LogUtils.printI(ZipLogUtil.class.getSimpleName(), "上传结束");
-            }
-
-        });
-        builder.header("Authorization", "ClientID" + UUID.randomUUID());
-        builder.post(requestBody);
-        Call call = okHttpClient.newCall(builder.build());
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-                LogUtils.printI(ZipLogUtil.class.getSimpleName(), "上传失败---Exception=" + e.getMessage());
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                LogUtils.printI(ZipLogUtil.class.getSimpleName(), "上传成功---response=" + response.headers());
-
-            }
-        });
-    }
+//    private static void newUpload(String url, File file){
+//
+//        LoggingInterceptor loggingInterceptor = new LoggingInterceptor.Builder().setLevel(Level.BASIC)
+//                .log(Platform.WARN).
+//                        tag("LoggingInterceptor").build();
+//
+//        //client
+//        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+//                .connectTimeout(180, TimeUnit.SECONDS) // 设置连接超时时间为120秒
+//                .writeTimeout(180, TimeUnit.SECONDS)
+//                .readTimeout(180, TimeUnit.SECONDS) // 设置连接超时时间为120秒
+//                //整个调用时期的超时时间，包括解析DNS、链接、写入请求体、服务端处理、以及读取响应结果
+//                .callTimeout(360, TimeUnit.SECONDS)
+//                .addInterceptor(loggingInterceptor)
+//                .build();
+//        Request.Builder builder = new Request.Builder();
+//        builder.url(url);
+//
+//        MultipartBody.Builder bodyBuilder = new MultipartBody.Builder();
+//        bodyBuilder.setType(MultipartBody.FORM);
+//        bodyBuilder.addFormDataPart("file", file.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), file));
+//        MultipartBody body = bodyBuilder.build();
+//
+//        RequestBody requestBody = ProgressHelper.withProgress(body, new ProgressUIListener() {
+//
+//            @Override
+//            public void onUIProgressChanged(long numBytes, long totalBytes, float percent, float speed) {
+//                LogUtils.printI(ZipLogUtil.class.getSimpleName(), "onUIProgressChanged---numBytes=" + numBytes + ", totalBytes=" + (float)(totalBytes /1024f / 1024f) + "M, percent=" + 100 * percent + ", speed=" + speed);
+//            }
+//
+//            @Override
+//            public void onUIProgressFinish() {
+//                super.onUIProgressFinish();
+//                LogUtils.printI(ZipLogUtil.class.getSimpleName(), "上传结束");
+//            }
+//
+//        });
+//        builder.header("Authorization", "ClientID" + UUID.randomUUID());
+//        builder.post(requestBody);
+//        Call call = okHttpClient.newCall(builder.build());
+//        call.enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                e.printStackTrace();
+//                LogUtils.printI(ZipLogUtil.class.getSimpleName(), "上传失败---Exception=" + e.getMessage());
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                LogUtils.printI(ZipLogUtil.class.getSimpleName(), "上传成功---response=" + response.headers());
+//
+//            }
+//        });
+//    }
 
 
     /**

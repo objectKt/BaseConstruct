@@ -10,15 +10,14 @@ import com.android.launcher.util.BigDecimalUtils;
 import com.android.launcher.util.FuncUtil;
 import com.android.launcher.util.LogUtils;
 import com.android.launcher.util.QtripUtils;
+import com.dc.auto.library.module.module_db.entity.CarTravelTable;
+import com.dc.auto.library.module.module_db.repository.CarTravelRepository;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import module.module_db.entity.CarTravelTable;
-import module.module_db.repository.CarTravelRepository;
 
 /**
  * 获取剩余油量

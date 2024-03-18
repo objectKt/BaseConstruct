@@ -13,7 +13,7 @@ import java.io.InputStream;
 import java.security.InvalidParameterException;
 import java.util.concurrent.LinkedTransferQueue;
 
-import com.dc.auto.library.serial.SerialPort;
+import dc.library.auto.serial.SerialPort;
 
 //import com.android.launcher.usbdriver.SendHelperCH340Can;
 

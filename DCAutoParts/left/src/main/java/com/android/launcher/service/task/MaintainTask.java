@@ -15,8 +15,8 @@ import com.android.launcher.util.UnitUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
-import module.module_db.entity.CarTravelTable;
-import module.module_db.repository.CarTravelRepository;
+import com.dc.auto.library.module.module_db.entity.CarTravelTable;
+import com.dc.auto.library.module.module_db.repository.CarTravelRepository;
 
 /**
  * @date： 2024/1/3

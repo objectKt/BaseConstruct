@@ -81,7 +81,6 @@ import com.android.launcher.util.QtripUtils;
 import com.android.launcher.util.SPUtils;
 import com.android.launcher.util.SoundPlayer;
 import com.android.launcher.vo.AlertVo;
-import com.daimajia.numberprogressbar.NumberProgressBar;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -91,6 +90,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
+import dc.library.ui.numberprogress.NumberProgressBar;
 
 /**
  * @description:
