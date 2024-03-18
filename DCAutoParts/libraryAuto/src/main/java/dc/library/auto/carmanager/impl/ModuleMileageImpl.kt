@@ -1,5 +1,6 @@
 package dc.library.auto.carmanager.impl
 
+import dc.library.auto.carmanager.entity.CarTravelTable
 import dc.library.auto.event.MessageEvent
 
 /**
@@ -11,10 +12,10 @@ interface ModuleMileageImpl : BaseModuleImpl {
     /**
      * 获取行程数据库
      */
-    fun getDataBase()
+    val mileageData: CarTravelTable
 
     /**
      * 获取里程单位类型
      */
-    fun getUnitType()
+    val unitType: Int
 }

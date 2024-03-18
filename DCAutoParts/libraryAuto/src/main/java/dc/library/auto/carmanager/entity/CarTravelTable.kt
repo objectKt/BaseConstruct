@@ -30,4 +30,10 @@ data class CarTravelTable(
     var data1: String = "",
     var data2: String = "",
     var data3: String = ""
-)
+) {
+    companion object {
+        fun updateData(): CarTravelTable {
+            return CarTravelTable()
+        }
+    }
+}
