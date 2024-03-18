@@ -19,8 +19,6 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        CanSendHandler.sendCan(CanCommand.Send.CAN3DC)
-        CanSendHandler.sendCan(CanCommand.Send.CAN3F6)
     }
 
     override fun onDestroy() {
