@@ -26,8 +26,6 @@ public class CarTravelTable {
     private float totalMile = 0.0f;
     //小计里程，达到一百公里，计算油耗，把值累加到totalMile和userMile，然后重置为0
     private float subtotalMile = 0.0f;
-
-
     //小计消耗的汽油，计算一次油耗，把值累加到userConsumeOil和totalConsumeOil，然后重置
     private float subtotalConsumeOil = 0.0f;
     //用户消耗的汽油量
@@ -39,8 +37,6 @@ public class CarTravelTable {
     private float subtotalAverageSpeed = 0.0f;
     private float userAverageSpeed = 0.0f;
     private float totalAverageSpeed = 0.0f;
-
-
     private long totalRunTime = 0L;
     private long userRunTime = 0L;
     //小计，汽车运行时间，达到一百公里后，重置为0

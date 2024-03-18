@@ -902,7 +902,6 @@ public class MeterActivity extends ActivityBase<MeterPresenter> implements IView
     @Override
     protected void onResume() {
         super.onResume();
-
         String restartAppFlag = aCache.getAsString("restartApp");
         LogUtils.printI(TAG, "onResume---restartAppFlag=" + restartAppFlag);
         if (!TextUtils.isEmpty(restartAppFlag) && restartAppFlag.equals("restartApp")) {
@@ -910,14 +909,12 @@ public class MeterActivity extends ActivityBase<MeterPresenter> implements IView
         }
     }
 
-
     private boolean isValidActivity() {
         if (!isDestroyed() && !isFinishing()) {
             return true;
         }
         return false;
     }
-
 
     public void setupAutoLock(String status) {
         if (mCruiseControlDataSender != null) {
@@ -1129,7 +1126,6 @@ public class MeterActivity extends ActivityBase<MeterPresenter> implements IView
 
         } else if (currentFragmentType == MeterFragmentType.MAP) {
             disposeMapFragmentOkKey();
-
         }
     }
 
@@ -1143,7 +1139,6 @@ public class MeterActivity extends ActivityBase<MeterPresenter> implements IView
         toMenuHome();
         closeMaintainFragment();
     }
-
 
     private void disposeMenuHomeFragmentOkKey() {
         if (menuHomeFragment != null) {
@@ -1182,12 +1177,10 @@ public class MeterActivity extends ActivityBase<MeterPresenter> implements IView
 
     private void toNavFragment() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-
         if (navFragment == null) {
             navFragment = new MapNavMeterFragment();
             fragmentTransaction.add(R.id.fragmentContainerView, navFragment);
         }
-
         fragmentTransaction.show(navFragment);
         if (meterFragment != null) {
             fragmentTransaction.hide(meterFragment);
@@ -1197,27 +1190,22 @@ public class MeterActivity extends ActivityBase<MeterPresenter> implements IView
             menuHomeFragment = null;
         }
         fragmentTransaction.commit();
-
         bottomStatusView.showWaterTempLineView(true);
         bottomStatusView.showOilLineView(true);
         speedCenterView.setVisibility(View.VISIBLE);
     }
-
     private void toMaintainFragment() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-
         if (maintainFragment == null) {
             maintainFragment = new MaintainFragment();
             fragmentTransaction.add(R.id.fragmentContainerView, maintainFragment);
         }
-
         fragmentTransaction.show(maintainFragment);
         if (meterFragment != null) {
             fragmentTransaction.hide(meterFragment);
         }
         fragmentTransaction.commit();
     }
-
 
     private void disposeClassicFragmentOkKey() {
         if (MeterActivity.currentMenuType == MenuType.LAUNCHER_AFTER) {
@@ -1250,7 +1238,6 @@ public class MeterActivity extends ActivityBase<MeterPresenter> implements IView
             toMenuHome();
         }
     }
-
 
     //显示复位后对话框
     private void showAfterRecoveryDialog() {
@@ -1286,10 +1273,8 @@ public class MeterActivity extends ActivityBase<MeterPresenter> implements IView
         LogUtils.printI(TAG, "onBack----currentFragmentType=" + currentFragmentType);
         if (currentFragmentType == MeterFragmentType.CLASSIC || currentFragmentType == MeterFragmentType.Tech || currentFragmentType == MeterFragmentType.SPORT || currentFragmentType == MeterFragmentType.MAP) {
             disposeClassicFragmentBackKey();
-
         } else if (currentFragmentType == MeterFragmentType.MENU) {
             disposeMenuFragmentBackKey();
-
         } else if (currentFragmentType == MeterFragmentType.MAINTAIN) {
             disposeMaintainFragmentBackKey();
         }
