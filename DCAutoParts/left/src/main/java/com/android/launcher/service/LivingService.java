@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.PixelFormat;
-import android.hardware.usb.UsbDevice;
-import android.media.AudioManager;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
@@ -77,8 +75,6 @@ import com.android.launcher.util.BY8302PCB;
 import com.android.launcher.util.FuncUtil;
 import com.android.launcher.util.LogUtils;
 import com.android.launcher.util.OilAntiShakeUtils;
-import com.android.launcher.util.QtripUtils;
-import com.android.launcher.util.SPUtils;
 import com.android.launcher.util.SoundPlayer;
 import com.android.launcher.vo.AlertVo;
 
@@ -93,64 +89,40 @@ import java.util.concurrent.TimeUnit;
 
 import dc.library.ui.numberprogress.NumberProgressBar;
 
-/**
- * @description:
- * @createDate: 2023/8/28
- */
 public class LivingService extends Service {
-
     private static final String TAG = LivingService.class.getSimpleName();
-
     //启动后的里程
     public static volatile float launchAfterMile = 0.0f;
     //启动后的平均时速
     public static volatile int launchAverageSpeed = 0;
     public static volatile boolean isPlayMusic = false;
-
     public static volatile long launcherTime = 0;
-
     public static volatile long carStartRunTime = 0;
-
-
     public static volatile float currentPercentOil;
-
     //启动到熄火这段时间 汽车跑的时间
     public static volatile long launchCarRunTime = 0L;
     //启动到熄火这段时间 汽车跑的里程
     public static volatile float launchCarRunMile = 0.0f;
     public static volatile float runStartComputeOil = 0.0f;
-
-
     //正在版本更新
     public static volatile boolean isDownloading = false;
-
-
     //可行驶距离
     public static volatile float distance = 0f;
     public static volatile int unitType;
-
     private View updateVersionFloating;
     private NumberProgressBar apkUpdateProgressBar;
     public static volatile int currentWaterTemp = 50;
-
     private UsbDataChannelManager usbDataChannelManager;
-    private UsbDevice usbDevice;
-
     private MUsb1Receiver mUsb1Receiver;
-
     private ScheduledExecutorService timeTaskExecutor;
     private ExecutorService taskExecutor;
-
     //启动时的油量
     private float launcherOil;
     private boolean isComputeQtrip;
-
     //允许操作原车仪表
     public static volatile boolean operateOriginMeter = false;
-
     //允许打开日行灯
     public static volatile boolean enableOpenDayRunLight = false;
-
     //发动机转速任务
 
     public LivingService() {
@@ -158,14 +130,13 @@ public class LivingService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         LogUtils.printI(TAG, "onStartCommand---------");
-        //服务被系统kill掉之后重启进来的
+        // 服务被系统 kill 掉之后重启进来的
         return START_NOT_STICKY;
     }
 
@@ -174,7 +145,6 @@ public class LivingService extends Service {
         super.onCreate();
         try {
             registerUsb1();
-
             LogUtils.printI(TAG, "onCreate---------");
             try {
                 EventBus.getDefault().register(this);
@@ -182,37 +152,25 @@ public class LivingService extends Service {
                 e.printStackTrace();
             }
             resetCanData();
-
             launcherTime = System.currentTimeMillis();
             launchCarRunTime = 0L;
             launchCarRunMile = 0.0f;
             runStartComputeOil = 0.0f;
             currentWaterTemp = 50;
-
             isComputeQtrip = false;
-
             new Handler(Looper.getMainLooper()).postDelayed(() -> {
                 FuncUtil.initSerialHelper();
             }, 2000);
-
             OilAntiShakeUtils.clear();
-
             LogUtils.printI(TAG, "App.isRestart=" + App.isRestart);
-
             requestUsbPermission();
-
             startTimeTask();
             startTask();
-
             closeBluetooth();
-
             SoundPlayer.init();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     //关闭蓝牙
@@ -234,9 +192,7 @@ public class LivingService extends Service {
     //开始任务
     private void startTask() {
         taskExecutor = Executors.newCachedThreadPool();
-
         taskExecutor.execute(new CarAlarmVolumeInitTask(getApplicationContext()));
-
         taskExecutor.execute(new GetConfigTask(getApplicationContext()));
         taskExecutor.execute(new ClearUnnecessaryLogTask(getApplicationContext()));
         taskExecutor.execute(new ResetLaunchAfterDataTask(getApplicationContext()));
@@ -245,33 +201,23 @@ public class LivingService extends Service {
     //开始定时任务
     private void startTimeTask() {
         timeTaskExecutor = Executors.newScheduledThreadPool(13);
-
         timeTaskExecutor.scheduleAtFixedRate(new MaintainTask(getApplicationContext()), 3, 10, TimeUnit.SECONDS);
         timeTaskExecutor.scheduleAtFixedRate(new UpdateCarSpeedUITask(getApplicationContext()), 4, 1, TimeUnit.SECONDS);
         //1小时检测一次
         timeTaskExecutor.scheduleAtFixedRate(new AttentionAidTask(getApplicationContext()), 1, 1, TimeUnit.HOURS);
-
         timeTaskExecutor.scheduleAtFixedRate(new SaveLauncherRunMilTask(getApplicationContext()), 60, 15, TimeUnit.SECONDS);
-
         timeTaskExecutor.scheduleAtFixedRate(new UpdateRunDistanceTask(getApplicationContext()), 3, 20, TimeUnit.SECONDS);
         timeTaskExecutor.scheduleAtFixedRate(new CarTempTask(getApplicationContext()), 3, 60 * 2, TimeUnit.SECONDS);
-
         timeTaskExecutor.scheduleAtFixedRate(new AppUpdateTask(getApplicationContext()), 6, 60, TimeUnit.SECONDS);
-
         timeTaskExecutor.scheduleAtFixedRate(new CarMileComputeTask(getApplicationContext()), 4, 5, TimeUnit.SECONDS);
-
         //5分钟计算一次剩余油量
         timeTaskExecutor.scheduleAtFixedRate(new GetOilPercentTask(getApplicationContext()), 60 * 5, 60 * 5, TimeUnit.SECONDS);
-
         //第10个定时任务
         timeTaskExecutor.scheduleAtFixedRate(new ShowWarnMessageTask(getApplicationContext()), 8, 4, TimeUnit.SECONDS);
         timeTaskExecutor.scheduleAtFixedRate(new UpdateCarRunTimeTask(getApplicationContext()), 3, 1, TimeUnit.SECONDS);
         timeTaskExecutor.scheduleAtFixedRate(new AverageSpeedComputeTask(getApplicationContext()), 3, 3, TimeUnit.SECONDS);
-
         timeTaskExecutor.scheduleAtFixedRate(new LauncherAfterUpdateTask(getApplicationContext()), 5, 10, TimeUnit.SECONDS);
-
     }
-
 
     private void requestUsbPermission() {
         new Handler().postDelayed(() -> BenzLeftManager.init(), 1600);
@@ -336,9 +282,9 @@ public class LivingService extends Service {
             installApk();
         } else if (event.type == MessageEvent.Type.USB_REGISTER_SUCCESS) {
             try {
-                if (event.data instanceof UsbDevice) {
-                    usbDevice = (UsbDevice) event.data;
-                }
+//                if (event.data instanceof UsbDevice) {
+//                    usbDevice = (UsbDevice) event.data;
+//                }
 
                 if (usbDataChannelManager == null) {
                     usbDataChannelManager = new UsbDataChannelManager();
@@ -420,19 +366,14 @@ public class LivingService extends Service {
         }
     }
 
-
     private void showApkDownloadView() {
         try {
             isDownloading = true;
-
             closeVersionUpdateFloating();
             WindowManager.LayoutParams params;
             WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
-
             updateVersionFloating = LayoutInflater.from(this).inflate(R.layout.layout_update_apk, null);
-
             apkUpdateProgressBar = updateVersionFloating.findViewById(R.id.progressBar);
-
             params = new WindowManager.LayoutParams(
                     WindowManager.LayoutParams.WRAP_CONTENT,
                     WindowManager.LayoutParams.WRAP_CONTENT,
@@ -460,7 +401,6 @@ public class LivingService extends Service {
         }
     }
 
-
     @Override
     public void onDestroy() {
         launcherTime = 0;
@@ -468,21 +408,17 @@ public class LivingService extends Service {
         launchAverageSpeed = 0;
         isComputeQtrip = false;
         try {
-
             EventBus.getDefault().unregister(this);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         closeVersionUpdateFloating();
         isDownloading = false;
-
         try {
             unregisterReceiver(mUsb1Receiver);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         try {
             if (timeTaskExecutor != null) {
                 timeTaskExecutor.shutdown();
@@ -490,7 +426,6 @@ public class LivingService extends Service {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         try {
             if (FuncUtil.serialHelperttl != null) {
                 FuncUtil.serialHelperttl.close();
@@ -515,24 +450,17 @@ public class LivingService extends Service {
             usbDataChannelManager.close();
 
         }
-
         resetCanData();
-
         super.onDestroy();
         Log.i("LivingService", "onDestroy---------");
-
-
         App.runningAverageSpeed = 0.0f;
-
         MeterActivity.mNavEntity = null;
     }
 
     private void resetCanData() {
         try {
             Can003.lastData = "";
-
             Can105.engineRunning = false;
-
             Can203.isRunning = false;
             Can380.lastCheckOilLevelData = "";
             Can305.lastData = "";
@@ -559,29 +487,20 @@ public class LivingService extends Service {
             Can30d.waterlist.clear();
             Can005.lastData = "";
             Can380.lastData = "";
-
             Can139.lastESPStatus = "";
-
             Can139.lastUpdateTempDate = 0L;
-
             Can3e1.currentDriveModeStatus = "";
-
             Can187.lastData = "";
             Can3ed.lastData = "";
-
             Can207.lastData = "";
             Can37d.lastData = "";
-
             GetOilPercentTask.clear();
-
             HandlerTiaoDadeng.lastData = "";
-
             Can39d.clear();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
     public static void startLivingService(Context context) {
         try {
