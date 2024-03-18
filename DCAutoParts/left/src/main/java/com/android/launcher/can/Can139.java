@@ -1,14 +1,11 @@
 package com.android.launcher.can;
 
-import android.os.Build;
+import dc.library.auto.event.MessageEvent;
 
-import com.android.launcher.MessageEvent;
-import com.android.launcher.util.AlertMessage;
 import com.android.launcher.util.BigDecimalUtils;
 import com.android.launcher.util.CommonUtil;
 import com.android.launcher.util.FuncUtil;
 import com.android.launcher.util.LogUtils;
-import com.android.launcher.vo.AlertVo;
 
 import org.greenrobot.eventbus.EventBus;
 

@@ -2,7 +2,7 @@ package com.android.launcher.base;
 
 import android.os.Bundle;
 
-import com.android.launcher.MessageEvent;
+import dc.library.auto.event.MessageEvent;
 import com.android.launcher.meter.MenuType;
 import com.android.launcher.meter.MeterActivity;
 import com.android.launcher.type.SteerWheelKeyType;

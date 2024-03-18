@@ -1,9 +1,6 @@
 package com.android.launcher.handler;
 
-import android.os.Handler;
-import android.os.Looper;
-
-import com.android.launcher.MessageEvent;
+import dc.library.auto.event.MessageEvent;
 import com.android.launcher.util.LogUtils;
 
 import org.greenrobot.eventbus.EventBus;

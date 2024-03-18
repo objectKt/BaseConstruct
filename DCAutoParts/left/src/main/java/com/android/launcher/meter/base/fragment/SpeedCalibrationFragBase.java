@@ -5,15 +5,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.android.launcher.App;
-import com.android.launcher.MessageEvent;
+import dc.library.auto.event.MessageEvent;
 import com.android.launcher.R;
 import com.android.launcher.meter.MenuType;
-import com.android.launcher.meter.MeterActivity;
 import com.android.launcher.util.BigDecimalUtils;
 import com.android.launcher.util.LogUtils;
 import com.android.launcher.util.SPUtils;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.text.DecimalFormat;
 

@@ -1,14 +1,9 @@
 package test;
 
-import android.os.Handler;
-
-import com.android.launcher.MessageEvent;
 import com.android.launcher.handler.HandlerDoor;
 import com.android.launcher.meter.MeterActivity;
 import com.android.launcher.meter.MeterFragmentType;
 import com.android.launcher.util.CommonUtil;
-
-import org.greenrobot.eventbus.EventBus;
 
 public class DoorMessageTest {
 

@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.amap.api.navi.AMapNavi;
 import com.android.launcher.App;
-import com.android.launcher.MessageEvent;
+import dc.library.auto.event.MessageEvent;
 import com.android.launcher.R;
 import com.android.launcher.base.CommonFragmentBase;
 import com.android.launcher.entity.EngineOilMenuEntity;

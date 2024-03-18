@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.android.launcher.App;
-import com.android.launcher.MessageEvent;
+import dc.library.auto.event.MessageEvent;
 import com.android.launcher.R;
 import com.android.launcher.base.FragmentBase;
 import com.android.launcher.base.IView;

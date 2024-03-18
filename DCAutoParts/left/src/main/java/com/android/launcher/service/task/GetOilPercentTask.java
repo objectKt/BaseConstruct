@@ -3,7 +3,7 @@ package com.android.launcher.service.task;
 import android.content.Context;
 
 import com.android.launcher.App;
-import com.android.launcher.MessageEvent;
+import dc.library.auto.event.MessageEvent;
 import com.android.launcher.service.LivingService;
 import com.android.launcher.util.AppUtils;
 import com.android.launcher.util.BigDecimalUtils;

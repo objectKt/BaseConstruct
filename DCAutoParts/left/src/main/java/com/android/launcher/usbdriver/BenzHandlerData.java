@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.launcher.App;
-import com.android.launcher.MessageEvent;
+import dc.library.auto.event.MessageEvent;
 import com.android.launcher.airsystem.AirCommandUtils;
 import com.android.launcher.can.Can1E5;
 import com.android.launcher.can.Can20b;

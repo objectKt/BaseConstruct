@@ -1,6 +1,6 @@
 package test;
 
-import com.android.launcher.MessageEvent;
+import dc.library.auto.event.MessageEvent;
 import com.android.launcher.type.SteerWheelKeyType;
 
 import org.greenrobot.eventbus.EventBus;

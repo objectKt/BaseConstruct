@@ -10,14 +10,9 @@ import android.view.View;
 
 import io.reactivex.rxjava3.annotations.Nullable;
 
-import com.android.launcher.MessageEvent;
 import com.android.launcher.R;
 import com.android.launcher.util.BigDecimalUtils;
 import com.android.launcher.util.LogUtils;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * @description: 前卫仪表盘的 水温表

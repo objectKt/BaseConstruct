@@ -1,10 +1,9 @@
 package com.android.launcher.can;
 
-import android.os.Build;
 import android.os.CountDownTimer;
 
 import com.android.launcher.App;
-import com.android.launcher.MessageEvent;
+import dc.library.auto.event.MessageEvent;
 import com.android.launcher.util.FastJsonUtils;
 import com.android.launcher.util.LogUtils;
 import com.android.launcher.util.SPUtils;

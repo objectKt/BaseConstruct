@@ -3,21 +3,9 @@ package com.android.launcher.meter.base.fragment;
 import android.os.Bundle;
 import android.view.View;
 
-import com.amap.api.maps.AMap;
-import com.amap.api.maps.AMapException;
-import com.amap.api.maps.UiSettings;
-import com.android.launcher.MessageEvent;
-import com.android.launcher.R;
-import com.android.launcher.meter.MenuType;
-import com.android.launcher.meter.MeterActivity;
-import com.android.launcher.util.LogUtils;
+import dc.library.auto.event.MessageEvent;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import com.android.launcher.meter.MenuType;
 
 
 /**

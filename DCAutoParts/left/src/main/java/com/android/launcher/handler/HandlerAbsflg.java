@@ -2,10 +2,6 @@ package com.android.launcher.handler;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.view.View;
-
-import com.android.launcher.MessageEvent;
-import com.android.launcher.meter.MeterFragmentBase;
 
 /**
  * abs处理

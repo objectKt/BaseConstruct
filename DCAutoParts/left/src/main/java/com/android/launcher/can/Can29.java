@@ -1,16 +1,10 @@
 package com.android.launcher.can;
 
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
 
-import io.reactivex.rxjava3.annotations.NonNull;
+import dc.library.auto.event.MessageEvent;
 
-import com.android.launcher.App;
-import com.android.launcher.MessageEvent;
-import com.android.launcher.meter.MeterFragmentBase;
 import com.android.launcher.util.BY8302PCB;
 import com.android.launcher.util.CommonUtil;
 import com.android.launcher.util.FuncUtil;

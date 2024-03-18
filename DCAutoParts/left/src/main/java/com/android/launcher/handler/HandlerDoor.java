@@ -1,13 +1,9 @@
 package com.android.launcher.handler;
 
 import android.os.CountDownTimer;
-import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
 
-import com.android.launcher.MessageEvent;
+import dc.library.auto.event.MessageEvent;
 import com.android.launcher.R;
-import com.android.launcher.util.FuncUtil;
 import com.android.launcher.util.LogUtils;
 import com.android.launcher.vo.AlertVo;
 

@@ -1,17 +1,6 @@
 package com.android.launcher.handler;
 
 import android.util.Log;
-import android.view.View;
-
-import com.android.launcher.MessageEvent;
-import com.android.launcher.meter.MeterActivity;
-import com.android.launcher.meter.MeterFragmentBase;
-import com.android.launcher.util.AlertMessage;
-import com.android.launcher.util.FastJsonUtils;
-import com.android.launcher.util.FuncUtil;
-import com.android.launcher.vo.AlertVo;
-
-import org.greenrobot.eventbus.EventBus;
 
 /**
  * 告警处理

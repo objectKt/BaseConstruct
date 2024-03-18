@@ -4,7 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.android.launcher.App;
-import com.android.launcher.MessageEvent;
+import dc.library.auto.event.MessageEvent;
 import com.android.launcher.util.BY8302PCB;
 import com.android.launcher.util.SoundPlayer;
 

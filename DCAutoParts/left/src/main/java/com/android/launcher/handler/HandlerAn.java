@@ -2,11 +2,9 @@ package com.android.launcher.handler;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
-import android.view.View;
 
 import com.android.launcher.App;
-import com.android.launcher.MessageEvent;
+import dc.library.auto.event.MessageEvent;
 import com.android.launcher.util.BY8302PCB;
 import com.android.launcher.util.FuncUtil;
 import com.android.launcher.util.LogUtils;

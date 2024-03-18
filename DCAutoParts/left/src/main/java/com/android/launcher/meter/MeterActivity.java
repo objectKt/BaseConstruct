@@ -17,7 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.amap.api.maps.AMapException;
 import com.amap.api.maps.offlinemap.OfflineMapManager;
 import com.android.launcher.App;
-import com.android.launcher.MessageEvent;
+import dc.library.auto.event.MessageEvent;
 import com.android.launcher.R;
 import com.android.launcher.base.ActivityBase;
 import com.android.launcher.base.IView;

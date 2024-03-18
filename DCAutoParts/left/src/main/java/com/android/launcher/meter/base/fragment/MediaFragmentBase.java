@@ -3,19 +3,14 @@ package com.android.launcher.meter.base.fragment;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.launcher.MessageEvent;
+import dc.library.auto.event.MessageEvent;
 import com.android.launcher.R;
 import com.android.launcher.meter.MenuType;
-import com.android.launcher.meter.MeterActivity;
 import com.android.launcher.service.LivingService;
 import com.android.launcher.usbdriver.SendHelperUsbToRight;
-import com.android.launcher.util.FuncUtil;
 import com.android.launcher.util.StringUtils;
-
-import org.greenrobot.eventbus.EventBus;
 
 /**
 * @description: 多媒体

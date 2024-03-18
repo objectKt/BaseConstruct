@@ -3,14 +3,7 @@ package com.android.launcher.handler;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.android.launcher.MessageEvent;
-import com.android.launcher.util.FuncUtil;
-import com.android.launcher.meter.view.StatusBarView;
-
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * 安全气囊

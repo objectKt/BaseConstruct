@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.amap.api.navi.AMapNavi;
-import com.android.launcher.MessageEvent;
+import dc.library.auto.event.MessageEvent;
 import com.android.launcher.R;
 import com.android.launcher.meter.sport.SportAfterRecoveryFrag;
 import com.android.launcher.meter.sport.SportAttentionAidSysFrag;

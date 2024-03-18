@@ -1,12 +1,7 @@
 package com.android.launcher.handler;
 
-import android.os.Handler;
-import android.os.Looper;
-import android.view.View;
-
-import com.android.launcher.MessageEvent;
+import dc.library.auto.event.MessageEvent;
 import com.android.launcher.entity.LampShowStatus;
-import com.android.launcher.meter.MeterFragmentBase;
 import com.android.launcher.util.LogUtils;
 
 import org.greenrobot.eventbus.EventBus;

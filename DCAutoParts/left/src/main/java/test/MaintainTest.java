@@ -1,11 +1,6 @@
 package test;
 
-import android.os.Handler;
-
-import com.android.launcher.MessageEvent;
 import com.android.launcher.type.SteerWheelKeyType;
-
-import org.greenrobot.eventbus.EventBus;
 
 public class MaintainTest {
 

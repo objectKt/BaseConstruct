@@ -1,6 +1,6 @@
 package test;
 
-import com.android.launcher.MessageEvent;
+import dc.library.auto.event.MessageEvent;
 
 import org.greenrobot.eventbus.EventBus;
 

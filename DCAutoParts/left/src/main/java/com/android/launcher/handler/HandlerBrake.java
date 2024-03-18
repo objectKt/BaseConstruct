@@ -1,10 +1,8 @@
 package com.android.launcher.handler;
 
 
-import android.view.View;
+import dc.library.auto.event.MessageEvent;
 
-import com.android.launcher.MessageEvent;
-import com.android.launcher.meter.MeterFragmentBase;
 import com.android.launcher.meter.view.BottomStatusView;
 
 import org.greenrobot.eventbus.EventBus;

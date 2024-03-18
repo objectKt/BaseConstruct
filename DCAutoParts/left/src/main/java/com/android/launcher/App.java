@@ -22,6 +22,8 @@ import org.greenrobot.eventbus.EventBus;
 import com.dc.auto.library.cockroach.Cockroach;
 import com.dc.auto.library.cockroach.ExceptionHandler;
 
+import dc.library.auto.event.MessageEvent;
+
 //import com.android.launcher.ch340.CH34xUARTDriver;
 
 public class App extends Application {

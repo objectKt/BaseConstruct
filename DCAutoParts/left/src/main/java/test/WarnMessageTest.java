@@ -3,7 +3,7 @@ package test;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.android.launcher.MessageEvent;
+import dc.library.auto.event.MessageEvent;
 import com.android.launcher.R;
 import com.android.launcher.can.Can379;
 import com.android.launcher.can.CanParent;

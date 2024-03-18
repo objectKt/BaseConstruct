@@ -1,12 +1,8 @@
 package com.android.launcher.meter.view;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -14,9 +10,8 @@ import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.annotations.Nullable;
 
 import com.android.launcher.App;
-import com.android.launcher.MessageEvent;
+import dc.library.auto.event.MessageEvent;
 import com.android.launcher.R;
-import com.android.launcher.type.GearsType;
 import com.android.launcher.util.LogUtils;
 import com.android.launcher.util.StringUtils;
 
@@ -26,7 +21,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class SpeedCenterView extends FrameLayout {
 

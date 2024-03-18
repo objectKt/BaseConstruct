@@ -16,7 +16,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.android.launcher.App;
-import com.android.launcher.MessageEvent;
+import dc.library.auto.event.MessageEvent;
 import com.android.launcher.R;
 import com.android.launcher.can.Can003;
 import com.android.launcher.can.Can005;

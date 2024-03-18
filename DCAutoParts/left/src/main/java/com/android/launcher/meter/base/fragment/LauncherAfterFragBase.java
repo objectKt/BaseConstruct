@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.launcher.MessageEvent;
+import dc.library.auto.event.MessageEvent;
 import com.android.launcher.R;
 import com.android.launcher.meter.MenuType;
 import com.android.launcher.meter.MeterActivity;
@@ -16,10 +16,6 @@ import com.android.launcher.util.DateUtils;
 import com.android.launcher.util.IconUtils;
 import com.android.launcher.util.NumberUtils;
 import com.android.launcher.util.UnitUtils;
-
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import com.dc.auto.library.module.module_db.entity.CarTravelTable;
 import com.dc.auto.library.module.module_db.repository.CarTravelRepository;

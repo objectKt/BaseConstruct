@@ -1,13 +1,8 @@
 package test;
 
-import android.os.Handler;
+import dc.library.auto.event.MessageEvent;
 
-import com.android.launcher.MessageEvent;
-import com.android.launcher.meter.MeterActivity;
-import com.android.launcher.meter.MeterFragmentType;
 import com.android.launcher.type.SteerWheelKeyType;
-import com.android.launcher.usbdriver.SendHelperUsbToRight;
-import com.android.launcher.util.LogUtils;
 
 import org.greenrobot.eventbus.EventBus;
 

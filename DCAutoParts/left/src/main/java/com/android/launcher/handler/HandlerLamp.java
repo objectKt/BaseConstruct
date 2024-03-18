@@ -1,9 +1,6 @@
 package com.android.launcher.handler;
 
-import android.text.TextUtils;
-import android.util.Log;
-
-import com.android.launcher.MessageEvent;
+import dc.library.auto.event.MessageEvent;
 import com.android.launcher.type.SteerWheelKeyType;
 import com.android.launcher.type.SteeringWheelKeyType;
 import com.android.launcher.usbdriver.SendHelperUsbToRight;

@@ -1,11 +1,10 @@
 package com.android.launcher.meter.base.fragment;
 
-import com.android.launcher.MessageEvent;
+import dc.library.auto.event.MessageEvent;
 import com.android.launcher.base.FragmentBase;
 import com.android.launcher.base.IPresenter;
 import com.android.launcher.meter.MenuType;
 import com.android.launcher.meter.MeterActivity;
-import com.android.launcher.type.SteerWheelKeyType;
 
 /**
 * @description:

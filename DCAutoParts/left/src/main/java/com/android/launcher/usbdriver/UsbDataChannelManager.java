@@ -5,12 +5,9 @@ import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
 
 import com.android.launcher.App;
-import com.android.launcher.MessageEvent;
-import com.android.launcher.R;
-import com.android.launcher.service.LivingService;
-import com.android.launcher.util.AlertMessage;
+import dc.library.auto.event.MessageEvent;
+
 import com.android.launcher.util.LogUtils;
-import com.android.launcher.vo.AlertVo;
 import com.hoho.android.usbserial.driver.UsbSerialDriver;
 import com.hoho.android.usbserial.driver.UsbSerialPort;
 import com.hoho.android.usbserial.driver.UsbSerialProber;
