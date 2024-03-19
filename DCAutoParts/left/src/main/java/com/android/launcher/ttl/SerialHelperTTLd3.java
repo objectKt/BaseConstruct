@@ -29,7 +29,7 @@ public class SerialHelperTTLd3 {
     public static ACache aCache = ACache.get(App.getGlobalContext());
     public volatile static boolean RUN;
     //发送队列
-    private static final LinkedTransferQueue<byte[]> mSendQueue = new LinkedTransferQueue<byte[]>();
+    private static final LinkedTransferQueue<byte[]> mSendQueue = new LinkedTransferQueue<>();
 
     public SerialHelperTTLd3() {
         _isOpen = false;
