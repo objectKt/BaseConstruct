@@ -5,6 +5,15 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_black"
     tools:context=".StartingActivity">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="STARTING"
+        android:textColor="@color/color_white"
+        android:textSize="40sp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

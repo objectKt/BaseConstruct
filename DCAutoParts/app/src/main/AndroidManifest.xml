@@ -19,22 +19,16 @@
         <activity
             android:name=".StartingActivity"
             android:exported="true">
-            <!--            <intent-filter>-->
-            <!--                <action android:name="android.intent.action.MAIN" />-->
-
-            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
-            <!--            </intent-filter>-->
-        </activity>
-
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
 
         <!-- 开机启动，静态配置可以让程序在未启动的情况下就能接收到广播 -->
         <receiver

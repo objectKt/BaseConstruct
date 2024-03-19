@@ -34,29 +34,23 @@ class CarModulesManager private constructor(private val screenCar: ScreenCarType
      * @author hf
      */
     fun manageModulesScheduleTasks() {
-        // 汽车里程功能模块
         mileageImpl = object : ModuleMileageImpl {
+            // 汽车里程功能模块
             override val mileageData: CarTravelTable
-                get() = CarTravelTable.updateData()
-
+                get() {
+                    return CarTravelTable.updateData()
+                }
             override val unitType: Int
-                get() = UnitType.KM.ordinal
-
-            override val schedulePeriod: Long
-                get() = 2L
-
-            override fun postEvent(event: MessageEvent) {
-
-            }
+                get() {
+                    return UnitType.KM.ordinal
+                }
+            override val schedulePeriod: Long get() = 2L
+            override val messageEvent: MessageEvent? get() = null
         }
-        // 定时观察发动机转速和车速更新
         observeSpeedImpl = object : ModuleObserveSpeedImpl {
-            override val schedulePeriod: Long
-                get() = 2L
-
-            override fun postEvent(event: MessageEvent) {
-
-            }
+            // 定时观察发动机转速和车速更新
+            override val schedulePeriod: Long get() = 2L
+            override val messageEvent: MessageEvent? get() = null
         }
         startDoScheduleTasks()
     }
@@ -70,6 +64,7 @@ class CarModulesManager private constructor(private val screenCar: ScreenCarType
         observeSpeedImpl?.let {
             scheduleTask(observeSpeedImpl?.schedulePeriod!!) {
                 // Runnable
+
             }
         }
     }

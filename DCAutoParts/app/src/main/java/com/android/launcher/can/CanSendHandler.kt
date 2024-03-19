@@ -43,18 +43,12 @@ object CanSendHandler : CanSendImpl {
 
     private fun doPollingTaskFixedRate(periodSeconds: Long = 2) {
         val cancelable: ICancelable = XTask.scheduleAtFixedRate({
-            XTask.backgroundSubmit {
-                Log.e(ConstVal.Log.TAG, "backgroundSubmit 1 执行了发动机机油液位发送指令..., thread:${Thread.currentThread().name} priority = ${Thread.currentThread().priority}")
-                FuncUtil.mockProcess(500)
-            }
-            XTask.backgroundSubmit {
-                Log.e(ConstVal.Log.TAG, "backgroundSubmit 2 执行了发动机机油液位发送指令..., thread:${Thread.currentThread().name} priority = ${Thread.currentThread().priority}")
-                FuncUtil.mockProcess(500)
-            }
-            XTask.backgroundSubmit {
-                Log.e(ConstVal.Log.TAG, "backgroundSubmit 3 执行了发动机机油液位发送指令..., thread:${Thread.currentThread().name} priority = ${Thread.currentThread().priority}")
-                FuncUtil.mockProcess(500)
-            }
+//            XTask.backgroundSubmit {
+//                Log.e(ConstVal.Log.TAG, "backgroundSubmit 1 执行了发动机机油液位发送指令..., thread:${Thread.currentThread().name} priority = ${Thread.currentThread().priority}")
+//                FuncUtil.mockProcess(500)
+//            }
+            Log.e(ConstVal.Log.TAG, "backgroundSubmit 1 执行了发动机机油液位发送指令..., thread:${Thread.currentThread().name} priority = ${Thread.currentThread().priority}")
+            FuncUtil.mockProcess(500)
         }, 0, periodSeconds, TimeUnit.SECONDS)
         mCancelableList.add(cancelable)
     }

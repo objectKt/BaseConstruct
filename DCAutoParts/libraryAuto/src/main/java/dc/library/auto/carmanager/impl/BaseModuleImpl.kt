@@ -14,9 +14,9 @@ interface BaseModuleImpl {
     val schedulePeriod: Long
 
     /**
-     * 发送事件
+     * 发送的事件
      */
-    fun postEvent(event: MessageEvent)
+    val messageEvent: MessageEvent?
 }
 
 
