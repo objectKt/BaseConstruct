@@ -4,8 +4,8 @@ object HexUtil {
 
     @Synchronized
     fun toHexString(arg: ByteArray?, length: Int): String {
-        val sb = StringBuffer()
         return if (arg != null && arg.isNotEmpty()) {
+            val sb = StringBuffer()
             val hexArray = "0123456789ABCDEF".toCharArray()
             for (j in 0 until length) {
                 val v = arg[j].toInt() and 255

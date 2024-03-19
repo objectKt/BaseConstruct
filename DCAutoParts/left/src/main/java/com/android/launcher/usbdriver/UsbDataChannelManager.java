@@ -5,8 +5,6 @@ import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
 
 import com.android.launcher.App;
-import dc.library.auto.event.MessageEvent;
-
 import com.android.launcher.util.LogUtils;
 import com.hoho.android.usbserial.driver.UsbSerialDriver;
 import com.hoho.android.usbserial.driver.UsbSerialPort;
@@ -20,40 +18,32 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedTransferQueue;
 
+import dc.library.auto.event.MessageEvent;
+import dc.library.auto.global.ConstVal;
+import dc.library.auto.task.logger.TaskLogger;
+import dc.library.auto.util.HexUtilJava;
+
 /**
  * USB数据通道管理器
- * @date： 2023/11/23
- * @author: 78495
-*/
+ */
 public class UsbDataChannelManager {
-
-    private static final String TAG = "hufei";
-
+    private static final String TAG = ConstVal.Log.TAG;
     private UsbSerialPort port;
-
-    private StringBuffer sb = new StringBuffer();
-
     private boolean isRunning = false;
-
-    /*
-发送队列
-* */
     public static LinkedTransferQueue<byte[]> mSendQueue = new LinkedTransferQueue<byte[]>();
-    private ExecutorService readTask;
-    private ExecutorService writeTask;
+    private final ExecutorService readTask;
+    private final ExecutorService writeTask;
 
-    public UsbDataChannelManager(){
+    public UsbDataChannelManager() {
         readTask = Executors.newSingleThreadExecutor();
         writeTask = Executors.newSingleThreadExecutor();
     }
 
-
-    public void startRun(Context context){
-        UsbManager  usbManager = (UsbManager) context.getSystemService(Context.USB_SERVICE);
+    public void startRun(Context context) {
+        UsbManager usbManager = (UsbManager) context.getSystemService(Context.USB_SERVICE);
         List<UsbSerialDriver> allDrivers = UsbSerialProber.getDefaultProber().findAllDrivers(usbManager);
-
-        LogUtils.printI(TAG, "startRun----allDrivers="+allDrivers);
-        if(allDrivers == null || allDrivers.isEmpty()){
+        LogUtils.printI(TAG, "startRun----allDrivers=" + allDrivers);
+        if (allDrivers == null || allDrivers.isEmpty()) {
             LogUtils.printI(TAG, "not UsbSerialDriver---------");
             return;
         }
@@ -66,7 +56,6 @@ public class UsbDataChannelManager {
             LogUtils.printI(TAG, "-----UsbDeviceConnection is null， add UsbManager.requestPermission(driver.getDevice(), ..) handling here");
             return;
         }
-
         // Most devices have just one port (port 0)
         port = driver.getPorts().get(0);
         if (port == null) {
@@ -82,28 +71,28 @@ public class UsbDataChannelManager {
             writeTask.execute(writeThread);
             EventBus.getDefault().post(new MessageEvent(MessageEvent.Type.USB_CONNECTED));
         } catch (Exception e) {
-            e.printStackTrace();
-            LogUtils.printI(TAG, "-----Exception="+e.getMessage());
+            TaskLogger.e("-----Exception=" + e.getMessage());
             try {
                 if (port != null) {
                     port.close();
                     port = null;
                 }
-            } catch (Exception ioException) {
-                ioException.printStackTrace();
+            } catch (Exception ee) {
+                TaskLogger.e(ee.getMessage());
             }
         }
         isRunning = true;
     }
 
-    private Runnable readThread = new Runnable() {
+    private final Runnable readThread = new Runnable() {
 
         final byte[] buffer = new byte[32];
+
         @Override
         public void run() {
-            LogUtils.printI(TAG,"readThread-----port=" +port);
-            if(port!=null){
-                LogUtils.printI(TAG,"readThread-----port isOpen=" +port.isOpen());
+            LogUtils.printI(TAG, "readThread-----port=" + port);
+            if (port != null) {
+                LogUtils.printI(TAG, "readThread-----port isOpen=" + port.isOpen());
             }
             while (port != null && port.isOpen()) {
                 try {
@@ -111,96 +100,60 @@ public class UsbDataChannelManager {
                     if (len > 0) {
                         final byte[] data = new byte[len];
                         System.arraycopy(buffer, 0, data, 0, len);
-                        String ss1 = toHexString(data, data.length);
+                        String ss1 = HexUtilJava.toHexString(data, data.length);
                         BenzHandlerData.handlerCan(ss1);
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
-                    LogUtils.printE(TAG,"IOException: "+e.getMessage()+ ", livingServerStop="+App.livingServerStop);
-                    if("USB get_status request failed".equals(e.getMessage())){
-                        if(!App.livingServerStop){
+                    TaskLogger.e("IOException: " + e.getMessage() + ", livingServerStop=" + App.livingServerStop);
+                    if ("USB get_status request failed".equals(e.getMessage())) {
+                        if (!App.livingServerStop) {
                             close();
                             EventBus.getDefault().post(new MessageEvent(MessageEvent.Type.USB_INTERRUPT));
                         }
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    TaskLogger.e(e.getMessage());
                 }
             }
         }
     };
 
-
-    private Runnable writeThread = new Runnable() {
+    private final Runnable writeThread = new Runnable() {
         @Override
         public void run() {
-            LogUtils.printI(TAG,"writeThread-----port=" +port);
-            if(port!=null){
-                LogUtils.printI(TAG,"writeThread-----port isOpen=" +port.isOpen());
+            LogUtils.printI(TAG, "writeThread-----port=" + port);
+            if (port != null) {
+                LogUtils.printI(TAG, "writeThread-----port isOpen=" + port.isOpen());
             }
             while (port != null && port.isOpen()) {
                 try {
                     // 阻塞直到有数据
                     byte[] bytes = mSendQueue.take();
-                    if(port != null && port.isOpen()){
-                        port.write(bytes,2000);
+                    if (port != null && port.isOpen()) {
+                        port.write(bytes, 2000);
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
-                    LogUtils.printE(TAG, e.getMessage());
+                    TaskLogger.e(e.getMessage());
                 }
             }
         }
     };
 
-    public synchronized String toHexString(byte[] arg, int length) {
-        if (arg != null && arg.length != 0) {
-            char[] hexArray = "0123456789ABCDEF".toCharArray();
-            for (int j = 0; j < length; ++j) {
-                int v = arg[j] & 255;
-                sb.append(hexArray[v >>> 4]).append(hexArray[v & 15]);
-            }
-            String returnString = sb.toString();
-            sb.setLength(0);
-            return returnString;
-        } else {
-            return "";
-        }
-    }
-
-
-    public  void close() {
+    public void close() {
         LogUtils.printI(TAG, "close------");
-
         mSendQueue.clear();
         try {
             if (port != null) {
-                try {
-                    port.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                port.close();
                 port = null;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        try {
             writeTask.shutdownNow();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
             readTask.shutdownNow();
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e("USbDataChannelManager close()" + e.getMessage());
         }
-
-
         isRunning = false;
     }
-
 
     public boolean isRunning() {
         return isRunning;

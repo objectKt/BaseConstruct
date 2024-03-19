@@ -67,8 +67,8 @@ import com.android.launcher.entity.MileStart;
 import com.android.launcher.entity.Param;
 import com.android.launcher.meter.MeterActivity;
 import com.android.launcher.service.LivingService;
-import com.android.launcher.ttl.SerialHelperttlLd;
-import com.android.launcher.ttl.SerialHelperttlLd3;
+import com.android.launcher.ttl.SerialHelperTTLd;
+import com.android.launcher.ttl.SerialHelperTTLd3;
 import com.android.launcher.usbdriver.SendHelperUsbToRight;
 import com.dc.auto.library.launcher.util.ACache;
 
@@ -136,8 +136,8 @@ public class FuncUtil {
 
 
     //串口
-    public static SerialHelperttlLd serialHelperttl;
-    public static SerialHelperttlLd3 serialHelperttl3;
+    public static SerialHelperTTLd serialHelperttl;
+    public static SerialHelperTTLd3 serialHelperttl3;
 
     public static MileStartDaoUtil mileStartDaoUtil = new MileStartDaoUtil(App.getGlobalContext());
     public static MileStart mileStart;
@@ -764,12 +764,12 @@ public class FuncUtil {
     }
 
     public static void initSerialHelper3() throws IOException {
-        serialHelperttl3 = new SerialHelperttlLd3("/dev/ttyS3", 9600);
+        serialHelperttl3 = new SerialHelperTTLd3();
         serialHelperttl3.openLLd();
     }
 
     public static void initSerialHelper1() throws IOException {
-        serialHelperttl = new SerialHelperttlLd("/dev/ttyS1", 115200);
+        serialHelperttl = new SerialHelperTTLd();
         serialHelperttl.openLLd();
     }
 

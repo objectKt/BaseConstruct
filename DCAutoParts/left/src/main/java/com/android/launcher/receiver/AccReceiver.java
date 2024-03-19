@@ -16,7 +16,7 @@ import com.android.launcher.cansender.Can3DCSender;
 import com.android.launcher.cruisecontrol.Can19fSender;
 import com.android.launcher.meter.MeterFragmentBase;
 import com.android.launcher.service.LivingService;
-import com.android.launcher.ttl.SerialHelperttlLd;
+import com.android.launcher.ttl.SerialHelperTTLd;
 import com.android.launcher.util.CacheManager;
 import com.android.launcher.util.FuncUtil;
 import com.android.launcher.util.LogUtils;
@@ -154,7 +154,7 @@ public class AccReceiver extends BroadcastReceiver {
 
             accOn = false;
 
-            SerialHelperttlLd.RUN = true;
+            SerialHelperTTLd.RUN = true;
 
             CacheManager.clear();
 

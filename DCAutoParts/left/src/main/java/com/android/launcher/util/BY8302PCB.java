@@ -1,6 +1,6 @@
 package com.android.launcher.util;
 
-import com.android.launcher.ttl.SerialHelperttlLd3;
+import com.android.launcher.ttl.SerialHelperTTLd3;
 
 /**
  * @description: BY8302-16P语音板 (连续发送两条命令之间间隔在 20MS 以上，组合播放功能两条命令在 6MS 以内)
@@ -132,7 +132,7 @@ public class BY8302PCB {
     public static synchronized void pause() {
         new Thread(() -> {
             String sendCode = "7E030201EF";
-            SerialHelperttlLd3.sendHex(sendCode);
+            SerialHelperTTLd3.sendHex(sendCode);
         }).start();
     }
 
@@ -143,7 +143,7 @@ public class BY8302PCB {
     public static synchronized void volumePlus() {
         new Thread(() -> {
             String sendCode = "7E030506EF";
-            SerialHelperttlLd3.sendHex(sendCode);
+            SerialHelperTTLd3.sendHex(sendCode);
         }).start();
     }
 
@@ -154,7 +154,7 @@ public class BY8302PCB {
     public static synchronized void volumeDown() {
         new Thread(() -> {
             String sendCode = "7E030605EF";
-            SerialHelperttlLd3.sendHex(sendCode);
+            SerialHelperTTLd3.sendHex(sendCode);
         }).start();
     }
 
@@ -175,7 +175,7 @@ public class BY8302PCB {
 
 
                 LogUtils.printI(TAG, "volumeSetup----value="+value +", sendCode="+sendCode.toUpperCase());
-                SerialHelperttlLd3.sendHex(sendCode.toUpperCase());
+                SerialHelperTTLd3.sendHex(sendCode.toUpperCase());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -190,14 +190,14 @@ public class BY8302PCB {
     public static synchronized void singleLoopMode() {
         new Thread(() -> {
             String sendCode = "7E04330235EF";
-            SerialHelperttlLd3.sendHex(sendCode);
+            SerialHelperTTLd3.sendHex(sendCode);
         }).start();
     }
 
     public static synchronized void playStatus(){
         new Thread(() -> {
             String sendCode = "7E031013EF";
-            SerialHelperttlLd3.sendHex(sendCode);
+            SerialHelperTTLd3.sendHex(sendCode);
         }).start();
     }
 
@@ -208,7 +208,7 @@ public class BY8302PCB {
     public static synchronized void stop() {
         new Thread(() -> {
             String sendCode = "7E030E0DEF";
-            SerialHelperttlLd3.sendHex(sendCode);
+            SerialHelperTTLd3.sendHex(sendCode);
         }).start();
     }
 
@@ -230,7 +230,7 @@ public class BY8302PCB {
             String sendCode = "7E054100" + indexHex + checkCode + "EF";
 
             LogUtils.printI(TAG, "selectMusic----index="+index +", sendCode="+sendCode.toUpperCase());
-            SerialHelperttlLd3.sendHex(sendCode.toUpperCase());
+            SerialHelperTTLd3.sendHex(sendCode.toUpperCase());
 
 //            try {
 //                Thread.sleep(21);

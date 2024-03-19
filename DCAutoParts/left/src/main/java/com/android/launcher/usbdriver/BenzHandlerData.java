@@ -2,10 +2,8 @@ package com.android.launcher.usbdriver;
 
 import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.android.launcher.App;
-import dc.library.auto.event.MessageEvent;
 import com.android.launcher.airsystem.AirCommandUtils;
 import com.android.launcher.can.Can1E5;
 import com.android.launcher.can.Can20b;
@@ -17,7 +15,6 @@ import com.android.launcher.service.LivingService;
 import com.android.launcher.status.DriveModeStatus;
 import com.android.launcher.type.LanguageType;
 import com.android.launcher.type.UnitType;
-import com.dc.auto.library.launcher.util.ACache;
 import com.android.launcher.util.AppUtils;
 import com.android.launcher.util.CommonUtil;
 import com.android.launcher.util.FuncUtil;
@@ -26,6 +23,7 @@ import com.android.launcher.util.LogUtils;
 import com.android.launcher.util.SPUtils;
 import com.android.launcher.util.StringUtils;
 import com.android.launcher.util.UnitUtils;
+import com.dc.auto.library.launcher.util.ACache;
 import com.dc.auto.library.module.module_db.entity.CarTravelTable;
 import com.dc.auto.library.module.module_db.repository.CarTravelRepository;
 
@@ -34,49 +32,46 @@ import org.greenrobot.eventbus.EventBus;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import dc.library.auto.event.MessageEvent;
+import dc.library.auto.global.ConstVal;
+import dc.library.auto.task.logger.TaskLogger;
+import dc.library.auto.util.HexUtilJava;
+
 public class BenzHandlerData {
 
-    private static final String TAG = BenzHandlerData.class.getSimpleName();
-
+    private static final String TAG = ConstVal.Log.TAG;
     public static StringBuffer pre = new StringBuffer();
-    //    public static String CHAR = "AA0000" ;
     public static StringBuffer sbttl = new StringBuffer();
-    public static SendHelperUsbToOne sendHelperUsbToOne = new SendHelperUsbToOne();
-    private static ExecutorService executors = Executors.newFixedThreadPool(1);
+    private static final ExecutorService executors = Executors.newFixedThreadPool(1);
     static Calendar calendar = Calendar.getInstance();
     public static String time;
 
     /**
      * 右侧发送来的数据
-     *
-     * @param text
      */
     public static void handlerFromRight(String text) throws Exception {
-        Log.i("hufei", "执行了 handlerFromRight");
+        TaskLogger.i("执行了 handlerFromRight");
         sbttl.append(text);
         String dat = sbttl.toString();
-//        AABB06AA000008000001E52828BF42BB416ECFCCDD
-
+        //AABB06AA000008000001E52828BF42BB416ECFCCDD
         if (dat.contains("AABB") && dat.contains("CCDD")) {
-            LogUtils.printI(TAG, "handlerFromRight---data=" + dat);
-//                Log.i("shuju",dat+"-------------") ;
+            TaskLogger.i(dat + "shuju handlerFromRight---data=-------------");
             if (dat.endsWith("CCDD")) {
-//                    System.out.println("====1==========" + dat);
                 String[] str = dat.split("CCDD");
-//                    Log.i("shuju",Arrays.toString(str)+"---------1----------");
+                TaskLogger.i(Arrays.toString(str) + "shuju ---------1----------");
                 for (String s : str) {
-
-                    if (!s.equals("")) {
-//                            Log.i("shuju",s+"-------1------") ;
+                    if (!s.isEmpty()) {
+                        TaskLogger.i(s + "shuju -------1------");
                         if (s.contains("AABB")) {
-                            int inde = s.indexOf("AABB");
-                            String da = s.substring(inde, s.length()).replaceAll("AABB", "");
+                            int beginIndex = s.indexOf("AABB");
+                            String da = s.substring(beginIndex).replaceAll("AABB", "");
                             handlerTTLData(da);
                         }
                     }
@@ -86,11 +81,10 @@ public class BenzHandlerData {
                 String[] str = dat.split("CCDD");
                 for (int i = 0; i < str.length - 1; i++) {
                     String s = str[i];
-                    if (!s.equals("")) {
+                    if (!s.isEmpty()) {
                         if (s.contains("AABB")) {
-                            int inde = s.indexOf("AABB");
-
-                            String da = s.substring(inde, s.length()).replaceAll("AABB", "");
+                            int index = s.indexOf("AABB");
+                            String da = s.substring(index).replaceAll("AABB", "");
                             handlerTTLData(da);
                         }
                     }
@@ -103,14 +97,10 @@ public class BenzHandlerData {
 
     /**
      * 右侧 数据处理
-     *
-     * @param data
      */
     private static void handlerTTLData(final String data) {
-
-
         String id = data.substring(0, 2);
-        Log.i("shuju", data + "-------1----------" + id);
+        TaskLogger.i(data + "shuju -------1----------" + id);
 
         switch (id) {
             case "01":
@@ -122,13 +112,9 @@ public class BenzHandlerData {
                 break;
             case "03": //来电提示
                 String jsonString = data.substring(2, data.length() - 1);
-//                    String number = FastJsonUtils.fromString(jsonString,"number");
-//                ACache.get(App.getGlobalContext()).put("Phone", jsonString);
-//                EventBusMeter.getInstance().postSticky(new MessageWrap("call", jsonString));
                 break;
             case "04": // 主驾气流类型设置
                 setupMainDriverAirflow(data);
-
                 break;
             case "05": // 副驾气流类型设置
                 setupCopilotAirflow(data);
@@ -138,101 +124,64 @@ public class BenzHandlerData {
                 break;
             case "07": // 驾驶模式
                 disposeDriveMode(data);
-
                 break;
             case "08": // 设置内部外部照明
-                final String command8 = data.substring(2, data.length());
-
+                final String command8 = data.substring(2);
                 byte[] bytes8 = FuncUtil.toByteArray(command8);
                 MUsb1Receiver.write(bytes8);
-
                 break;
             case "09": // 主驾温度设置
                 setupMainDriverTempSize(data);
                 break;
             case "10":
-//                    String guaduan =sendToAssistant.getC() ;
-//                    String number = FastJsonUtils.fromString(jsonString,"number");
-//                    ACache.get(App.getGlobalContext()).put("Phone",jsonString);
-//                EventBusMeter.getInstance().postSticky(new MessageWrap("call", "hide"));
                 break;
             case "11":
 
-                Log.i("shijian", data + "--------------------");
-                String timedata = data.substring(2, data.length());
+                TaskLogger.i(data + "shijian --------------------");
+                String timedata = data.substring(2);
                 if (timedata.length() == 14) {
-//                    FuncUtil.currentTime = timedata ;
-//                    18353158873
+                    //18353158873
                     SendHelperUsbToRight.bandFlg = true;
                     try {
                         Date date = new SimpleDateFormat("yyyyMMddHHmmss").parse(timedata);
                         calendar.setTime(date);
-
                         int hour = calendar.get(Calendar.HOUR_OF_DAY);
-
                         int minute = calendar.get(Calendar.MINUTE);
-
                         int second = calendar.get(Calendar.SECOND);
-
                         String s = "";
-
                         String m = "";
-
                         String h = "";
-
                         if (hour < 10) {
-
                             h = "0" + hour;
-
                         } else {
-
                             h = hour + "";
-
                         }
-
                         if (minute < 10) {
-
                             m = "0" + minute;
-
                         } else {
-
                             m = minute + "";
-
                         }
-
                         if (second < 10) {
-
                             s = "0" + second;
-
                         } else {
-
                             s = second + "";
-
                         }
-
                         time = h + ":" + m;
-//                        textView.setText(time);
-//                        MeterActivity.localMeterActivity.timeok.setText(time);
-
                     } catch (ParseException e) {
-                        e.printStackTrace();
+                        TaskLogger.e(e.getMessage());
                     }
-
                 }
                 break;
             case "12":
-//              Log.i("shuju",data+"--------------------") ;
+                TaskLogger.i(data + "shuju--------------------");
                 SendHelperUsbToRight.handler("AABB000000CCDD");
                 break;
-            case "13": //
-                final String command13 = data.substring(2, data.length());
-                Log.i("shuju13", command13 + "--------------------");
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        byte[] byte13 = FuncUtil.toByteArray(command13);
-                        MUsb1Receiver.write(byte13);
-                    }
+            case "13":
+                final String command13 = data.substring(2);
+                TaskLogger.i(command13 + "shuju--------------------");
+                new Thread(() -> {
+                    byte[] byte13 = FuncUtil.toByteArray(command13);
+                    MUsb1Receiver.write(byte13);
                 }).start();
                 break;
             case "14": // 后空调控制参数
@@ -240,18 +189,17 @@ public class BenzHandlerData {
                 try {
                     String command14 = data.substring(2);
                     command14 = "AA000006000000BC" + command14 + "0000";
-                    Log.i("shuju14", command14 + "--------------------");
-
+                    TaskLogger.i(command14 + "shuju --------------------");
                     byte[] byte14 = FuncUtil.toByteArray(command14);
                     MUsb1Receiver.write(byte14);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    TaskLogger.e(e.getMessage());
                 }
                 break;
 
             case "15": // logo
 
-                String command15 = data.substring(2, data.length());
+                String command15 = data.substring(2);
                 ACache cache1 = ACache.get(App.getGlobalContext());
                 if (command15.equals("01")) {
                     Intent intent = new Intent("xy.android.setcustlogoani");
@@ -268,15 +216,12 @@ public class BenzHandlerData {
                     cache1.put("logo", "1");
                 }
 
-                executors.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Thread.sleep(5000);
-                            FuncUtil.sendShellCommand("reboot");
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
+                executors.execute(() -> {
+                    try {
+                        Thread.sleep(5000);
+                        FuncUtil.sendShellCommand("reboot");
+                    } catch (InterruptedException e) {
+                        TaskLogger.e(e.getMessage());
                     }
                 });
                 break;
@@ -302,7 +247,7 @@ public class BenzHandlerData {
                     LogUtils.printI(BenzHandlerData.class.getSimpleName(), "rightDeviceId=" + rightDeviceId);
                     SPUtils.putString(App.getGlobalContext(), SPUtils.SP_RIGHT_DEVICE_ID, rightDeviceId);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    TaskLogger.e(e.getMessage());
                 }
                 break;
             case "22":
@@ -313,7 +258,7 @@ public class BenzHandlerData {
                     messageEvent.data = rightTime;
                     EventBus.getDefault().post(messageEvent);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    TaskLogger.e(e.getMessage());
                 }
                 break;
             case "23":
@@ -474,10 +419,9 @@ public class BenzHandlerData {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
-
 
     //座椅功能调节开关
     private static void disposeSeatAdjustmentOnData(String data) {
@@ -492,7 +436,7 @@ public class BenzHandlerData {
             }
             EventBus.getDefault().post(messageEvent);
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
@@ -509,7 +453,7 @@ public class BenzHandlerData {
             }
             EventBus.getDefault().post(messageEvent);
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
@@ -528,7 +472,7 @@ public class BenzHandlerData {
             }
             EventBus.getDefault().post(messageEvent);
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
@@ -537,7 +481,7 @@ public class BenzHandlerData {
             LogUtils.printI(TAG, "disposeChassisLiftData---");
 
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
@@ -546,25 +490,19 @@ public class BenzHandlerData {
         try {
             String offStatus = data.substring(2);
             LogUtils.printI(TAG, "disposeRadarOnData---offStatus=" + offStatus);
-            if (BinaryEntity.Value.NUM_1.getValue().equals(offStatus)) {
-                SPUtils.putBoolean(App.getGlobalContext(), SPUtils.SP_ESP_OFF, true);
-            } else {
-                SPUtils.putBoolean(App.getGlobalContext(), SPUtils.SP_ESP_OFF, false);
-            }
-
+            SPUtils.putBoolean(App.getGlobalContext(), SPUtils.SP_ESP_OFF, BinaryEntity.Value.NUM_1.getValue().equals(offStatus));
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
     //处理雷达开关
     private static void disposeRadarOnData(String data) {
         try {
-            String onStatus = data.substring(2, data.length());
+            String onStatus = data.substring(2);
             LogUtils.printI(TAG, "disposeRadarOnData---onStatus=" + onStatus);
-
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
@@ -583,7 +521,7 @@ public class BenzHandlerData {
             messageEvent.data = citySize;
             EventBus.getDefault().post(messageEvent);
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
@@ -598,7 +536,7 @@ public class BenzHandlerData {
             messageEvent.data = province;
             EventBus.getDefault().post(messageEvent);
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
@@ -613,7 +551,7 @@ public class BenzHandlerData {
             messageEvent.data = city;
             EventBus.getDefault().post(messageEvent);
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
 
     }
@@ -639,7 +577,7 @@ public class BenzHandlerData {
             String latitude = lat.replace("D", ".");
             String longitude = lng.replace("D", ".");
 
-            NavEntity navEntity = new NavEntity(latitude, longitude, Integer.valueOf(strategyConvert), Integer.valueOf(selectRouteId));
+            NavEntity navEntity = new NavEntity(latitude, longitude, Integer.parseInt(strategyConvert), Integer.valueOf(selectRouteId));
 
 
             LogUtils.printI(TAG, "disposeMapNavData---latitude=" + latitude + ", longitude=" + longitude);
@@ -647,23 +585,9 @@ public class BenzHandlerData {
             messageEvent.data = navEntity;
             EventBus.getDefault().post(messageEvent);
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
-
-//    //后舱盖高度限制
-//    private static void disposeSetRearHatchCoverData(String data) {
-//        try {
-//            String status = data.substring(2);
-//            LogUtils.printI(TAG, "disposeSetRearHatchCoverData---status=" + status);
-//            MessageEvent messageEvent = new MessageEvent(MessageEvent.Type.SET_REAR_HATCH_COVER);
-//            messageEvent.data = status;
-//            EventBus.getDefault().post(messageEvent);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-
 
     private static void disposeMusicStop() {
         LogUtils.printI(TAG, "disposeMusicStop---");
@@ -678,7 +602,6 @@ public class BenzHandlerData {
         EventBus.getDefault().post(messageEvent);
     }
 
-
     private static void disposeBluetoothDisconnected() {
         FuncUtil.BLUETOOTHCONNCTED = false;
         LogUtils.printI(TAG, "disposeBluetoothDisconnected---蓝牙断开");
@@ -686,11 +609,10 @@ public class BenzHandlerData {
         EventBus.getDefault().post(messageEvent);
     }
 
-
     //歌词显示
     private static void disposeLyric(String data) {
         try {
-            String d = data.substring(2, data.length());
+            String d = data.substring(2);
             LogUtils.printI(TAG, "disposeLyric---d=" + d);
             String lyric = StringUtils.hexToString(d);
             LogUtils.printI(TAG, "disposeLyric---lyric=" + lyric);
@@ -698,7 +620,7 @@ public class BenzHandlerData {
             messageEvent.data = lyric;
             EventBus.getDefault().post(messageEvent);
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
@@ -706,11 +628,9 @@ public class BenzHandlerData {
         try {
             LogUtils.printI(TAG, "disposeAirflowPatternData----data=" + data);
             data = data.substring(2);
-
             String tag = Can1E5.AIR_SYS_STATE_VALUE.substring(0, 3);
             String start = Can1E5.AIR_SYS_STATE_VALUE.substring(4, 16);
             String end = Can1E5.AIR_SYS_STATE_VALUE.substring(18, 20);
-
             LogUtils.printI(TAG, "disposeAirflowPatternData----can1e5=" + Can1E5.AIR_SYS_STATE_VALUE + ", data=" + data);
             final String command = Can1E5.COMMAND_1E5_STAT + tag + start + data + end;
             LogUtils.printI(TAG, "disposeAirflowPatternData   ----command=" + command + ", length=" + command.length());
@@ -718,7 +638,7 @@ public class BenzHandlerData {
                 executeCommand(command);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
@@ -726,9 +646,7 @@ public class BenzHandlerData {
         try {
             LogUtils.printI(TAG, "disposeInit1E5Data----data=" + data);
             String data1e5 = data.substring(2);
-
             String tag = "1e5";
-
             LogUtils.printI(TAG, "disposeInit1E5Data----can1e5=" + Can1E5.AIR_SYS_STATE_VALUE + ", data1e5=" + data1e5);
             final String command = Can1E5.COMMAND_1E5_STAT + tag + data1e5;
             LogUtils.printI(TAG, "disposeInit1E5Data   ----command=" + command + ", length=" + command.length());
@@ -736,7 +654,7 @@ public class BenzHandlerData {
                 executeCommand(command);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
@@ -744,11 +662,9 @@ public class BenzHandlerData {
         try {
             LogUtils.printI(TAG, "disposeSetFrontSeatWindAutoData----data=" + data);
             String isOpen = data.substring(2);
-
             String tag = Can1E5.AIR_SYS_STATE_VALUE.substring(0, 3);
             String start = Can1E5.AIR_SYS_STATE_VALUE.substring(4, 14);
             String status = Can1E5.AIR_SYS_STATE_VALUE.substring(14, 16);
-
             LogUtils.printI(TAG, "disposeSetFrontSeatWindAutoData----can1e5=" + Can1E5.AIR_SYS_STATE_VALUE + ", isOpen=" + isOpen + ", status=" + status);
             BinaryEntity binaryEntity = new BinaryEntity(status);
             String end = Can1E5.AIR_SYS_STATE_VALUE.substring(16);
@@ -757,14 +673,13 @@ public class BenzHandlerData {
             } else {
                 binaryEntity.setB2(BinaryEntity.Value.NUM_0);
             }
-
             final String command = Can1E5.COMMAND_1E5_STAT + tag + start + binaryEntity.getHexData() + end;
             LogUtils.printI(TAG, "disposeSetFrontSeatWindAutoData   ----binaryEntity=" + binaryEntity.toString() + ", command=" + command);
             if (!TextUtils.isEmpty(command)) {
                 executeCommand(command);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
@@ -772,11 +687,9 @@ public class BenzHandlerData {
         try {
             LogUtils.printI(TAG, "disposeSetDriverWindAutoData----data=" + data);
             String isOpen = data.substring(2);
-
             String tag = Can1E5.AIR_SYS_STATE_VALUE.substring(0, 3);
             String start = Can1E5.AIR_SYS_STATE_VALUE.substring(4, 14);
             String status = Can1E5.AIR_SYS_STATE_VALUE.substring(14, 16);
-
             LogUtils.printI(TAG, "disposeSetDriverWindAutoData----can1e5=" + Can1E5.AIR_SYS_STATE_VALUE + ", isOpen=" + isOpen + ", status=" + status);
             BinaryEntity binaryEntity = new BinaryEntity(status);
             String end = Can1E5.AIR_SYS_STATE_VALUE.substring(16);
@@ -785,14 +698,13 @@ public class BenzHandlerData {
             } else {
                 binaryEntity.setB1(BinaryEntity.Value.NUM_0);
             }
-
             final String command = Can1E5.COMMAND_1E5_STAT + tag + start + binaryEntity.getHexData() + end;
             LogUtils.printI(TAG, "disposeSetDriverWindAutoData----binaryEntity=" + binaryEntity.toString() + ", command=" + command);
             if (!TextUtils.isEmpty(command)) {
                 executeCommand(command);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
@@ -801,11 +713,9 @@ public class BenzHandlerData {
         try {
             LogUtils.printI(TAG, "disposeSetFrontSeatWinddirAutoData----data=" + data);
             String isOpen = data.substring(2);
-
             String tag = Can1E5.AIR_SYS_STATE_VALUE.substring(0, 3);
             String start = Can1E5.AIR_SYS_STATE_VALUE.substring(4, 14);
             String status = Can1E5.AIR_SYS_STATE_VALUE.substring(14, 16);
-
             LogUtils.printI(TAG, "disposeSetFrontSeatWinddirAutoData----can1e5=" + Can1E5.AIR_SYS_STATE_VALUE + ", isOpen=" + isOpen + ", status=" + status);
             BinaryEntity binaryEntity = new BinaryEntity(status);
             String end = Can1E5.AIR_SYS_STATE_VALUE.substring(16);
@@ -814,14 +724,13 @@ public class BenzHandlerData {
             } else {
                 binaryEntity.setB4(BinaryEntity.Value.NUM_0);
             }
-
             final String command = Can1E5.COMMAND_1E5_STAT + tag + start + binaryEntity.getHexData() + end;
             LogUtils.printI(TAG, "disposeSetFrontSeatWinddirAutoData----binaryEntity=" + binaryEntity.toString() + ", command=" + command);
             if (!TextUtils.isEmpty(command)) {
                 executeCommand(command);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
@@ -830,11 +739,9 @@ public class BenzHandlerData {
         try {
             LogUtils.printI(TAG, "disposeSetDriverWinddirAutoData----data=" + data);
             String isOpen = data.substring(2);
-
             String tag = Can1E5.AIR_SYS_STATE_VALUE.substring(0, 3);
             String start = Can1E5.AIR_SYS_STATE_VALUE.substring(4, 14);
             String status = Can1E5.AIR_SYS_STATE_VALUE.substring(14, 16);
-
             LogUtils.printI(TAG, "disposeSetDriverWinddirAutoData----can1e5=" + Can1E5.AIR_SYS_STATE_VALUE + ", isOpen=" + isOpen + ", status=" + status);
             BinaryEntity binaryEntity = new BinaryEntity(status);
             String end = Can1E5.AIR_SYS_STATE_VALUE.substring(16);
@@ -843,14 +750,13 @@ public class BenzHandlerData {
             } else {
                 binaryEntity.setB3(BinaryEntity.Value.NUM_0);
             }
-
             final String command = Can1E5.COMMAND_1E5_STAT + tag + start + binaryEntity.getHexData() + end;
             LogUtils.printI(TAG, "disposeSetDriverWinddirAutoData----binaryEntity=" + binaryEntity.toString() + ", command=" + command);
             if (!TextUtils.isEmpty(command)) {
                 executeCommand(command);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
@@ -858,11 +764,9 @@ public class BenzHandlerData {
         try {
             LogUtils.printI(TAG, "disposeSetAcCompressorData----data=" + data);
             String isOpen = data.substring(2);
-
             String tag = Can1E5.AIR_SYS_STATE_VALUE.substring(0, 3);
             String start = Can1E5.AIR_SYS_STATE_VALUE.substring(4, 14);
             String status = Can1E5.AIR_SYS_STATE_VALUE.substring(14, 16);
-
             LogUtils.printI(TAG, "disposeSetAcCompressorData----can1e5=" + Can1E5.AIR_SYS_STATE_VALUE + ", isOpen=" + isOpen + ", status=" + status);
             BinaryEntity binaryEntity = new BinaryEntity(status);
             String end = Can1E5.AIR_SYS_STATE_VALUE.substring(16);
@@ -871,27 +775,23 @@ public class BenzHandlerData {
             } else {
                 binaryEntity.setB7(BinaryEntity.Value.NUM_1);
             }
-
             final String command = Can1E5.COMMAND_1E5_STAT + tag + start + binaryEntity.getHexData() + end;
             LogUtils.printI(TAG, "disposeSetAcCompressorData----binaryEntity=" + binaryEntity.toString() + ", command=" + command);
             if (!TextUtils.isEmpty(command)) {
                 executeCommand(command);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
-
 
     private static void disposeSetAutoACData(String data) {
         try {
             LogUtils.printI(TAG, "disposeSetAutoACData----data=" + data);
             String isOpen = data.substring(2);
-
             String tag = Can1E5.AIR_SYS_STATE_VALUE.substring(0, 3);
             String start = Can1E5.AIR_SYS_STATE_VALUE.substring(4, 14);
             String status = Can1E5.AIR_SYS_STATE_VALUE.substring(14, 16);
-
             LogUtils.printI(TAG, "disposeSetAutoACData----can1e5=" + Can1E5.AIR_SYS_STATE_VALUE + ", isOpen=" + isOpen + ", status=" + status);
             BinaryEntity binaryEntity = new BinaryEntity(status);
             String end = Can1E5.AIR_SYS_STATE_VALUE.substring(16);
@@ -906,14 +806,13 @@ public class BenzHandlerData {
                 binaryEntity.setB3(BinaryEntity.Value.NUM_1);
                 binaryEntity.setB4(BinaryEntity.Value.NUM_1);
             }
-
             final String command = Can1E5.COMMAND_1E5_STAT + tag + start + binaryEntity.getHexData() + end;
             LogUtils.printI(TAG, "disposeSetAutoACData----binaryEntity=" + binaryEntity.toString() + ", command=" + command);
             if (!TextUtils.isEmpty(command)) {
                 executeCommand(command);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
@@ -921,11 +820,9 @@ public class BenzHandlerData {
         try {
             LogUtils.printI(TAG, "disposeACData----data=" + data);
             String isOpen = data.substring(2);
-
             String tag = Can1E5.AIR_SYS_STATE_VALUE.substring(0, 3);
             String start = Can1E5.AIR_SYS_STATE_VALUE.substring(4, 14);
             String status = Can1E5.AIR_SYS_STATE_VALUE.substring(14, 16);
-
             LogUtils.printI(TAG, "disposeACData----can1e5=" + Can1E5.AIR_SYS_STATE_VALUE + ", isOpen=" + isOpen + ", status=" + status);
             BinaryEntity binaryEntity = new BinaryEntity(status);
             String end = Can1E5.AIR_SYS_STATE_VALUE.substring(16);
@@ -934,49 +831,36 @@ public class BenzHandlerData {
             } else {
                 binaryEntity.setB5(BinaryEntity.Value.NUM_1);
             }
-
             final String command = Can1E5.COMMAND_1E5_STAT + tag + start + binaryEntity.getHexData() + end;
             LogUtils.printI(TAG, "disposeACData----binaryEntity=" + binaryEntity.toString() + ", command=" + command);
             if (!TextUtils.isEmpty(command)) {
                 executeCommand(command);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
     private static void disposeCan1DCData(String data) {
         try {
-            String d = data.substring(2, data.length());
+            String d = data.substring(2);
             LogUtils.printI(TAG, "disposeCan1DCData----data=" + d);
-
-//            String d1 = d.substring(0,2); //主驾温度
-//            String d2 = d.substring(2,4); //副驾温度
-//            String d3 = d.substring(4,6); //主驾风速
-//            String d4 = d.substring(6,8); //副驾风速
-//            String d5 = d.substring(10,12);
-//            String d6 = d.substring(12,14);
-//
-//            setupMainDriverTempSize();
-
-
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
 
     private static void disposeMapData(String data) {
-        String d = data.substring(2, data.length());
+        String d = data.substring(2);
         LogUtils.printI(TAG, "disposeMapData---d=" + d);
         try {
             MeterActivity.drivingDirection = d;
             MessageEvent messageEvent = new MessageEvent(MessageEvent.Type.UPDATE_DRIVER_DIRECTION);
             messageEvent.data = d;
             EventBus.getDefault().post(messageEvent);
-
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
 
     }
@@ -999,27 +883,20 @@ public class BenzHandlerData {
                     }
                 }
                 SPUtils.putInt(App.getGlobalContext(), SPUtils.SP_SELECT_LANGUAGE, type);
-//                EventBus.getDefault().post(new MessageEvent(MessageEvent.Type.CHANGE_LANGUAGE));
-
                 new Thread(() -> {
                     try {
                         Thread.sleep(300);
-
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        TaskLogger.e(e.getMessage());
                     }
                     FuncUtil.sendShellCommand("reboot");
                 }).start();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
-    /**
-     * @description:
-     * @createDate: 2023/9/12
-     */
     private static void disposeSetUnitData(String data) {
         try {
             String typeStr = data.substring(2);
@@ -1028,37 +905,34 @@ public class BenzHandlerData {
             new Thread(() -> {
                 try {
                     Thread.sleep(300);
-
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    TaskLogger.e(e.getMessage());
                 }
                 FuncUtil.sendShellCommand("reboot");
             }).start();
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
 
     /**
-     * @description: 处理车辆型号
-     * @createDate: 2023/7/17
+     * 处理车辆型号
      */
     private static void disposeCarTypeData(String data) {
         try {
             String typeStr = data.substring(2).substring(1);
             LogUtils.printI(TAG, "disposeCarTypeData---type=" + typeStr);
-            MeterActivity.carType = Integer.valueOf(typeStr);
+            MeterActivity.carType = Integer.parseInt(typeStr);
             SPUtils.putInt(App.getGlobalContext(), SPUtils.SP_CAR_TYPE, MeterActivity.carType);
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
 
     }
 
     /**
-     * @description: 处理安全带辅助
-     * @createDate: 2023/7/17
+     * 处理安全带辅助
      */
     private static void disposeSafeBeltData(String data) {
         try {
@@ -1074,7 +948,7 @@ public class BenzHandlerData {
             }
             EventBus.getDefault().post(messageEvent);
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
@@ -1104,7 +978,7 @@ public class BenzHandlerData {
                 EventBus.getDefault().post(messageEvent);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
@@ -1128,9 +1002,6 @@ public class BenzHandlerData {
             if (!TextUtils.isEmpty(km)) {
                 new Thread(() -> {
                     try {
-//                        Mile mile = FuncUtil.mileDaoUtil.queryMile();
-//                        mile.setTotleMile(km);
-
                         CarTravelTable travelTable = CarTravelRepository.getInstance().getData(App.getGlobalContext(), AppUtils.getDeviceId(App.getGlobalContext()));
                         if (travelTable != null) {
                             float kmFloat = Float.parseFloat(km);
@@ -1145,16 +1016,13 @@ public class BenzHandlerData {
                             messageEvent.data = travelTable;
                             EventBus.getDefault().post(messageEvent);
                         }
-//                        LogUtils.printI(TAG, "disposeOriginalCarKM---mile="+mile);
-//                        FuncUtil.mileDaoUtil.insert(mile);
-
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        TaskLogger.e(e.getMessage());
                     }
                 }).start();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
 
     }
@@ -1179,7 +1047,7 @@ public class BenzHandlerData {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
@@ -1203,7 +1071,7 @@ public class BenzHandlerData {
 
             EventBus.getDefault().post(new MessageEvent(MessageEvent.Type.UPDATE_ALARM_VOLUME));
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
@@ -1219,7 +1087,7 @@ public class BenzHandlerData {
             messageEvent.data = status;
             EventBus.getDefault().post(messageEvent);
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
@@ -1235,7 +1103,7 @@ public class BenzHandlerData {
             messageEvent.data = status;
             EventBus.getDefault().post(messageEvent);
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
@@ -1251,7 +1119,7 @@ public class BenzHandlerData {
             messageEvent.data = status;
             EventBus.getDefault().post(messageEvent);
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
@@ -1267,7 +1135,7 @@ public class BenzHandlerData {
             messageEvent.data = status;
             EventBus.getDefault().post(messageEvent);
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
@@ -1283,7 +1151,7 @@ public class BenzHandlerData {
             messageEvent.data = status;
             EventBus.getDefault().post(messageEvent);
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
@@ -1299,7 +1167,7 @@ public class BenzHandlerData {
             messageEvent.data = status;
             EventBus.getDefault().post(messageEvent);
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
@@ -1311,13 +1179,12 @@ public class BenzHandlerData {
         try {
             //d5 第二个数
             String can35dD5 = data.substring(2);
-
             LogUtils.printI(TAG, "disposeCan35dD5Data---can35dD5=" + can35dD5);
             MessageEvent messageEvent = new MessageEvent(MessageEvent.Type.SET_CAN35D_D5);
             messageEvent.data = can35dD5;
             EventBus.getDefault().post(messageEvent);
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
@@ -1331,7 +1198,7 @@ public class BenzHandlerData {
 
             LogUtils.printI(TAG, "disposeFrontBackSwitch----comm1=" + comm1);
             List<String> comm = Can1E5.E5;
-            if (comm != null && comm.size() > 0) {
+            if (comm != null && !comm.isEmpty()) {
                 String bindata = CommonUtil.convertHexToBinary(comm.get(7));
                 LogUtils.printI(TAG, "disposeFrontBackSwitch----bindata=" + bindata);
                 String bin = "";
@@ -1341,18 +1208,14 @@ public class BenzHandlerData {
                 if (comm1.equals("01")) {
                     bin = "1" + bindata.substring(1);
                 }
-
                 String hex = CommonUtil.binaryString2hexString(bin).toUpperCase();
-
-
                 final String command16 = "AA000008000001E5" + comm.get(2) + comm.get(3) + comm.get(4) + comm.get(5) + comm.get(6) + hex + comm.get(8) + comm.get(9);
-
                 LogUtils.printI(TAG, "disposeFrontBackSwitch----hex=" + hex + ", command16=" + command16);
                 byte[] bytes16 = FuncUtil.toByteArray(command16);
                 MUsb1Receiver.write(bytes16);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
 
@@ -1364,7 +1227,7 @@ public class BenzHandlerData {
         //01 经典 M 00 舒适 02 C  运动 s
         try {
             ACache cache = ACache.get(App.getGlobalContext());
-            String command = data.substring(2, data.length());
+            String command = data.substring(2);
 
             LogUtils.printI(TAG, "disposeDriveMode---command=" + command);
             String driveMode = null;
@@ -1383,10 +1246,9 @@ public class BenzHandlerData {
             messageEvent.data = driveMode;
             EventBus.getDefault().post(messageEvent);
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e(e.getMessage());
         }
     }
-
 
     /**
      * @description: 设置气流模式
@@ -1515,12 +1377,11 @@ public class BenzHandlerData {
             for (String str : datastring) {
                 String canstr = "AA0000" + str;
                 if (canstr.length() == 32 && canstr.startsWith("AA0000")) {
-                    List<String> data = toHexString(canstr);
+                    List<String> data = HexUtilJava.toHexStringBenzHandler(canstr);
                     CanParent canParent = FuncUtil.canHandler.get(data.get(0));
                     if (canParent != null && FuncUtil.SENDFLG) {
                         canParent.handlerCan(data);
                     }
-//                    System.out.println("candata================2================"+data);
                 }
             }
             pre.setLength(0);
@@ -1532,13 +1393,11 @@ public class BenzHandlerData {
                 for (int i = 0; i < datastring.length; i++) {
                     String canstr = "AA0000" + datastring[i];
                     if (canstr.length() == 32 && canstr.startsWith("AA0000")) {
-                        List<String> data = toHexString(canstr);
-
+                        List<String> data = HexUtilJava.toHexStringBenzHandler(canstr);
                         CanParent canParent = FuncUtil.canHandler.get(data.get(0));
                         if (canParent != null && FuncUtil.SENDFLG) {
                             canParent.handlerCan(data);
                         }
-//                            System.out.println("candata================2================"+data);
                     }
                 }
                 pre.setLength(0);
@@ -1546,12 +1405,11 @@ public class BenzHandlerData {
                 for (int i = 0; i < datastring.length - 1; i++) {
                     String canstr = "AA0000" + datastring[i];
                     if (canstr.length() == 32 && canstr.startsWith("AA0000")) {
-                        List<String> data = toHexString(canstr);
+                        List<String> data = HexUtilJava.toHexStringBenzHandler(canstr);
                         CanParent canParent = FuncUtil.canHandler.get(data.get(0));
                         if (canParent != null && FuncUtil.SENDFLG) {
                             canParent.handlerCan(data);
                         }
-//                            System.out.println("candata================3================"+data);
                     }
                 }
                 pre.setLength(0);
@@ -1559,34 +1417,4 @@ public class BenzHandlerData {
             }
         }
     }
-
-    private static List<String> toHexString(String hex) {
-        ArrayList<String> arr = new ArrayList<String>();
-
-        String h = hex.substring(12, 16);
-
-        int hh = Integer.parseInt(h, 16);
-        String hhx = Integer.toHexString(hh);
-
-        String len = hex.substring(7, 8);
-
-        arr.add(hhx);
-        arr.add(len);
-        String temp = "";
-        for (int i = 16; i < hex.length(); i++) {
-
-            if (i % 2 == 0) {//每隔两个
-                temp = hex.charAt(i) + "";
-            } else {
-                temp = temp + hex.charAt(i);
-            }
-
-            if (temp.length() == 2) {
-                arr.add(temp);
-            }
-        }
-        return arr;
-    }
-
-
 }
