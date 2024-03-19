@@ -6,20 +6,16 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.PixelFormat;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 
 import com.android.launcher.App;
-import com.android.launcher.R;
 import com.android.launcher.can.Can003;
 import com.android.launcher.can.Can005;
 import com.android.launcher.can.Can1;
@@ -74,7 +70,6 @@ import com.android.launcher.util.BY8302PCB;
 import com.android.launcher.util.FuncUtil;
 import com.android.launcher.util.LogUtils;
 import com.android.launcher.util.SoundPlayer;
-import com.android.launcher.vo.AlertVo;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -159,9 +154,10 @@ public class LivingService extends Service {
     }
 
     private void runInit() {
+        TaskLogger.i("runInit starting");
         long startTime = System.currentTimeMillis();
         ConcurrentGroupTaskStep groupTaskStep = XTask.getConcurrentGroupTask();
-        for (int i = 1; i <= 8; i++) {
+        for (int i = 1; i <= 4; i++) {
             int stepIndex = i;
             groupTaskStep.addTask(XTask.getTask(new TaskCommand() {
                 @Override
@@ -303,24 +299,24 @@ public class LivingService extends Service {
                 enableOpenDayRunLight = (Boolean) event.data;
                 taskExecutor.execute(new DayRunLightOpenTask(getApplicationContext()));
             } else if (event.type == MessageEvent.Type.USB_INTERRUPT) {
-                try {
-                    AlertVo alertVo = new AlertVo();
-                    alertVo.setAlertImg(R.drawable.ic_usb_interrupt);
-                    alertVo.setAlertMessage(getResources().getString(R.string.usb_interrupt_hint));
-                    MessageEvent messageEvent = new MessageEvent(MessageEvent.Type.UPDATE_WARN_INFO);
-                    messageEvent.data = alertVo;
-                    EventBus.getDefault().post(messageEvent);
-                    unregisterReceiver(mUsb1Receiver);
-                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                        try {
-                            usbInterruptResetRegister();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }, 3000);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    AlertVo alertVo = new AlertVo();
+//                    alertVo.setAlertImg(R.drawable.ic_usb_interrupt);
+//                    alertVo.setAlertMessage(getResources().getString(R.string.usb_interrupt_hint));
+//                    MessageEvent messageEvent = new MessageEvent(MessageEvent.Type.UPDATE_WARN_INFO);
+//                    messageEvent.data = alertVo;
+//                    EventBus.getDefault().post(messageEvent);
+//                    unregisterReceiver(mUsb1Receiver);
+//                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
+//                        try {
+//                            usbInterruptResetRegister();
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }, 3000);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
             } else if (event.type == MessageEvent.Type.UPDATE_ALARM_VOLUME) {
                 taskExecutor.execute(new CarAlarmVolumeInitTask(getApplicationContext()));
             }
@@ -362,26 +358,26 @@ public class LivingService extends Service {
     }
 
     private void showApkDownloadView() {
-        try {
-            isDownloading = true;
-            closeVersionUpdateFloating();
-            WindowManager.LayoutParams params;
-            WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
-            updateVersionFloating = LayoutInflater.from(this).inflate(R.layout.layout_update_apk, null);
-            apkUpdateProgressBar = updateVersionFloating.findViewById(R.id.progressBar);
-            params = new WindowManager.LayoutParams(
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.WRAP_CONTENT,
-                    WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_DIM_BEHIND,
-                    PixelFormat.TRANSLUCENT);
-            params.gravity = Gravity.CENTER;
-            params.dimAmount = 0.3f;
-            windowManager.addView(updateVersionFloating, params);
-        } catch (Exception e) {
-            e.printStackTrace();
-            isDownloading = false;
-        }
+//        try {
+//            isDownloading = true;
+//            closeVersionUpdateFloating();
+//            WindowManager.LayoutParams params;
+//            WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
+//            updateVersionFloating = LayoutInflater.from(this).inflate(R.layout.layout_update_apk, null);
+//            apkUpdateProgressBar = updateVersionFloating.findViewById(R.id.progressBar);
+//            params = new WindowManager.LayoutParams(
+//                    WindowManager.LayoutParams.WRAP_CONTENT,
+//                    WindowManager.LayoutParams.WRAP_CONTENT,
+//                    WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+//                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_DIM_BEHIND,
+//                    PixelFormat.TRANSLUCENT);
+//            params.gravity = Gravity.CENTER;
+//            params.dimAmount = 0.3f;
+//            windowManager.addView(updateVersionFloating, params);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            isDownloading = false;
+//        }
     }
 
     private void closeVersionUpdateFloating() {

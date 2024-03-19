@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.android.launcher.can.R
 import dc.library.auto.task.XTask
 import dc.library.auto.task.logger.TaskLogger
 import dc.library.auto.task.thread.pool.cancel.ICancelable

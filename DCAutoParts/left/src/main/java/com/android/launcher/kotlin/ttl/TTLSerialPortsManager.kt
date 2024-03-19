@@ -31,7 +31,7 @@ class TTLSerialPortsManager private constructor(
     // 储存所有串口
     private val mSerialPortManagerMapper: MutableMap<String, SerialPortManager> = mutableMapOf()
 
-    public fun initExistDevice(): BeanSerialDevice? {
+    fun initExistDevice(): BeanSerialDevice? {
         val devices = SerialPortFinder().devices
         for (device in devices) {
             if (device.name == portName) {

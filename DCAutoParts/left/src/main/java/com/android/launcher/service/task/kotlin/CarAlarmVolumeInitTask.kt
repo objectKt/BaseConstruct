@@ -15,6 +15,7 @@ import dc.library.auto.util.ContextUtil
 class CarAlarmVolumeInitTask : SimpleTaskStep() {
 
     override fun doTask() {
+        TaskLogger.i("starting doTask $name")
         try {
             val audioManager: AudioManager = ContextUtil.getApplicationContext().getSystemService(Context.AUDIO_SERVICE) as AudioManager
             val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
@@ -27,6 +28,7 @@ class CarAlarmVolumeInitTask : SimpleTaskStep() {
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
         }
+        TaskLogger.i("finish doTask $name")
     }
 
     override fun getName(): String {

@@ -20,17 +20,17 @@ android {
         signingConfig signingConfigs.debug
     }
 
-    splits {
-        // 启用 ABI 拆分，并指定要包含的 ABI。
-        // 这样可以根据设备的不同 CPU 架构来加载相应的 JNI 库文件，
-        // 从而减小 APK 的大小，提高应用程序的兼容性和性能
-        abi {
-            enable true
-            reset()
-            include 'armeabi-v7a'
-            universalApk true
-        }
-    }
+//    splits {
+//        // 启用 ABI 拆分，并指定要包含的 ABI。
+//        // 这样可以根据设备的不同 CPU 架构来加载相应的 JNI 库文件，
+//        // 从而减小 APK 的大小，提高应用程序的兼容性和性能
+//        abi {
+//            enable true
+//            reset()
+//            include 'armeabi-v7a'
+//            universalApk true
+//        }
+//    }
 
     signingConfigs {
         release {

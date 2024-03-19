@@ -5,6 +5,7 @@ import dc.library.auto.global.ScreenCarType
 import dc.library.auto.global.ScreenWhichSide
 import dc.library.auto.task.api.step.SimpleTaskStep
 import dc.library.auto.task.core.ThreadType
+import dc.library.auto.task.logger.TaskLogger
 
 /**
  * 串口初始化
@@ -12,11 +13,12 @@ import dc.library.auto.task.core.ThreadType
 class SerialPortInitTask : SimpleTaskStep() {
 
     override fun doTask() {
+        TaskLogger.i("starting doTask $name")
         TTLSerialPortsManager.getInstance(
-            ScreenCarType.RS223,
-            ScreenWhichSide.LEFT,
-            "ttyS1",
-            115200
+            a = ScreenCarType.RS223,
+            b = ScreenWhichSide.LEFT,
+            c = "ttyS1",
+            d = 115200
         ).initExistDevice()
         try {
             Thread.sleep(500)
@@ -24,11 +26,12 @@ class SerialPortInitTask : SimpleTaskStep() {
             e.printStackTrace()
         }
         TTLSerialPortsManager.getInstance(
-            ScreenCarType.RS223,
-            ScreenWhichSide.LEFT,
-            "ttyS3",
-            9600
+            a = ScreenCarType.RS223,
+            b = ScreenWhichSide.LEFT,
+            c = "ttyS3",
+            d = 9600
         ).initExistDevice()
+        TaskLogger.i("finish doTask $name")
     }
 
     override fun getName(): String {

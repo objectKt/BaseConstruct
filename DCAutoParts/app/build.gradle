@@ -6,12 +6,12 @@ plugins {
 def ver = libs.versions
 
 android {
-    namespace ver.appId.get().toString()
+    namespace "com.android.launcher.can"//ver.appId.get().toString()
     ndkVersion '25.1.8937393'
     compileSdk ver.compileVersion.get().toInteger()
 
     defaultConfig {
-        applicationId ver.appId.get().toString()
+        applicationId "com.android.launcher.can"
         minSdk ver.minSdkVersion.get().toInteger()
         targetSdk ver.compileVersion.get().toInteger()
         versionCode ver.versionCode.get().toInteger()

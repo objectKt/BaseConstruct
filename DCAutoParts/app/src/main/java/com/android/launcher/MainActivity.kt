@@ -7,7 +7,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.android.launcher.can.CanCommand
 import com.android.launcher.can.CanSendHandler
-import dc.library.auto.global.ConstVal
+import com.android.launcher.can.R
 import dc.library.auto.task.logger.TaskLogger
 
 class MainActivity : AppCompatActivity() {

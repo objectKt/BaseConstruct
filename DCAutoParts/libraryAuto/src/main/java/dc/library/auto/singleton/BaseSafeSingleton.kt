@@ -12,8 +12,8 @@ open class BaseSafeSingleton<out T, in A, in B, in C, in D>(private val construc
     @Volatile
     private var instance: T? = null
 
-    fun getInstance(arg1: A, arg2: B, arg3: C, arg4: D): T =
+    fun getInstance(a: A, b: B, c: C, d: D): T =
         instance ?: synchronized(this) {
-            instance ?: constructor(arg1, arg2, arg3, arg4).also { instance = it }
+            instance ?: constructor(a, b, c, d).also { instance = it }
         }
 }
