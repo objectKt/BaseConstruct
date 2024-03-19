@@ -139,7 +139,7 @@ public class SerialHelperTTLd {
 
         public void run() {
             super.run();
-            LogUtils.printI(ConstVal.Log.TAG, "读取串口数据线程---");
+            LogUtils.printI(ConstVal.Log.TAG, "读取串口数据线程--- RUN " + RUN);
             byte[] buffer = new byte[1024];
             while (!RUN) {
                 try {
