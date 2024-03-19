@@ -92,6 +92,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import dc.library.auto.serial.SerialPortManager;
+
 
 public class FuncUtil {
 
@@ -133,7 +135,6 @@ public class FuncUtil {
 
     //门窗是否关好
     public static boolean doorStatus = false;
-
 
     //串口
     public static SerialHelperTTLd serialHelperttl;
@@ -769,8 +770,7 @@ public class FuncUtil {
     }
 
     public static void initSerialHelper1() throws IOException {
-        serialHelperttl = new SerialHelperTTLd();
-        serialHelperttl.openLLd();
+
     }
 
     public static void setBluetooth() {

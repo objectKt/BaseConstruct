@@ -36,10 +36,6 @@ public class SerialPortManager extends SerialPort {
     private OnSerialPortDataListener mDataListener;
     private SerialPortReadThread mReadThread;
 
-    public SerialPortManager(File device, int baudrate, int flags) throws SecurityException, IOException {
-        super(device, baudrate, flags);
-    }
-
     /**
      * 打开串口
      *

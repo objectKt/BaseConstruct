@@ -1,5 +1,6 @@
 package com.android.launcher.service;
 
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
@@ -15,8 +16,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 
+import androidx.annotation.NonNull;
+
 import com.android.launcher.App;
-import dc.library.auto.event.MessageEvent;
 import com.android.launcher.R;
 import com.android.launcher.can.Can003;
 import com.android.launcher.can.Can005;
@@ -54,15 +56,12 @@ import com.android.launcher.service.task.AverageSpeedComputeTask;
 import com.android.launcher.service.task.CarAlarmVolumeInitTask;
 import com.android.launcher.service.task.CarMileComputeTask;
 import com.android.launcher.service.task.CarTempTask;
-import com.android.launcher.service.task.ClearUnnecessaryLogTask;
 import com.android.launcher.service.task.ComputeQtripTask;
 import com.android.launcher.service.task.DayRunLightOpenTask;
-import com.android.launcher.service.task.GetConfigTask;
 import com.android.launcher.service.task.GetOilPercentTask;
 import com.android.launcher.service.task.KeepOriginMeterTask;
 import com.android.launcher.service.task.LauncherAfterUpdateTask;
 import com.android.launcher.service.task.MaintainTask;
-import com.android.launcher.service.task.ResetLaunchAfterDataTask;
 import com.android.launcher.service.task.SaveLauncherRunMilTask;
 import com.android.launcher.service.task.ShowWarnMessageTask;
 import com.android.launcher.service.task.UpdateCarRunTimeTask;
@@ -74,7 +73,6 @@ import com.android.launcher.usbdriver.UsbDataChannelManager;
 import com.android.launcher.util.BY8302PCB;
 import com.android.launcher.util.FuncUtil;
 import com.android.launcher.util.LogUtils;
-import com.android.launcher.util.OilAntiShakeUtils;
 import com.android.launcher.util.SoundPlayer;
 import com.android.launcher.vo.AlertVo;
 
@@ -87,6 +85,14 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import dc.library.auto.event.MessageEvent;
+import dc.library.auto.task.XTask;
+import dc.library.auto.task.api.step.ConcurrentGroupTaskStep;
+import dc.library.auto.task.core.ITaskChainEngine;
+import dc.library.auto.task.core.param.ITaskResult;
+import dc.library.auto.task.core.step.impl.TaskChainCallbackAdapter;
+import dc.library.auto.task.core.step.impl.TaskCommand;
+import dc.library.auto.task.logger.TaskLogger;
 import dc.library.ui.numberprogress.NumberProgressBar;
 
 public class LivingService extends Service {
@@ -143,37 +149,67 @@ public class LivingService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        taskExecutor = Executors.newCachedThreadPool();
         try {
-            registerUsb1();
-            LogUtils.printI(TAG, "onCreate---------");
-            try {
-                EventBus.getDefault().register(this);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            resetCanData();
-            launcherTime = System.currentTimeMillis();
-            launchCarRunTime = 0L;
-            launchCarRunMile = 0.0f;
-            runStartComputeOil = 0.0f;
-            currentWaterTemp = 50;
-            isComputeQtrip = false;
-            new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                FuncUtil.initSerialHelper();
-            }, 2000);
-            OilAntiShakeUtils.clear();
-            LogUtils.printI(TAG, "App.isRestart=" + App.isRestart);
-            requestUsbPermission();
+            runInit();
             startTimeTask();
-            startTask();
-            closeBluetooth();
-            SoundPlayer.init();
         } catch (Exception e) {
-            e.printStackTrace();
+            TaskLogger.e("runInit " + e.getMessage());
         }
     }
 
+    private void runInit() {
+        long startTime = System.currentTimeMillis();
+        ConcurrentGroupTaskStep groupTaskStep = XTask.getConcurrentGroupTask();
+        for (int i = 1; i <= 8; i++) {
+            int stepIndex = i;
+            groupTaskStep.addTask(XTask.getTask(new TaskCommand() {
+                @Override
+                public void run() {
+                    switch (stepIndex) {
+                        case 1:
+                            launcherTime = System.currentTimeMillis();
+                            launchCarRunTime = 0L;
+                            launchCarRunMile = 0.0f;
+                            runStartComputeOil = 0.0f;
+                            currentWaterTemp = 50;
+                            isComputeQtrip = false;
+                            TaskLogger.i("LivingService --- onCreate --- App.isRestart = " + App.isRestart);
+                            EventBus.getDefault().register(LivingService.this);
+                            resetCanData();
+                        case 2:
+                            registerUsb1();
+                            try {
+                                Thread.sleep(1600);
+                            } catch (InterruptedException e) {
+                                TaskLogger.e("requestUsbPermission delay " + e.getMessage());
+                            }
+                            BenzLeftManager.init();
+                        case 3:
+                            closeBluetooth();
+                        case 4:
+                            SoundPlayer.init();
+                    }
+                }
+            }));
+        }
+        XTask.getTaskChain()
+                .addTask(new com.android.launcher.service.task.kotlin.SerialPortInitTask())
+                .addTask(groupTaskStep)//单独的任务，没有执行上的先后顺序. 例如：非核心数据的加载。
+                .addTask(new com.android.launcher.service.task.kotlin.CarAlarmVolumeInitTask())
+                .addTask(new com.android.launcher.service.task.kotlin.GetConfigTask())
+                .addTask(new com.android.launcher.service.task.kotlin.ClearUnnecessaryLogTask())
+                .addTask(new com.android.launcher.service.task.kotlin.ResetLaunchAfterDataTask())
+                .setTaskChainCallback(new TaskChainCallbackAdapter() {
+                    @Override
+                    public void onTaskChainCompleted(@NonNull ITaskChainEngine engine, @NonNull ITaskResult result) {
+                        TaskLogger.w("Init 任务完全执行完毕，总共耗时:" + (System.currentTimeMillis() - startTime) + "ms");
+                    }
+                }).start();
+    }
+
     //关闭蓝牙
+    @SuppressLint("MissingPermission")
     private void closeBluetooth() {
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             try {
@@ -184,18 +220,9 @@ public class LivingService extends Service {
                     }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                TaskLogger.e("closeBluetooth" + e.getMessage());
             }
         }, 4000);
-    }
-
-    //开始任务
-    private void startTask() {
-        taskExecutor = Executors.newCachedThreadPool();
-        taskExecutor.execute(new CarAlarmVolumeInitTask(getApplicationContext()));
-        taskExecutor.execute(new GetConfigTask(getApplicationContext()));
-        taskExecutor.execute(new ClearUnnecessaryLogTask(getApplicationContext()));
-        taskExecutor.execute(new ResetLaunchAfterDataTask(getApplicationContext()));
     }
 
     //开始定时任务
@@ -224,68 +251,38 @@ public class LivingService extends Service {
     }
 
     public void registerUsb1() {
-        try {
-
-            mUsb1Receiver = new MUsb1Receiver();
-            //2.创建intent-filter对象
-            IntentFilter filter = new IntentFilter();
-            filter.addAction("com.car.left.usb1");
-            //3.注册广播接收者
-            registerReceiver(mUsb1Receiver, filter);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        mUsb1Receiver = new MUsb1Receiver();
+        //2.创建intent-filter对象
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.car.left.usb1");
+        //3.注册广播接收者
+        registerReceiver(mUsb1Receiver, filter);
     }
-
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event) {
-        if (event.type == MessageEvent.Type.CURRENT_ML) {
-            try {
+        try {
+            if (event.type == MessageEvent.Type.CURRENT_ML) {
                 currentPercentOil = (float) event.data;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else if (event.type == MessageEvent.Type.LAUNCHER_OIL) {
-            try {
+            } else if (event.type == MessageEvent.Type.LAUNCHER_OIL) {
                 if (!isComputeQtrip) {
                     isComputeQtrip = true;
                     launcherOil = (float) event.data;
                     currentPercentOil = launcherOil;
                     taskExecutor.execute(new ComputeQtripTask(getApplicationContext(), launcherOil));
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else if (event.type == MessageEvent.Type.UPDATE_WATER_TEMP) { //水温
-            try {
+            } else if (event.type == MessageEvent.Type.UPDATE_WATER_TEMP) { //水温
                 if (event.data != null) {
                     currentWaterTemp = (int) event.data;
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else if (event.type == MessageEvent.Type.APK_DOWNLOAD_SHOW) {
-            try {
+            } else if (event.type == MessageEvent.Type.APK_DOWNLOAD_SHOW) {
                 showApkDownloadView();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else if (event.type == MessageEvent.Type.APK_DOWNLOAD_PROGRESS) {
-            try {
+            } else if (event.type == MessageEvent.Type.APK_DOWNLOAD_PROGRESS) {
                 int progress = (int) event.data;
                 updateDownloadProgress(progress);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else if (event.type == MessageEvent.Type.APK_INSTALL) {
-            installApk();
-        } else if (event.type == MessageEvent.Type.USB_REGISTER_SUCCESS) {
-            try {
-//                if (event.data instanceof UsbDevice) {
-//                    usbDevice = (UsbDevice) event.data;
-//                }
-
+            } else if (event.type == MessageEvent.Type.APK_INSTALL) {
+                installApk();
+            } else if (event.type == MessageEvent.Type.USB_REGISTER_SUCCESS) {
                 if (usbDataChannelManager == null) {
                     usbDataChannelManager = new UsbDataChannelManager();
                 }
@@ -294,43 +291,41 @@ public class LivingService extends Service {
                     return;
                 }
                 usbDataChannelManager.startRun(getApplicationContext());
-            } catch (Exception e) {
-                e.printStackTrace();
+            } else if (event.type == MessageEvent.Type.BLUETOOTH_DISCONNECTED) {
+                LivingService.isPlayMusic = false;
+            } else if (event.type == MessageEvent.Type.MUSIC_STOP) {
+                LivingService.isPlayMusic = false;
+            } else if (event.type == MessageEvent.Type.DISABLE_ORIGIN_METER) {
+                if (!operateOriginMeter) {
+                    taskExecutor.execute(new KeepOriginMeterTask(getApplicationContext()));
+                }
+            } else if (event.type == MessageEvent.Type.OPEN_DAY_RUN_LIGHT) {
+                enableOpenDayRunLight = (Boolean) event.data;
+                taskExecutor.execute(new DayRunLightOpenTask(getApplicationContext()));
+            } else if (event.type == MessageEvent.Type.USB_INTERRUPT) {
+                try {
+                    AlertVo alertVo = new AlertVo();
+                    alertVo.setAlertImg(R.drawable.ic_usb_interrupt);
+                    alertVo.setAlertMessage(getResources().getString(R.string.usb_interrupt_hint));
+                    MessageEvent messageEvent = new MessageEvent(MessageEvent.Type.UPDATE_WARN_INFO);
+                    messageEvent.data = alertVo;
+                    EventBus.getDefault().post(messageEvent);
+                    unregisterReceiver(mUsb1Receiver);
+                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                        try {
+                            usbInterruptResetRegister();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }, 3000);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (event.type == MessageEvent.Type.UPDATE_ALARM_VOLUME) {
+                taskExecutor.execute(new CarAlarmVolumeInitTask(getApplicationContext()));
             }
-        } else if (event.type == MessageEvent.Type.BLUETOOTH_DISCONNECTED) {
-            LivingService.isPlayMusic = false;
-
-        } else if (event.type == MessageEvent.Type.MUSIC_STOP) {
-            LivingService.isPlayMusic = false;
-
-        } else if (event.type == MessageEvent.Type.DISABLE_ORIGIN_METER) {
-            if (!operateOriginMeter) {
-                taskExecutor.execute(new KeepOriginMeterTask(getApplicationContext()));
-            }
-        } else if (event.type == MessageEvent.Type.OPEN_DAY_RUN_LIGHT) {
-            enableOpenDayRunLight = (Boolean) event.data;
-            taskExecutor.execute(new DayRunLightOpenTask(getApplicationContext()));
-        } else if (event.type == MessageEvent.Type.USB_INTERRUPT) {
-            try {
-                AlertVo alertVo = new AlertVo();
-                alertVo.setAlertImg(R.drawable.ic_usb_interrupt);
-                alertVo.setAlertMessage(getResources().getString(R.string.usb_interrupt_hint));
-                MessageEvent messageEvent = new MessageEvent(MessageEvent.Type.UPDATE_WARN_INFO);
-                messageEvent.data = alertVo;
-                EventBus.getDefault().post(messageEvent);
-                unregisterReceiver(mUsb1Receiver);
-                new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                    try {
-                        usbInterruptResetRegister();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }, 3000);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else if (event.type == MessageEvent.Type.UPDATE_ALARM_VOLUME) {
-            taskExecutor.execute(new CarAlarmVolumeInitTask(getApplicationContext()));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

@@ -16,11 +16,18 @@ import java.util.concurrent.TimeUnit
  * 汽车各个功能模块管理类
  * @param screenCar     车屏幕类型（s222,s223, etc.）
  * @param screenSide    屏幕哪一边（Left,Right）
+ * @param str           备用参数 String
+ * @param value         备用参数 Int
  * @author hf
  */
-class CarModulesManager private constructor(private val screenCar: ScreenCarType, private val screenSide: ScreenWhichSide) {
+class CarModulesManager private constructor(
+    private val screenCar: ScreenCarType,
+    private val screenSide: ScreenWhichSide,
+    private val str: String,
+    private val value: Int
+) {
 
-    companion object : BaseSafeSingleton<CarModulesManager, ScreenCarType, ScreenWhichSide>(::CarModulesManager)
+    companion object : BaseSafeSingleton<CarModulesManager, ScreenCarType, ScreenWhichSide, String, Int>(::CarModulesManager)
 
     // 可取消执行接口的集合
     private val mCancelableList: MutableList<ICancelable> = mutableListOf()

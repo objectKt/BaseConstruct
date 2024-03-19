@@ -39,13 +39,13 @@ public class SerialHelperTTLd3 {
     public void openLLd() throws SecurityException, IOException, InvalidParameterException {
         LogUtils.printI(SerialHelperTTLd3.class.getSimpleName(), "打开串口");
         RUN = false;
-        this.mSerialPort = new SerialPort(new File("/dev/ttyS3"), 9600, 0);
-        this.mOutputStream = this.mSerialPort.getOutputStream();
-        this.mInputStream = this.mSerialPort.getInputStream();
-        this.mReadThread = new ReadThread();
-        this.mReadThread.start();
-        startSendThread();
-        _isOpen = true;
+//        this.mSerialPort = new SerialPort(new File("/dev/ttyS3"), 9600, 0);
+//        this.mOutputStream = this.mSerialPort.getOutputStream();
+//        this.mInputStream = this.mSerialPort.getInputStream();
+//        this.mReadThread = new ReadThread();
+//        this.mReadThread.start();
+//        startSendThread();
+//        _isOpen = true;
     }
 
     private void startSendThread() {

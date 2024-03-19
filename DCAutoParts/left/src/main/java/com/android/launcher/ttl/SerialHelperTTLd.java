@@ -1,5 +1,7 @@
 package com.android.launcher.ttl;
 
+import androidx.annotation.NonNull;
+
 import com.android.launcher.App;
 import com.android.launcher.usbdriver.BenzHandlerData;
 import com.android.launcher.util.FuncUtil;
@@ -15,7 +17,16 @@ import java.util.concurrent.LinkedTransferQueue;
 
 import dc.library.auto.global.ConstVal;
 import dc.library.auto.serial.SerialPort;
+import dc.library.auto.task.XTask;
+import dc.library.auto.task.api.TaskChainEngine;
+import dc.library.auto.task.api.step.SimpleTaskStep;
+import dc.library.auto.task.api.step.XTaskStep;
+import dc.library.auto.task.core.ITaskChainEngine;
+import dc.library.auto.task.core.param.ITaskResult;
+import dc.library.auto.task.core.step.impl.TaskChainCallbackAdapter;
+import dc.library.auto.task.core.step.impl.TaskCommand;
 import dc.library.auto.task.logger.TaskLogger;
+import dc.library.auto.task.thread.pool.cancel.ICanceller;
 import dc.library.auto.util.HexUtilJava;
 
 /**
@@ -24,10 +35,9 @@ import dc.library.auto.util.HexUtilJava;
 public class SerialHelperTTLd {
 
     private SerialPort mSerialPort;
-    private static FileOutputStream mOutputStream;
+    private FileOutputStream mOutputStream;
     private InputStream mInputStream;
     private ReadThread mReadThread;
-    public volatile boolean _isOpen;
     public static ACache aCache = ACache.get(App.getGlobalContext());
     public volatile static boolean RUN;
 
@@ -35,59 +45,138 @@ public class SerialHelperTTLd {
     private static final LinkedTransferQueue<byte[]> mSendQueue = new LinkedTransferQueue<>();
 
     public SerialHelperTTLd() {
-        _isOpen = false;
         LogUtils.printI(ConstVal.Log.TAG, "开始串口----");
     }
 
     public void openLLd() throws SecurityException, IOException, InvalidParameterException {
-        LogUtils.printI(ConstVal.Log.TAG, "打开串口----");
+        TaskLogger.i("打开串口----openLLd()");
         RUN = false;
-        this.mSerialPort = new SerialPort(new File("/dev/ttyS1"), 115200, 0);
-        if (!this.mSerialPort.getmFd().valid()) {
-            retry();
-        } else {
-            mOutputStream = this.mSerialPort.getOutputStream();
-            this.mInputStream = this.mSerialPort.getInputStream();
-            this.mReadThread = new ReadThread();
-            this.mReadThread.start();
-            startSendThread();
-            _isOpen = true;
-        }
+//        mSerialPort = new SerialPort(new File("/dev/ttyS1"), 115200, 0);
+//        boolean valid = mSerialPort.getmFd().valid();
+//        if (!valid) {
+//            TaskLogger.e("打开串口----getmFd().valid() = false");
+//            retry();
+//        } else {
+//            startReadThread();
+//            startSendThread();
+//        }
+    }
+
+    private void startReadThread() {
+//        mOutputStream = mSerialPort.getOutputStream();
+//        mInputStream = mSerialPort.getInputStream();
+//        mReadThread = new ReadThread();
+//        mReadThread.start();
     }
 
     private void retry() {
-        LogUtils.printI(ConstVal.Log.TAG, "retry----");
-        new Thread(() -> {
-            try {
-                FuncUtil.serialHelperttl.close();
-                FuncUtil.serialHelperttl = null;
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                TaskLogger.e("SerialHelperLLD InterruptedException" + e.getMessage());
+        TaskChainEngine engine = XTask.getTaskChain();
+        XTaskStep taskStep = XTask.getTask(new TaskCommand() {
+            @Override
+            public void run() {
+                close();
+                try {
+                    Thread.sleep(3000);
+                    notifyTaskSucceed();
+                } catch (InterruptedException e) {
+                    notifyTaskFailed();
+                    TaskLogger.e("SerialHelperLLD retry " + e.getMessage());
+                }
             }
-            try {
-                FuncUtil.initSerialHelper1();
-            } catch (Exception e) {
-                TaskLogger.e("SerialHelperLLD initSerialHelper1" + e.getMessage());
+        });
+        engine.addTask(taskStep)
+                .addTask(XTask.getTask(new TaskCommand() {
+                    @Override
+                    public void run() {
+                        try {
+                            FuncUtil.initSerialHelper1();
+                            notifyTaskSucceed();
+                        } catch (IOException e) {
+                            notifyTaskFailed();
+                            TaskLogger.e("SerialHelperLLD initSerialHelper1" + e.getMessage());
+                        }
+                    }
+                }));
+        engine.setTaskChainCallback(new TaskChainCallbackAdapter() {
+
+            @Override
+            public boolean isCallBackOnMainThread() {
+                // 回调是否返回主线程, 默认是true
+                return false;
             }
-        }).start();
+
+            @Override
+            public void onTaskChainStart(@NonNull ITaskChainEngine engine) {
+                TaskLogger.i("task chain start");
+            }
+
+            @Override
+            public void onTaskChainCompleted(@NonNull ITaskChainEngine engine, @NonNull ITaskResult result) {
+                TaskLogger.i("task chain completed, thread:" + Thread.currentThread().getName());
+            }
+
+            @Override
+            public void onTaskChainError(@NonNull ITaskChainEngine engine, @NonNull ITaskResult result) {
+                TaskLogger.e("task chain error");
+            }
+        });
+        engine.start();
     }
 
     private void startSendThread() {
+        TaskLogger.i("startSendThread");
         new Thread(() -> {
-            while (!RUN) {
+            while (true) {
                 try {
                     byte[] data = mSendQueue.take();
                     if (mOutputStream != null) {
                         mOutputStream.write(data);
                     }
-
                 } catch (Exception e) {
                     TaskLogger.e("SerialHelperLLD startSendMessageThread" + e.getMessage());
                 }
             }
-
         }).start();
+    }
+
+    /**
+     * 读取串口数据线程
+     */
+    private class ReadThread extends Thread {
+
+        private ReadThread() {
+        }
+
+        @Override
+        public void run() {
+            super.run();
+            LogUtils.printI(ConstVal.Log.TAG, "读取串口数据线程--- RUN " + RUN);
+            byte[] buffer = new byte[1024];
+            LogUtils.printI(ConstVal.Log.TAG, "读取串口数据线程--- buffer.length " + buffer.length);
+            while (true) {
+                TaskLogger.i("mInputStream--- try ");
+                try {
+                    if (mInputStream != null) {
+                        int size = mInputStream.read(buffer);
+                        TaskLogger.i("mInputStream--- size " + size);
+                        if (size > 0) {
+                            byte[] by = new byte[size];
+                            System.arraycopy(buffer, 0, by, 0, size);
+                            String ss = HexUtilJava.toHexString(by, by.length);
+                            TaskLogger.i("ss=" + ss);
+                            BenzHandlerData.handlerFromRight(ss);
+                        }
+                    } else {
+                        TaskLogger.e("mInputStream--- null ");
+                    }
+                } catch (Exception e) {
+                    TaskLogger.e("SerialHelperttlLd " + e.getMessage());
+                    if (mInputStream != null && !App.livingServerStop) {
+                        retry();
+                    }
+                }
+            }
+        }
     }
 
     public void close() {
@@ -97,19 +186,17 @@ public class SerialHelperTTLd {
                 mInputStream.close();
                 mInputStream = null;
             }
-            if (this.mReadThread != null) {
-                this.mReadThread.interrupt();
+            if (mReadThread != null) {
+                mReadThread.interrupt();
             }
             if (mOutputStream != null) {
                 mOutputStream.close();
                 mOutputStream = null;
             }
-            if (this.mSerialPort != null) {
+            if (mSerialPort != null) {
                 SerialPort.closePort();
-                this.mSerialPort = null;
+                mSerialPort = null;
             }
-            RUN = true;
-            this._isOpen = false;
         } catch (Exception e) {
             TaskLogger.e("SerialHelperLLD close" + e.getMessage());
         }
@@ -127,39 +214,5 @@ public class SerialHelperTTLd {
     public static void sendHex(String sHex) {
         byte[] bOutArray = HexUtilJava.toByteArrayTTLLD(sHex);
         send(bOutArray);
-    }
-
-    /**
-     * 读取串口数据线程
-     */
-    private class ReadThread extends Thread {
-
-        private ReadThread() {
-        }
-
-        public void run() {
-            super.run();
-            LogUtils.printI(ConstVal.Log.TAG, "读取串口数据线程--- RUN " + RUN);
-            byte[] buffer = new byte[1024];
-            while (!RUN) {
-                try {
-                    if (mInputStream != null) {
-                        int size = mInputStream.read(buffer);
-                        if (size > 0) {
-                            byte[] by = new byte[size];
-                            System.arraycopy(buffer, 0, by, 0, size);
-                            String ss = HexUtilJava.toHexString(by, by.length);
-                            LogUtils.printI(ConstVal.Log.TAG, "ss=" + ss);
-                            BenzHandlerData.handlerFromRight(ss);
-                        }
-                    }
-                } catch (Exception e) {
-                    TaskLogger.e("SerialHelperttlLd " + e.getMessage());
-                    if (mInputStream != null && !App.livingServerStop) {
-                        retry();
-                    }
-                }
-            }
-        }
     }
 }
