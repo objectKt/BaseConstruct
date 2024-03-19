@@ -20,29 +20,35 @@ import java.io.File
  * @author hf
  */
 class TTLSerialPortsManager private constructor(
-    private var screenCar: ScreenCarType,
-    private var screenSide: ScreenWhichSide,
-    private var portName: String,
-    private var portBaudRate: Int
+    private val screenCar: ScreenCarType,
+    private val screenSide: ScreenWhichSide,
+    private val portName: String,
+    private val portBaudRate: Int
 ) {
 
     companion object : BaseSafeSingleton<TTLSerialPortsManager, ScreenCarType, ScreenWhichSide, String, Int>(::TTLSerialPortsManager)
+
+    private var mScreenCar: ScreenCarType = screenCar
+    private var mScreenSide: ScreenWhichSide = screenSide
+    private var mPortName: String = portName
+    private var mPortBaudRate: Int = portBaudRate
 
     // 储存所有串口
     private val mSerialPortManagerMapper: MutableMap<String, SerialPortManager> = mutableMapOf()
 
     fun initExistDevice(): BeanSerialDevice? {
+        TaskLogger.i("mScreenCar=$mScreenCar, mScreenSide=$mScreenSide mPortName=$mPortName mPortBaudRate=$mPortBaudRate")
         val devices = SerialPortFinder().devices
         for (device in devices) {
-            if (device.name == portName) {
-                mSerialPortManagerMapper[portName] = SerialPortManager()
-                mSerialPortManagerMapper[portName]?.setSerialPortOpenListener(portOpenCallback())
-                mSerialPortManagerMapper[portName]?.setSerialPortDataListener(portDataCallback())
-                mSerialPortManagerMapper[portName]?.openSerialPort(device.file, portBaudRate)
+            if (device.name == mPortName) {
+                mSerialPortManagerMapper[mPortName] = SerialPortManager()
+                mSerialPortManagerMapper[mPortName]?.setSerialPortOpenListener(portOpenCallback())
+                mSerialPortManagerMapper[mPortName]?.setSerialPortDataListener(portDataCallback())
+                mSerialPortManagerMapper[mPortName]?.openSerialPort(device.file, mPortBaudRate)
             }
         }
-        if (mSerialPortManagerMapper.containsKey(portName)) {
-            mSerialPortManagerMapper.remove(portName)
+        if (mSerialPortManagerMapper.containsKey(mPortName)) {
+            mSerialPortManagerMapper.remove(mPortName)
         }
         return null
     }
@@ -53,7 +59,7 @@ class TTLSerialPortsManager private constructor(
              * SendThread 回调
              */
             override fun onDataSent(bytes: ByteArray?) {
-                bytes?.let { TaskLogger.i("已成功发送 $portName 串口数据：${ByteArrayUtil.toHeX(it)}") }
+                bytes?.let { TaskLogger.i("已成功发送 $mPortName 串口数据：${ByteArrayUtil.toHeX(it)}") }
             }
 
             /**
@@ -62,11 +68,12 @@ class TTLSerialPortsManager private constructor(
             override fun onDataReceived(bytes: ByteArray?) {
                 bytes?.let {
                     val hex = ByteArrayUtil.toHeX(it)
-                    TaskLogger.i("portName = $portName onDataReceived $hex")
-                    when (portName) {
+                    TaskLogger.i("portName = $mPortName onDataReceived $hex")
+                    when (mPortName) {
                         "ttyS1" -> {
                             // 原来代码：SerialHelperTTLd
                         }
+
                         "ttyS3" -> {
                             // 原来代码：SerialHelperTTLd3
                         }
@@ -83,7 +90,7 @@ class TTLSerialPortsManager private constructor(
              * 开启串口成功回调
              */
             override fun onSuccess(device: File?) {
-                TaskLogger.i("portName = $portName OnSerialPortOpenListener onSuccess ${device?.name}")
+                TaskLogger.i("portName = $mPortName OnSerialPortOpenListener onSuccess ${device?.name}")
             }
 
             /**
@@ -92,7 +99,7 @@ class TTLSerialPortsManager private constructor(
             override fun onFail(device: File?, status: OnSerialPortOpenListener.Status?) {
                 val failureReason = when (status) {
                     OnSerialPortOpenListener.Status.WITHOUT_READ_WRITE_PERMISSION -> "${device?.absolutePath} 沒有讀寫權限，串口打開失敗"
-                    else -> "${device?.absolutePath} 串口打开失败 portName = $portName"
+                    else -> "${device?.absolutePath} 串口打开失败 portName = $mPortName"
                 }
                 TaskLogger.e("OnSerialPortOpenListener 连接失败原因： $failureReason")
             }
@@ -102,7 +109,7 @@ class TTLSerialPortsManager private constructor(
     /**
      * 关闭串口名对应的串口设备，例如 ttyS1
      */
-    fun closeSerialPortByName() {
+    fun closeSerialPortByName(portName: String) {
         mSerialPortManagerMapper[portName]?.closeSerialPort()
         if (mSerialPortManagerMapper.containsKey(portName)) {
             mSerialPortManagerMapper.remove(portName)
