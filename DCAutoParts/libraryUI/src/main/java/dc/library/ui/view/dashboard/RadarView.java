@@ -1,4 +1,4 @@
-package com.android.launcher.meter.view;
+package dc.library.ui.view.dashboard;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -7,14 +7,14 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import io.reactivex.rxjava3.annotations.NonNull;
-import io.reactivex.rxjava3.annotations.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
-import com.android.launcher.R;
+import dc.library.ui.R;
 
 /**
-* 雷达
-*/
+ * 雷达
+ */
 public class RadarView extends FrameLayout {
 
     private ImageView radarLeft1;
@@ -24,7 +24,6 @@ public class RadarView extends FrameLayout {
     private ImageView radarLeft5;
     private ImageView radarLeft6;
     private ImageView radarLeft7;
-
     private ImageView radarRight1;
     private ImageView radarRight2;
     private ImageView radarRight3;
@@ -32,7 +31,6 @@ public class RadarView extends FrameLayout {
     private ImageView radarRight5;
     private ImageView radarRight6;
     private ImageView radarRight7;
-
     private String currentLeftLevel = "0";
     private String currentRightLevel = "0";
 
@@ -55,7 +53,7 @@ public class RadarView extends FrameLayout {
     }
 
     private void setupInit(Context context) {
-        View view = LayoutInflater.from(context).inflate(R.layout.layout_treed_meter_radar, this, true);
+        View view = LayoutInflater.from(context).inflate(R.layout.layout_treed_meter_radar_view, this, true);
         radarLeft1 = view.findViewById(R.id.radar_left_1);
         radarLeft2 = view.findViewById(R.id.radar_left_2);
         radarLeft3 = view.findViewById(R.id.radar_left_3);
@@ -63,7 +61,6 @@ public class RadarView extends FrameLayout {
         radarLeft5 = view.findViewById(R.id.radar_left_5);
         radarLeft6 = view.findViewById(R.id.radar_left_6);
         radarLeft7 = view.findViewById(R.id.radar_left_7);
-
         radarRight1 = view.findViewById(R.id.radar_right_1);
         radarRight2 = view.findViewById(R.id.radar_right_2);
         radarRight3 = view.findViewById(R.id.radar_right_3);
@@ -82,7 +79,7 @@ public class RadarView extends FrameLayout {
         switch (level) {
             case "0":
             case "2":
-                if("0".equals(currentRightLevel) && "0".equals(currentLeftLevel)){
+                if ("0".equals(currentRightLevel) && "0".equals(currentLeftLevel)) {
                     RadarView.this.setVisibility(View.INVISIBLE);
                 }
                 RadarView.this.setVisibility(View.INVISIBLE);
@@ -113,7 +110,6 @@ public class RadarView extends FrameLayout {
                 radarLeft5.setVisibility(View.INVISIBLE);
                 radarLeft6.setVisibility(View.INVISIBLE);
                 radarLeft7.setVisibility(View.INVISIBLE);
-
                 break;
             case "5":
                 RadarView.this.setVisibility(View.VISIBLE);
@@ -124,7 +120,6 @@ public class RadarView extends FrameLayout {
                 radarLeft5.setVisibility(View.INVISIBLE);
                 radarLeft6.setVisibility(View.INVISIBLE);
                 radarLeft7.setVisibility(View.INVISIBLE);
-
                 break;
             case "6":
                 RadarView.this.setVisibility(View.VISIBLE);
@@ -135,7 +130,6 @@ public class RadarView extends FrameLayout {
                 radarLeft5.setVisibility(View.INVISIBLE);
                 radarLeft6.setVisibility(View.INVISIBLE);
                 radarLeft7.setVisibility(View.INVISIBLE);
-
                 break;
             case "7":
                 RadarView.this.setVisibility(View.VISIBLE);
@@ -167,7 +161,6 @@ public class RadarView extends FrameLayout {
                 radarLeft6.setVisibility(View.VISIBLE);
                 radarLeft7.setVisibility(View.VISIBLE);
                 break;
-
         }
     }
 
@@ -180,7 +173,7 @@ public class RadarView extends FrameLayout {
         switch (level) {
             case "0":
             case "2":
-                if("0".equals(currentRightLevel) && "0".equals(currentLeftLevel)){
+                if ("0".equals(currentRightLevel) && "0".equals(currentLeftLevel)) {
                     RadarView.this.setVisibility(View.INVISIBLE);
                 }
                 radarRight1.setVisibility(View.INVISIBLE);
@@ -210,7 +203,6 @@ public class RadarView extends FrameLayout {
                 radarRight5.setVisibility(View.INVISIBLE);
                 radarRight6.setVisibility(View.INVISIBLE);
                 radarRight7.setVisibility(View.INVISIBLE);
-
                 break;
             case "5":
                 setVisibility(View.VISIBLE);
@@ -221,7 +213,6 @@ public class RadarView extends FrameLayout {
                 radarRight5.setVisibility(View.INVISIBLE);
                 radarRight6.setVisibility(View.INVISIBLE);
                 radarRight7.setVisibility(View.INVISIBLE);
-
                 break;
             case "6":
                 setVisibility(View.VISIBLE);
@@ -232,7 +223,6 @@ public class RadarView extends FrameLayout {
                 radarRight5.setVisibility(View.INVISIBLE);
                 radarRight6.setVisibility(View.INVISIBLE);
                 radarRight7.setVisibility(View.INVISIBLE);
-
                 break;
             case "7":
                 setVisibility(View.VISIBLE);
@@ -264,7 +254,6 @@ public class RadarView extends FrameLayout {
                 radarRight6.setVisibility(View.VISIBLE);
                 radarRight7.setVisibility(View.VISIBLE);
                 break;
-
         }
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="NumberProgressBar_Default">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
@@ -128,5 +129,12 @@
 
         <item name="progress_reached_bar_height">1.5dp</item>
         <item name="progress_unreached_bar_height">0.75dp</item>
+    </style>
+
+    <!--  layout_treed_meter_radar_view.xml  -->
+    <style name="radarStyle">
+        <item name="android:layout_width">@dimen/dp_34</item>
+        <item name="android:layout_height">@dimen/dp_17</item>
+        <item name="android:scaleType">fitCenter</item>
     </style>
 </resources>
