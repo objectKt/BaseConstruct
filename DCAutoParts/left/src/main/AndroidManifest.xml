@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.DEVICE_POWER" />
@@ -98,6 +97,7 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="d02c23d6a2833182f61df09c948b7168" />
+
         <service android:name="com.amap.api.location.APSService" />
     </application>
 </manifest>

@@ -2,7 +2,7 @@ package com.android.launcher.wifi;
 
 
 import com.android.launcher.util.LogUtils;
-import com.blankj.utilcode.util.ThreadUtils;
+import com.android.launcher.util.ThreadUtils;
 
 import java.io.PrintStream;
 import java.net.Socket;
