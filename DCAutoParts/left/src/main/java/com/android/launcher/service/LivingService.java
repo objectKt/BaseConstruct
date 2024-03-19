@@ -189,7 +189,7 @@ public class LivingService extends Service {
                 }
             }));
         }
-        ScheduleTaskManager.INSTANCE.runInitTask(groupTaskStep);
+        ScheduleTaskManager.INSTANCE.runInitTask(groupTaskStep, System.currentTimeMillis());
     }
 
     //关闭蓝牙

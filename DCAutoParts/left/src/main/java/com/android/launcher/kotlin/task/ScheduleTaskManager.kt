@@ -14,9 +14,8 @@ import dc.library.auto.task.logger.TaskLogger
 
 object ScheduleTaskManager {
 
-    fun runInitTask(groupTaskStep: ConcurrentGroupTaskStep) {
+    fun runInitTask(groupTaskStep: ConcurrentGroupTaskStep, startTime: Long) {
         TaskLogger.i("TASK --- Init 任务 starting")
-        val startTime = System.currentTimeMillis()
         XTask.getTaskChain()
             .addTask(SerialPortInitTask())
             .addTask(groupTaskStep) //单独的任务，没有执行上的先后顺序. 例如：非核心数据的加载。
