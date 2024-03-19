@@ -155,6 +155,7 @@ public class LivingService extends Service {
     }
 
     private void runInit() {
+        //单独的任务，没有执行上的先后顺序. 例如：非核心数据的加载
         ConcurrentGroupTaskStep groupTaskStep = XTask.getConcurrentGroupTask();
         for (int i = 1; i <= 4; i++) {
             int stepIndex = i;
