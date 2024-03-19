@@ -16,14 +16,14 @@ import java.io.File
  * 串口模块统一管理类
  * @param screenCar     车屏幕类型（s222,s223, etc.）
  * @param screenSide    屏幕哪一边（Left,Right）
- * @param portName      串口名称（ttyS1,ttyS4）
+ * @param portName      串口名称（ttyS1,ttyS3）
  * @author hf
  */
 class TTLSerialPortsManager private constructor(
-    private val screenCar: ScreenCarType,
-    private val screenSide: ScreenWhichSide,
-    private val portName: String,
-    private val portBaudRate: Int
+    private var screenCar: ScreenCarType,
+    private var screenSide: ScreenWhichSide,
+    private var portName: String,
+    private var portBaudRate: Int
 ) {
 
     companion object : BaseSafeSingleton<TTLSerialPortsManager, ScreenCarType, ScreenWhichSide, String, Int>(::TTLSerialPortsManager)

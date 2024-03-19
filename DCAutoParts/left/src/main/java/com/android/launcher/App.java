@@ -23,6 +23,8 @@ import com.dc.auto.library.cockroach.Cockroach;
 import com.dc.auto.library.cockroach.ExceptionHandler;
 
 import dc.library.auto.event.MessageEvent;
+import dc.library.auto.global.ConstVal;
+import dc.library.auto.task.XTask;
 
 //import com.android.launcher.ch340.CH34xUARTDriver;
 
@@ -54,6 +56,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        XTask.debug(ConstVal.Log.TAG);
         CacheManager.clear();
         isAppStart = true;
         aCache = ACache.get(this);
