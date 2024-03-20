@@ -116,5 +116,4 @@ dependencies {
     implementation libs.roomRuntime
     annotationProcessor libs.roomCompiler
     implementation project(path: ':library-auto')
-    implementation project(path: ':library-view')
 }

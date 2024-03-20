@@ -16,6 +16,11 @@
         android:theme="@style/Theme.DCAutoParts"
         tools:targetApi="31">
 
+        <service
+            android:name="com.android.launcher.service.TaskManagerService"
+            android:enabled="true"
+            android:exported="false" />
+
         <activity
             android:name="com.android.launcher.activity.StartingActivity"
             android:exported="true">

@@ -1,19 +1,25 @@
 package com.android.launcher.activity
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.android.launcher.can.R
-import dc.library.auto.task.XTask
-import dc.library.auto.task.logger.TaskLogger
-import dc.library.auto.task.thread.pool.cancel.ICancelable
+import dc.library.utils.ValUtil
 
+/**
+ * 启动页面（奔驰 LOGO 欢迎页面）
+ * @author hf
+ */
 class StartingActivity : AppCompatActivity() {
 
-    private var cancelable: ICancelable? = null
+    private lateinit var broadcastReceiver: BroadcastReceiver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,21 +30,50 @@ class StartingActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        createBroadcast()
+        registerBroadcast()
     }
 
-    override fun onResume() {
-        super.onResume()
-        // 获得焦点
-        TaskLogger.i("StartingActivity 获得焦点")
-        testDoTask()
+    /**
+     * onDestroy 方法中注销 BroadcastReceiver，以避免内存泄漏。
+     */
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterBroadcast()
     }
 
-    private fun testDoTask() {
-        TaskLogger.i("任务等待跳转到 MainActivity")
-        cancelable = XTask.postToMainDelay({
-            TaskLogger.i("任务执行完毕，开始跳转到 MainActivity")
-            cancelable?.cancel()
-            startActivity(Intent(this, MainActivity::class.java))
-        }, 5000L)
+    /**
+     * 创建 BroadcastReceiver
+     */
+    private fun createBroadcast() {
+        broadcastReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                if (ValUtil.ActionBroadcast.LOCAL_BROADCAST_FINISH_INIT_TASK == intent.action) {
+                    gotoMainActivity()
+                }
+            }
+        }
+    }
+
+    /**
+     * 注册 BroadcastReceiver
+     */
+    private fun registerBroadcast() {
+        LocalBroadcastManager.getInstance(this@StartingActivity).registerReceiver(broadcastReceiver, IntentFilter(ValUtil.ActionBroadcast.LOCAL_BROADCAST_FINISH_INIT_TASK))
+    }
+
+    /**
+     * 注销 BroadcastReceiver
+     */
+    private fun unregisterBroadcast() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiver)
+    }
+
+    private fun gotoMainActivity() {
+        val intent = Intent(this@StartingActivity, MainActivity::class.java)
+        intent.putExtra("screenWhich", "left")
+        intent.putExtra("carType", "s223")
+        startActivity(intent)
+        this@StartingActivity.finish()
     }
 }
