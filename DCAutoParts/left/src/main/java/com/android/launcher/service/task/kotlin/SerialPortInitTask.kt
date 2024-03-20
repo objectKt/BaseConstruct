@@ -14,23 +14,7 @@ class SerialPortInitTask : SimpleTaskStep() {
 
     override fun doTask() {
         TaskLogger.i("starting doTask $name")
-        TTLSerialPortsManager.getInstance(
-            a = ScreenCarType.RS223,
-            b = ScreenWhichSide.LEFT,
-            c = "ttyS1",
-            d = 115200
-        ).initExistDevice()
-        try {
-            Thread.sleep(500)
-        } catch (e: InterruptedException) {
-            e.printStackTrace()
-        }
-        TTLSerialPortsManager.getInstance(
-            a = ScreenCarType.RS223,
-            b = ScreenWhichSide.LEFT,
-            c = "ttyS3",
-            d = 9600
-        ).initExistDevice()
+        TTLSerialPortsManager.initSerialPorts()
         TaskLogger.i("finish doTask $name")
     }
 

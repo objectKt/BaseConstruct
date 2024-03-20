@@ -1,9 +1,9 @@
-package dc.library.auto.carmanager
+package dc.library.auto.manage_car
 
-import dc.library.auto.carmanager.entity.CarTravelTable
-import dc.library.auto.carmanager.impl.ModuleMileageImpl
-import dc.library.auto.carmanager.impl.ModuleObserveSpeedImpl
-import dc.library.auto.carmanager.impl.UnitType
+import dc.library.auto.manage_car.entity.CarTravelTable
+import dc.library.auto.manage_car.impl.ModuleMileageImpl
+import dc.library.auto.manage_car.impl.ModuleObserveSpeedImpl
+import dc.library.auto.manage_car.impl.UnitType
 import dc.library.auto.event.MessageEvent
 import dc.library.auto.global.ScreenCarType
 import dc.library.auto.global.ScreenWhichSide

@@ -1,4 +1,4 @@
-package dc.library.auto.carmanager.entity
+package dc.library.auto.manage_car.entity
 
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id

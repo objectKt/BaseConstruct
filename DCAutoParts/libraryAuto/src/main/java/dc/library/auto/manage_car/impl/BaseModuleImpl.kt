@@ -1,4 +1,4 @@
-package dc.library.auto.carmanager.impl
+package dc.library.auto.manage_car.impl
 
 import dc.library.auto.event.MessageEvent
 

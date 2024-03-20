@@ -1,7 +1,6 @@
-package dc.library.auto.carmanager.impl
+package dc.library.auto.manage_car.impl
 
-import dc.library.auto.carmanager.entity.CarTravelTable
-import dc.library.auto.event.MessageEvent
+import dc.library.auto.manage_car.entity.CarTravelTable
 
 /**
  * 汽车里程功能模块
