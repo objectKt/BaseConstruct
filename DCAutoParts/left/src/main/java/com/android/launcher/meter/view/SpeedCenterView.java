@@ -13,7 +13,7 @@ import com.android.launcher.App;
 import dc.library.auto.event.MessageEvent;
 import com.android.launcher.R;
 import com.android.launcher.util.LogUtils;
-import com.android.launcher.util.StringUtils;
+import dc.library.utils.StringUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

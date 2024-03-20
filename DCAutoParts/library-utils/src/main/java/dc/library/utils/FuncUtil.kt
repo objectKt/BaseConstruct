@@ -1,4 +1,4 @@
-package dc.library.auto.util
+package dc.library.utils
 
 object FuncUtil {
 

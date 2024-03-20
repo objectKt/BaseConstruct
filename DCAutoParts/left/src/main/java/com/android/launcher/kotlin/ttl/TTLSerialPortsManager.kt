@@ -9,7 +9,7 @@ import dc.library.auto.serial.listener.OnSerialPortDataListener
 import dc.library.auto.serial.listener.OnSerialPortOpenListener
 import dc.library.auto.singleton.BaseSafeSingleton
 import dc.library.auto.task.logger.TaskLogger
-import dc.library.auto.util.ByteArrayUtil
+import dc.library.utils.ByteArrayUtil
 import java.io.File
 
 /**

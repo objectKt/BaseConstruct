@@ -5,7 +5,6 @@ import com.android.launcher.util.FuncUtil;
 import com.android.launcher.util.LogUtils;
 import com.dc.auto.library.launcher.util.ACache;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +13,7 @@ import java.util.concurrent.LinkedTransferQueue;
 
 import dc.library.auto.serial.SerialPort;
 import dc.library.auto.task.logger.TaskLogger;
-import dc.library.auto.util.HexUtilJava;
+import dc.library.utils.HexUtilJava;
 
 /**
  * 串口工具类

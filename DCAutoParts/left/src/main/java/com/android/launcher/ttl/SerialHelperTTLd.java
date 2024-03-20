@@ -8,7 +8,6 @@ import com.android.launcher.util.FuncUtil;
 import com.android.launcher.util.LogUtils;
 import com.dc.auto.library.launcher.util.ACache;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,15 +18,13 @@ import dc.library.auto.global.ConstVal;
 import dc.library.auto.serial.SerialPort;
 import dc.library.auto.task.XTask;
 import dc.library.auto.task.api.TaskChainEngine;
-import dc.library.auto.task.api.step.SimpleTaskStep;
 import dc.library.auto.task.api.step.XTaskStep;
 import dc.library.auto.task.core.ITaskChainEngine;
 import dc.library.auto.task.core.param.ITaskResult;
 import dc.library.auto.task.core.step.impl.TaskChainCallbackAdapter;
 import dc.library.auto.task.core.step.impl.TaskCommand;
 import dc.library.auto.task.logger.TaskLogger;
-import dc.library.auto.task.thread.pool.cancel.ICanceller;
-import dc.library.auto.util.HexUtilJava;
+import dc.library.utils.HexUtilJava;
 
 /**
  * 串口工具类

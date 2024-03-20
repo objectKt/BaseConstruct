@@ -16,7 +16,7 @@ import androidx.annotation.Nullable;
 
 import org.jetbrains.annotations.NotNull;
 
-import dc.library.ui.util.DensityUtil;
+import dc.library.utils.DensityUtil;
 
 public class MapMeterBgView extends View {
 

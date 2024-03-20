@@ -3,7 +3,7 @@ package com.android.launcher.service.task.kotlin
 import com.android.launcher.util.LogcatHelper
 import dc.library.auto.task.api.step.SimpleTaskStep
 import dc.library.auto.task.core.ThreadType
-import dc.library.auto.util.ContextUtil
+import dc.library.utils.ContextUtil
 
 /**
  * 清除多余日志任务

@@ -3,13 +3,12 @@ package com.android.launcher.usb
 import android.content.Context
 import android.hardware.usb.UsbDeviceConnection
 import android.hardware.usb.UsbManager
-import com.android.launcher.App
 import com.hoho.android.usbserial.driver.UsbSerialDriver
 import com.hoho.android.usbserial.driver.UsbSerialPort
 import com.hoho.android.usbserial.driver.UsbSerialProber
 import dc.library.auto.task.logger.TaskLogger
-import dc.library.auto.util.ContextUtil
-import dc.library.auto.util.HexUtil
+import dc.library.utils.ContextUtil
+import dc.library.utils.HexUtil
 import java.io.IOException
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.LinkedTransferQueue

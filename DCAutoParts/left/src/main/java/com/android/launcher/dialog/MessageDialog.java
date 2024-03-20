@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.android.launcher.R;
-import com.android.launcher.util.StringUtils;
+import dc.library.utils.StringUtils;
 import com.android.launcher.vo.AlertVo;
 import com.lxj.xpopup.core.CenterPopupView;
 

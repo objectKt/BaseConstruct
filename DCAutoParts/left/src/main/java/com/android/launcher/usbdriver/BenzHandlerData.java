@@ -21,7 +21,7 @@ import com.android.launcher.util.FuncUtil;
 import com.android.launcher.util.LanguageUtils;
 import com.android.launcher.util.LogUtils;
 import com.android.launcher.util.SPUtils;
-import com.android.launcher.util.StringUtils;
+import dc.library.utils.StringUtils;
 import com.android.launcher.util.UnitUtils;
 import com.dc.auto.library.launcher.util.ACache;
 import com.dc.auto.library.module.module_db.entity.CarTravelTable;
@@ -31,7 +31,6 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -42,7 +41,7 @@ import java.util.concurrent.Executors;
 import dc.library.auto.event.MessageEvent;
 import dc.library.auto.global.ConstVal;
 import dc.library.auto.task.logger.TaskLogger;
-import dc.library.auto.util.HexUtilJava;
+import dc.library.utils.HexUtilJava;
 
 public class BenzHandlerData {
 

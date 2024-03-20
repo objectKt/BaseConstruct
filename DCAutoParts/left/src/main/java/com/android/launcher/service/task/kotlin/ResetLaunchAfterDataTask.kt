@@ -5,7 +5,7 @@ import com.dc.auto.library.module.module_db.repository.CarTravelRepository
 import dc.library.auto.task.api.step.SimpleTaskStep
 import dc.library.auto.task.core.ThreadType
 import dc.library.auto.task.logger.TaskLogger
-import dc.library.auto.util.ContextUtil
+import dc.library.utils.ContextUtil
 
 /**
  * 重置启动后数据任务

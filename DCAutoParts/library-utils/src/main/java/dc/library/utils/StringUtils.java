@@ -1,14 +1,10 @@
-package com.android.launcher.util;
+package dc.library.utils;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
-* @description:
-* @createDate: 2023/4/29
-*/
 public class StringUtils {
 
     /**

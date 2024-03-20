@@ -5,7 +5,7 @@ import dc.library.auto.global.ConstVal
 import dc.library.auto.task.XTask
 import dc.library.auto.task.thread.pool.cancel.ICancelable
 import dc.library.auto.task.thread.utils.CancelUtils
-import dc.library.auto.util.FuncUtil
+import dc.library.utils.FuncUtil
 import java.util.concurrent.TimeUnit
 
 object CanSendHandler : CanSendImpl {

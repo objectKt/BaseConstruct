@@ -21,7 +21,7 @@ import com.android.launcher.util.FastJsonUtils;
 import com.android.launcher.util.LogUtils;
 import com.android.launcher.util.NumberUtils;
 import com.android.launcher.util.SPUtils;
-import com.android.launcher.util.StringUtils;
+import dc.library.utils.StringUtils;
 import com.android.launcher.util.UnitUtils;
 import com.dc.auto.library.module.module_db.entity.CarTravelTable;
 import com.dc.auto.library.module.module_db.repository.CarTravelRepository;

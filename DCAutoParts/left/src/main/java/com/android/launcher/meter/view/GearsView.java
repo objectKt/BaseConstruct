@@ -16,7 +16,7 @@ import com.android.launcher.R;
 import com.android.launcher.type.GearsType;
 import com.dc.auto.library.launcher.util.ACache;
 import com.android.launcher.util.FuncUtil;
-import com.android.launcher.util.StringUtils;
+import dc.library.utils.StringUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

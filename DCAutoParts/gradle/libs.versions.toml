@@ -31,6 +31,9 @@ room = "2.5.1"
 usb = "3.5.1"
 anrwatchdog = "1.4.0"
 coreprogress = "1.0.2"
+junit = "4.13.2"
+junitVersion = "1.1.5"
+espressoCore = "3.5.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -61,6 +64,9 @@ mapSearch = { module = "com.amap.api:search", version.ref = "mapSearch" }
 usb = { module = "com.github.mik3y:usb-serial-for-android", version.ref = "usb" }
 anrwatchdog = { module = "com.github.anrwatchdog:anrwatchdog", version.ref = "anrwatchdog" }
 coreprogress = { module = "io.github.lizhangqu:coreprogress", version.ref = "coreprogress" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

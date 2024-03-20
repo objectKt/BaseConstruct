@@ -1,7 +1,7 @@
 package com.android.launcher.can;
 
 import com.android.launcher.util.LogUtils;
-import com.android.launcher.util.StringUtils;
+import dc.library.utils.StringUtils;
 
 import java.util.List;
 

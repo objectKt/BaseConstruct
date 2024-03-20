@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import com.android.launcher.can.Can1E5;
 import com.android.launcher.entity.BinaryEntity;
 import com.android.launcher.util.LogUtils;
-import com.android.launcher.util.StringUtils;
+import dc.library.utils.StringUtils;
 
 import org.jetbrains.annotations.NotNull;
 

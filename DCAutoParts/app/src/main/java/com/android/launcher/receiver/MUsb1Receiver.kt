@@ -9,7 +9,7 @@ import android.hardware.usb.UsbManager
 import android.os.Parcelable
 import dc.library.auto.global.ConstVal
 import dc.library.auto.task.logger.TaskLogger
-import dc.library.auto.util.ContextUtil.getApplicationContext
+import dc.library.utils.ContextUtil.getApplicationContext
 
 class MUsb1Receiver : BroadcastReceiver() {
 

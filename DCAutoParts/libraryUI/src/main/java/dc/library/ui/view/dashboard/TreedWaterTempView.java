@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import java.util.Objects;
 
 import dc.library.ui.R;
-import dc.library.ui.util.BigDecimalUtils;
+import dc.library.utils.BigDecimalUtils;
 
 /**
  * 前卫仪表盘的 水温表

@@ -10,7 +10,7 @@ import com.android.launcher.R;
 import com.android.launcher.meter.MenuType;
 import com.android.launcher.service.LivingService;
 import com.android.launcher.usbdriver.SendHelperUsbToRight;
-import com.android.launcher.util.StringUtils;
+import dc.library.utils.StringUtils;
 
 /**
 * @description: 多媒体

@@ -48,7 +48,7 @@ import com.dc.auto.library.launcher.util.ACache;
 import com.android.launcher.util.DateUtils;
 import com.android.launcher.util.DensityUtil;
 import com.android.launcher.util.LogUtils;
-import com.android.launcher.util.StringUtils;
+import dc.library.utils.StringUtils;
 import com.android.launcher.util.UnitUtils;
 
 import org.greenrobot.eventbus.EventBus;

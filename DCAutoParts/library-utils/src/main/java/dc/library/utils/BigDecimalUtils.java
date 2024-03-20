@@ -1,4 +1,4 @@
-package dc.library.ui.util;
+package dc.library.utils;
 
 import java.math.BigDecimal;
 

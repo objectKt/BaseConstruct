@@ -12,8 +12,8 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 import dc.library.ui.R;
-import dc.library.ui.util.BigDecimalUtils;
-import dc.library.ui.util.DensityUtil;
+import dc.library.utils.BigDecimalUtils;
+import dc.library.utils.DensityUtil;
 
 /**
  * 水温View

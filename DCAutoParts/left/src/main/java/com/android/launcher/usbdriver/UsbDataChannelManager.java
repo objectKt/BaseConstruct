@@ -21,7 +21,7 @@ import java.util.concurrent.LinkedTransferQueue;
 import dc.library.auto.event.MessageEvent;
 import dc.library.auto.global.ConstVal;
 import dc.library.auto.task.logger.TaskLogger;
-import dc.library.auto.util.HexUtilJava;
+import dc.library.utils.HexUtilJava;
 
 /**
  * USB数据通道管理器
