@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.android.launcher.App;
 import com.android.launcher.R;
 import com.android.launcher.meter.MenuType;
-import com.android.launcher.meter.view.AttentionAidSysView;
+import dc.library.ui.view.dashboard.AttentionAidSysView;
 import com.android.launcher.service.LivingService;
 import com.dc.auto.library.launcher.util.ACache;
 import com.android.launcher.util.DateUtils;

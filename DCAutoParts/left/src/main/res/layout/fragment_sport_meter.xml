@@ -59,7 +59,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <com.android.launcher.meter.view.MenuPointView
+    <dc.library.ui.view.dashboard.MenuPointView
         android:id="@+id/menuPointView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

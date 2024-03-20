@@ -132,7 +132,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <com.android.launcher.meter.view.TechOilMeterView
+    <dc.library.ui.view.dashboard.TechOilMeterView
         android:id="@+id/treedOilMeterView"
         android:layout_width="416dp"
         android:layout_height="500dp"

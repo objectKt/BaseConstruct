@@ -45,7 +45,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <com.android.launcher.meter.view.RadarView
+    <dc.library.ui.view.dashboard.RadarView
         android:id="@+id/radarView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

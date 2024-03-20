@@ -15,7 +15,7 @@ import com.android.launcher.base.FragmentBase;
 import com.android.launcher.base.IView;
 import com.android.launcher.can.Can105;
 import com.android.launcher.can.Can30d;
-import com.android.launcher.meter.view.MenuPointView;
+import dc.library.ui.view.dashboard.MenuPointView;
 import com.dc.auto.library.launcher.util.ACache;
 import com.android.launcher.util.LogUtils;
 

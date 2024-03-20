@@ -22,7 +22,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <com.android.launcher.meter.view.OilMeterLineView
+        <dc.library.ui.view.dashboard.OilMeterLineView
             android:id="@+id/oilMeterLineView"
             android:layout_width="210dp"
             android:layout_height="12dp"
@@ -200,7 +200,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <com.android.launcher.meter.view.WaterTempLineView
+        <dc.library.ui.view.dashboard.WaterTempLineView
             android:id="@+id/waterTempView"
             android:layout_width="match_parent"
             android:layout_height="12dp"

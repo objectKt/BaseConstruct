@@ -30,7 +30,7 @@ import com.android.launcher.dialog.MessageDialog;
 import com.android.launcher.dialog.ResetDialog;
 import com.android.launcher.entity.NavEntity;
 import com.android.launcher.menu.MenuHomeFragment;
-import com.android.launcher.meter.view.RadarView;
+import dc.library.ui.view.dashboard.RadarView;
 import com.android.launcher.service.LivingService;
 import com.android.launcher.service.task.StartMeterAnimationTask;
 import com.android.launcher.type.CarType;

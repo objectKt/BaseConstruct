@@ -11,7 +11,9 @@ import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.annotations.Nullable;
 
 import com.android.launcher.App;
+
 import dc.library.auto.event.MessageEvent;
+
 import com.android.launcher.R;
 import com.android.launcher.entity.LampShowStatus;
 import com.android.launcher.meter.MeterActivity;
@@ -29,13 +31,10 @@ import org.greenrobot.eventbus.ThreadMode;
 public class StatusBarView extends FrameLayout {
 
     private static final String TAG = StatusBarView.class.getSimpleName();
-
     public static volatile boolean showSafetyBelt = false;
     public static volatile boolean showGasSafe = false;
-
     //距离警告标志
     private ImageView distancewarningTV;
-
     //安全带
     private ImageView beltsafe;
     //安全气囊
@@ -44,34 +43,25 @@ public class StatusBarView extends FrameLayout {
     private ImageView powersteer;
     //蓄电池警报
     private ImageView storageBatteryIV;
-
     private ImageView abs;
     //胎压
     private ImageView taiya;
     //发动机故障
     private ImageView enginefailure;
-
     //ESP,防侧滑
     private ImageView espStatusIV;
-
     //左转向，右转向灯
     private ImageView signalLeftIV, signalRightIV;
-
     //大灯 近光灯， 自动
     private ImageView dippedHeadlightIV, light_auto;
     //远光灯
     private ImageView highBeamIV;
-
     //前雾灯，后雾灯
     private ImageView frontFogLampIV, rearFogLampIV;
-
     private ImageView electricalparkbrake;
-
-
     //水温
     private ImageView water_temp_icon_alert;
     private ImageView brakingSystemsIV;
-
 
     public StatusBarView(@NonNull Context context) {
         this(context, null);
@@ -104,15 +94,12 @@ public class StatusBarView extends FrameLayout {
         brakingSystemsIV = findViewById(R.id.brakingSystemsIV);
         signalLeftIV = findViewById(R.id.signalleft);
         signalRightIV = findViewById(R.id.signalright);
-
         dippedHeadlightIV = findViewById(R.id.light_lb);
         light_auto = findViewById(R.id.light_auto);
         highBeamIV = findViewById(R.id.light_hb);
         frontFogLampIV = findViewById(R.id.light_wd);
         rearFogLampIV = findViewById(R.id.light_hwd);
-
         hideAll();
-
     }
 
     private void initData() {
@@ -122,7 +109,6 @@ public class StatusBarView extends FrameLayout {
                 MessageEvent messageEvent = new MessageEvent(MessageEvent.Type.SHOW_ENGINE_WARN);
                 messageEvent.data = engineWarnShow;
                 EventBus.getDefault().post(messageEvent);
-
                 boolean airbagFailureShow = SPUtils.getBoolean(App.getGlobalContext(), SPUtils.SP_AIRBAG_FAILURE, false);
                 messageEvent = new MessageEvent(MessageEvent.Type.SHOW_AIRBAG_FAILURE);
                 messageEvent.data = airbagFailureShow;
@@ -132,7 +118,6 @@ public class StatusBarView extends FrameLayout {
             }
         }).start();
     }
-
 
     @Override
     protected void onAttachedToWindow() {
@@ -212,7 +197,7 @@ public class StatusBarView extends FrameLayout {
                     showHighBeam(isShow);
                 }
             } else if (event.type == MessageEvent.Type.SHOW_AIRBAG_FAILURE) {
-                if (event.data != null && event.data instanceof Boolean) {
+                if (event.data instanceof Boolean) {
                     boolean isShow = (boolean) event.data;
                     if (gassafe != null) {
                         if (isShow) {
@@ -262,9 +247,7 @@ public class StatusBarView extends FrameLayout {
         } else {
             dippedHeadlightIV.setVisibility(View.INVISIBLE);
         }
-
         showHighBeam(lampShowStatus.isHighBeamShow());
-
         if (lampShowStatus.isFrontFogLampShow()) {
             frontFogLampIV.setVisibility(View.VISIBLE);
         } else {
@@ -323,7 +306,6 @@ public class StatusBarView extends FrameLayout {
         }
     }
 
-
     /**
      * @description: ABS打开状态
      * @createDate: 2023/6/24
@@ -377,15 +359,11 @@ public class StatusBarView extends FrameLayout {
                 distancewarningTV.setVisibility(invisible);
                 showGasSafe = false;
                 setShowGasSafe(showGasSafe);
-
                 showSafetyBelt = false;
                 setShowSafetyBelt(showSafetyBelt);
-
                 powersteer.setVisibility(invisible);
                 showStorageBattery(false);
-
                 updateAbsStatus(false);
-
                 taiya.setVisibility(invisible);
                 enginefailure.setVisibility(invisible);
                 espStatusIV.setVisibility(invisible);
@@ -410,15 +388,11 @@ public class StatusBarView extends FrameLayout {
                 distancewarningTV.setVisibility(invisible);
                 showGasSafe = false;
                 setShowGasSafe(showGasSafe);
-
                 showSafetyBelt = false;
                 setShowSafetyBelt(showSafetyBelt);
-
                 powersteer.setVisibility(invisible);
                 showStorageBattery(false);
-
                 updateAbsStatus(false);
-
                 taiya.setVisibility(invisible);
                 enginefailure.setVisibility(invisible);
                 espStatusIV.setVisibility(invisible);
