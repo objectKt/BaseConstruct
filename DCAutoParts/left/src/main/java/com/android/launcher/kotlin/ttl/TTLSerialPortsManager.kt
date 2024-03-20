@@ -18,23 +18,16 @@ import java.io.File
  */
 object TTLSerialPortsManager {
 
-    private var portDevices: TTLImpl? = null
-
     // 储存所有串口
     private val mSerialPortManagerMapper: MutableMap<String, SerialPortManager> = mutableMapOf()
 
     fun initSerialPorts() {
-        portDevices = object : TTLImpl {
+        val portDevices: TTLImpl = object : TTLImpl {
             override val screenCar: ScreenCarType get() = ScreenCarType.RS223
             override val screenSide: ScreenWhichSide get() = ScreenWhichSide.LEFT
-            override val portToBaudRate: Map<String, Int> get() = mapOf("ttyS1" to 115200, "ttyS3" to 9600)
         }
-        val ports = portDevices?.portToBaudRate
-        if (ports != null) {
-            startSearchSerialDevices(ports)
-        } else {
-            Log.e(ConstVal.Log.TAG, "Android 程序中 portToBaudRate 串口参数配置错误")
-        }
+        val ports = portDevices.portToBaudRate
+        startSearchSerialDevices(ports)
     }
 
     private fun startSearchSerialDevices(ports: Map<String, Int>) {
@@ -46,6 +39,7 @@ object TTLSerialPortsManager {
                 ports.forEach { pb ->
                     val findPortName = pb.key
                     if (device.name == findPortName) {
+                        Log.e(ConstVal.Log.TAG, "找到了匹配的串口设备：$findPortName")
                         mSerialPortManagerMapper[findPortName] = SerialPortManager()
                         mSerialPortManagerMapper[findPortName]?.let { manager ->
                             manager.setSerialPortOpenListener(portOpenCallback(findPortName))
