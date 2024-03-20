@@ -2,10 +2,13 @@ package com.android.launcher.service
 
 import android.app.Service
 import android.content.Intent
+import android.os.Handler
+import android.os.HandlerThread
 import android.os.IBinder
 import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import dc.library.auto.global.ConstVal
+import dc.library.auto.manage_task.SerialPortInitTask
 import dc.library.auto.task.XTask
 import dc.library.auto.task.core.ITaskChainEngine
 import dc.library.auto.task.core.param.ITaskResult
@@ -24,6 +27,7 @@ class TaskManagerService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         runBackgroundTasks()
+        notifyAfterFinishInitTask()
         return START_STICKY
     }
 
@@ -70,16 +74,10 @@ class TaskManagerService : Service() {
             }))
         }
         XTask.getTaskChain()
-//            .addTask(SerialPortInitTask())
-            .addTask(groupTaskStep) // 普通的任务组，没有执行上的先后顺序. 例如：非核心数据的加载。
-//            .addTask(CarAlarmVolumeInitTask())
-//            .addTask(GetConfigTask())
-//            .addTask(ClearUnnecessaryLogTask())
-//            .addTask(ResetLaunchAfterDataTask())
+            .addTask(SerialPortInitTask())
             .setTaskChainCallback(object : TaskChainCallbackAdapter() {
                 override fun onTaskChainCompleted(engine: ITaskChainEngine, result: ITaskResult) {
                     Log.i(ConstVal.Log.TAG, "$CLASS_NAME TASK --- FINISHED --- 总共耗时:" + (System.currentTimeMillis() - startTime) + "ms")
-                    notifyAfterFinishInitTask()
                 }
             }).start()
     }
