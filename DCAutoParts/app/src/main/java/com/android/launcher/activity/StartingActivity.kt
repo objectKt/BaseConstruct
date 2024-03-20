@@ -9,6 +9,7 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.android.launcher.R
+import dc.library.auto.task.XTask
 import dc.library.utils.ValUtil
 
 /**
@@ -44,7 +45,7 @@ class StartingActivity : AppCompatActivity() {
         broadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                 if (ValUtil.ActionBroadcast.LOCAL_BROADCAST_FINISH_INIT_TASK == intent.action) {
-                    gotoMainActivity()
+                    XTask.postToMainDelay({ gotoMainActivity() }, 1000)
                 }
             }
         }
