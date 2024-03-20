@@ -1,6 +1,8 @@
 <resources>
     <!-- Splash Screen theme. -->
     <style name="SplashScreen" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@mipmap/res_pic_splash_bg</item>
+        <item name="android:windowBackground">@drawable/drawable_res_splash_bg</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 </resources>
