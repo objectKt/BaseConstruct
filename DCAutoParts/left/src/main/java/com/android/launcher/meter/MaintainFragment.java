@@ -12,7 +12,7 @@ import dc.library.auto.event.MessageEvent;
 import com.android.launcher.R;
 import com.android.launcher.base.CommonFragmentBase;
 import com.android.launcher.entity.EngineOilMenuEntity;
-import com.android.launcher.meter.view.CoolingLiquidView;
+import dc.library.ui.view.dashboard.CoolingLiquidView;
 import com.android.launcher.service.LivingService;
 import com.android.launcher.type.UnitType;
 import com.android.launcher.util.AppUtils;

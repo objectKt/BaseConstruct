@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.android.launcher.meter.view.WaterTempMeterView
+    <dc.library.ui.view.dashboard.WaterTempMeterView
         android:id="@+id/watertempMeterView"
         android:layout_width="625px"
         android:layout_height="625px"

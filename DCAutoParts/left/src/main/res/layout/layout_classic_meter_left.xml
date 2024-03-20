@@ -132,7 +132,7 @@
         app:layout_constraintEnd_toStartOf="@id/distanceToEmptyTV" />
 
 
-    <com.android.launcher.meter.view.OilMeterView
+    <dc.library.ui.view.dashboard.OilMeterView
         android:id="@+id/oilMeterView"
         android:layout_width="0dp"
         android:layout_height="0dp"

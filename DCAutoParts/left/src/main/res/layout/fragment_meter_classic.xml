@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toStartOf="@id/rightMeterRootCL"
         app:layout_constraintStart_toEndOf="@id/leftMeterRootCL" />
 
-    <com.android.launcher.meter.view.MenuPointView
+    <dc.library.ui.view.dashboard.MenuPointView
         android:id="@+id/menuPointView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

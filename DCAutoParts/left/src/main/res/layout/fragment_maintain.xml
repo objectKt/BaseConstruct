@@ -202,8 +202,7 @@
         app:layout_constraintStart_toStartOf="@id/rightBgV"
         app:layout_constraintTop_toTopOf="@id/rightBgV" />
 
-
-    <com.android.launcher.meter.view.CoolingLiquidView
+    <dc.library.ui.view.dashboard.CoolingLiquidView
         android:id="@+id/coolingLiquidView"
         android:layout_width="0dp"
         android:layout_height="20dp"
