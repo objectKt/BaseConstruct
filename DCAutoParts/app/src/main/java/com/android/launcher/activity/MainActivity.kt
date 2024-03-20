@@ -1,4 +1,4 @@
-package com.android.launcher
+package com.android.launcher.activity
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

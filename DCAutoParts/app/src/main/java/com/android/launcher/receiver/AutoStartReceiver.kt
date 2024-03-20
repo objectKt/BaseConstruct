@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.android.launcher.MainActivity
+import com.android.launcher.activity.MainActivity
 import dc.library.auto.global.ConstVal
 
 /**

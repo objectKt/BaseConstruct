@@ -1,4 +1,4 @@
-package com.android.launcher
+package com.android.launcher.activity
 
 import android.content.Intent
 import android.os.Bundle
