@@ -11,6 +11,7 @@ import io.netty.buffer.ByteBufUtil
  * AA BB 06 AA 00 00 08 00 00 01 E5 28 28 BF 42 BB 41 6E CF CC DD
  * AA BB 22 17 10 98 70
  * 74 02 4C CD D0
+ * AA BB 22 17 10 99 30 57 73 1C CD D0
  * @author hf
  */
 object SerialPortTTYS1Decoder {

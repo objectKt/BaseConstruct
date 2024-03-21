@@ -12,6 +12,7 @@ import dc.library.auto.serial.listener.OnSerialPortOpenListener
 import dc.library.auto.task.logger.TaskLogger
 import dc.library.decode.SerialPortTTYS1Decoder
 import dc.library.utils.ByteArrayUtil
+import org.apache.commons.lang3.StringUtils
 import java.io.File
 
 /**
@@ -68,21 +69,21 @@ object TTLSerialPortsManager {
              */
             override fun onDataReceived(bytes: ByteArray?) {
                 bytes?.let {
-                    val hexDecoded = SerialPortTTYS1Decoder.decodeBytes(bytes)
-                    if (hexDecoded.isEmpty()) {
-                        // 这次来的不是完整帧数据，需要继续解码组合
-                        return
-                    } else {
-                        Log.i("dc-auto-parts", "portName = $portName onDataReceived $hexDecoded")
-                        when (portName) {
-                            "ttyS1" -> {
-                                // 原来代码：SerialHelperTTLd
-                            }
-
-                            "ttyS3" -> {
-                                // 原来代码：SerialHelperTTLd3
-                            }
+                    when (portName) {
+                        "ttyS1" -> {
+                            // 原来代码：SerialHelperTTLd
+                            val hexDecoded = SerialPortTTYS1Decoder.decodeBytes(bytes)
+                            // 去除帧头帧尾 AABB 221710993057731 CCDD0
+                            val resultDelHead = StringUtils.replace(hexDecoded, "AABB", "")
+                            val resultData = StringUtils.replace(resultDelHead, "CCDD0", "")
+                            Log.i("dc-auto-parts", "$portName 收到数据解码出内容 $resultData")
                         }
+
+                        "ttyS3" -> {
+                            // 原来代码：SerialHelperTTLd3
+                        }
+
+                        else -> {}
                     }
                 }
             }
