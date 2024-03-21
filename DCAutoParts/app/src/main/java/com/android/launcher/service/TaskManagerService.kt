@@ -22,12 +22,11 @@ import dc.library.utils.ValUtil
 class TaskManagerService : Service() {
 
     companion object {
-        private val CLASS_NAME = TaskManagerService::javaClass.name
+        private const val CLASS_NAME = "TaskManagerService"
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         runBackgroundTasks()
-        notifyAfterFinishInitTask()
         return START_STICKY
     }
 
@@ -49,14 +48,14 @@ class TaskManagerService : Service() {
 
     private fun runBackgroundTasks() {
         val startTime = System.currentTimeMillis()
-        Log.i(ConstVal.Log.TAG, "$CLASS_NAME TASK --- STARTING")
+        Log.i(ConstVal.Log.TAG, "$CLASS_NAME 任务执行 --- 开始")
         val groupTaskStep = XTask.getConcurrentGroupTask()
         groupTaskStep.apply {
             addTask(XTask.getTask(object : TaskCommand() {
                 override fun run() {
                     try {
                         Thread.sleep(1000)
-                        Log.i(ConstVal.Log.TAG, "$CLASS_NAME TASK --- 执行了 1 秒")
+                        Log.i(ConstVal.Log.TAG, "$CLASS_NAME 任务执行 --- 执行了 1 秒")
                     } catch (e: Exception) {
                         Log.e(ConstVal.Log.TAG, "$CLASS_NAME Thread.sleep --- Exception --- ${e.message}")
                     }
@@ -66,7 +65,7 @@ class TaskManagerService : Service() {
                 override fun run() {
                     try {
                         Thread.sleep(2000)
-                        Log.i(ConstVal.Log.TAG, "$CLASS_NAME TASK --- 执行了 2 秒")
+                        Log.i(ConstVal.Log.TAG, "$CLASS_NAME 任务执行 --- 执行了 2 秒")
                     } catch (e: Exception) {
                         Log.e(ConstVal.Log.TAG, "$CLASS_NAME Thread.sleep --- Exception --- ${e.message}")
                     }
@@ -77,7 +76,8 @@ class TaskManagerService : Service() {
             .addTask(SerialPortInitTask())
             .setTaskChainCallback(object : TaskChainCallbackAdapter() {
                 override fun onTaskChainCompleted(engine: ITaskChainEngine, result: ITaskResult) {
-                    Log.i(ConstVal.Log.TAG, "$CLASS_NAME TASK --- FINISHED --- 总共耗时:" + (System.currentTimeMillis() - startTime) + "ms")
+                    Log.i(ConstVal.Log.TAG, "$CLASS_NAME 任务执行 --- 完成 --- 总共耗时:" + (System.currentTimeMillis() - startTime) + "ms")
+                    notifyAfterFinishInitTask()
                 }
             }).start()
     }

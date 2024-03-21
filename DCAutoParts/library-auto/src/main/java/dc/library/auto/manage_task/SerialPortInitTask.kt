@@ -1,7 +1,6 @@
 package dc.library.auto.manage_task
 
-import android.os.Handler
-import android.os.HandlerThread
+import dc.library.auto.config.Config
 import dc.library.auto.task.api.step.SimpleTaskStep
 import dc.library.auto.task.core.ThreadType
 import dc.library.auto.task.logger.TaskLogger
@@ -13,8 +12,11 @@ class SerialPortInitTask : SimpleTaskStep() {
 
     override fun doTask() {
         TaskLogger.i("starting doTask $name")
-        TTLSerialPortsManager.initSerialPorts()
-        Thread.sleep(5000)
+        if (Config.HIDE_SERIAL_PORT) {
+            Thread.sleep(5000)
+        } else {
+            TTLSerialPortsManager.initSerialPorts()
+        }
         TaskLogger.i("finish doTask $name")
     }
 

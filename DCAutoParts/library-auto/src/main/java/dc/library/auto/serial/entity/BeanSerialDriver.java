@@ -26,17 +26,17 @@ public class BeanSerialDriver {
         Vector<File> devices = new Vector<>();
         File dev = new File("/dev");
         if (!dev.exists()) {
-            Log.i(TAG, "getDevices: " + dev.getAbsolutePath() + " 不存在");
+            Log.i(TAG, "获取串口设备: " + dev.getAbsolutePath() + " 不存在");
             return devices;
         }
         if (!dev.canRead()) {
-            Log.i(TAG, "getDevices: " + dev.getAbsolutePath() + "没有读取权限");
+            Log.i(TAG, "获取串口设备: " + dev.getAbsolutePath() + "没有读取权限");
             return devices;
         }
         File[] files = dev.listFiles();
         for (File file : files) {
             if (file.getAbsolutePath().startsWith(mDeviceRoot)) {
-                Log.i(TAG, "Found new device: " + file);
+                Log.i(TAG, "发现新设备: " + file);
                 devices.add(file);
             }
         }
