@@ -56,7 +56,7 @@ public class BenzHandlerData {
      * 右侧发送来的数据
      */
     public static void handlerFromRight(String text) throws Exception {
-        TaskLogger.i("执行了 handlerFromRight");
+        TaskLogger.i("执行了 handlerFromRight text");
         sbttl.append(text);
         String dat = sbttl.toString();
         //AABB06AA000008000001E52828BF42BB416ECFCCDD

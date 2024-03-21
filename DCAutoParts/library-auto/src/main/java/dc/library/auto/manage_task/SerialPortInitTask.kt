@@ -13,7 +13,7 @@ class SerialPortInitTask : SimpleTaskStep() {
 
     override fun doTask() {
         TaskLogger.i("starting doTask $name")
-        //TTLSerialPortsManager.initSerialPorts()
+        TTLSerialPortsManager.initSerialPorts()
         Thread.sleep(5000)
         TaskLogger.i("finish doTask $name")
     }

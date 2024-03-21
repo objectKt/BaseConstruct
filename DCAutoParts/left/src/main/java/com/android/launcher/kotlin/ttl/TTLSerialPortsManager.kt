@@ -1,6 +1,7 @@
 package com.android.launcher.kotlin.ttl
 
 import android.util.Log
+import com.android.launcher.usbdriver.BenzHandlerData
 import dc.library.auto.global.ConstVal
 import dc.library.auto.global.ScreenCarType
 import dc.library.auto.global.ScreenWhichSide
@@ -72,6 +73,7 @@ object TTLSerialPortsManager {
                     when (portName) {
                         "ttyS1" -> {
                             // 原来代码：SerialHelperTTLd
+                            BenzHandlerData.handlerFromRight(hex)
                         }
 
                         "ttyS3" -> {

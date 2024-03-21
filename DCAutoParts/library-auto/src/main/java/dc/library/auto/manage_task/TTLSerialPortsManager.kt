@@ -10,6 +10,7 @@ import dc.library.auto.serial.SerialPortManager
 import dc.library.auto.serial.listener.OnSerialPortDataListener
 import dc.library.auto.serial.listener.OnSerialPortOpenListener
 import dc.library.auto.task.logger.TaskLogger
+import dc.library.decode.SerialPortTTYS1Decoder
 import dc.library.utils.ByteArrayUtil
 import java.io.File
 
@@ -67,15 +68,20 @@ object TTLSerialPortsManager {
              */
             override fun onDataReceived(bytes: ByteArray?) {
                 bytes?.let {
-                    val hex = ByteArrayUtil.toHeX(it)
-                    TaskLogger.i("portName = $portName onDataReceived $hex")
-                    when (portName) {
-                        "ttyS1" -> {
-                            // 原来代码：SerialHelperTTLd
-                        }
+                    val hexDecoded = SerialPortTTYS1Decoder.decodeBytes(bytes)
+                    if (hexDecoded.isEmpty()) {
+                        // 这次来的不是完整帧数据，需要继续解码组合
+                        return
+                    } else {
+                        Log.i("dc-auto-parts", "portName = $portName onDataReceived $hexDecoded")
+                        when (portName) {
+                            "ttyS1" -> {
+                                // 原来代码：SerialHelperTTLd
+                            }
 
-                        "ttyS3" -> {
-                            // 原来代码：SerialHelperTTLd3
+                            "ttyS3" -> {
+                                // 原来代码：SerialHelperTTLd3
+                            }
                         }
                     }
                 }
