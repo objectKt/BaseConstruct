@@ -45,7 +45,7 @@ class StartingActivity : AppCompatActivity() {
         broadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
                 if (ValUtil.ActionBroadcast.LOCAL_BROADCAST_FINISH_INIT_TASK == intent.action) {
-                    XTask.postToMainDelay({ gotoMainActivity() }, 1000)
+                    gotoMainActivity()
                 }
             }
         }
