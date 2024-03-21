@@ -2,16 +2,18 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
+def ver = libs.versions
+
 android {
-    compileSdk 34
     namespace 'com.drake.logcat.sample'
+    compileSdk ver.compileVersion.get().toInteger()
+
     defaultConfig {
         applicationId "com.drake.logcat.sample"
-        minSdk 21
-        targetSdk 34
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        minSdk ver.minSdkVersion.get().toInteger()
+        targetSdk ver.compileVersion.get().toInteger()
+        versionCode ver.versionCode.get().toInteger()
+        versionName ver.versionName.get().toString()
     }
     buildTypes {
         release {
@@ -31,13 +33,12 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(":lib-util")
     implementation libs.androidx.appcompat
     implementation libs.androidx.core.ktx
     implementation libs.androidx.constraintlayout
     implementation libs.androidx.material
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation project(path: ':lib-util')
     implementation libs.androidx.navigation.fragment
     implementation libs.androidx.navigation.ui
     implementation 'com.github.liangjingkanji:StatusBar:2.0.5'
