@@ -13,7 +13,7 @@ import android.widget.TextView;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.annotations.Nullable;
 
-import dc.library.auto.event.MessageEvent;
+import dc.library.utils.event.MessageEvent;
 import com.android.launcher.R;
 import com.android.launcher.util.LogUtils;
 

@@ -5,7 +5,7 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import dc.library.auto.event.MessageEvent;
+import dc.library.utils.event.MessageEvent;
 import com.android.launcher.R;
 import com.android.launcher.meter.view.BottomStatusView;
 import com.android.launcher.meter.view.SpeedCenterView;

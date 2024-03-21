@@ -8,7 +8,7 @@ import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 
 import com.android.launcher.App;
-import dc.library.auto.event.MessageEvent;
+import dc.library.utils.event.MessageEvent;
 import com.android.launcher.can.Can1;
 import com.android.launcher.util.LogUtils;
 

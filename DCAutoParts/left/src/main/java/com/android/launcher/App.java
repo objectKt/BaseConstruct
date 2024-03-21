@@ -22,8 +22,8 @@ import org.greenrobot.eventbus.EventBus;
 import com.dc.auto.library.cockroach.Cockroach;
 import com.dc.auto.library.cockroach.ExceptionHandler;
 
-import dc.library.auto.event.MessageEvent;
-import dc.library.auto.global.ConstVal;
+import dc.library.utils.event.MessageEvent;
+import dc.library.utils.global.ConstVal;
 import dc.library.auto.task.XTask;
 
 //import com.android.launcher.ch340.CH34xUARTDriver;

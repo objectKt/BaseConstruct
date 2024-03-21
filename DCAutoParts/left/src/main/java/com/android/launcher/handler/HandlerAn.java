@@ -4,7 +4,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.android.launcher.App;
-import dc.library.auto.event.MessageEvent;
+import dc.library.utils.event.MessageEvent;
 import com.android.launcher.util.BY8302PCB;
 import com.android.launcher.util.FuncUtil;
 import com.android.launcher.util.LogUtils;

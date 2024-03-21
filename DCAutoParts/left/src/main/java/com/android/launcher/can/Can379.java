@@ -1,6 +1,6 @@
 package com.android.launcher.can;
 
-import dc.library.auto.event.MessageEvent;
+import dc.library.utils.event.MessageEvent;
 import com.android.launcher.R;
 import com.android.launcher.can.status.Can379Status;
 import com.android.launcher.meter.MeterActivity;

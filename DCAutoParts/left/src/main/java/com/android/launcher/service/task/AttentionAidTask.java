@@ -2,7 +2,7 @@ package com.android.launcher.service.task;
 
 import android.content.Context;
 
-import dc.library.auto.event.MessageEvent;
+import dc.library.utils.event.MessageEvent;
 import com.android.launcher.R;
 import com.android.launcher.service.LivingService;
 import com.android.launcher.util.AlertMessage;

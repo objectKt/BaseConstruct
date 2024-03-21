@@ -3,7 +3,7 @@ package com.android.launcher.can;
 import android.annotation.SuppressLint;
 
 import com.android.launcher.App;
-import dc.library.auto.event.MessageEvent;
+import dc.library.utils.event.MessageEvent;
 import com.android.launcher.cansender.Can045Sender;
 import com.android.launcher.cansender.CanFDSender;
 import com.android.launcher.service.LivingService;

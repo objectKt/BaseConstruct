@@ -2,10 +2,10 @@ package com.android.launcher.kotlin.ttl
 
 import android.util.Log
 import com.android.launcher.usbdriver.BenzHandlerData
-import dc.library.auto.global.ConstVal
-import dc.library.auto.global.ScreenCarType
-import dc.library.auto.global.ScreenWhichSide
-import dc.library.auto.manage_ttl.impl.TTLImpl
+import dc.library.utils.global.ConstVal
+import dc.library.utils.global.ScreenCarType
+import dc.library.utils.global.ScreenWhichSide
+import dc.library.auto.manager.TTLImpl
 import dc.library.auto.serial.SerialPortFinder
 import dc.library.auto.serial.SerialPortManager
 import dc.library.auto.serial.listener.OnSerialPortDataListener

@@ -38,8 +38,8 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import dc.library.auto.event.MessageEvent;
-import dc.library.auto.global.ConstVal;
+import dc.library.utils.event.MessageEvent;
+import dc.library.utils.global.ConstVal;
 import dc.library.auto.task.logger.TaskLogger;
 import dc.library.utils.HexUtilJava;
 

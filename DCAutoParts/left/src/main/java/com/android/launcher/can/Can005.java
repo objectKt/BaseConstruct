@@ -1,6 +1,6 @@
 package com.android.launcher.can;
 
-import dc.library.auto.event.MessageEvent;
+import dc.library.utils.event.MessageEvent;
 import com.android.launcher.util.LogUtils;
 
 import org.greenrobot.eventbus.EventBus;

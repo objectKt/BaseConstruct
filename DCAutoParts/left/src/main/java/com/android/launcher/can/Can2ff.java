@@ -3,7 +3,7 @@ package com.android.launcher.can;
 import android.os.CountDownTimer;
 
 import com.android.launcher.App;
-import dc.library.auto.event.MessageEvent;
+import dc.library.utils.event.MessageEvent;
 import com.android.launcher.util.FastJsonUtils;
 import com.android.launcher.util.LogUtils;
 import com.android.launcher.util.SPUtils;

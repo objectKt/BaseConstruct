@@ -36,6 +36,7 @@ dependencies {
     implementation libs.popup
     implementation libs.rxandroid
     implementation libs.rxjava
+    implementation libs.github.usb
     implementation libs.baseRecyclerViewAdapterHelper
     implementation libs.mapNav
     implementation libs.mapSearch

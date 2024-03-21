@@ -42,7 +42,7 @@ import com.amap.api.navi.view.AMapModeCrossOverlay;
 import com.amap.api.navi.view.DriveWayView;
 import com.amap.api.navi.view.TrafficProgressBar;
 import com.android.launcher.App;
-import dc.library.auto.event.MessageEvent;
+import dc.library.utils.event.MessageEvent;
 import com.android.launcher.R;
 import com.dc.auto.library.launcher.util.ACache;
 import com.android.launcher.util.DateUtils;

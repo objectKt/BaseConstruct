@@ -3,8 +3,7 @@ package com.android.launcher.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.android.launcher.R
-import com.android.launcher.can.CanCommand
-import com.android.launcher.can.CanSendHandler
+import dc.library.auto.bus_can.CanSendHandler
 import dc.library.auto.task.logger.TaskLogger
 
 class MainActivity : AppCompatActivity() {

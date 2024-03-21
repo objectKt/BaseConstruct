@@ -3,7 +3,7 @@ package com.android.launcher.meter.base.fragment;
 import android.os.Bundle;
 import android.view.View;
 
-import dc.library.auto.event.MessageEvent;
+import dc.library.utils.event.MessageEvent;
 
 import com.android.launcher.meter.MenuType;
 

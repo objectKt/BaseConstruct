@@ -1,8 +1,6 @@
 package com.android.launcher.service.task.kotlin
 
 import com.android.launcher.kotlin.ttl.TTLSerialPortsManager
-import dc.library.auto.global.ScreenCarType
-import dc.library.auto.global.ScreenWhichSide
 import dc.library.auto.task.api.step.SimpleTaskStep
 import dc.library.auto.task.core.ThreadType
 import dc.library.auto.task.logger.TaskLogger

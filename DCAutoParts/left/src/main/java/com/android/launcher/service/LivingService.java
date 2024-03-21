@@ -84,7 +84,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import dc.library.auto.event.MessageEvent;
+import dc.library.utils.event.MessageEvent;
 import dc.library.auto.task.XTask;
 import dc.library.auto.task.api.step.ConcurrentGroupTaskStep;
 import dc.library.auto.task.core.step.impl.TaskCommand;

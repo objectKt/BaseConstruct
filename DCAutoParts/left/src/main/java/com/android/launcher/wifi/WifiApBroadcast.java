@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 
 import com.android.launcher.App;
-import dc.library.auto.event.MessageEvent;
+import dc.library.utils.event.MessageEvent;
 import com.android.launcher.util.LogUtils;
 
 import org.greenrobot.eventbus.EventBus;

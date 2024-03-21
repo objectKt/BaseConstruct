@@ -1,6 +1,6 @@
 package com.android.launcher.handler;
 
-import dc.library.auto.event.MessageEvent;
+import dc.library.utils.event.MessageEvent;
 import com.android.launcher.entity.LampShowStatus;
 import com.android.launcher.util.LogUtils;
 

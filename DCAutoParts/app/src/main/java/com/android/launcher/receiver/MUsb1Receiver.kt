@@ -7,7 +7,7 @@ import android.content.Intent
 import android.hardware.usb.UsbDevice
 import android.hardware.usb.UsbManager
 import android.os.Parcelable
-import dc.library.auto.global.ConstVal
+import dc.library.utils.global.ConstVal
 import dc.library.auto.task.logger.TaskLogger
 import dc.library.utils.ContextUtil.getApplicationContext
 

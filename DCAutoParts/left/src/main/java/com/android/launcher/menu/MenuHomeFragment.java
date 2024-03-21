@@ -7,7 +7,7 @@ import android.view.View;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import dc.library.auto.event.MessageEvent;
+import dc.library.utils.event.MessageEvent;
 import com.android.launcher.R;
 import com.android.launcher.base.CommonFragmentBase;
 import com.android.launcher.meter.MeterActivity;

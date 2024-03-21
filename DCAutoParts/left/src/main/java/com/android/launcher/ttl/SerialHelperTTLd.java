@@ -14,7 +14,7 @@ import java.io.InputStream;
 import java.security.InvalidParameterException;
 import java.util.concurrent.LinkedTransferQueue;
 
-import dc.library.auto.global.ConstVal;
+import dc.library.utils.global.ConstVal;
 import dc.library.auto.serial.SerialPort;
 import dc.library.auto.task.XTask;
 import dc.library.auto.task.api.TaskChainEngine;

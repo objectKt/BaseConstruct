@@ -10,7 +10,7 @@ import android.widget.TextView;
 import io.reactivex.rxjava3.annotations.NonNull;
 
 import com.android.launcher.App;
-import dc.library.auto.event.MessageEvent;
+import dc.library.utils.event.MessageEvent;
 import com.android.launcher.R;
 import com.android.launcher.meter.MenuType;
 import com.android.launcher.meter.MeterActivity;

@@ -4,7 +4,7 @@ import android.os.Environment;
 import android.util.Log;
 
 import com.android.launcher.App;
-import dc.library.auto.event.MessageEvent;
+import dc.library.utils.event.MessageEvent;
 import com.android.launcher.service.UploadLogService;
 import com.dc.auto.library.launcher.util.ACache;
 

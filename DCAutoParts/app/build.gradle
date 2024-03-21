@@ -54,4 +54,8 @@ dependencies {
     implementation libs.github.net
     implementation libs.github.usb
     implementation libs.squareup.okhttp
+    implementation libs.androidx.legacy.support.v4
+    implementation libs.androidx.lifecycle.livedata.ktx
+    implementation libs.androidx.lifecycle.viewmodel.ktx
+    implementation libs.androidx.fragment.ktx
 }

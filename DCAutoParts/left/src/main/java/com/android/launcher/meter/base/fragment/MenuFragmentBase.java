@@ -1,6 +1,6 @@
 package com.android.launcher.meter.base.fragment;
 
-import dc.library.auto.event.MessageEvent;
+import dc.library.utils.event.MessageEvent;
 import com.android.launcher.base.FragmentBase;
 import com.android.launcher.base.IPresenter;
 import com.android.launcher.meter.MenuType;

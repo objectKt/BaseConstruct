@@ -1,8 +1,8 @@
 package dc.library.auto.database
 
-import dc.library.auto.global.ScreenCarType
-import dc.library.auto.global.ScreenWhichSide
-import dc.library.auto.singleton.BaseSafeSingleton
+import dc.library.utils.global.ScreenCarType
+import dc.library.utils.global.ScreenWhichSide
+import dc.library.utils.singleton.BaseSafeSingleton
 
 /**
  * 数据库统一管理类，所属车型+屏幕

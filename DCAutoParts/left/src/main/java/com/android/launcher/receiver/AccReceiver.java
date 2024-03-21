@@ -6,7 +6,7 @@ import android.content.Intent;
 
 import com.android.launcher.App;
 
-import dc.library.auto.event.MessageEvent;
+import dc.library.utils.event.MessageEvent;
 import dc.library.auto.task.logger.TaskLogger;
 
 import com.android.launcher.can.Can17a;
