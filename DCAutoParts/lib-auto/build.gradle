@@ -42,7 +42,6 @@ dependencies {
     implementation libs.mapSearch
     implementation libs.roomRuntime
     annotationProcessor libs.roomCompiler
-    api project(":lib-res")
     api project(":lib-view")
     api project(":lib-util")
 }

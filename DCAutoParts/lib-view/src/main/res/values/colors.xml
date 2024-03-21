@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="color_res_primary">#212121</color>
+    <color name="color_res_black">#000000</color>
     <color name="color_lib_green_attention_aid_sys">#2AB59D</color>
     <color name="color_lib_oil">#00000000</color>
     <color name="color_lib_oil_line_selected">#F3E648</color>
