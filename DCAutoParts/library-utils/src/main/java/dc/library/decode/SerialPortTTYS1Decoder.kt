@@ -5,6 +5,7 @@ import dc.library.utils.XXByteArray
 import io.netty.buffer.ByteBuf
 import io.netty.buffer.ByteBufAllocator
 import io.netty.buffer.ByteBufUtil
+import org.apache.commons.lang3.StringUtils
 
 /**
  * [ ttys1 解码协议 ]
@@ -17,6 +18,8 @@ import io.netty.buffer.ByteBufUtil
 object SerialPortTTYS1Decoder {
     private var byteBuf: ByteBuf = ByteBufAllocator.DEFAULT.buffer()
     private const val FRAME_SIZE_AT_LEAST: Int = 3
+    private const val FRAME_HEAD: String = "AABB"
+    private const val FRAME_END: String = "CDD0"
 
     fun decodeBytes(bytes: ByteArray): String {
         if (bytes.isEmpty()) {
@@ -25,7 +28,7 @@ object SerialPortTTYS1Decoder {
         byteBuf.writeBytes(bytes)
         while (byteBuf.readableBytes() > 0) {
             val findBytesStart = byteBuf.getUnsignedShort(byteBuf.readerIndex())
-            if (String.format("%02X", findBytesStart) != "AABB") {
+            if (String.format("%02X", findBytesStart) != FRAME_HEAD) {
                 if (byteBuf.readerIndex() < byteBuf.writerIndex()) {
                     byteBuf.skipBytes(1)
                 }
@@ -38,7 +41,7 @@ object SerialPortTTYS1Decoder {
                     val writingIndex = byteBuf.writerIndex()
                     while (endIndex < writingIndex) {
                         val findTailByte = byteBuf.getUnsignedShort(endIndex)
-                        if (String.format("%02X", findTailByte) == "CDD0") {
+                        if (String.format("%02X", findTailByte) == FRAME_END) {
                             break
                         } else {
                             endIndex += 1
@@ -55,7 +58,8 @@ object SerialPortTTYS1Decoder {
                     byteBuf.clear()
                     val frameHex = XXByteArray.toHeX(frameBytes)
                     Log.i("dc-auto-parts", "ttys1 解码完整结果：$frameHex")
-                    return frameHex
+                    // 掐头去尾
+                    return StringUtils.substring(frameHex, 4, frameHex.length - 5)
                 }
             }
         }
