@@ -51,7 +51,7 @@ dependencies {
     implementation libs.androidx.appcompat
     implementation libs.androidx.constraintlayout
     implementation libs.androidx.material
-    implementation libs.github.net
+    implementation libs.liangjingkanji.net
     implementation libs.github.usb
     implementation libs.squareup.okhttp
     implementation libs.androidx.legacy.support.v4

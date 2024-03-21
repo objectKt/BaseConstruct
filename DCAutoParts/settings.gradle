@@ -35,3 +35,5 @@ rootProject.name = "DCAutoParts"
 include ':launcher', ':left'
 include ':lib-auto', ':lib-util', ':lib-view'
 include ':demoLogCat'
+include ':app'
+include ':engine'
