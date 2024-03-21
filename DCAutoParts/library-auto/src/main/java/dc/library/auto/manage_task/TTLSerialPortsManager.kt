@@ -12,7 +12,6 @@ import dc.library.auto.serial.listener.OnSerialPortOpenListener
 import dc.library.auto.task.logger.TaskLogger
 import dc.library.decode.SerialPortTTYS1Decoder
 import dc.library.utils.ByteArrayUtil
-import org.apache.commons.lang3.StringUtils
 import java.io.File
 
 /**
