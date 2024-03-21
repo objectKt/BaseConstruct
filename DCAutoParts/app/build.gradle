@@ -46,7 +46,7 @@ android {
 }
 
 dependencies {
-    implementation project(":library-auto")
+    implementation project(":lib-auto")
     implementation libs.androidx.activity
     implementation libs.androidx.appcompat
     implementation libs.androidx.constraintlayout
