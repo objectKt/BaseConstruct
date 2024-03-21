@@ -1,0 +1,205 @@
+<resources>
+    <string name="app_name">LogCat</string>
+    <string name="json">{
+  "code": 3,
+  "message": "请求成功",
+  "data": {
+    "total": 12,
+    "list": [
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      },
+      {
+        "movies": "半泽直树",
+        "time": 1602863531,
+        "country": "japanese",
+        "category": "workplace"
+      }
+    ]
+  }
+}</string>
+
+</resources>

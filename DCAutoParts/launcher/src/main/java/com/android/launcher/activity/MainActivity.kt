@@ -14,12 +14,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        TaskLogger.i("进入了 MainActivity")
         setContentView(R.layout.activity_main_lefts223)
         checkDeviceStatus()
     }
 
-    @Suppress("ControlFlowWithEmptyBody")
     private fun checkDeviceStatus() {
         val powerManager: PowerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
         val isDeviceInteractive = powerManager.isInteractive
@@ -37,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         // 获得焦点
         TaskLogger.i("MainActivity 获得焦点")
-        //CanSendHandler.sendCan(CanCommand.Send.CAN3DC)
     }
 
     override fun onPause() {
