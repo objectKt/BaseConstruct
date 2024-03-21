@@ -32,5 +32,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "DCAutoParts"
-include ':app', ':left'
+include ':launcher', ':left'
 include ':lib-auto', ':lib-res', ':lib-util', ':lib-view'

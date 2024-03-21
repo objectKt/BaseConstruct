@@ -20,7 +20,7 @@ import dc.library.utils.ValUtil
 class AutoTaskService : Service() {
 
     companion object {
-        private const val CLASS_NAME = "TaskManagerService"
+        private const val CLASS_NAME = "AutoTaskService"
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -42,6 +42,7 @@ class AutoTaskService : Service() {
     override fun onLowMemory() {
         super.onLowMemory()
         // 清理内存，停止后台任务等
+        Log.i(ValUtil.Log.TAG, "--- onLowMemory ---")
     }
 
     private fun runBackgroundTasks() {
