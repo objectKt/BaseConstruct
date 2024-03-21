@@ -13,7 +13,10 @@ class SerialPortInitTask : SimpleTaskStep() {
     override fun doTask() {
         TaskLogger.i("starting doTask $name")
         if (Config.HIDE_SERIAL_PORT) {
-            Thread.sleep(5000)
+            try {
+                Thread.sleep(5000)
+            } catch (_: Exception) {
+            }
         } else {
             TTLSerialPortsManager.initSerialPorts()
         }
