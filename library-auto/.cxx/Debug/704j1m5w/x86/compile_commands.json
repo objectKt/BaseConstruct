@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/Users/hf/Desktop/BaseConstruct/DCAutoParts/library-auto/.cxx/Debug/704j1m5w/x86",
+  "command": "/Users/hf/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=i686-none-linux-android26 --sysroot=/Users/hf/Library/Android/sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DSerialPort_EXPORTS -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -fno-limit-debug-info  -fPIC -o CMakeFiles/SerialPort.dir/src/main/jni/SerialPort.c.o -c /Users/hf/Desktop/BaseConstruct/DCAutoParts/library-auto/src/main/jni/SerialPort.c",
+  "file": "/Users/hf/Desktop/BaseConstruct/DCAutoParts/library-auto/src/main/jni/SerialPort.c"
+}
+]

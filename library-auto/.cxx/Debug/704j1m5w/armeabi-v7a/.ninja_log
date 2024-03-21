@@ -1,0 +1,27 @@
+# ninja log v5
+0	334	1710928629595431512	CMakeFiles/SerialPort.dir/src/main/jni/SerialPort.c.o	94e6b8e13ed5fa0b
+336	495	1710928629752968074	../../../../build/intermediates/cxx/Debug/704j1m5w/obj/armeabi-v7a/libSerialPort.so	e16e3ca7e5a8809c
+0	21	0	clean	97b14d808453763
+1	370	1710928940867028676	CMakeFiles/SerialPort.dir/src/main/jni/SerialPort.c.o	94e6b8e13ed5fa0b
+372	537	1710928941032566301	../../../../build/intermediates/cxx/Debug/704j1m5w/obj/armeabi-v7a/libSerialPort.so	e16e3ca7e5a8809c
+1	13	0	clean	97b14d808453763
+2	455	1710929391070262451	CMakeFiles/SerialPort.dir/src/main/jni/SerialPort.c.o	94e6b8e13ed5fa0b
+455	622	1710929391235670510	../../../../build/intermediates/cxx/Debug/704j1m5w/obj/armeabi-v7a/libSerialPort.so	e16e3ca7e5a8809c
+0	42	0	clean	97b14d808453763
+2	550	1710950765230310409	CMakeFiles/SerialPort.dir/src/main/jni/SerialPort.c.o	94e6b8e13ed5fa0b
+550	732	1710950765450988063	../../../../build/intermediates/cxx/Debug/704j1m5w/obj/armeabi-v7a/libSerialPort.so	e16e3ca7e5a8809c
+0	28	0	clean	97b14d808453763
+2	473	1710952891906021171	CMakeFiles/SerialPort.dir/src/main/jni/SerialPort.c.o	94e6b8e13ed5fa0b
+473	711	1710952892142077751	../../../../build/intermediates/cxx/Debug/704j1m5w/obj/armeabi-v7a/libSerialPort.so	e16e3ca7e5a8809c
+1	14	0	clean	97b14d808453763
+2	396	1710982435251874712	CMakeFiles/SerialPort.dir/src/main/jni/SerialPort.c.o	94e6b8e13ed5fa0b
+397	2927	1710982437781879240	../../../../build/intermediates/cxx/Debug/704j1m5w/obj/armeabi-v7a/libSerialPort.so	e16e3ca7e5a8809c
+0	32	0	clean	97b14d808453763
+1	46	0	clean	97b14d808453763
+0	19	0	clean	97b14d808453763
+2	254	1711010998571169191	CMakeFiles/SerialPort.dir/src/main/jni/SerialPort.c.o	94e6b8e13ed5fa0b
+255	404	1711010998719013329	../../../../build/intermediates/cxx/Debug/704j1m5w/obj/armeabi-v7a/libSerialPort.so	e16e3ca7e5a8809c
+0	38	0	clean	97b14d808453763
+0	8	0	clean	97b14d808453763
+2	461	1711011358382220823	CMakeFiles/SerialPort.dir/src/main/jni/SerialPort.c.o	94e6b8e13ed5fa0b
+461	697	1711011358617475725	../../../../build/intermediates/cxx/Debug/704j1m5w/obj/armeabi-v7a/libSerialPort.so	e16e3ca7e5a8809c
