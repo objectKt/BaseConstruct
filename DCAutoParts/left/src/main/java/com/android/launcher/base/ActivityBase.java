@@ -9,9 +9,9 @@ import dc.library.utils.event.MessageEvent;
 import com.android.launcher.R;
 import com.android.launcher.meter.view.BottomStatusView;
 import com.android.launcher.meter.view.SpeedCenterView;
-import com.android.launcher.type.LanguageType;
-import com.android.launcher.type.SteerWheelKeyType;
-import com.android.launcher.util.LanguageUtils;
+import dc.library.utils.global.type.LanguageType;
+import dc.library.utils.global.type.SteerWheelKeyType;
+import dc.library.utils.LanguageUtils;
 import com.android.launcher.util.LogUtils;
 import com.android.launcher.util.SPUtils;
 

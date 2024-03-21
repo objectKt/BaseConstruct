@@ -1,4 +1,4 @@
-package com.android.launcher.type;
+package dc.library.utils.global.type;
 
 /**
 * @description:

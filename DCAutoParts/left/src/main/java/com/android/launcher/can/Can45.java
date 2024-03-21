@@ -3,7 +3,7 @@ package com.android.launcher.can;
 import android.text.TextUtils;
 
 import dc.library.utils.event.MessageEvent;
-import com.android.launcher.status.Can45OnStatus;
+import dc.library.utils.global.status.Can45OnStatus;
 import com.android.launcher.usbdriver.SendHelperUsbToRight;
 import com.android.launcher.util.CommonUtil;
 import com.android.launcher.util.LogUtils;

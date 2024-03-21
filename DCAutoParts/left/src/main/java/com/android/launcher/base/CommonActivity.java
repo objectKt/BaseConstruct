@@ -5,7 +5,7 @@ import android.os.Bundle;
 import dc.library.utils.event.MessageEvent;
 import com.android.launcher.meter.MenuType;
 import com.android.launcher.meter.MeterActivity;
-import com.android.launcher.type.SteerWheelKeyType;
+import dc.library.utils.global.type.SteerWheelKeyType;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

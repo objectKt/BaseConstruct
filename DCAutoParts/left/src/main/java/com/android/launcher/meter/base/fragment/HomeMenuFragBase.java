@@ -14,9 +14,9 @@ import dc.library.utils.event.MessageEvent;
 import com.android.launcher.R;
 import com.android.launcher.meter.MenuType;
 import com.android.launcher.meter.MeterActivity;
-import com.android.launcher.type.UnitType;
+import dc.library.utils.global.type.UnitType;
 import com.android.launcher.util.AppUtils;
-import com.android.launcher.util.LanguageUtils;
+import dc.library.utils.LanguageUtils;
 import com.android.launcher.util.LogUtils;
 import com.android.launcher.util.UnitUtils;
 

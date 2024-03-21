@@ -26,11 +26,11 @@ import com.android.launcher.meter.classic.fragment.ClassicSpeedCalibrationFrag;
 import dc.library.ui.view.dashboard.OilMeterView;
 import dc.library.ui.view.dashboard.WaterTempMeterView;
 import com.android.launcher.service.LivingService;
-import com.android.launcher.type.UnitType;
+import dc.library.utils.global.type.UnitType;
 import com.dc.auto.library.launcher.util.ACache;
-import com.android.launcher.util.AnimationUtils;
+import dc.library.utils.AnimationUtils;
 import com.android.launcher.util.CarConstants;
-import com.android.launcher.util.IconUtils;
+import dc.library.utils.IconUtils;
 import com.android.launcher.util.LogUtils;
 
 import org.greenrobot.eventbus.EventBus;

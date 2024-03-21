@@ -4,7 +4,7 @@ import dc.library.utils.event.MessageEvent;
 import com.android.launcher.R;
 import com.android.launcher.can.status.Can379Status;
 import com.android.launcher.meter.MeterActivity;
-import com.android.launcher.type.CarType;
+import dc.library.utils.global.type.CarType;
 import com.android.launcher.util.AlertMessage;
 import com.android.launcher.util.LogUtils;
 import com.android.launcher.vo.AlertVo;

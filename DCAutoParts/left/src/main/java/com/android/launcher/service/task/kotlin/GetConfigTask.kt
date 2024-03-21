@@ -1,7 +1,7 @@
 package com.android.launcher.service.task.kotlin
 
 import com.android.launcher.service.LivingService
-import com.android.launcher.type.UnitType
+import dc.library.utils.global.type.UnitType
 import com.android.launcher.util.SPUtils
 import dc.library.auto.task.api.step.SimpleTaskStep
 import dc.library.auto.task.core.ThreadType

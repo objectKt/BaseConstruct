@@ -1,8 +1,8 @@
 package com.android.launcher.handler;
 
 import dc.library.utils.event.MessageEvent;
-import com.android.launcher.type.SteerWheelKeyType;
-import com.android.launcher.type.SteeringWheelKeyType;
+import dc.library.utils.global.type.SteerWheelKeyType;
+import dc.library.utils.global.type.SteeringWheelKeyType;
 import com.android.launcher.usbdriver.SendHelperUsbToRight;
 import com.android.launcher.util.LogUtils;
 

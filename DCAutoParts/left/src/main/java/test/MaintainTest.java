@@ -1,6 +1,6 @@
 package test;
 
-import com.android.launcher.type.SteerWheelKeyType;
+import dc.library.utils.global.type.SteerWheelKeyType;
 
 public class MaintainTest {
 

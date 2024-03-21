@@ -3,7 +3,7 @@ package test;
 import android.os.Handler;
 
 import dc.library.utils.event.MessageEvent;
-import com.android.launcher.type.SteerWheelKeyType;
+import dc.library.utils.global.type.SteerWheelKeyType;
 
 import org.greenrobot.eventbus.EventBus;
 

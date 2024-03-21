@@ -2,8 +2,10 @@
 <resources>
     <color name="color_lib_green_attention_aid_sys">#2AB59D</color>
     <color name="color_lib_oil">#00000000</color>
+    <color name="color_lib_oil_line_selected">#F3E648</color>
     <color name="color_lib_cf">#ccffffff</color>
     <color name="color_lib_white">#FFFFFF</color>
     <color name="color_lib_red">#EC0D0D</color>
     <color name="color_lib_green">#6DED1B</color>
+    <color name="color_lib_yellow">#F1B70A</color>
 </resources>

@@ -1,9 +1,7 @@
-package com.android.launcher.type;
+package dc.library.utils.global.type;
 
 /**
- * @author 78495
- * @description: 档位类型
- * @createDate: 2023/7/18
+ * 档位类型
  */
 public enum GearsType {
     //P挡
@@ -30,7 +28,7 @@ public enum GearsType {
     }
 
 
-    public String getTypeValue(){
+    public String getTypeValue() {
         return value;
     }
 

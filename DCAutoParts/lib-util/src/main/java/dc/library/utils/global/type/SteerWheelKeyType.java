@@ -1,4 +1,4 @@
-package com.android.launcher.type;
+package dc.library.utils.global.type;
 
 /**
 * @description: 方向盘按键类型

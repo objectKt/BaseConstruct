@@ -2,7 +2,7 @@ package com.android.launcher.cansender;
 
 import com.android.launcher.App;
 import com.android.launcher.cruisecontrol.CanSenderBase;
-import com.android.launcher.status.DriveModeStatus;
+import dc.library.utils.global.status.DriveModeStatus;
 import com.android.launcher.usbdriver.MUsb1Receiver;
 import com.android.launcher.util.DataUtils;
 import com.android.launcher.util.LogUtils;

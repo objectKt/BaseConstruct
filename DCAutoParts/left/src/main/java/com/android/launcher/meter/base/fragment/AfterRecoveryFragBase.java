@@ -9,10 +9,10 @@ import dc.library.utils.event.MessageEvent;
 import com.android.launcher.R;
 import com.android.launcher.meter.MenuType;
 import com.android.launcher.meter.MeterActivity;
-import com.android.launcher.type.UnitType;
+import dc.library.utils.global.type.UnitType;
 import com.android.launcher.util.AppUtils;
 import com.android.launcher.util.DateUtils;
-import com.android.launcher.util.IconUtils;
+import dc.library.utils.IconUtils;
 import com.android.launcher.util.NumberUtils;
 import com.android.launcher.util.UnitUtils;
 

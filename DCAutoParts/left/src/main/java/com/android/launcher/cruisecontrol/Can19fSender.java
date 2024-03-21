@@ -3,7 +3,7 @@ package com.android.launcher.cruisecontrol;
 import com.android.launcher.App;
 import com.android.launcher.entity.Can35dD4Entity;
 import com.android.launcher.meter.MeterActivity;
-import com.android.launcher.type.UnitType;
+import dc.library.utils.global.type.UnitType;
 import com.android.launcher.usbdriver.MUsb1Receiver;
 import com.dc.auto.library.launcher.util.ACache;
 import com.android.launcher.util.DataUtils;

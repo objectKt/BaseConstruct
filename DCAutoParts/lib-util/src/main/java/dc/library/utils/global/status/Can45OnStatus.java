@@ -1,4 +1,4 @@
-package com.android.launcher.status;
+package dc.library.utils.global.status;
 
 /**
 * @description: Can45 某个按键开启状态

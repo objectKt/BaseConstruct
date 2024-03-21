@@ -7,7 +7,7 @@ import dc.library.utils.event.MessageEvent;
 import com.android.launcher.cansender.Can045Sender;
 import com.android.launcher.cansender.CanFDSender;
 import com.android.launcher.service.LivingService;
-import com.android.launcher.status.DriveModeStatus;
+import dc.library.utils.global.status.DriveModeStatus;
 import com.android.launcher.usbdriver.SendHelperUsbToRight;
 import com.dc.auto.library.launcher.util.ACache;
 import com.android.launcher.util.LogUtils;

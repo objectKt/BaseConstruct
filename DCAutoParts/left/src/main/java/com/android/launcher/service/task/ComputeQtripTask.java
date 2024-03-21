@@ -3,7 +3,7 @@ package com.android.launcher.service.task;
 import android.content.Context;
 
 import com.android.launcher.service.LivingService;
-import com.android.launcher.type.UnitType;
+import dc.library.utils.global.type.UnitType;
 import com.android.launcher.util.AppUtils;
 import com.android.launcher.util.BigDecimalUtils;
 import com.android.launcher.util.LogUtils;

@@ -14,7 +14,7 @@ import com.android.launcher.base.CommonFragmentBase;
 import com.android.launcher.entity.EngineOilMenuEntity;
 import dc.library.ui.view.dashboard.CoolingLiquidView;
 import com.android.launcher.service.LivingService;
-import com.android.launcher.type.UnitType;
+import dc.library.utils.global.type.UnitType;
 import com.android.launcher.util.AppUtils;
 import com.android.launcher.util.BigDecimalUtils;
 import com.android.launcher.util.FastJsonUtils;

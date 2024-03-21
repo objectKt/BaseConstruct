@@ -1,4 +1,4 @@
-package com.android.launcher.meter.view;
+package dc.library.ui.view.dashboard;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -8,59 +8,38 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-
-import dc.library.utils.event.MessageEvent;
-import com.android.launcher.R;
-import com.android.launcher.meter.MeterActivity;
-import com.android.launcher.meter.MeterFragmentType;
-import com.android.launcher.service.LivingService;
-import dc.library.utils.global.status.RadarSwitchStatus;
-import dc.library.utils.AnimationUtils;
-import com.android.launcher.util.CarConstants;
-import dc.library.utils.IconUtils;
-import com.android.launcher.util.LogUtils;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import dc.library.ui.view.dashboard.OilMeterLineView;
-import dc.library.ui.view.dashboard.WaterTempLineView;
-import io.reactivex.rxjava3.annotations.NonNull;
-import io.reactivex.rxjava3.annotations.Nullable;
+import dc.library.ui.R;
+import dc.library.utils.AnimationUtils;
+import dc.library.utils.IconUtils;
+import dc.library.utils.event.MessageEvent;
+import dc.library.utils.global.status.RadarSwitchStatus;
 
 public class BottomStatusView extends FrameLayout {
-    private static final String TAG = BottomStatusView.class.getSimpleName();
 
+    private static final String TAG = BottomStatusView.class.getSimpleName();
     //电子手刹警告显示
     public static volatile boolean electricalParkBrakeWaringShow = false;
-
     //电子手刹显示
     public static volatile boolean electricalParkBrakeShow = false;
-
     //黄色的p, 电子手刹警告
     private ImageView electricalparkbrakewarning;
-
     //红色的p, 当P灯为红色且常亮时，表示驻车制动系统工作正常，手刹已经拉紧。这是正常状态，没有故障。
     private ImageView electricalParkBrakeIV;
-
     //制动系统警告灯
     private ImageView brakeSystemIV;
-
     private TextView timeTV;
-
-
     private OilMeterLineView oilMeterLineView;
     private WaterTempLineView waterTempLineView;
     //剩余里程
     private TextView remainKONTV;
-
-
     private ImageView clearanceLampIV;
     private ImageView oilBoxIV;
     private ConstraintLayout waterTempCL;
@@ -71,9 +50,7 @@ public class BottomStatusView extends FrameLayout {
     private WaterTempLineView waterTempView;
     private TextView unitTV;
 
-
     private boolean oilAnimationStart;
-
 
     public BottomStatusView(@NonNull Context context) {
         this(context, null);
@@ -89,9 +66,7 @@ public class BottomStatusView extends FrameLayout {
 
     public BottomStatusView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-
-        LayoutInflater.from(context).inflate(R.layout.layout_bottom_status, this, true);
-
+        LayoutInflater.from(context).inflate(R.layout.layout_bottom_status_view, this, true);
         oilBoxIV = findViewById(R.id.oilBoxIV);
         clearanceLampIV = findViewById(R.id.clearanceLampIV);
         electricalparkbrakewarning = findViewById(R.id.electricalparkbrakewarning);
@@ -107,7 +82,6 @@ public class BottomStatusView extends FrameLayout {
         oilMeterLineView = findViewById(R.id.oilMeterLineView);
         oilMeterLineCL = findViewById(R.id.oilMeterLineCL);
         waterTempCL = findViewById(R.id.waterTempCL);
-
         oilMeterLineCL.setVisibility(View.INVISIBLE);
         waterTempCL.setVisibility(View.INVISIBLE);
         showOilLineView(false);
@@ -115,11 +89,8 @@ public class BottomStatusView extends FrameLayout {
         radarPOnIV.setVisibility(View.INVISIBLE);
         hideAll();
         loadData();
-
-        IconUtils.setColor(radarPOnIV, getResources().getColor(R.color.oilLineSelect));
-
+        IconUtils.setColor(radarPOnIV, getResources().getColor(R.color.color_lib_oil_line_selected));
         unitTV.setText(getResources().getString(R.string.mile_unit));
-
         try {
             oilAnimationStart = false;
             IconUtils.setColor(oilBoxIV, 0);
@@ -136,30 +107,6 @@ public class BottomStatusView extends FrameLayout {
         timeTV.setText(time);
     }
 
-
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        try {
-            EventBus.getDefault().register(this);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        try {
-            EventBus.getDefault().unregister(this);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        super.onDetachedFromWindow();
-    }
-
     public void hideLineOilMeterView(boolean isHide) {
         if (isHide) {
             if (waterTempCL != null) {
@@ -174,11 +121,9 @@ public class BottomStatusView extends FrameLayout {
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event) {
         try {
             if (event.type == MessageEvent.Type.HIDE_ALL_METER_WARING) {
-                LogUtils.printI(TAG, "HIDE_ALL_METER_WARING---");
                 hideAll();
             } else if (event.type == MessageEvent.Type.SHOW_CLEARANCE_LAMP) {
                 if (event.data instanceof Boolean) {
@@ -240,13 +185,12 @@ public class BottomStatusView extends FrameLayout {
                 }
             } else if (event.type == MessageEvent.Type.UPDATE_RUNNING_DISTANCE) {
                 if (remainKONTV != null) {
-                    remainKONTV.setText(String.valueOf((int) LivingService.distance));
+                    ///remainKONTV.setText(String.valueOf((int) LivingService.distance));
                 }
             } else if (event.type == MessageEvent.Type.START_METER_ANIMATION) {
-                LogUtils.printI(TAG, "START_METER_ANIMATION---");
-                if (MeterActivity.currentFragmentType == MeterFragmentType.Tech || MeterActivity.currentFragmentType == MeterFragmentType.SPORT || MeterActivity.currentFragmentType == MeterFragmentType.CLASSIC) {
-                    showAll();
-                }
+                ///if (MeterActivity.currentFragmentType == MeterFragmentType.Tech || MeterActivity.currentFragmentType == MeterFragmentType.SPORT || MeterActivity.currentFragmentType == MeterFragmentType.CLASSIC) {
+                showAll();
+                ///}
             } else if (event.type == MessageEvent.Type.CURRENT_ML) {
                 if (event.data instanceof Float) {
                     float oilPercent = (float) event.data;
@@ -271,18 +215,14 @@ public class BottomStatusView extends FrameLayout {
 
     protected void updateOilProgress(float percent) {
         try {
-            LogUtils.printI(TAG, "updateOilProgress----percent=" + percent);
             if (oilMeterLineView != null) {
                 oilMeterLineView.setCurrentOil(percent);
             }
-            if (percent <= CarConstants.OIL_BOX_WARN) {
-
+            if (percent <= 0.13f) {
                 oilAnimationStart = false;
-                if (!oilAnimationStart) {
-                    IconUtils.setColor(oilBoxIV, getResources().getColor(R.color.colorRed));
-                    oilAnimationStart = true;
-                    AnimationUtils.startBlinkAnim(oilBoxIV);
-                }
+                IconUtils.setColor(oilBoxIV, getResources().getColor(R.color.color_lib_red));
+                oilAnimationStart = true;
+                AnimationUtils.startBlinkAnim(oilBoxIV);
             } else {
                 oilAnimationStart = false;
                 IconUtils.setColor(oilBoxIV, 0);
@@ -296,7 +236,6 @@ public class BottomStatusView extends FrameLayout {
     }
 
     public void updateWaterTemp(int temp) {
-        LogUtils.printI(TAG, "updateWaterTemp----temp=" + temp);
         try {
             if (temp < 50) {
                 temp = 51;
@@ -314,7 +253,6 @@ public class BottomStatusView extends FrameLayout {
         try {
 //            LogUtils.printI(TAG, "CALIBRATION_TIME---time=" + time);
             if (time.length() > 13) { //时间长度固定13
-                LogUtils.printI(TAG, "CALIBRATION_TIME---长度不对");
                 return;
             }
             Long rightTime = Long.valueOf(time);
@@ -327,7 +265,6 @@ public class BottomStatusView extends FrameLayout {
     }
 
     public void setHoldViewShowStatus(int visible) {
-        LogUtils.printI(TAG, "setHoldViewShowStatus----visible=" + visible);
         if (holdTV != null) {
             try {
                 holdTV.setVisibility(visible);
@@ -338,7 +275,6 @@ public class BottomStatusView extends FrameLayout {
     }
 
     public void setupRadarSwitch(String radarPStatus) {
-        LogUtils.printI(TAG, "setupRadarSwitch----radarPStatus=" + radarPStatus);
         if (RadarSwitchStatus.STATE_ON.getValue().equals(radarPStatus)) {
             radarPOnIV.setVisibility(View.VISIBLE);
         } else {
@@ -347,7 +283,6 @@ public class BottomStatusView extends FrameLayout {
     }
 
     private void showElectricalPackBrake(boolean isShow) {
-        LogUtils.printI(TAG, "showElectricalPackBrake----isShow=" + isShow);
         if (electricalParkBrakeIV == null) {
             return;
         }
@@ -377,7 +312,6 @@ public class BottomStatusView extends FrameLayout {
     }
 
     private void showElectricalPackBrakeWaring(Boolean isShow) {
-        LogUtils.printI(TAG, "showElectricalPackBrakeWaring----isShow=" + isShow);
         if (electricalparkbrakewarning == null) {
             return;
         }
@@ -389,7 +323,6 @@ public class BottomStatusView extends FrameLayout {
     }
 
     private void showClearanceLamp(Boolean isShow) {
-        LogUtils.printI(TAG, "showClearanceLamp----isShow=" + isShow);
         if (clearanceLampIV == null) {
             return;
         }

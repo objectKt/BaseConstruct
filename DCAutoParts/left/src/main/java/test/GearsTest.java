@@ -1,7 +1,7 @@
 package test;
 
 import dc.library.utils.event.MessageEvent;
-import com.android.launcher.type.GearsType;
+import dc.library.utils.global.type.GearsType;
 
 import org.greenrobot.eventbus.EventBus;
 

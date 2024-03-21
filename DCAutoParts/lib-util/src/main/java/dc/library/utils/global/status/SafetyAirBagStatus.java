@@ -1,4 +1,4 @@
-package com.android.launcher.status;
+package dc.library.utils.global.status;
 
 /**
  * 安全气囊状态

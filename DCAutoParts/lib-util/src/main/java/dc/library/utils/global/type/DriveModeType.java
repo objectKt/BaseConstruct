@@ -1,4 +1,4 @@
-package com.android.launcher.type;
+package dc.library.utils.global.type;
 
 /**
  * @date： 2023/10/9
