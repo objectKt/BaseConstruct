@@ -73,7 +73,8 @@ object TTLSerialPortsManager {
                         "ttyS1" -> {
                             // 原来代码：SerialHelperTTLd
                             val hexDecoded = SerialPortTTYS1Decoder.decodeBytes(bytes)
-                            // 去除帧头帧尾 AABB 221710993057731 CCDD0
+                            // 11:59:12.102  ttys1 解码完整结果：      AABB 221710993551878 CCDD0
+                            // 11:59:12.102  ttyS1 收到数据解码出内容        221710993551878
                             val resultDelHead = StringUtils.replace(hexDecoded, "AABB", "")
                             val resultData = StringUtils.replace(resultDelHead, "CCDD0", "")
                             Log.i("dc-auto-parts", "$portName 收到数据解码出内容 $resultData")
