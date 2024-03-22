@@ -40,7 +40,7 @@ class StartingActivity : AppCompatActivity() {
     }
 
     private fun startSomeInitTask() {
-        LogCat.i(" === 启动任务链 -- begin")
+        LogCat.i("=== 启动任务链 -- begin")
         val timestampBegin = System.currentTimeMillis()
         val groupTaskStep = XTask.getConcurrentGroupTask()
         groupTaskStep.apply {
