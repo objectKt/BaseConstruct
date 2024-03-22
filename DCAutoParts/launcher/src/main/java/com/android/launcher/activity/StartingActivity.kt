@@ -46,14 +46,14 @@ class StartingActivity : AppCompatActivity() {
         }?.start()
     }
 
-    override fun onDestroy() {
+    override fun onStop() {
+        super.onStop()
         LogCat.i("mInterval .. 停止")
         mInterval?.stop()
-        super.onDestroy()
     }
 
     private fun startSomeInitTask() {
-        LogCat.i("启动页面同时执行的任务 -- begin")
+        LogCat.i(" === 启动页面同时执行的任务 -- begin")
         val timestampBegin = System.currentTimeMillis()
         val groupTaskStep = XTask.getConcurrentGroupTask()
         groupTaskStep.apply {
@@ -68,7 +68,7 @@ class StartingActivity : AppCompatActivity() {
             .addTask(SerialPortInitTask())
             .setTaskChainCallback(object : TaskChainCallbackAdapter() {
                 override fun onTaskChainCompleted(engine: ITaskChainEngine, result: ITaskResult) {
-                    LogCat.i("启动页面同时执行的任务 -- Finish 总共耗时: ${System.currentTimeMillis() - timestampBegin} ms")
+                    LogCat.i("=== 启动页面同时执行的任务 -- Finish 总共耗时: ${System.currentTimeMillis() - timestampBegin} ms")
                     gotoMainActivity()
                 }
             }).start()

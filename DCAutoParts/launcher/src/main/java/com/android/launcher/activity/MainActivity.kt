@@ -1,8 +1,6 @@
 package com.android.launcher.activity
 
-import android.content.Context
 import android.os.Bundle
-import android.os.PowerManager
 import androidx.fragment.app.proxyFragmentFactory
 import androidx.navigation.fragment.NavHostFragment
 import com.android.launcher.R
@@ -31,24 +29,10 @@ class MainActivity : EngineActivity<ActivityMainLefts223Binding>(R.layout.activi
     }
 
     override fun initData() {
-        checkDeviceStatus()
     }
 
     override fun onDestroy() {
         TTLSerialPortsManager.closeAllPorts()
         super.onDestroy()
-    }
-
-    private fun checkDeviceStatus() {
-        val powerManager: PowerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
-        val isDeviceInteractive = powerManager.isInteractive
-        // 根据设备否处于交互状态执行相应的操作
-        if (!isDeviceInteractive) {
-            // 设备可能处于挂起或锁屏状态，执行需要的操作，例如暂停视频播放
-            LogCat.i("--- isDeviceInteractive false ---")
-        } else {
-            // 设备处于活动状态，执行需要的操作，例如恢复视频播放
-            LogCat.i("--- isDeviceInteractive true ---")
-        }
     }
 }

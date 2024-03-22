@@ -10,9 +10,9 @@ import dc.library.auto.task.core.ThreadType
 class SerialPortInitTask : SimpleTaskStep() {
 
     override fun doTask() {
-        if (Config.HIDE_SERIAL_PORT) {
+        if (true) {
             try {
-                Thread.sleep(3000)
+                Thread.sleep(1000)
             } catch (_: Exception) {
             }
         } else {
