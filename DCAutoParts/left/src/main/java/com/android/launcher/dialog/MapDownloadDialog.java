@@ -6,7 +6,7 @@ import android.widget.TextView;
 import com.android.launcher.R;
 import com.lxj.xpopup.core.CenterPopupView;
 
-import dc.library.ui.numberprogress.NumberProgressBar;
+import dc.library.ui.progress.NumberProgressBar;
 
 /**
  * @date： 2023/12/7

@@ -89,7 +89,7 @@ import dc.library.auto.task.XTask;
 import dc.library.auto.task.api.step.ConcurrentGroupTaskStep;
 import dc.library.auto.task.core.step.impl.TaskCommand;
 import dc.library.auto.task.logger.TaskLogger;
-import dc.library.ui.numberprogress.NumberProgressBar;
+import dc.library.ui.progress.NumberProgressBar;
 
 public class LivingService extends Service {
     private static final String TAG = LivingService.class.getSimpleName();

@@ -3,7 +3,7 @@ package com.drake.logcat.sample.ui.fragment
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import com.drake.engine.base.EngineFragment
+import dc.library.ui.base.EngineFragment
 import dc.library.utils.logcat.LogCat
 import com.drake.logcat.sample.R
 import com.drake.logcat.sample.databinding.FragmentLogBinding

@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
 import androidx.appcompat.widget.AppCompatSeekBar
-import com.drake.engine.R
+import dc.library.ui.R
 
 /**
  * 通过过滤器可以判断是否支持手势划动

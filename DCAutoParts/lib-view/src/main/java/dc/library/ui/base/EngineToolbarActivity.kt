@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import com.drake.engine.R
+import dc.library.ui.R
 
 /**
  * 在项目layout目录下创建`layout_engine_toolbar.xml`可以覆写标题栏布局

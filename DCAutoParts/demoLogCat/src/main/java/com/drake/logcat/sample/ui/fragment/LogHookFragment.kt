@@ -1,6 +1,6 @@
 package com.drake.logcat.sample.ui.fragment
 
-import com.drake.engine.base.EngineFragment
+import dc.library.ui.base.EngineFragment
 import dc.library.utils.logcat.LogCat
 import dc.library.utils.logcat.LogHook
 import dc.library.utils.logcat.LogInfo

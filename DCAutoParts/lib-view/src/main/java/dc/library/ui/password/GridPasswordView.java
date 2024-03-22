@@ -24,7 +24,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.drake.engine.R;
+import dc.library.ui.R;
 import dc.library.ui.password.imebugfixer.ImeDelBugFixedEditText;
 import dc.library.ui.password.imebugfixer.ImeDelBugFixedEditText;
 

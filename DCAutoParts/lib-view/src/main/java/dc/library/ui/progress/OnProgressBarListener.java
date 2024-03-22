@@ -1,4 +1,4 @@
-package dc.library.ui.numberprogress;
+package dc.library.ui.progress;
 
 public interface OnProgressBarListener {
 

@@ -33,14 +33,12 @@ android {
 }
 
 dependencies {
+    implementation project(":lib-view")
     implementation project(":lib-util")
     implementation libs.androidx.appcompat
     implementation libs.androidx.core.ktx
     implementation libs.androidx.constraintlayout
     implementation libs.androidx.material
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation libs.androidx.navigation.fragment
     implementation libs.androidx.navigation.ui
-    implementation 'com.github.liangjingkanji:StatusBar:2.0.5'
-    implementation 'com.github.liangjingkanji:Engine:0.0.71'
 }

@@ -12,7 +12,7 @@ import android.util.AttributeSet
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.content.ContextCompat
-import com.drake.engine.R
+import dc.library.ui.R
 
 /**
  * 验证码输入框

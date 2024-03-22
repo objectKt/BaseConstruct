@@ -17,7 +17,7 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.Checkable;
 
-import com.drake.engine.R;
+import dc.library.ui.R;
 
 public class SmoothCheckBox extends View implements Checkable {
 

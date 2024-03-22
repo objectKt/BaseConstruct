@@ -4,7 +4,7 @@ import androidx.core.view.GravityCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.drake.engine.base.EngineActivity
+import dc.library.ui.base.EngineActivity
 import com.drake.logcat.sample.R
 import com.drake.logcat.sample.databinding.ActivityMainBinding
 import com.drake.statusbar.immersive

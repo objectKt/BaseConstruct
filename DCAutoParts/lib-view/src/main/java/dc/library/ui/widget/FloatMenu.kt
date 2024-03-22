@@ -17,7 +17,7 @@ import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.core.util.Consumer
 import androidx.recyclerview.widget.RecyclerView
-import com.drake.engine.R
+import dc.library.ui.R
 import dc.library.ui.utils.dp
 
 /**

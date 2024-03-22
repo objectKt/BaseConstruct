@@ -1,4 +1,4 @@
-package dc.library.ui.numberprogress;
+package dc.library.ui.progress;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -11,8 +11,8 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
 
-import static dc.library.ui.numberprogress.NumberProgressBar.ProgressTextVisibility.Invisible;
-import static dc.library.ui.numberprogress.NumberProgressBar.ProgressTextVisibility.Visible;
+import static dc.library.ui.progress.NumberProgressBar.ProgressTextVisibility.Invisible;
+import static dc.library.ui.progress.NumberProgressBar.ProgressTextVisibility.Visible;
 
 import dc.library.ui.R;
 

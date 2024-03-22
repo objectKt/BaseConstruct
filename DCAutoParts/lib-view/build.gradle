@@ -28,4 +28,7 @@ dependencies {
     implementation libs.androidx.core.ktx
     implementation libs.androidx.constraintlayout
     implementation libs.androidx.material
+    implementation libs.androidx.startup
+    implementation libs.androidx.viewpager
+    implementation libs.github.glide
 }

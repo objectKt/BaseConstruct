@@ -3,7 +3,7 @@ package dc.library.ui.widget
 import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatCheckBox
-import com.drake.engine.R
+import dc.library.ui.R
 
 /**
  * 默认禁言点击改变选中状态, 使用[filter]或者[checkable]配置是否可选中
