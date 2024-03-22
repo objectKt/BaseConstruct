@@ -3,8 +3,6 @@ package dc.library.auto.manager
 import dc.library.auto.config.Config
 import dc.library.auto.task.api.step.SimpleTaskStep
 import dc.library.auto.task.core.ThreadType
-import dc.library.auto.task.logger.TaskLogger
-import dc.library.utils.logcat.LogCat
 
 /**
  * 串口初始化
@@ -27,6 +25,6 @@ class SerialPortInitTask : SimpleTaskStep() {
     }
 
     override fun getThreadType(): ThreadType {
-        return ThreadType.ASYNC_IO
+        return ThreadType.ASYNC_BACKGROUND
     }
 }

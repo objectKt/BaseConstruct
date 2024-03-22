@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.github.fragivity.loadRoot
 import dc.library.ui.base.EngineActivity
+import dc.library.utils.logcat.LogCat
 import kotlin.reflect.KClass
 
 open class BaseFragmentActivity<B : ViewDataBinding>(
@@ -16,6 +17,7 @@ open class BaseFragmentActivity<B : ViewDataBinding>(
 ) : EngineActivity<B>(activityLayoutId) {
 
     override fun initView() {
+        LogCat.i("进入了 BaseFragmentActivity rootFragmentHostId = $rootFragmentHostId")
         val navHostFragment = supportFragmentManager.findFragmentById(rootFragmentHostId) as NavHostFragment
         navHostFragment.loadRoot(rootFragment)
     }

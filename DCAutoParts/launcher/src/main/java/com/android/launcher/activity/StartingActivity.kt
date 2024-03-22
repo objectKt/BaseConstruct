@@ -47,8 +47,9 @@ class StartingActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
+        LogCat.i("mInterval .. 停止")
         mInterval?.stop()
+        super.onDestroy()
     }
 
     private fun startSomeInitTask() {
@@ -84,8 +85,6 @@ class StartingActivity : AppCompatActivity() {
 
     private fun gotoMainActivity() {
         val intent = Intent(this@StartingActivity, MainActivity::class.java)
-        intent.putExtra("screenWhich", "left")
-        intent.putExtra("carType", "s223")
         startActivity(intent)
         this@StartingActivity.finish()
     }
