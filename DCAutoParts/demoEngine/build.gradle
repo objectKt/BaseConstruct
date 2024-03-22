@@ -41,8 +41,6 @@ dependencies {
     implementation libs.androidx.cardview
     implementation libs.androidx.material
     implementation libs.androidx.core.ktx
-    implementation libs.androidx.navigation.fragment
-    implementation libs.androidx.navigation.ui
     implementation project(":lib-view")
     implementation libs.liangjingkanji.net // 网络请求.异步任务
     implementation libs.liangjingkanji.list // 列表

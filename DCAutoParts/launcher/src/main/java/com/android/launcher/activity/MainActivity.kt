@@ -1,20 +1,24 @@
 package com.android.launcher.activity
 
 import android.content.Context
-import android.os.Bundle
 import android.os.PowerManager
-import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import com.android.launcher.R
-import dc.library.auto.bus_can.CanSendHandler
-import dc.library.auto.task.logger.TaskLogger
-import dc.library.utils.ValUtil
+import com.android.launcher.base.BaseFragmentActivity
+import com.android.launcher.databinding.ActivityMainLefts223Binding
+import com.android.launcher.fragment.DashboardFragment
+import dc.library.utils.logcat.LogCat
 
-class MainActivity : AppCompatActivity() {
+/**
+ * LeftS223 主页面
+ */
+class MainActivity : BaseFragmentActivity<ActivityMainLefts223Binding>(
+    activityLayoutId = R.layout.activity_main_lefts223,
+    rootFragmentHostId = R.id.idNavHostLeft223,
+    rootFragment = DashboardFragment::class
+) {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_lefts223)
+    override fun initView() {
+        super.initView()
         checkDeviceStatus()
     }
 
@@ -23,24 +27,11 @@ class MainActivity : AppCompatActivity() {
         val isDeviceInteractive = powerManager.isInteractive
         // 根据设备否处于交互状态执行相应的操作
         if (!isDeviceInteractive) {
-            // 设备可能处于挂起或锁屏状态，执行需要的操作，例如暂停游戏或视频播放
-            Log.i(ValUtil.Log.TAG, "--- isDeviceInteractive false ---")
+            // 设备可能处于挂起或锁屏状态，执行需要的操作，例如暂停视频播放
+            LogCat.i("--- isDeviceInteractive false ---")
         } else {
-            // 设备处于活动状态，执行你需要的操作，例如恢复游戏或视频播放
-            Log.i(ValUtil.Log.TAG, "--- isDeviceInteractive true ---")
+            // 设备处于活动状态，执行需要的操作，例如恢复视频播放
+            LogCat.i("--- isDeviceInteractive true ---")
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        // 获得焦点
-        TaskLogger.i("MainActivity 获得焦点")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        // 失去焦点
-        TaskLogger.i("MainActivity 失去焦点")
-        CanSendHandler.cancelTask()
     }
 }

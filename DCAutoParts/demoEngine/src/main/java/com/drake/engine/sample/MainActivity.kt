@@ -15,7 +15,7 @@ class MainActivity : EngineToolbarActivity<ActivityMainBinding>(R.layout.activit
     }
 
     override fun initData() {
-        binding.rv.divider(R.drawable.divider_horizontal).linear().setup {
+        binding.rv.divider(dc.library.ui.R.drawable.divider_horizontal).linear().setup {
             addType<Model>(R.layout.item_image)
         }.models = getData()
     }

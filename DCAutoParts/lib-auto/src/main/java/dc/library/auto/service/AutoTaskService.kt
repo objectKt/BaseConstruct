@@ -17,6 +17,7 @@ import dc.library.utils.ValUtil
 /**
  * 用于执行后台任务的 Service
  */
+@Deprecated("Deprecated in Java")
 class AutoTaskService : Service() {
 
     companion object {

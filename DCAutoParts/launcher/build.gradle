@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
 }
+apply plugin: "kotlin-kapt"
 
 def ver = libs.versions
 
@@ -40,6 +41,7 @@ android {
     }
 
     kotlinOptions { jvmTarget = '1.8' }
+    buildFeatures.dataBinding = true
     sourceSets { main { res.srcDirs = listSubFile() } }
 
     // Flavor Dimension 配置不同的多个 app 的特性
@@ -51,11 +53,12 @@ dependencies {
     implementation libs.androidx.appcompat
     implementation libs.androidx.constraintlayout
     implementation libs.androidx.material
-    implementation libs.liangjingkanji.net
     implementation libs.github.usb
     implementation libs.squareup.okhttp
     implementation libs.androidx.legacy.support.v4
-    implementation libs.androidx.lifecycle.livedata.ktx
-    implementation libs.androidx.lifecycle.viewmodel.ktx
+    implementation libs.liangjingkanji.net
+    implementation libs.liangjingkanji.list
+    implementation libs.liangjingkanji.event
     implementation libs.androidx.fragment.ktx
+    implementation libs.androidx.navigation.fragment
 }

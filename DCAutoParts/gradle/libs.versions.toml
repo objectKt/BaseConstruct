@@ -25,10 +25,8 @@ usb = "3.5.1"
 anrwatchdog = "1.4.0"
 coreprogress = "1.0.2"
 legacySupportV4 = "1.0.0"
-lifecycleLivedataKtx = "2.6.1"
-lifecycleViewmodelKtx = "2.6.1"
-fragmentKtx = "1.6.0"
 
+#noinspection GradleDependency
 [libraries]
 androidx-core-ktx = "androidx.core:core-ktx:1.10.1"
 androidx-appcompat = "androidx.appcompat:appcompat:1.6.1"
@@ -37,8 +35,6 @@ androidx-activity = "androidx.activity:activity:1.8.0"
 androidx-cardview = "androidx.cardview:cardview:1.0.0"
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.4"
 androidx-viewpager = "androidx.viewpager2:viewpager2:1.0.0"
-androidx-navigation-ui = "androidx.navigation:navigation-ui-ktx:2.6.0"
-androidx-navigation-fragment = "androidx.navigation:navigation-fragment-ktx:2.6.0"
 androidx-startup = "androidx.startup:startup-runtime:1.1.1"
 apache-commons-lang = "org.apache.commons:commons-lang3:3.12.0"
 github-usb = "com.github.mik3y:usb-serial-for-android:3.5.1"
@@ -50,13 +46,15 @@ coroutines-android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
 liangjingkanji-net = "com.github.liangjingkanji:Net:3.6.4"
 liangjingkanji-list = "com.github.liangjingkanji:BRV:1.5.8"
 liangjingkanji-event = "com.github.liangjingkanji:Channel:1.1.5"
+androidx-navigation-ui = "androidx.navigation:navigation-ui-ktx:2.5.3"
+androidx-navigation-fragment = "androidx.navigation:navigation-fragment-ktx:2.5.3"
+androidx-fragment-ktx = "androidx.fragment:fragment-ktx:1.5.5"
 
 # Old need be changed.
 recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
 recyclerviewSelection = { module = "androidx.recyclerview:recyclerview-selection", version.ref = "recyclerviewSelection" }
 eventbus = { module = "org.greenrobot:eventbus", version.ref = "eventbus" }
 greendao = { module = "org.greenrobot:greendao", version.ref = "greendao" }
-greendao-generator = { module = "org.greenrobot:greendao-generator", version.ref = "greendao" }
 roomRuntime = { module = "androidx.room:room-runtime", version.ref = "room" }
 roomCompiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 fastjson = { module = "com.alibaba:fastjson", version.ref = "fastjson" }
@@ -72,9 +70,6 @@ usb = { module = "com.github.mik3y:usb-serial-for-android", version.ref = "usb" 
 anrwatchdog = { module = "com.github.anrwatchdog:anrwatchdog", version.ref = "anrwatchdog" }
 coreprogress = { module = "io.github.lizhangqu:coreprogress", version.ref = "coreprogress" }
 androidx-legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support-v4", version.ref = "legacySupportV4" }
-androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
-androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
-androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragmentKtx" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

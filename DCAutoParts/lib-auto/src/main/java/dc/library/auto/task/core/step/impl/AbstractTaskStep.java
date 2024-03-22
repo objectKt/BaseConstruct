@@ -12,6 +12,7 @@ import dc.library.auto.task.core.step.ITaskStepHandler;
 import dc.library.auto.task.core.step.ITaskStepLifecycle;
 import dc.library.auto.task.logger.TaskLogger;
 import dc.library.auto.task.thread.pool.cancel.ICancelable;
+import dc.library.utils.logcat.LogCat;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -270,7 +271,9 @@ public abstract class AbstractTaskStep implements ITaskStep {
             mTaskHandler.beforeTask(this);
         }
         if (isRunning()) {
+            LogCat.i("开始执行任务 AbstractTaskStep -- " + getName());
             doTask();
+            LogCat.i("结束执行任务 AbstractTaskStep -- " + getName());
         }
         if (mTaskHandler != null) {
             mTaskHandler.afterTask(this);

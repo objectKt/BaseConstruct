@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
 }
 apply plugin: "kotlin-kapt"
+apply plugin: "kotlin-parcelize"
 
 android {
     namespace 'dc.library.ui'
@@ -30,4 +31,6 @@ dependencies {
     implementation libs.androidx.startup
     implementation libs.androidx.viewpager
     implementation libs.github.glide
+    implementation libs.androidx.fragment.ktx
+    implementation libs.androidx.navigation.fragment
 }

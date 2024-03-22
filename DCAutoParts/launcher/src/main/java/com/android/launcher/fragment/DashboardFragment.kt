@@ -1,31 +1,35 @@
 package com.android.launcher.fragment
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.android.launcher.R
+import com.android.launcher.databinding.FragmentDashboardBinding
+import com.android.launcher.model.Model
+import com.drake.brv.utils.divider
+import com.drake.brv.utils.linear
+import com.drake.brv.utils.setup
+import dc.library.ui.base.EngineFragment
+import dc.library.utils.logcat.LogCat
 
-class DashboardFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = DashboardFragment()
-    }
+class DashboardFragment : EngineFragment<FragmentDashboardBinding>(R.layout.fragment_dashboard) {
 
     private val viewModel: ViewModelDashboard by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_dashboard, container, false)
+    override fun initView() {
+        LogCat.i("进入了 DashboardFragment")
+    }
+
+    override fun initData() {
+        binding.rv.divider(dc.library.ui.R.drawable.divider_horizontal).linear().setup {
+            addType<Model>(R.layout.item_image)
+        }.models = mutableListOf<Model>().apply {
+            for (i in 0..40) {
+                add(Model())
+            }
+        }
     }
 }
