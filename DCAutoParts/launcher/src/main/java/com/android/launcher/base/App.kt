@@ -4,6 +4,8 @@ import android.app.Application
 import com.android.launcher.BR
 import com.drake.brv.utils.BRV
 import dc.library.auto.config.Config
+import dc.library.auto.task.XTask
+import dc.library.auto.task.logger.TaskLogger
 import dc.library.ui.base.Engine
 import dc.library.utils.logcat.LogCat
 import dc.library.utils.logcat.LogHook
@@ -19,6 +21,8 @@ class App : Application() {
     private fun initLibraries() {
         // 是否隐藏串口
         //Config.setHideSerialPort(true)
+        // 任务系统日志
+        TaskLogger.setDebug(false)
         // 初始化基础库
         Engine.initialize(this)
         // 初始化 BindingAdapter 的默认绑定 ID

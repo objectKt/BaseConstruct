@@ -140,6 +140,10 @@ public class XTaskStep extends AbstractTaskStep {
         return mName;
     }
 
+    public void setName(String newName) {
+        mName = newName;
+    }
+
     @Override
     public void doTask() throws Exception {
         if (mIsAutoNotify) {

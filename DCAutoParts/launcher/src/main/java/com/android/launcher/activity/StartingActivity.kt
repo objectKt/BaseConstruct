@@ -24,8 +24,6 @@ import java.util.concurrent.TimeUnit
  */
 class StartingActivity : AppCompatActivity() {
 
-    private var mInterval: Interval? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         startSomeInitTask()
@@ -34,26 +32,15 @@ class StartingActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         val timestampBegin = System.currentTimeMillis()
-        mInterval = Interval(1, TimeUnit.SECONDS)
-        mInterval?.subscribe {
-            LogCat.i("检测页面耗时等待中 .. $it")
-            val interSpend = System.currentTimeMillis() - timestampBegin
-            // 10秒 还没有收到页面跳转广播就重启 App
-            if (interSpend > 10 * 1000) {
-                mInterval?.stop()
-                restartApp(app)
-            }
-        }?.start()
     }
 
     override fun onStop() {
         super.onStop()
-        LogCat.i("mInterval .. 停止")
-        mInterval?.stop()
+        LogCat.i("onStop .. 停止")
     }
 
     private fun startSomeInitTask() {
-        LogCat.i(" === 启动页面同时执行的任务 -- begin")
+        LogCat.i(" === 启动任务链 -- begin")
         val timestampBegin = System.currentTimeMillis()
         val groupTaskStep = XTask.getConcurrentGroupTask()
         groupTaskStep.apply {
@@ -68,7 +55,7 @@ class StartingActivity : AppCompatActivity() {
             .addTask(SerialPortInitTask())
             .setTaskChainCallback(object : TaskChainCallbackAdapter() {
                 override fun onTaskChainCompleted(engine: ITaskChainEngine, result: ITaskResult) {
-                    LogCat.i("=== 启动页面同时执行的任务 -- Finish 总共耗时: ${System.currentTimeMillis() - timestampBegin} ms")
+                    LogCat.i("=== 结束任务链 -- Finish 总共耗时: ${System.currentTimeMillis() - timestampBegin} ms")
                     gotoMainActivity()
                 }
             }).start()
@@ -77,10 +64,9 @@ class StartingActivity : AppCompatActivity() {
     private fun ConcurrentGroupTaskStep.addTask(des: String = "") {
         addTask(XTask.getTask(object : TaskCommand() {
             override fun run() {
-                LogCat.i(des)
                 Thread.sleep(500)
             }
-        }))
+        }).apply { name = des })
     }
 
     private fun gotoMainActivity() {
