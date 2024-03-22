@@ -12,7 +12,7 @@
             android:exported="false"
             tools:node="merge">
             <meta-data
-                android:name="com.drake.engine.interfaces.EngineInitializer"
+                android:name="dc.library.ui.interfaces.EngineInitializer"
                 android:value="androidx.startup" />
         </provider>
     </application>
