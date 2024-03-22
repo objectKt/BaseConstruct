@@ -24,7 +24,6 @@ import java.util.Set;
 import static android.Manifest.permission.KILL_BACKGROUND_PROCESSES;
 import static dc.library.ui.base.EngineKt.app;
 
-
 public final class ProcessUtils {
 
     private ProcessUtils() {

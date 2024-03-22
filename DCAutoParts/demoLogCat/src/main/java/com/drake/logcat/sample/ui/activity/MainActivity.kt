@@ -7,13 +7,11 @@ import androidx.navigation.ui.setupWithNavController
 import dc.library.ui.base.EngineActivity
 import com.drake.logcat.sample.R
 import com.drake.logcat.sample.databinding.ActivityMainBinding
-import com.drake.statusbar.immersive
 
 class MainActivity : EngineActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun initView() {
         setSupportActionBar(binding.toolbar)
-        immersive(binding.toolbar, true)
         val navController = findNavController(R.id.nav)
         binding.toolbar.setupWithNavController(
             navController,

@@ -8,12 +8,12 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-fun FragmentActivity.FragmentPagerAdapter(fragments: List<Fragment>, titles: List<String>? = null): dc.library.ui.adapter.BaseFragmentPagerAdapter {
-    return dc.library.ui.adapter.BaseFragmentPagerAdapter(supportFragmentManager, fragments, titles)
+fun FragmentActivity.FragmentPagerAdapter(fragments: List<Fragment>, titles: List<String>? = null): BaseFragmentPagerAdapter {
+    return BaseFragmentPagerAdapter(supportFragmentManager, fragments, titles)
 }
 
-fun Fragment.FragmentPagerAdapter(fragments: List<Fragment>, titles: List<String>? = null): dc.library.ui.adapter.BaseFragmentPagerAdapter {
-    return dc.library.ui.adapter.BaseFragmentPagerAdapter(childFragmentManager, fragments, titles)
+fun Fragment.FragmentPagerAdapter(fragments: List<Fragment>, titles: List<String>? = null): BaseFragmentPagerAdapter {
+    return BaseFragmentPagerAdapter(childFragmentManager, fragments, titles)
 }
 
 class BaseFragmentPagerAdapter(fragmentManager: FragmentManager, var fragments: List<Fragment>, var titles: List<String>? = null) :

@@ -2,7 +2,6 @@ package dc.library.ui.utils;
 
 import static java.lang.Math.PI;
 
-
 public final class CoordinateUtils {
 
     private final static double X_PI = 3.14159265358979324 * 3000.0 / 180.0;
