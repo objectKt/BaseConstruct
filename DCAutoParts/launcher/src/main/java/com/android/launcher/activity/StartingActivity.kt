@@ -3,9 +3,7 @@ package com.android.launcher.activity
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.drake.net.time.Interval
 import dc.library.auto.manager.SerialPortInitTask
 import dc.library.auto.task.XTask
 import dc.library.auto.task.api.step.ConcurrentGroupTaskStep
@@ -13,9 +11,9 @@ import dc.library.auto.task.core.ITaskChainEngine
 import dc.library.auto.task.core.param.ITaskResult
 import dc.library.auto.task.core.step.impl.TaskChainCallbackAdapter
 import dc.library.auto.task.core.step.impl.TaskCommand
+import dc.library.auto.task.thread.pool.cancel.ICanceller
 import dc.library.ui.base.app
 import dc.library.utils.logcat.LogCat
-import java.util.concurrent.TimeUnit
 
 /**
  * 启动页面（奔驰 LOGO 欢迎页面）
@@ -24,22 +22,26 @@ import java.util.concurrent.TimeUnit
  */
 class StartingActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    private var mTaskCancel: ICanceller? = null
+
+    override fun onResume() {
+        super.onResume()
+        LogCat.e("调用了 onResume")
         startSomeInitTask()
     }
 
     private fun startSomeInitTask() {
         val groupTaskStep = XTask.getConcurrentGroupTask().apply {
-            addTask("初始化常用全局数据量")
-            addTask("初始化 USB")
-            addTask("关掉蓝牙")
-            addTask("初始化声音播放器")
+            addTask("任务:初始化常用全局数据量")
+            addTask("任务:初始化 USB")
+            addTask("任务:关掉蓝牙")
+            addTask("任务:初始化声音播放器")
         }
-        XTask.getTaskChain()
-            .addTask(groupTaskStep)
-            .addTask(SerialPortInitTask())
-            .setTaskChainCallback(taskChainCallback(System.currentTimeMillis())).start()
+        val engine = XTask.getTaskChain()
+        engine.addTask(groupTaskStep)
+        engine.addTask(SerialPortInitTask())
+        engine.setTaskChainCallback(taskChainCallback(System.currentTimeMillis()))
+        mTaskCancel = engine.start()
     }
 
     private fun taskChainCallback(timestampBegin: Long) = object : TaskChainCallbackAdapter() {
@@ -49,6 +51,7 @@ class StartingActivity : AppCompatActivity() {
         }
 
         override fun onTaskChainCompleted(engine: ITaskChainEngine, result: ITaskResult) {
+            mTaskCancel?.cancel()
             LogCat.i("=== 结束任务链 -- Finish 总共耗时: ${System.currentTimeMillis() - timestampBegin} ms")
             val intent = Intent(this@StartingActivity, MainActivity::class.java)
             startActivity(intent)
@@ -57,6 +60,7 @@ class StartingActivity : AppCompatActivity() {
 
         override fun onTaskChainError(engine: ITaskChainEngine, result: ITaskResult) {
             LogCat.i("=== 任务链失败 -- Error 总共耗时: ${System.currentTimeMillis() - timestampBegin} ms")
+            mTaskCancel?.cancel()
             restartApp(app)
         }
     }

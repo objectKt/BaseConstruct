@@ -11,6 +11,7 @@ import dc.library.auto.serial.listener.OnSerialPortOpenListener
 import dc.library.auto.task.logger.TaskLogger
 import dc.library.utils.decoder.SerialPortTTYS1Decoder
 import dc.library.utils.ByteArrayUtil
+import dc.library.utils.logcat.LogCat
 import java.io.File
 
 /**
@@ -126,7 +127,9 @@ object TTLSerialPortsManager {
     fun closeAllPorts() {
         mSerialPortManagerMapper.forEach {
             it.value.closeSerialPort()
+            LogCat.w("已关闭串口 ${it.key}")
         }
         mSerialPortManagerMapper.clear()
+        LogCat.w("已清理 mSerialPortManagerMapper")
     }
 }

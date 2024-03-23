@@ -271,9 +271,10 @@ public abstract class AbstractTaskStep implements ITaskStep {
             mTaskHandler.beforeTask(this);
         }
         if (isRunning()) {
-            LogCat.i("--- 执行任务开始 @ " + getName());
+            if (getName().contains("任务")) {
+                LogCat.i(getThreadType() + " --- 开始 " + getName());
+            }
             doTask();
-            LogCat.i("------ 结束执行任务 @ " + getName());
         }
         if (mTaskHandler != null) {
             mTaskHandler.afterTask(this);

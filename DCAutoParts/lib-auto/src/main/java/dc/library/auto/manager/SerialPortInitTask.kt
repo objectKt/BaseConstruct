@@ -1,6 +1,5 @@
 package dc.library.auto.manager
 
-import dc.library.auto.config.Config
 import dc.library.auto.task.api.step.SimpleTaskStep
 import dc.library.auto.task.core.ThreadType
 
@@ -21,7 +20,7 @@ class SerialPortInitTask : SimpleTaskStep() {
     }
 
     override fun getName(): String {
-        return "SerialPortInitTask"
+        return "任务:初始化串口 TTL"
     }
 
     override fun getThreadType(): ThreadType {
