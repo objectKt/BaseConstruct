@@ -19,17 +19,6 @@ android {
         versionName ver.versionName.get().toString()
     }
 
-    buildTypes {
-        debug {
-            minifyEnabled true // 启用R8代码压缩
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-
     def listSubFile = {
         def resFolder = 'src/main/res/layouts'
         def files = file(resFolder).listFiles()

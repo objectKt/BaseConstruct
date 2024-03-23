@@ -11,17 +11,6 @@ android {
         minSdk libs.versions.minSdkVersion.get().toInteger()
     }
 
-    buildTypes {
-        debug {
-            minifyEnabled true // 启用R8代码压缩
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

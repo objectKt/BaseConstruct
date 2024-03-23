@@ -3,6 +3,7 @@ package com.android.launcher.activity
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import dc.library.auto.manager.SerialPortInitTask
 import dc.library.auto.task.XTask
@@ -24,13 +25,19 @@ class StartingActivity : AppCompatActivity() {
 
     private var mTaskCancel: ICanceller? = null
 
-    override fun onResume() {
-        super.onResume()
-        LogCat.e("调用了 onResume")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        LogCat.e("调用了 onCreate")
         startSomeInitTask()
     }
 
+    override fun onResume() {
+        super.onResume()
+        LogCat.e("调用了 onResume")
+    }
+
     private fun startSomeInitTask() {
+        // 异步线程并行任务组
         val groupTaskStep = XTask.getConcurrentGroupTask().apply {
             addTask("任务:初始化常用全局数据量")
             addTask("任务:初始化 USB")
