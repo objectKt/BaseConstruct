@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
-import com.android.launcher.util.Func
 import dc.library.ui.base.Engine
 import dc.library.utils.logcat.LogCat
 
