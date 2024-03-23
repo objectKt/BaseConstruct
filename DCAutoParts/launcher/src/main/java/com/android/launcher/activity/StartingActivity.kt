@@ -26,6 +26,7 @@ class StartingActivity : BaseActivity() {
     private var mTaskCancel: ICanceller? = null
 
     override fun stateChangeLogic(event: Lifecycle.Event) {
+        LogCat.d("StartingActivity 生命周期 == 进入了 ${event.name}")
         when (event) {
             Lifecycle.Event.ON_START -> startSomeInitTask()
             else -> {}
