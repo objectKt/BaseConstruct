@@ -40,7 +40,6 @@ dependencies {
     implementation libs.recyclerview
     implementation libs.recyclerviewSelection
     implementation libs.eventbus
-    implementation libs.fastjson
     implementation libs.library
     implementation libs.squareup.okhttp
     implementation libs.free.reflection
