@@ -26,7 +26,7 @@ class MainActivity : BaseActivity() {
     }
 
     override fun stateChangeLogic(event: Lifecycle.Event) {
-        LogCat.d("生命周期 == 进入了 ${event.name} of")
+        LogCat.d("生命周期 == 进入了 ${event.name}")
         when (event) {
             Lifecycle.Event.ON_DESTROY -> TTLSerialPortsManager.closeAllPorts()
             else -> {}
