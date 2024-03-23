@@ -24,6 +24,6 @@ class SerialPortInitTask : SimpleTaskStep() {
     }
 
     override fun getThreadType(): ThreadType {
-        return ThreadType.ASYNC_BACKGROUND
+        return ThreadType.ASYNC
     }
 }

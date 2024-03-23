@@ -4,12 +4,10 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
-import com.android.launcher.R
 import dc.library.auto.manager.SerialPortInitTask
 import dc.library.auto.task.XTask
 import dc.library.auto.task.api.step.ConcurrentGroupTaskStep
@@ -32,7 +30,6 @@ class StartingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_starting)
         lifecycle.addObserver(object : LifecycleEventObserver {
             override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
                 LogCat.i("StartingActivity Lifecycle 调用了 ${event.name}")
@@ -45,10 +42,6 @@ class StartingActivity : AppCompatActivity() {
     }
 
     private fun startSomeInitTask() {
-        XTask.postToMainDelay({
-            gotoMainActivity()
-        }, 3000)
-        return
         // 异步线程并行任务组
         val groupTaskStep = XTask.getConcurrentGroupTask().apply {
             addTask("任务:初始化常用全局数据量")
