@@ -2,8 +2,8 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
 }
-apply plugin: "kotlin-kapt"
 apply plugin: "kotlin-parcelize"
+apply plugin: "kotlin-kapt"
 
 android {
     namespace 'dc.library.ui'
@@ -18,7 +18,7 @@ android {
     }
 
     kotlinOptions {jvmTarget = '1.8'}
-    buildFeatures.dataBinding = true
+    buildFeatures {dataBinding = true}
 }
 
 dependencies {

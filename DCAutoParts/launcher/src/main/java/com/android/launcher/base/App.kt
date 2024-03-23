@@ -3,8 +3,6 @@ package com.android.launcher.base
 import android.app.Application
 import com.android.launcher.BR
 import com.drake.brv.utils.BRV
-import dc.library.auto.config.Config
-import dc.library.auto.task.XTask
 import dc.library.auto.task.logger.TaskLogger
 import dc.library.ui.base.Engine
 import dc.library.utils.logcat.LogCat

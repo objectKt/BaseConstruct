@@ -2,8 +2,8 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
 }
-apply plugin: "kotlin-kapt"
 
+apply plugin: "kotlin-kapt"
 def ver = libs.versions
 
 android {
@@ -34,7 +34,8 @@ android {
     }
 
     kotlinOptions { jvmTarget = '1.8' }
-    buildFeatures.dataBinding = true
+    //noinspection DataBindingWithoutKapt
+    buildFeatures {dataBinding true}
     sourceSets { main { res.srcDirs = listSubFile() } }
 
     // Flavor Dimension 配置不同的多个 app 的特性
