@@ -10,9 +10,6 @@ import dc.library.auto.task.core.step.ITaskStepController;
 
 /**
  * 任务命令，执行简单任务
- *
- * @author xuexiang
- * @since 1/31/22 2:28 AM
  */
 public abstract class TaskCommand implements ITaskStepController {
 

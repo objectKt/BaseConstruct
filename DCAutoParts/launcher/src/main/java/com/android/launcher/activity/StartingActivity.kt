@@ -29,21 +29,8 @@ class StartingActivity : AppCompatActivity() {
         startSomeInitTask()
     }
 
-    override fun onResume() {
-        super.onResume()
-        val timestampBegin = System.currentTimeMillis()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        LogCat.i("onStop .. 停止")
-    }
-
     private fun startSomeInitTask() {
-        LogCat.i("=== 启动任务链 -- begin")
-        val timestampBegin = System.currentTimeMillis()
-        val groupTaskStep = XTask.getConcurrentGroupTask()
-        groupTaskStep.apply {
+        val groupTaskStep = XTask.getConcurrentGroupTask().apply {
             addTask("初始化常用全局数据量")
             addTask("初始化 USB")
             addTask("关掉蓝牙")
@@ -51,14 +38,27 @@ class StartingActivity : AppCompatActivity() {
         }
         XTask.getTaskChain()
             .addTask(groupTaskStep)
-            // 初始化串口 TTL
             .addTask(SerialPortInitTask())
-            .setTaskChainCallback(object : TaskChainCallbackAdapter() {
-                override fun onTaskChainCompleted(engine: ITaskChainEngine, result: ITaskResult) {
-                    LogCat.i("=== 结束任务链 -- Finish 总共耗时: ${System.currentTimeMillis() - timestampBegin} ms")
-                    gotoMainActivity()
-                }
-            }).start()
+            .setTaskChainCallback(taskChainCallback(System.currentTimeMillis())).start()
+    }
+
+    private fun taskChainCallback(timestampBegin: Long) = object : TaskChainCallbackAdapter() {
+
+        override fun onTaskChainStart(engine: ITaskChainEngine) {
+            LogCat.i("=== 启动任务链 -- begin")
+        }
+
+        override fun onTaskChainCompleted(engine: ITaskChainEngine, result: ITaskResult) {
+            LogCat.i("=== 结束任务链 -- Finish 总共耗时: ${System.currentTimeMillis() - timestampBegin} ms")
+            val intent = Intent(this@StartingActivity, MainActivity::class.java)
+            startActivity(intent)
+            this@StartingActivity.finish()
+        }
+
+        override fun onTaskChainError(engine: ITaskChainEngine, result: ITaskResult) {
+            LogCat.i("=== 任务链失败 -- Error 总共耗时: ${System.currentTimeMillis() - timestampBegin} ms")
+            restartApp(app)
+        }
     }
 
     private fun ConcurrentGroupTaskStep.addTask(des: String = "") {
@@ -67,12 +67,6 @@ class StartingActivity : AppCompatActivity() {
                 Thread.sleep(500)
             }
         }).apply { name = des })
-    }
-
-    private fun gotoMainActivity() {
-        val intent = Intent(this@StartingActivity, MainActivity::class.java)
-        startActivity(intent)
-        this@StartingActivity.finish()
     }
 
     private fun restartApp(context: Context) {
