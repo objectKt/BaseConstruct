@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
+import com.android.launcher.R
 import dc.library.auto.manager.SerialPortInitTask
 import dc.library.auto.task.XTask
 import dc.library.auto.task.api.step.ConcurrentGroupTaskStep
@@ -31,9 +32,10 @@ class StartingActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_starting)
         lifecycle.addObserver(object : LifecycleEventObserver {
             override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
-                LogCat.i("Lifecycle 调用了 ${event.name}")
+                LogCat.i("StartingActivity Lifecycle 调用了 ${event.name}")
                 when (event) {
                     Lifecycle.Event.ON_START -> startSomeInitTask()
                     else -> {}
@@ -43,6 +45,10 @@ class StartingActivity : AppCompatActivity() {
     }
 
     private fun startSomeInitTask() {
+        XTask.postToMainDelay({
+            gotoMainActivity()
+        }, 3000)
+        return
         // 异步线程并行任务组
         val groupTaskStep = XTask.getConcurrentGroupTask().apply {
             addTask("任务:初始化常用全局数据量")
@@ -66,9 +72,7 @@ class StartingActivity : AppCompatActivity() {
         override fun onTaskChainCompleted(engine: ITaskChainEngine, result: ITaskResult) {
             mTaskCancel?.cancel()
             LogCat.i("=== 结束任务链 -- Finish 总共耗时: ${System.currentTimeMillis() - timestampBegin} ms")
-            val intent = Intent(this@StartingActivity, MainActivity::class.java)
-            startActivity(intent)
-            this@StartingActivity.finish()
+            gotoMainActivity()
         }
 
         override fun onTaskChainError(engine: ITaskChainEngine, result: ITaskResult) {
@@ -76,6 +80,12 @@ class StartingActivity : AppCompatActivity() {
             mTaskCancel?.cancel()
             restartApp(app)
         }
+    }
+
+    private fun gotoMainActivity() {
+        val intent = Intent(this@StartingActivity, MainActivity::class.java)
+        startActivity(intent)
+        this@StartingActivity.finish()
     }
 
     private fun ConcurrentGroupTaskStep.addTask(des: String = "") {

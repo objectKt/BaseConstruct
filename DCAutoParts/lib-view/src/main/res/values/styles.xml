@@ -2,10 +2,11 @@
 <resources>
     <!-- Splash Screen theme. -->
     <style name="SplashScreen" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@drawable/drawable_res_splash_bg</item>
+        <!--        <item name="android:windowBackground">@drawable/drawable_res_splash_bg</item>-->
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
     </style>
+
     <style name="NumberProgressBar_Default">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
