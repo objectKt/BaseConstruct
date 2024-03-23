@@ -3,11 +3,8 @@ package com.android.launcher.activity
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.LifecycleOwner
+import com.android.launcher.base.BaseActivity
 import dc.library.auto.manager.SerialPortInitTask
 import dc.library.auto.task.XTask
 import dc.library.auto.task.api.step.ConcurrentGroupTaskStep
@@ -24,21 +21,15 @@ import dc.library.utils.logcat.LogCat
  * 同时处理部分模块的初始化
  * @author hf
  */
-class StartingActivity : AppCompatActivity() {
+class StartingActivity : BaseActivity() {
 
     private var mTaskCancel: ICanceller? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        lifecycle.addObserver(object : LifecycleEventObserver {
-            override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
-                LogCat.i("StartingActivity Lifecycle 调用了 ${event.name}")
-                when (event) {
-                    Lifecycle.Event.ON_START -> startSomeInitTask()
-                    else -> {}
-                }
-            }
-        })
+    override fun stateChangeLogic(event: Lifecycle.Event) {
+        when (event) {
+            Lifecycle.Event.ON_START -> startSomeInitTask()
+            else -> {}
+        }
     }
 
     private fun startSomeInitTask() {
