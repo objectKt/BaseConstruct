@@ -1,8 +1,8 @@
 package com.hoho.android.usbserial.examples;
 
-import com.hoho.android.usbserial.driver.FtdiSerialDriver;
-import com.hoho.android.usbserial.driver.ProbeTable;
-import com.hoho.android.usbserial.driver.UsbSerialProber;
+import dc.library.auto.bus_usb.driver.FtdiSerialDriver;
+import dc.library.auto.bus_usb.driver.ProbeTable;
+import dc.library.auto.bus_usb.driver.UsbSerialProber;
 
 /**
  * add devices here, that are not known to DefaultProber

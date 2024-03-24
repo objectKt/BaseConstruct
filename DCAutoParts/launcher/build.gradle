@@ -17,6 +17,8 @@ android {
         targetSdk ver.compileVersion.get().toInteger()
         versionCode ver.versionCode.get().toInteger()
         versionName ver.versionName.get().toString()
+        vectorDrawables.useSupportLibrary = true
+        missingDimensionStrategy 'device', 'anyDevice'
     }
 
     def listSubFile = {
@@ -34,7 +36,6 @@ android {
     }
 
     kotlinOptions { jvmTarget = '1.8' }
-    //noinspection DataBindingWithoutKapt
     buildFeatures {dataBinding true}
     sourceSets { main { res.srcDirs = listSubFile() } }
 

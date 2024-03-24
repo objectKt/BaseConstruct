@@ -19,8 +19,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hoho.android.usbserial.driver.UsbSerialDriver;
-import com.hoho.android.usbserial.driver.UsbSerialProber;
+import dc.library.auto.bus_usb.driver.UsbSerialDriver;
+import dc.library.auto.bus_usb.driver.UsbSerialProber;
 
 import java.util.ArrayList;
 import java.util.Locale;

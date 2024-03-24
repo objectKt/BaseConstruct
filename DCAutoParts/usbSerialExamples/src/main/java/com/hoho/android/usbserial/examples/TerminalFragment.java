@@ -31,11 +31,11 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.hoho.android.usbserial.driver.UsbSerialDriver;
-import com.hoho.android.usbserial.driver.UsbSerialPort;
-import com.hoho.android.usbserial.driver.UsbSerialProber;
-import com.hoho.android.usbserial.util.HexDump;
-import com.hoho.android.usbserial.util.SerialInputOutputManager;
+import dc.library.auto.bus_usb.driver.UsbSerialDriver;
+import dc.library.auto.bus_usb.driver.UsbSerialPort;
+import dc.library.auto.bus_usb.driver.UsbSerialProber;
+import dc.library.auto.bus_usb.util.HexDump;
+import dc.library.auto.bus_usb.util.SerialInputOutputManager;
 
 import java.io.IOException;
 import java.util.Arrays;
