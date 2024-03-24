@@ -16,7 +16,7 @@ import com.permissionx.guolindev.PermissionX
 import dc.library.auto.event.EventModel
 import dc.library.auto.event.EventTag
 import dc.library.auto.init.AsyncStepSerialPort
-import dc.library.auto.init.SyncStepDisableBluetooth
+import dc.library.auto.init.AsyncStepHandlePermissions
 import dc.library.auto.init.SyncStepFindUsb
 import dc.library.auto.task.XTask
 import dc.library.auto.task.api.step.ConcurrentGroupTaskStep
@@ -25,7 +25,6 @@ import dc.library.auto.task.core.param.ITaskResult
 import dc.library.auto.task.core.step.impl.TaskChainCallbackAdapter
 import dc.library.auto.task.core.step.impl.TaskCommand
 import dc.library.auto.task.thread.pool.cancel.ICanceller
-import dc.library.ui.base.app
 import dc.library.utils.logcat.LogCat
 import kotlinx.coroutines.Job
 import java.util.concurrent.TimeUnit
@@ -46,7 +45,7 @@ class StartingActivity : BaseActivity() {
         when (event) {
             Lifecycle.Event.ON_CREATE -> {
                 eventReceiveList.add(receiveEvent<EventModel>(EventTag.BLUETOOTH_PERMISSION_HANDLE) {
-                    LogCat.i("收到事件：请求蓝牙权限")
+                    LogCat.i("收到事件：请求权限")
                     handleBluetoothPermission()
                 })
             }
@@ -75,7 +74,7 @@ class StartingActivity : BaseActivity() {
         engine.addTask(SyncStepFindUsb())
         engine.addTask(groupTaskStep)
         engine.addTask(AsyncStepSerialPort())
-        engine.addTask(SyncStepDisableBluetooth())
+        engine.addTask(AsyncStepHandlePermissions())
         engine.setTaskChainCallback(taskChainCallback(System.currentTimeMillis()))
         mTaskCancel = engine.start()
     }
@@ -143,6 +142,7 @@ class StartingActivity : BaseActivity() {
         val bluetoothAdapter = bluetoothManager.adapter
         bluetoothAdapter?.let {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                // 先处理权限授权再进行蓝牙禁用
                 val permission = PermissionX.init(this@StartingActivity)
                 permission.permissions(Manifest.permission.BLUETOOTH_CONNECT)
                     .onExplainRequestReason { scope, deniedList ->
@@ -150,20 +150,24 @@ class StartingActivity : BaseActivity() {
                     }
                     .request { allGranted, _, deniedList ->
                         if (allGranted) {
-                            LogCat.i("关闭蓝牙")
                             if (bluetoothAdapter.isEnabled) {
                                 if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED) {
+                                    LogCat.i("正在关闭蓝牙")
                                     @Suppress("DEPRECATION")
                                     bluetoothAdapter.disable()
                                     gotoMainActivity()
                                 }
+                            } else {
+                                LogCat.i("设备蓝牙已处于禁用状态")
+                                gotoMainActivity()
                             }
                         } else {
-                            LogCat.e("被禁止了的权限: $deniedList")
+                            LogCat.e("警告：被用户禁止了的权限: $deniedList")
                             restartApp(this@StartingActivity)
                         }
                     }
             } else {
+                // 设备版本低，不需要权限
                 if (bluetoothAdapter.isEnabled) {
                     @Suppress("DEPRECATION")
                     bluetoothAdapter.disable()
