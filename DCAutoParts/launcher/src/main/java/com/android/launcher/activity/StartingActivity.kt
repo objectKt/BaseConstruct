@@ -52,7 +52,7 @@ class StartingActivity : BaseActivity() {
 
             Lifecycle.Event.ON_START -> startSomeInitTask()
 
-            Lifecycle.Event.ON_STOP -> {
+            Lifecycle.Event.ON_PAUSE -> {
                 if (eventReceiveList.isNotEmpty()) {
                     eventReceiveList.forEach {
                         it.cancel()
@@ -180,3 +180,51 @@ class StartingActivity : BaseActivity() {
         }
     }
 }
+/* 运行日志
+---------------------------- PROCESS STARTED (7560) for package com.android.launcher ----------------------------
+10:53:59.550  D  生命周期 == 进入了 ON_CREATE ...(StartingActivity.kt:44)
+10:53:59.734  D  生命周期 == 进入了 ON_START ...(StartingActivity.kt:44)
+10:53:59.781  I  === begin ...(StartingActivity.kt:86)
+10:53:59.782  I  === SYNC --- 开始 任务:查找 USB 接口设备 ...(null:7)
+10:53:59.808  E  <no USB devices found> ...(UsbDevicesFinder.kt:35)
+10:53:59.848  I  === ASYNC --- 开始 任务:初始化常用全局数据量 ...(null:7)
+10:53:59.857  I  === ASYNC --- 开始 任务:初始化声音播放器 ...(null:7)
+10:53:59.934  D  生命周期 == 进入了 ON_RESUME ...(StartingActivity.kt:44)
+10:54:00.439  I  === ASYNC --- 开始 任务:初始化串口 TTL ...(null:7)
+10:54:01.446  I  === ASYNC --- 开始 任务:处理必要的权限 ...(null:7)
+10:54:02.941  I  收到事件：请求权限 ...(StartingActivity.kt:48)
+10:54:03.066  I  === finish 总共耗时: 3286 ms ...(StartingActivity.kt:92)
+10:54:03.074  D  生命周期 == 进入了 ON_PAUSE ...(StartingActivity.kt:44)
+10:55:46.615  D  生命周期 == 进入了 ON_RESUME ...(StartingActivity.kt:44)
+10:55:55.006  E  警告：被用户禁止了的权限: [android.permission.BLUETOOTH_CONNECT] ...(StartingActivity.kt:165)
+10:55:55.011  E  应用重启了 --- StartingActivity 触发 ...(StartingActivity.kt:128)
+10:55:55.603  D  生命周期 == 进入了 ON_PAUSE ...(StartingActivity.kt:44)
+10:55:56.318  D  生命周期 == 进入了 ON_CREATE ...(StartingActivity.kt:44)
+10:55:56.334  D  生命周期 == 进入了 ON_START ...(StartingActivity.kt:44)
+10:55:56.340  I  === begin ...(StartingActivity.kt:86)
+10:55:56.341  I  === SYNC --- 开始 任务:查找 USB 接口设备 ...(null:7)
+10:55:56.350  E  <no USB devices found> ...(UsbDevicesFinder.kt:35)
+10:55:56.357  I  === ASYNC --- 开始 任务:初始化常用全局数据量 ...(null:7)
+10:55:56.377  I  === ASYNC --- 开始 任务:初始化声音播放器 ...(null:7)
+10:55:56.403  D  生命周期 == 进入了 ON_RESUME ...(StartingActivity.kt:44)
+10:55:56.886  I  === ASYNC --- 开始 任务:初始化串口 TTL ...(null:7)
+10:55:57.888  I  === ASYNC --- 开始 任务:处理必要的权限 ...(null:7)
+10:55:57.956  I  收到事件：请求权限 ...(StartingActivity.kt:48)
+10:55:58.117  I  收到事件：请求权限 ...(StartingActivity.kt:48)
+10:55:58.180  I  === finish 总共耗时: 1845 ms ...(StartingActivity.kt:92)
+10:55:58.231  D  生命周期 == 进入了 ON_PAUSE ...(StartingActivity.kt:44)
+10:55:58.321  D  生命周期 == 进入了 ON_STOP ...(StartingActivity.kt:44)
+10:55:58.365  I  清除事件：请求蓝牙权限 ...(StartingActivity.kt:59)
+10:55:58.592  D  生命周期 == 进入了 ON_DESTROY ...(StartingActivity.kt:44)
+10:56:02.973  D  生命周期 == 进入了 ON_RESUME ...(StartingActivity.kt:44)
+10:56:02.991  I  正在关闭蓝牙 ...(StartingActivity.kt:155)
+10:56:03.303  D  生命周期 == 进入了 ON_PAUSE ...(StartingActivity.kt:44)
+10:56:04.509  D  生命周期 == 进入了 ON_CREATE ...(MainActivity.kt:38)
+10:56:04.630  I  进入了 DashboardFragment ...(DashboardFragment.kt:23)
+10:56:04.751  D  生命周期 == 进入了 ON_START ...(MainActivity.kt:38)
+10:56:04.763  D  生命周期 == 进入了 ON_RESUME ...(MainActivity.kt:38)
+10:56:04.764  E  connectUsb() mDeviceItem null <no USB devices found> ...(UsbDeviceConnectManager.kt:78)
+10:56:07.292  D  生命周期 == 进入了 ON_STOP ...(StartingActivity.kt:44)
+10:56:07.294  I  清除事件：请求蓝牙权限 ...(StartingActivity.kt:59)
+10:56:07.313  D  生命周期 == 进入了 ON_DESTROY ...(StartingActivity.kt:44)
+ */
