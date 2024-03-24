@@ -1,21 +1,27 @@
 package com.android.launcher.activity
 
+import android.Manifest
 import android.app.Activity
 import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Lifecycle
 import com.android.launcher.base.BaseActivity
 import com.drake.channel.receiveEvent
+import com.permissionx.guolindev.PermissionX
 import dc.library.auto.event.EventModel
 import dc.library.auto.event.EventTag
+import dc.library.auto.event.ManagerEvent
 import dc.library.auto.init.AsyncStepSerialPort
-import dc.library.auto.init.SyncStepDisableBluetooth
 import dc.library.auto.init.SyncStepFindUsb
 import dc.library.auto.task.XTask
 import dc.library.auto.task.api.step.ConcurrentGroupTaskStep
 import dc.library.auto.task.core.ITaskChainEngine
 import dc.library.auto.task.core.param.ITaskResult
+import dc.library.auto.task.core.step.impl.AbstractTaskStep
 import dc.library.auto.task.core.step.impl.TaskChainCallbackAdapter
 import dc.library.auto.task.core.step.impl.TaskCommand
 import dc.library.auto.task.thread.pool.cancel.ICanceller
@@ -30,6 +36,7 @@ import kotlinx.coroutines.Job
  */
 class StartingActivity : BaseActivity() {
 
+    private lateinit var mCurrentTaskWaitFinish: AbstractTaskStep
     private var mTaskCancel: ICanceller? = null
     private val eventReceiveList: MutableList<Job> = mutableListOf()
 
@@ -64,12 +71,25 @@ class StartingActivity : BaseActivity() {
             addTask(2, "任务:初始化声音播放器")
         }
         val engine = XTask.getTaskChain()
-        engine.addTask(SyncStepDisableBluetooth())
         engine.addTask(SyncStepFindUsb())
         engine.addTask(groupTaskStep)
         engine.addTask(AsyncStepSerialPort())
+        engine.addTask(disableBluetoothStep())
         engine.setTaskChainCallback(taskChainCallback(System.currentTimeMillis()))
         mTaskCancel = engine.start()
+    }
+
+    private fun disableBluetoothStep() = object : AbstractTaskStep() {
+
+        override fun getName(): String {
+            return "任务:禁止使用蓝牙"
+        }
+
+        override fun doTask() {
+            // 需手动通知执行结果
+            mCurrentTaskWaitFinish = this
+            ManagerEvent.sendTagEvent(EventTag.BLUETOOTH_PERMISSION_HANDLE)
+        }
     }
 
     private fun taskChainCallback(timestampBegin: Long) = object : TaskChainCallbackAdapter() {
@@ -85,7 +105,7 @@ class StartingActivity : BaseActivity() {
         }
 
         override fun onTaskChainError(engine: ITaskChainEngine, result: ITaskResult) {
-            LogCat.i("=== 启动页面初始化失败 -- Error 总共耗时: ${System.currentTimeMillis() - timestampBegin} ms")
+            LogCat.i("=== 任务链失败 -- Error 总共耗时: ${System.currentTimeMillis() - timestampBegin} ms")
             mTaskCancel?.cancel()
             restartApp(app)
         }
@@ -121,5 +141,43 @@ class StartingActivity : BaseActivity() {
         // 启动新的任务栈，这将重新打开应用
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(intent)
+    }
+
+    private fun handleBluetoothPermission() {
+        val bluetoothManager: BluetoothManager = this@StartingActivity.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+        val bluetoothAdapter = bluetoothManager.adapter
+        bluetoothAdapter?.let {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                val permission = PermissionX.init(this@StartingActivity)
+                permission.permissions(Manifest.permission.BLUETOOTH_CONNECT)
+                    .onExplainRequestReason { scope, deniedList ->
+                        scope.showRequestReasonDialog(deniedList, "需要授权蓝牙控制权限", "授权", "取消")
+                    }
+                    .request { allGranted, _, deniedList ->
+                        if (allGranted) {
+                            LogCat.i("关闭蓝牙")
+                            if (bluetoothAdapter.isEnabled) {
+                                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED) {
+                                    @Suppress("DEPRECATION")
+                                    bluetoothAdapter.disable()
+                                    mCurrentTaskWaitFinish.notifyTaskSucceed()
+                                }
+                            }
+                        } else {
+                            LogCat.e("被禁止了的权限: $deniedList")
+                            mCurrentTaskWaitFinish.notifyTaskFailed()
+                        }
+                    }
+            } else {
+                if (bluetoothAdapter.isEnabled) {
+                    @Suppress("DEPRECATION")
+                    bluetoothAdapter.disable()
+                    mCurrentTaskWaitFinish.notifyTaskSucceed()
+                }
+            }
+        } ?: {
+            LogCat.e("本机本身已经不支持蓝牙！")
+            mCurrentTaskWaitFinish.notifyTaskSucceed()
+        }
     }
 }
