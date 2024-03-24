@@ -36,7 +36,6 @@ class StartingActivity : BaseActivity() {
     }
 
     private fun startSomeInitTask() {
-        // 异步线程并行任务组
         val groupTaskStep = XTask.getConcurrentGroupTask().apply {
             addTask(0, "任务:禁止开启蓝牙")
             addTask(1, "任务:初始化常用全局数据量")
@@ -53,17 +52,17 @@ class StartingActivity : BaseActivity() {
     private fun taskChainCallback(timestampBegin: Long) = object : TaskChainCallbackAdapter() {
 
         override fun onTaskChainStart(engine: ITaskChainEngine) {
-            LogCat.i("=== 启动任务链 -- begin")
+            LogCat.i("=== begin")
         }
 
         override fun onTaskChainCompleted(engine: ITaskChainEngine, result: ITaskResult) {
             mTaskCancel?.cancel()
-            LogCat.i("=== 结束任务链 -- Finish 总共耗时: ${System.currentTimeMillis() - timestampBegin} ms")
+            LogCat.i("=== finish 总共耗时: ${System.currentTimeMillis() - timestampBegin} ms")
             gotoMainActivity()
         }
 
         override fun onTaskChainError(engine: ITaskChainEngine, result: ITaskResult) {
-            LogCat.i("=== 任务链失败 -- Error 总共耗时: ${System.currentTimeMillis() - timestampBegin} ms")
+            LogCat.i("=== 启动页面初始化失败 -- Error 总共耗时: ${System.currentTimeMillis() - timestampBegin} ms")
             mTaskCancel?.cancel()
             restartApp(app)
         }
