@@ -11,23 +11,24 @@ import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Lifecycle
 import com.android.launcher.base.BaseActivity
 import com.drake.channel.receiveEvent
+import com.drake.net.time.Interval
 import com.permissionx.guolindev.PermissionX
 import dc.library.auto.event.EventModel
 import dc.library.auto.event.EventTag
-import dc.library.auto.event.ManagerEvent
 import dc.library.auto.init.AsyncStepSerialPort
+import dc.library.auto.init.SyncStepDisableBluetooth
 import dc.library.auto.init.SyncStepFindUsb
 import dc.library.auto.task.XTask
 import dc.library.auto.task.api.step.ConcurrentGroupTaskStep
 import dc.library.auto.task.core.ITaskChainEngine
 import dc.library.auto.task.core.param.ITaskResult
-import dc.library.auto.task.core.step.impl.AbstractTaskStep
 import dc.library.auto.task.core.step.impl.TaskChainCallbackAdapter
 import dc.library.auto.task.core.step.impl.TaskCommand
 import dc.library.auto.task.thread.pool.cancel.ICanceller
 import dc.library.ui.base.app
 import dc.library.utils.logcat.LogCat
 import kotlinx.coroutines.Job
+import java.util.concurrent.TimeUnit
 
 /**
  * 启动页面（奔驰 LOGO 欢迎页面）
@@ -36,7 +37,7 @@ import kotlinx.coroutines.Job
  */
 class StartingActivity : BaseActivity() {
 
-    private lateinit var mCurrentTaskWaitFinish: AbstractTaskStep
+    private var mTaskIsFinishSucceed: Boolean = false
     private var mTaskCancel: ICanceller? = null
     private val eventReceiveList: MutableList<Job> = mutableListOf()
 
@@ -74,47 +75,46 @@ class StartingActivity : BaseActivity() {
         engine.addTask(SyncStepFindUsb())
         engine.addTask(groupTaskStep)
         engine.addTask(AsyncStepSerialPort())
-        engine.addTask(disableBluetoothStep())
+        engine.addTask(SyncStepDisableBluetooth())
         engine.setTaskChainCallback(taskChainCallback(System.currentTimeMillis()))
         mTaskCancel = engine.start()
-    }
-
-    private fun disableBluetoothStep() = object : AbstractTaskStep() {
-
-        override fun getName(): String {
-            return "任务:禁止使用蓝牙"
-        }
-
-        override fun doTask() {
-            // 需手动通知执行结果
-            mCurrentTaskWaitFinish = this
-            ManagerEvent.sendTagEvent(EventTag.BLUETOOTH_PERMISSION_HANDLE)
-        }
     }
 
     private fun taskChainCallback(timestampBegin: Long) = object : TaskChainCallbackAdapter() {
 
         override fun onTaskChainStart(engine: ITaskChainEngine) {
+            mTaskIsFinishSucceed = false
             LogCat.i("=== begin")
         }
 
         override fun onTaskChainCompleted(engine: ITaskChainEngine, result: ITaskResult) {
             mTaskCancel?.cancel()
+            mTaskIsFinishSucceed = true
             LogCat.i("=== finish 总共耗时: ${System.currentTimeMillis() - timestampBegin} ms")
-            gotoMainActivity()
         }
 
         override fun onTaskChainError(engine: ITaskChainEngine, result: ITaskResult) {
+            mTaskIsFinishSucceed = false
             LogCat.i("=== 任务链失败 -- Error 总共耗时: ${System.currentTimeMillis() - timestampBegin} ms")
             mTaskCancel?.cancel()
-            restartApp(app)
         }
     }
 
     private fun gotoMainActivity() {
-        val intent = Intent(this@StartingActivity, MainActivity::class.java)
-        startActivity(intent)
-        this@StartingActivity.finish()
+        val interval = Interval(10, 1, TimeUnit.SECONDS).life(this)
+        interval.subscribe {
+            if (mTaskIsFinishSucceed) {
+                this.stop()
+            }
+        }.finish {
+            if (mTaskIsFinishSucceed) {
+                val intent = Intent(this@StartingActivity, MainActivity::class.java)
+                startActivity(intent)
+                this@StartingActivity.finish()
+            } else {
+                restartApp(this@StartingActivity)
+            }
+        }.start()
     }
 
     private fun ConcurrentGroupTaskStep.addTask(stepIndex: Int, des: String = "") {
@@ -123,11 +123,6 @@ class StartingActivity : BaseActivity() {
                 Thread.sleep(500)
             }
         }).apply { name = des })
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
     }
 
     private fun restartApp(context: Context) {
@@ -160,24 +155,24 @@ class StartingActivity : BaseActivity() {
                                 if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) == PackageManager.PERMISSION_GRANTED) {
                                     @Suppress("DEPRECATION")
                                     bluetoothAdapter.disable()
-                                    mCurrentTaskWaitFinish.notifyTaskSucceed()
+                                    gotoMainActivity()
                                 }
                             }
                         } else {
                             LogCat.e("被禁止了的权限: $deniedList")
-                            mCurrentTaskWaitFinish.notifyTaskFailed()
+                            restartApp(this@StartingActivity)
                         }
                     }
             } else {
                 if (bluetoothAdapter.isEnabled) {
                     @Suppress("DEPRECATION")
                     bluetoothAdapter.disable()
-                    mCurrentTaskWaitFinish.notifyTaskSucceed()
+                    gotoMainActivity()
                 }
             }
         } ?: {
             LogCat.e("本机本身已经不支持蓝牙！")
-            mCurrentTaskWaitFinish.notifyTaskSucceed()
+            gotoMainActivity()
         }
     }
 }
