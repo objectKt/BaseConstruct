@@ -111,6 +111,7 @@ class UsbDeviceConnectManager private constructor(
             intent.setPackage(app.packageName)
             val usbPermissionIntent: PendingIntent = PendingIntent.getBroadcast(activity, 0, intent, flags)
             usbManager.requestPermission(driver.device, usbPermissionIntent)
+            LogCat.w("USB init Auth ${driver.device.deviceName}")
             return
         }
         if (usbConnection == null) {

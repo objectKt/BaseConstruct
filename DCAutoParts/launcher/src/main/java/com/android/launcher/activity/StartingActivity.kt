@@ -1,13 +1,13 @@
 package com.android.launcher.activity
 
 import android.app.Activity
+import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.Lifecycle
 import com.android.launcher.base.BaseActivity
-import dc.library.auto.bus_usb.util.UsbDevicesFinder
-import dc.library.auto.init.SyncStepFindUsb
 import dc.library.auto.init.AsyncStepSerialPort
+import dc.library.auto.init.SyncStepFindUsb
 import dc.library.auto.task.XTask
 import dc.library.auto.task.api.step.ConcurrentGroupTaskStep
 import dc.library.auto.task.core.ITaskChainEngine
@@ -38,9 +38,9 @@ class StartingActivity : BaseActivity() {
     private fun startSomeInitTask() {
         // 异步线程并行任务组
         val groupTaskStep = XTask.getConcurrentGroupTask().apply {
-            addTask(0, "任务:初始化常用全局数据量")
-            addTask(2, "任务:关掉蓝牙")
-            addTask(3, "任务:初始化声音播放器")
+            addTask(0, "任务:禁止开启蓝牙")
+            addTask(1, "任务:初始化常用全局数据量")
+            addTask(2, "任务:初始化声音播放器")
         }
         val engine = XTask.getTaskChain()
         engine.addTask(SyncStepFindUsb())
@@ -79,11 +79,25 @@ class StartingActivity : BaseActivity() {
         addTask(XTask.getTask(object : TaskCommand() {
             override fun run() {
                 when (stepIndex) {
-                    1 -> UsbDevicesFinder.findDevices()
+                    0 -> {
+                        val bluetoothManager: BluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+                        bluetoothManager.adapter?.let {
+                            handleBluetoothPermission(it)
+                        } ?: {
+                            LogCat.e("本机本身已经不支持蓝牙！")
+                        }
+                    }
+
+                    1 -> {}
                     else -> Thread.sleep(500)
                 }
             }
         }).apply { name = des })
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
     }
 
     private fun restartApp(context: Context) {

@@ -40,7 +40,7 @@ class MainActivity : BaseActivity() {
             Lifecycle.Event.ON_CREATE -> {
                 mBroadcastReceiver = object : BroadcastReceiver() {
                     override fun onReceive(context: Context?, intent: Intent) {
-                        if (ValUtil.Action.INTENT_ACTION_GRANT_USB.equals(intent.action)) {
+                        if (ValUtil.Action.INTENT_ACTION_GRANT_USB == intent.action) {
                             usbDeviceManager.mUsbPermission = if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false))
                                 UsbDeviceConnectManager.UsbPermission.Granted else UsbDeviceConnectManager.UsbPermission.Denied
                             usbDeviceManager.connectUsb()

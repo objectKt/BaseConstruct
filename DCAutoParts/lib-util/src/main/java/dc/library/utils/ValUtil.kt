@@ -7,6 +7,10 @@ interface ValUtil {
         const val INTENT_ACTION_GRANT_USB: String = "com.android.launcher.GRANT_USB"
     }
 
+    object Permission {
+        const val REQUEST_CODE_BLUETOOTH_CONNECT = 2023001
+    }
+
     object Log {
         const val TAG: String = "dc-auto-parts"
     }

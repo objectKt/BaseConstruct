@@ -50,9 +50,7 @@ androidx-navigation-fragment = "androidx.navigation:navigation-fragment-ktx:2.5.
 androidx-fragment-ktx = "androidx.fragment:fragment-ktx:1.5.5"
 #noinspection GradleDependency
 fastjson = "com.alibaba:fastjson:1.2.47"
-databinding-common = "androidx.databinding:databinding-common:7.0.0"
-databinding-runtime = "androidx.databinding:databinding-runtime:7.0.0"
-databinding-compiler = "androidx.databinding:databinding-compiler:7.0.0"
+permission = "com.guolindev.permissionx:permissionx:1.7.1"
 
 # Old need be changed.
 recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }

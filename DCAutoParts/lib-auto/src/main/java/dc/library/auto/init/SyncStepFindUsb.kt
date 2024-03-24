@@ -1,5 +1,6 @@
 package dc.library.auto.init
 
+import dc.library.auto.bus_usb.util.UsbDevicesFinder
 import dc.library.auto.task.api.step.SimpleTaskStep
 import dc.library.auto.task.core.ThreadType
 
@@ -9,7 +10,7 @@ import dc.library.auto.task.core.ThreadType
 class SyncStepFindUsb : SimpleTaskStep() {
 
     override fun doTask() {
-
+        UsbDevicesFinder.findDevices()
     }
 
     override fun getName(): String {
