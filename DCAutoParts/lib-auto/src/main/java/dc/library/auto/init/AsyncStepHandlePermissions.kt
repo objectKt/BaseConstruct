@@ -5,17 +5,14 @@ import dc.library.auto.event.ManagerEvent
 import dc.library.auto.task.api.step.SimpleTaskStep
 import dc.library.auto.task.core.ThreadType
 
-/**
- * 禁止使用蓝牙
- */
-class SyncStepDisableBluetooth : SimpleTaskStep() {
+class AsyncStepHandlePermissions : SimpleTaskStep() {
 
     override fun doTask() {
         ManagerEvent.sendTagEvent(EventTag.BLUETOOTH_PERMISSION_HANDLE)
     }
 
     override fun getName(): String {
-        return "任务:禁止使用蓝牙"
+        return "任务:处理必要的权限"
     }
 
     override fun getThreadType(): ThreadType {
