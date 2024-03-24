@@ -6,7 +6,11 @@ import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.Lifecycle
 import com.android.launcher.base.BaseActivity
+import com.drake.channel.receiveEvent
+import dc.library.auto.event.EventModel
+import dc.library.auto.event.EventTag
 import dc.library.auto.init.AsyncStepSerialPort
+import dc.library.auto.init.SyncStepDisableBluetooth
 import dc.library.auto.init.SyncStepFindUsb
 import dc.library.auto.task.XTask
 import dc.library.auto.task.api.step.ConcurrentGroupTaskStep
@@ -17,6 +21,7 @@ import dc.library.auto.task.core.step.impl.TaskCommand
 import dc.library.auto.task.thread.pool.cancel.ICanceller
 import dc.library.ui.base.app
 import dc.library.utils.logcat.LogCat
+import kotlinx.coroutines.Job
 
 /**
  * 启动页面（奔驰 LOGO 欢迎页面）
@@ -26,22 +31,40 @@ import dc.library.utils.logcat.LogCat
 class StartingActivity : BaseActivity() {
 
     private var mTaskCancel: ICanceller? = null
+    private val eventReceiveList: MutableList<Job> = mutableListOf()
 
     override fun stateChangeLogic(event: Lifecycle.Event) {
         LogCat.d("生命周期 == 进入了 ${event.name}")
         when (event) {
+            Lifecycle.Event.ON_CREATE -> {
+                eventReceiveList.add(receiveEvent<EventModel>(EventTag.BLUETOOTH_PERMISSION_HANDLE) {
+                    LogCat.i("收到事件：请求蓝牙权限")
+                    handleBluetoothPermission()
+                })
+            }
+
             Lifecycle.Event.ON_START -> startSomeInitTask()
+
+            Lifecycle.Event.ON_STOP -> {
+                if (eventReceiveList.isNotEmpty()) {
+                    eventReceiveList.forEach {
+                        it.cancel()
+                        LogCat.i("清除事件：请求蓝牙权限")
+                    }
+                }
+            }
+
             else -> {}
         }
     }
 
     private fun startSomeInitTask() {
         val groupTaskStep = XTask.getConcurrentGroupTask().apply {
-            addTask(0, "任务:禁止开启蓝牙")
             addTask(1, "任务:初始化常用全局数据量")
             addTask(2, "任务:初始化声音播放器")
         }
         val engine = XTask.getTaskChain()
+        engine.addTask(SyncStepDisableBluetooth())
         engine.addTask(SyncStepFindUsb())
         engine.addTask(groupTaskStep)
         engine.addTask(AsyncStepSerialPort())
@@ -77,19 +100,7 @@ class StartingActivity : BaseActivity() {
     private fun ConcurrentGroupTaskStep.addTask(stepIndex: Int, des: String = "") {
         addTask(XTask.getTask(object : TaskCommand() {
             override fun run() {
-                when (stepIndex) {
-                    0 -> {
-                        val bluetoothManager: BluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
-                        bluetoothManager.adapter?.let {
-                            handleBluetoothPermission(it)
-                        } ?: {
-                            LogCat.e("本机本身已经不支持蓝牙！")
-                        }
-                    }
-
-                    1 -> {}
-                    else -> Thread.sleep(500)
-                }
+                Thread.sleep(500)
             }
         }).apply { name = des })
     }
