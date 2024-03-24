@@ -1,15 +1,16 @@
-package dc.library.auto.manager
+package dc.library.auto.init
 
+import dc.library.auto.manager.TTLSerialPortsManager
 import dc.library.auto.task.api.step.SimpleTaskStep
 import dc.library.auto.task.core.ThreadType
 
 /**
  * 串口初始化
  */
-class SerialPortInitTask : SimpleTaskStep() {
+class AsyncStepSerialPort : SimpleTaskStep() {
 
     override fun doTask() {
-        if (false) {
+        if (true) {
             try {
                 Thread.sleep(1000)
             } catch (_: Exception) {

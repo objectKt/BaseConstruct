@@ -2,8 +2,9 @@ package dc.library.utils
 
 interface ValUtil {
 
-    object ActionBroadcast {
+    object Action {
         const val LOCAL_BROADCAST_FINISH_INIT_TASK: String = "com.android.launcher.service.LOCAL_BROADCAST_FINISH_INIT_TASK"
+        const val INTENT_ACTION_GRANT_USB: String = "com.android.launcher.GRANT_USB"
     }
 
     object Log {

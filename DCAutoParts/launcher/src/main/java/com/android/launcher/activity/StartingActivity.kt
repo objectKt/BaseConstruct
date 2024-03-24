@@ -5,7 +5,9 @@ import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.Lifecycle
 import com.android.launcher.base.BaseActivity
-import dc.library.auto.manager.SerialPortInitTask
+import dc.library.auto.bus_usb.util.UsbDevicesFinder
+import dc.library.auto.init.SyncStepFindUsb
+import dc.library.auto.init.AsyncStepSerialPort
 import dc.library.auto.task.XTask
 import dc.library.auto.task.api.step.ConcurrentGroupTaskStep
 import dc.library.auto.task.core.ITaskChainEngine
@@ -36,14 +38,14 @@ class StartingActivity : BaseActivity() {
     private fun startSomeInitTask() {
         // 异步线程并行任务组
         val groupTaskStep = XTask.getConcurrentGroupTask().apply {
-            addTask("任务:初始化常用全局数据量")
-            addTask("任务:初始化 USB")
-            addTask("任务:关掉蓝牙")
-            addTask("任务:初始化声音播放器")
+            addTask(0, "任务:初始化常用全局数据量")
+            addTask(2, "任务:关掉蓝牙")
+            addTask(3, "任务:初始化声音播放器")
         }
         val engine = XTask.getTaskChain()
+        engine.addTask(SyncStepFindUsb())
         engine.addTask(groupTaskStep)
-        engine.addTask(SerialPortInitTask())
+        engine.addTask(AsyncStepSerialPort())
         engine.setTaskChainCallback(taskChainCallback(System.currentTimeMillis()))
         mTaskCancel = engine.start()
     }
@@ -73,10 +75,13 @@ class StartingActivity : BaseActivity() {
         this@StartingActivity.finish()
     }
 
-    private fun ConcurrentGroupTaskStep.addTask(des: String = "") {
+    private fun ConcurrentGroupTaskStep.addTask(stepIndex: Int, des: String = "") {
         addTask(XTask.getTask(object : TaskCommand() {
             override fun run() {
-                Thread.sleep(500)
+                when (stepIndex) {
+                    1 -> UsbDevicesFinder.findDevices()
+                    else -> Thread.sleep(500)
+                }
             }
         }).apply { name = des })
     }

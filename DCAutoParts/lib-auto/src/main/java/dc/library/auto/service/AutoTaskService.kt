@@ -6,7 +6,7 @@ import android.os.IBinder
 import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import dc.library.utils.global.ConstVal
-import dc.library.auto.manager.SerialPortInitTask
+import dc.library.auto.init.AsyncStepSerialPort
 import dc.library.auto.task.XTask
 import dc.library.auto.task.core.ITaskChainEngine
 import dc.library.auto.task.core.param.ITaskResult
@@ -73,7 +73,7 @@ class AutoTaskService : Service() {
             }))
         }
         XTask.getTaskChain()
-            .addTask(SerialPortInitTask())
+            .addTask(AsyncStepSerialPort())
             .setTaskChainCallback(object : TaskChainCallbackAdapter() {
                 override fun onTaskChainCompleted(engine: ITaskChainEngine, result: ITaskResult) {
                     Log.i(ConstVal.Log.TAG, "$CLASS_NAME 任务执行 --- 完成 --- 总共耗时:" + (System.currentTimeMillis() - startTime) + "ms")
@@ -88,7 +88,7 @@ class AutoTaskService : Service() {
      * 这在处理跨组件通信时是一个好的实践。
      */
     private fun notifyAfterFinishInitTask() {
-        val initTaskFinishedIntent = Intent(ValUtil.ActionBroadcast.LOCAL_BROADCAST_FINISH_INIT_TASK)
+        val initTaskFinishedIntent = Intent(ValUtil.Action.LOCAL_BROADCAST_FINISH_INIT_TASK)
         LocalBroadcastManager.getInstance(this@AutoTaskService).sendBroadcast(initTaskFinishedIntent)
     }
 }

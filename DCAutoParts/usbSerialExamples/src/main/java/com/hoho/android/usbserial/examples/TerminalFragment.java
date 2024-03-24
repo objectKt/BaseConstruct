@@ -43,7 +43,7 @@ import java.util.EnumSet;
 
 public class TerminalFragment extends Fragment implements SerialInputOutputManager.Listener {
 
-    private enum UsbPermission { Unknown, Requested, Granted, Denied }
+    private enum UsbPermission {Unknown, Requested, Granted, Denied}
 
     private static final String INTENT_ACTION_GRANT_USB = "com.android.laucher" + ".GRANT_USB";
     private static final int WRITE_WAIT_MILLIS = 2000;
@@ -66,7 +66,7 @@ public class TerminalFragment extends Fragment implements SerialInputOutputManag
         broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if(INTENT_ACTION_GRANT_USB.equals(intent.getAction())) {
+                if (INTENT_ACTION_GRANT_USB.equals(intent.getAction())) {
                     usbPermission = intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)
                             ? UsbPermission.Granted : UsbPermission.Denied;
                     connect();
@@ -105,13 +105,13 @@ public class TerminalFragment extends Fragment implements SerialInputOutputManag
     @Override
     public void onResume() {
         super.onResume();
-        if(!connected && (usbPermission == UsbPermission.Unknown || usbPermission == UsbPermission.Granted))
+        if (!connected && (usbPermission == UsbPermission.Unknown || usbPermission == UsbPermission.Granted))
             mainLooper.post(this::connect);
     }
 
     @Override
     public void onPause() {
-        if(connected) {
+        if (connected) {
             status("disconnected");
             disconnect();
         }
@@ -132,7 +132,7 @@ public class TerminalFragment extends Fragment implements SerialInputOutputManag
         sendBtn.setOnClickListener(v -> send(sendText.getText().toString()));
         View receiveBtn = view.findViewById(R.id.receive_btn);
         controlLines = new ControlLines(view);
-        if(withIoManager) {
+        if (withIoManager) {
             receiveBtn.setVisibility(View.GONE);
         } else {
             receiveBtn.setOnClickListener(v -> read());
@@ -151,8 +151,8 @@ public class TerminalFragment extends Fragment implements SerialInputOutputManag
         if (id == R.id.clear) {
             receiveText.setText("");
             return true;
-        } else if( id == R.id.send_break) {
-            if(!connected) {
+        } else if (id == R.id.send_break) {
+            if (!connected) {
                 Toast.makeText(getActivity(), "not connected", Toast.LENGTH_SHORT).show();
             } else {
                 try {
@@ -163,9 +163,9 @@ public class TerminalFragment extends Fragment implements SerialInputOutputManag
                     spn.append("send <break>\n");
                     spn.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorSendText)), 0, spn.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     receiveText.append(spn);
-                } catch(UnsupportedOperationException ignored) {
+                } catch (UnsupportedOperationException ignored) {
                     Toast.makeText(getActivity(), "BREAK not supported", Toast.LENGTH_SHORT).show();
-                } catch(Exception e) {
+                } catch (Exception e) {
                     Toast.makeText(getActivity(), "BREAK failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -199,28 +199,28 @@ public class TerminalFragment extends Fragment implements SerialInputOutputManag
     private void connect() {
         UsbDevice device = null;
         UsbManager usbManager = (UsbManager) getActivity().getSystemService(Context.USB_SERVICE);
-        for(UsbDevice v : usbManager.getDeviceList().values())
-            if(v.getDeviceId() == deviceId)
+        for (UsbDevice v : usbManager.getDeviceList().values())
+            if (v.getDeviceId() == deviceId)
                 device = v;
-        if(device == null) {
+        if (device == null) {
             status("connection failed: device not found");
             return;
         }
         UsbSerialDriver driver = UsbSerialProber.getDefaultProber().probeDevice(device);
-        if(driver == null) {
+        if (driver == null) {
             driver = CustomProber.getCustomProber().probeDevice(device);
         }
-        if(driver == null) {
+        if (driver == null) {
             status("connection failed: no driver for device");
             return;
         }
-        if(driver.getPorts().size() < portNum) {
+        if (driver.getPorts().size() < portNum) {
             status("connection failed: not enough ports at device");
             return;
         }
         usbSerialPort = driver.getPorts().get(portNum);
         UsbDeviceConnection usbConnection = usbManager.openDevice(driver.getDevice());
-        if(usbConnection == null && usbPermission == UsbPermission.Unknown && !usbManager.hasPermission(driver.getDevice())) {
+        if (usbConnection == null && usbPermission == UsbPermission.Unknown && !usbManager.hasPermission(driver.getDevice())) {
             usbPermission = UsbPermission.Requested;
             int flags = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_MUTABLE : 0;
             Intent intent = new Intent(INTENT_ACTION_GRANT_USB);
@@ -229,7 +229,7 @@ public class TerminalFragment extends Fragment implements SerialInputOutputManag
             usbManager.requestPermission(driver.getDevice(), usbPermissionIntent);
             return;
         }
-        if(usbConnection == null) {
+        if (usbConnection == null) {
             if (!usbManager.hasPermission(driver.getDevice()))
                 status("connection failed: permission denied");
             else
@@ -239,12 +239,12 @@ public class TerminalFragment extends Fragment implements SerialInputOutputManag
 
         try {
             usbSerialPort.open(usbConnection);
-            try{
+            try {
                 usbSerialPort.setParameters(baudRate, 8, 1, UsbSerialPort.PARITY_NONE);
-            }catch (UnsupportedOperationException e){
+            } catch (UnsupportedOperationException e) {
                 status("unsupport setparameters");
             }
-            if(withIoManager) {
+            if (withIoManager) {
                 usbIoManager = new SerialInputOutputManager(usbSerialPort, this);
                 usbIoManager.start();
             }
@@ -260,24 +260,25 @@ public class TerminalFragment extends Fragment implements SerialInputOutputManag
     private void disconnect() {
         connected = false;
         controlLines.stop();
-        if(usbIoManager != null) {
+        if (usbIoManager != null) {
             usbIoManager.setListener(null);
             usbIoManager.stop();
         }
         usbIoManager = null;
         try {
             usbSerialPort.close();
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+        }
         usbSerialPort = null;
     }
 
     private void send(String str) {
-        if(!connected) {
+        if (!connected) {
             Toast.makeText(getActivity(), "not connected", Toast.LENGTH_SHORT).show();
             return;
         }
         try {
-        byte[] data = (str + '\n').getBytes();
+            byte[] data = (str + '\n').getBytes();
             SpannableStringBuilder spn = new SpannableStringBuilder();
             spn.append("send " + data.length + " bytes\n");
             spn.append(HexDump.dumpHexString(data)).append("\n");
@@ -290,7 +291,7 @@ public class TerminalFragment extends Fragment implements SerialInputOutputManag
     }
 
     private void read() {
-        if(!connected) {
+        if (!connected) {
             Toast.makeText(getActivity(), "not connected", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -309,13 +310,13 @@ public class TerminalFragment extends Fragment implements SerialInputOutputManag
     private void receive(byte[] data) {
         SpannableStringBuilder spn = new SpannableStringBuilder();
         spn.append("receive " + data.length + " bytes\n");
-        if(data.length > 0)
+        if (data.length > 0)
             spn.append(HexDump.dumpHexString(data)).append("\n");
         receiveText.append(spn);
     }
 
     void status(String str) {
-        SpannableStringBuilder spn = new SpannableStringBuilder(str+'\n');
+        SpannableStringBuilder spn = new SpannableStringBuilder(str + '\n');
         spn.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorStatusText)), 0, spn.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         receiveText.append(spn);
     }
@@ -348,8 +349,14 @@ public class TerminalFragment extends Fragment implements SerialInputOutputManag
             }
             String ctrl = "";
             try {
-                if (btn.equals(rtsBtn)) { ctrl = "RTS"; usbSerialPort.setRTS(btn.isChecked()); }
-                if (btn.equals(dtrBtn)) { ctrl = "DTR"; usbSerialPort.setDTR(btn.isChecked()); }
+                if (btn.equals(rtsBtn)) {
+                    ctrl = "RTS";
+                    usbSerialPort.setRTS(btn.isChecked());
+                }
+                if (btn.equals(dtrBtn)) {
+                    ctrl = "DTR";
+                    usbSerialPort.setDTR(btn.isChecked());
+                }
             } catch (IOException e) {
                 status("set" + ctrl + "() failed: " + e.getMessage());
             }
@@ -381,8 +388,8 @@ public class TerminalFragment extends Fragment implements SerialInputOutputManag
                 if (!controlLines.contains(UsbSerialPort.ControlLine.CTS)) ctsBtn.setVisibility(View.INVISIBLE);
                 if (!controlLines.contains(UsbSerialPort.ControlLine.DTR)) dtrBtn.setVisibility(View.INVISIBLE);
                 if (!controlLines.contains(UsbSerialPort.ControlLine.DSR)) dsrBtn.setVisibility(View.INVISIBLE);
-                if (!controlLines.contains(UsbSerialPort.ControlLine.CD))   cdBtn.setVisibility(View.INVISIBLE);
-                if (!controlLines.contains(UsbSerialPort.ControlLine.RI))   riBtn.setVisibility(View.INVISIBLE);
+                if (!controlLines.contains(UsbSerialPort.ControlLine.CD)) cdBtn.setVisibility(View.INVISIBLE);
+                if (!controlLines.contains(UsbSerialPort.ControlLine.RI)) riBtn.setVisibility(View.INVISIBLE);
                 run();
             } catch (Exception e) {
                 Toast.makeText(getActivity(), "getSupportedControlLines() failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();

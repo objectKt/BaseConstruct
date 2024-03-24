@@ -59,7 +59,7 @@ class OneActivity : AppCompatActivity() {
     private fun createBroadcast() {
         broadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
-                if (ValUtil.ActionBroadcast.LOCAL_BROADCAST_FINISH_INIT_TASK == intent.action) {
+                if (ValUtil.Action.LOCAL_BROADCAST_FINISH_INIT_TASK == intent.action) {
                     gotoMainActivity()
                 }
             }
@@ -70,7 +70,7 @@ class OneActivity : AppCompatActivity() {
      * 注册 BroadcastReceiver
      */
     private fun registerBroadcast() {
-        LocalBroadcastManager.getInstance(this@OneActivity).registerReceiver(broadcastReceiver, IntentFilter(ValUtil.ActionBroadcast.LOCAL_BROADCAST_FINISH_INIT_TASK))
+        LocalBroadcastManager.getInstance(this@OneActivity).registerReceiver(broadcastReceiver, IntentFilter(ValUtil.Action.LOCAL_BROADCAST_FINISH_INIT_TASK))
     }
 
     /**

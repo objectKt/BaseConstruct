@@ -17,3 +17,13 @@ open class BaseSafeSingleton<out T, in A, in B, in C, in D>(private val construc
             instance ?: constructor(a, b, c, d).also { instance = it }
         }
 }
+
+open class ActivitySingleton<out T, in A>(private val constructor: (A) -> T) {
+
+    @Volatile
+    private var init: T? = null
+
+    fun getInit(a: A): T = init ?: synchronized(this) {
+        init ?: constructor(a).also { init = it }
+    }
+}
