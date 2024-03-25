@@ -3,7 +3,7 @@ package com.android.launcher.can.util
 /**
  * Can 通信 相关 Util
  */
-interface AutoCanUtil {
+interface AutoUtilCan {
 
     // 方向盘按键类型
     enum class Type { UP, DOWN, LEFT, RIGHT, OK, BACK }

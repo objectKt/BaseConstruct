@@ -12,6 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.android.launcher.R
+import com.android.launcher.can.util.AutoUtilCan
 import com.android.launcher.fragment.DashboardFragment
 import com.github.fragivity.loadRoot
 import dc.library.auto.bus_usb.UsbDeviceConnectManager
@@ -31,6 +32,28 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main_lefts223)
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.idNavHostLeft223) as NavHostFragment
         navHostFragment.loadRoot(DashboardFragment::class)
+    }
+
+    /**
+     * 处理方向盘传下来的操作
+     */
+    override fun steerWheelKeyboard(type: AutoUtilCan.Type) {
+        when (type) {
+            AutoUtilCan.Type.UP -> {
+
+            }
+            AutoUtilCan.Type.DOWN -> {
+
+            }
+
+            AutoUtilCan.Type.LEFT -> {
+
+            }
+
+            AutoUtilCan.Type.RIGHT -> {}
+            AutoUtilCan.Type.OK -> {}
+            AutoUtilCan.Type.BACK -> {}
+        }
     }
 
     override fun stateChangeLogic(event: Lifecycle.Event) {

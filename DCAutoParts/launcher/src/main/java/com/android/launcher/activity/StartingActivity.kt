@@ -1,7 +1,6 @@
 package com.android.launcher.activity
 
 import android.Manifest
-import android.app.Activity
 import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.Intent
@@ -9,12 +8,12 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Lifecycle
+import com.android.launcher.can.util.AutoUtilCan
 import com.drake.channel.receiveEvent
 import com.drake.net.time.Interval
 import com.permissionx.guolindev.PermissionX
 import dc.library.auto.event.EventModel
 import dc.library.auto.event.EventTag
-import dc.library.auto.init.AsyncStepSerialPort
 import dc.library.auto.init.AsyncStepHandlePermissions
 import dc.library.auto.init.SyncStepFindUsb
 import dc.library.auto.task.XTask
@@ -37,32 +36,25 @@ class StartingActivity : BaseActivity() {
 
     private var mTaskIsFinishSucceed: Boolean = false
     private var mTaskCancel: ICanceller? = null
-    private val eventReceiveList: MutableList<Job> = mutableListOf()
 
     override fun stateChangeLogic(event: Lifecycle.Event) {
         LogCat.d("生命周期 == 进入了 ${event.name}")
         when (event) {
             Lifecycle.Event.ON_CREATE -> {
-                eventReceiveList.add(receiveEvent<EventModel>(EventTag.BLUETOOTH_PERMISSION_HANDLE) {
+                receiveEvent<EventModel>(EventTag.BLUETOOTH_PERMISSION_HANDLE) {
                     LogCat.i("收到事件：请求权限")
                     handleBluetoothPermission()
-                })
+                }
             }
 
             Lifecycle.Event.ON_START -> startSomeInitTask()
 
-            Lifecycle.Event.ON_DESTROY -> {
-                if (eventReceiveList.isNotEmpty()) {
-                    eventReceiveList.forEach {
-                        it.cancel()
-                        LogCat.i("清除事件：请求蓝牙权限")
-                    }
-                }
-            }
-
             else -> {}
         }
     }
+
+    // do not need do anything
+    override fun steerWheelKeyboard(type: AutoUtilCan.Type) {}
 
     private fun startSomeInitTask() {
         val groupTaskStep = XTask.getConcurrentGroupTask().apply {
@@ -121,19 +113,6 @@ class StartingActivity : BaseActivity() {
                 Thread.sleep(500)
             }
         }).apply { name = des })
-    }
-
-    private fun restartApp(context: Context) {
-        LogCat.e("应用重启了 --- StartingActivity 触发")
-        // 关闭当前应用的所有活动
-        (context as Activity).finishAffinity()
-        // 创建一个新的意图来重新启动应用
-        val intent = Intent(context, StartingActivity::class.java).apply {
-            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-        }
-        // 启动新的任务栈，这将重新打开应用
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        context.startActivity(intent)
     }
 
     private fun handleBluetoothPermission() {

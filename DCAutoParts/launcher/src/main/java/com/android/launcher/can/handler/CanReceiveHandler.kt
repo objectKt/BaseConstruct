@@ -1,13 +1,13 @@
 package com.android.launcher.can.handler
 
-import com.android.launcher.can.util.AutoCanUtil
+import com.android.launcher.can.util.AutoUtilCan
 import com.android.launcher.can.util.CanReceiveImpl
 
 object CanReceiveHandler : CanReceiveImpl {
 
     override fun canReceive(canId: Int, canMsg: List<String?>?) {
         canMsg?.let { msg ->
-            val receive = AutoCanUtil.CommandReceive
+            val receive = AutoUtilCan.CommandReceive
             when (canId) {
                 receive.CAN001 -> {
                     // 车钥匙启动车关闭车

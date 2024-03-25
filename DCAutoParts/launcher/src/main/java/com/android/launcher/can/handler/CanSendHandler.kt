@@ -1,7 +1,7 @@
 package com.android.launcher.can.handler
 
 import android.util.Log
-import com.android.launcher.can.util.AutoCanUtil
+import com.android.launcher.can.util.AutoUtilCan
 import com.android.launcher.can.util.CanSendImpl
 import dc.library.utils.global.ConstVal
 import dc.library.auto.task.XTask
@@ -19,7 +19,7 @@ object CanSendHandler : CanSendImpl {
     val DATA_HEAD = "AA0000"
 
     override fun sendCan(canId: Int) {
-        val send = AutoCanUtil.CommandSend
+        val send = AutoUtilCan.CommandSend
         when (canId) {
             send.CAN3DC -> {
                 // 发动机机油液位
