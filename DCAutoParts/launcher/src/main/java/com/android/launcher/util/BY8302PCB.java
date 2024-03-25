@@ -1,5 +1,7 @@
 package com.android.launcher.util;
 
+import dc.library.auto.manager.ManagerTTLSerialPorts;
+import dc.library.utils.XXByteArray;
 import dc.library.utils.logcat.LogCat;
 
 /**
@@ -106,8 +108,8 @@ public class BY8302PCB {
     public static synchronized void pause() {
         new Thread(() -> {
             String sendCode = "7E030201EF";
-            SerialHelperttlLd3.sendHex(sendCode);
-
+            byte[] bytes = XXByteArray.INSTANCE.fromHex(sendCode);
+            ManagerTTLSerialPorts.INSTANCE.putBytesToTtys3(bytes);
         }).start();
     }
 
@@ -117,7 +119,8 @@ public class BY8302PCB {
     public static synchronized void volumePlus() {
         new Thread(() -> {
             String sendCode = "7E030506EF";
-            SerialHelperttlLd3.sendHex(sendCode);
+            byte[] bytes = XXByteArray.INSTANCE.fromHex(sendCode);
+            ManagerTTLSerialPorts.INSTANCE.putBytesToTtys3(bytes);
         }).start();
     }
 
@@ -127,7 +130,8 @@ public class BY8302PCB {
     public static synchronized void volumeDown() {
         new Thread(() -> {
             String sendCode = "7E030605EF";
-            SerialHelperttlLd3.sendHex(sendCode);
+            byte[] bytes = XXByteArray.INSTANCE.fromHex(sendCode);
+            ManagerTTLSerialPorts.INSTANCE.putBytesToTtys3(bytes);
         }).start();
     }
 
@@ -144,7 +148,8 @@ public class BY8302PCB {
                 String checkCode = HexDecimalUtils.xor(HexDecimalUtils.xor("04", "31"), volume);
                 String sendCode = "7E0431" + volume + checkCode + "EF";
                 LogCat.d("volumeSetup----value=" + value + ", sendCode=" + sendCode.toUpperCase());
-                SerialHelperttlLd3.sendHex(sendCode.toUpperCase());
+                byte[] bytes = XXByteArray.INSTANCE.fromHex(sendCode.toUpperCase());
+                ManagerTTLSerialPorts.INSTANCE.putBytesToTtys3(bytes);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -157,14 +162,16 @@ public class BY8302PCB {
     public static synchronized void singleLoopMode() {
         new Thread(() -> {
             String sendCode = "7E04330235EF";
-            SerialHelperttlLd3.sendHex(sendCode);
+            byte[] bytes = XXByteArray.INSTANCE.fromHex(sendCode);
+            ManagerTTLSerialPorts.INSTANCE.putBytesToTtys3(bytes);
         }).start();
     }
 
     public static synchronized void playStatus() {
         new Thread(() -> {
             String sendCode = "7E031013EF";
-            SerialHelperttlLd3.sendHex(sendCode);
+            byte[] bytes = XXByteArray.INSTANCE.fromHex(sendCode);
+            ManagerTTLSerialPorts.INSTANCE.putBytesToTtys3(bytes);
         }).start();
     }
 
@@ -175,7 +182,8 @@ public class BY8302PCB {
     public static synchronized void stop() {
         new Thread(() -> {
             String sendCode = "7E030E0DEF";
-            SerialHelperttlLd3.sendHex(sendCode);
+            byte[] bytes = XXByteArray.INSTANCE.fromHex(sendCode);
+            ManagerTTLSerialPorts.INSTANCE.putBytesToTtys3(bytes);
         }).start();
     }
 
@@ -197,14 +205,15 @@ public class BY8302PCB {
             String sendCode = "7E054100" + indexHex + checkCode + "EF";
 
             LogCat.d("selectMusic----index=" + index + ", sendCode=" + sendCode.toUpperCase());
-            SerialHelperttlLd3.sendHex(sendCode.toUpperCase());
+            byte[] bytes = XXByteArray.INSTANCE.fromHex(sendCode.toUpperCase());
+            ManagerTTLSerialPorts.INSTANCE.putBytesToTtys3(bytes);
 
             try {
                 Thread.sleep(20);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            SerialHelperttlLd3.sendHex(sendCode.toUpperCase());
+            ManagerTTLSerialPorts.INSTANCE.putBytesToTtys3(bytes);
         }).start();
     }
 
