@@ -72,7 +72,7 @@ class StartingActivity : BaseActivity() {
         val engine = XTask.getTaskChain()
         engine.addTask(SyncStepFindUsb())
         engine.addTask(groupTaskStep)
-        engine.addTask(AsyncStepSerialPort())
+        //engine.addTask(AsyncStepSerialPort())
         engine.addTask(AsyncStepHandlePermissions())
         engine.setTaskChainCallback(taskChainCallback(System.currentTimeMillis()))
         mTaskCancel = engine.start()

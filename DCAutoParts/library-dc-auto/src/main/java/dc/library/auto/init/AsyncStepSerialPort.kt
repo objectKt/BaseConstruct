@@ -10,14 +10,7 @@ import dc.library.auto.task.core.ThreadType
 class AsyncStepSerialPort : SimpleTaskStep() {
 
     override fun doTask() {
-        if (false) {
-            try {
-                Thread.sleep(1000)
-            } catch (_: Exception) {
-            }
-        } else {
-            ManagerTTLSerialPorts.initSerialPorts()
-        }
+        ManagerTTLSerialPorts.initSerialPorts()
     }
 
     override fun getName(): String {

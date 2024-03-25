@@ -169,4 +169,21 @@
         <item name="android:layout_height">@dimen/dp_17</item>
         <item name="android:scaleType">fitCenter</item>
     </style>
+
+    <style name="MyButtonBaseStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="backgroundTint">@color/color_transparent</item>
+        <item name="cornerRadius">6dp</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="strokeColor">@color/color_lib_white</item>
+        <!--<item name="android:textColor">@color/ColorPrimaryVariant</item>-->
+        <!--<item name="android:textSize">@dimen/robotNormalTextSize</item>-->
+        <!--<item name="android:layout_marginStart">@dimen/dimen10dp</item>-->
+        <!--<item name="android:layout_marginEnd">@dimen/dimen10dp</item>-->
+        <!--<item name="android:layout_marginTop">@dimen/dimen10dp</item>-->
+        <!--<item name="android:layout_marginBottom">@dimen/dimen10dp</item>-->
+        <!--<item name="android:paddingTop">@dimen/dimen10dp</item>-->
+        <!--<item name="android:paddingBottom">@dimen/dimen10dp</item>-->
+        <!--<item name="android:paddingStart">@dimen/dimen10dp</item>-->
+        <!--<item name="android:paddingEnd">@dimen/dimen10dp</item>-->
+    </style>
 </resources>
