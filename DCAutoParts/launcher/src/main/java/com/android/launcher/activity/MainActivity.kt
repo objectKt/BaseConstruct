@@ -19,12 +19,13 @@ import dc.library.auto.bus_usb.UsbDeviceConnectManager
 import dc.library.auto.manager.TTLSerialPortsManager
 import dc.library.utils.ValUtil
 import dc.library.utils.logcat.LogCat
+import java.util.concurrent.LinkedTransferQueue
 
 class MainActivity : BaseActivity() {
 
     private lateinit var viewModel: ViewModelMain
     private var mBroadcastReceiver: BroadcastReceiver? = null
-    private val usbDeviceManager = UsbDeviceConnectManager.getInit(this@MainActivity)
+    private val mUsbDeviceManager = UsbDeviceConnectManager.getInit(this@MainActivity)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         proxyFragmentFactory()
@@ -41,9 +42,9 @@ class MainActivity : BaseActivity() {
                 mBroadcastReceiver = object : BroadcastReceiver() {
                     override fun onReceive(context: Context?, intent: Intent) {
                         if (ValUtil.Action.INTENT_ACTION_GRANT_USB == intent.action) {
-                            usbDeviceManager.mUsbPermission = if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false))
+                            mUsbDeviceManager.mUsbPermission = if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false))
                                 UsbDeviceConnectManager.UsbPermission.Granted else UsbDeviceConnectManager.UsbPermission.Denied
-                            usbDeviceManager.connectUsb()
+                            mUsbDeviceManager.connectUsb()
                         }
                     }
                 }
@@ -56,10 +57,10 @@ class MainActivity : BaseActivity() {
                 ContextCompat.RECEIVER_NOT_EXPORTED
             )
 
-            Lifecycle.Event.ON_RESUME -> usbDeviceManager.resumeConnect()
+            Lifecycle.Event.ON_RESUME -> mUsbDeviceManager.resumeConnect()
 
             Lifecycle.Event.ON_PAUSE -> {
-                usbDeviceManager.pauseDisconnect()
+                mUsbDeviceManager.pauseDisconnect()
             }
 
             Lifecycle.Event.ON_STOP -> unregisterReceiver(mBroadcastReceiver);

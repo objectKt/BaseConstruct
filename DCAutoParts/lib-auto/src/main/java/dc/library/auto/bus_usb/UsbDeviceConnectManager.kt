@@ -21,6 +21,9 @@ import dc.library.utils.ValUtil
 import dc.library.utils.logcat.LogCat
 import dc.library.utils.singleton.ActivitySingleton
 import java.io.IOException
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
+import java.util.concurrent.LinkedTransferQueue
 
 class UsbDeviceConnectManager private constructor(
     // 注意，这里单例模式的传参 activity 不可以变，用于单 Activity 多 Fragment 框架
@@ -37,18 +40,44 @@ class UsbDeviceConnectManager private constructor(
     var mUsbPermission: UsbPermission = UsbPermission.Unknown
     private var mUsbIoManager: SerialInputOutputManager? = null
     private var mConnected = false
+    private val writeTask: ExecutorService = Executors.newSingleThreadExecutor()
+    private var mUsbSendQueue: LinkedTransferQueue<ByteArray> = LinkedTransferQueue<ByteArray>()
 
-    fun sendUsb(msg: String) {
+    fun putSendBytes(bytes: ByteArray) {
+        mUsbSendQueue.put(bytes)
+    }
+
+    private fun sendUsb(bytes: ByteArray) {
         if (!mConnected) {
             LogCat.e("USB not connected. --- send failed")
             return
         }
+        if (mUsbSerialPort == null || mUsbSerialPort?.isOpen == false) {
+            LogCat.e("USB not connected. --- mUsbSerialPort == null || mUsbSerialPort?.isOpen == false")
+            return
+        }
         try {
-            val data = (msg + '\n').toByteArray()
-            LogCat.i("USB Send ${data.size} 个字节：${HexDump.dumpHexString(data)}")
-            mUsbSerialPort?.write(data, WRITE_WAIT_MILLIS)
+            LogCat.i("USB Send ${bytes.size} 个字节：${HexDump.dumpHexString(bytes)}")
+            mUsbSerialPort?.write(bytes, WRITE_WAIT_MILLIS)
         } catch (e: Exception) {
             onRunError(e)
+        }
+    }
+
+    private val writeThread: Runnable = Runnable {
+        if (mUsbSerialPort != null) {
+            LogCat.i("writeThread port = ${mUsbSerialPort.toString()} && port.isOpen = ${mUsbSerialPort!!.isOpen()}")
+        } else {
+            LogCat.e("writeThread port = null")
+            return@Runnable
+        }
+        while (mUsbSerialPort!!.isOpen) {
+            try {
+                val bytes = mUsbSendQueue.take()
+                sendUsb(bytes)
+            } catch (e: Exception) {
+                LogCat.e(e.message)
+            }
         }
     }
 
@@ -136,6 +165,8 @@ class UsbDeviceConnectManager private constructor(
             }
             LogCat.i("--- USB connected ---")
             mConnected = true
+            mUsbSendQueue.clear()
+            writeTask.execute(writeThread)
             // controlLines.start();
         } catch (e: Exception) {
             LogCat.e("USB connection failed: ${e.message}")
@@ -145,7 +176,7 @@ class UsbDeviceConnectManager private constructor(
 
     private fun disconnectUsb() {
         mConnected = false
-        // controlLines.stop();
+        mUsbSendQueue.clear()
         if (mUsbIoManager != null) {
             mUsbIoManager?.listener = null
             mUsbIoManager?.stop()
@@ -153,6 +184,7 @@ class UsbDeviceConnectManager private constructor(
         }
         try {
             mUsbSerialPort?.close()
+            writeTask.shutdownNow()
         } catch (_: IOException) {
         }
         mUsbSerialPort = null

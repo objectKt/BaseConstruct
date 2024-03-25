@@ -198,23 +198,16 @@ public class SportMeterFragment extends MeterFragmentBase {
         animatorSet.start();
     }
 
-
     @Override
     public void updateCarSpeed(String speedData) {
 
     }
-
-
 
     @Override
     protected void onBack() {
         super.onBack();
         menuViewPager.setCurrentItem(0, false);
     }
-
-
-    ;
-
 
     @Override
     public void onResume() {
