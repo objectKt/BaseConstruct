@@ -1,4 +1,4 @@
-package com.android.launcher.base
+package com.android.launcher.activity
 
 import android.app.Application
 import com.android.launcher.BR

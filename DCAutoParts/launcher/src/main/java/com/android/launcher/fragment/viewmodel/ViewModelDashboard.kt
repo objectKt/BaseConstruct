@@ -1,4 +1,4 @@
-package com.android.launcher.fragment
+package com.android.launcher.fragment.viewmodel
 
 import androidx.lifecycle.ViewModel
 

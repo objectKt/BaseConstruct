@@ -9,7 +9,6 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Lifecycle
-import com.android.launcher.base.BaseActivity
 import com.drake.channel.receiveEvent
 import com.drake.net.time.Interval
 import com.permissionx.guolindev.PermissionX

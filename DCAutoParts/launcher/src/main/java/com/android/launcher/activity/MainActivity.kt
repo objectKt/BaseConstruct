@@ -12,7 +12,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.android.launcher.R
-import com.android.launcher.base.BaseActivity
 import com.android.launcher.fragment.DashboardFragment
 import com.github.fragivity.loadRoot
 import dc.library.auto.bus_usb.UsbDeviceConnectManager

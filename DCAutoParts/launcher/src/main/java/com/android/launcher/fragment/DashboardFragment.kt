@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.viewModels
 import com.android.launcher.R
 import com.android.launcher.databinding.FragmentDashboardBinding
+import com.android.launcher.fragment.viewmodel.ViewModelDashboard
 import com.android.launcher.model.Model
 import com.drake.brv.utils.divider
 import com.drake.brv.utils.linear

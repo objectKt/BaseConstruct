@@ -1,21 +1,25 @@
-package dc.library.auto.bus_can
+package com.android.launcher.can.handler
+
+import com.android.launcher.can.util.AutoCanUtil
+import com.android.launcher.can.util.CanReceiveImpl
 
 object CanReceiveHandler : CanReceiveImpl {
 
     override fun canReceive(canId: Int, canMsg: List<String?>?) {
         canMsg?.let { msg ->
+            val receive = AutoCanUtil.CommandReceive
             when (canId) {
-                CanCommand.Receive.CAN001 -> {
+                receive.CAN001 -> {
                     // 车钥匙启动车关闭车
                     carDoorKeyHandle(msg[2])
                 }
 
-                CanCommand.Receive.CAN2EE -> {
+                receive.CAN2EE -> {
                     // 雷达
                     radarHandle(msg[5])
                 }
 
-                CanCommand.Receive.CAN2F3 -> {}
+                receive.CAN2F3 -> {}
             }
         }
     }

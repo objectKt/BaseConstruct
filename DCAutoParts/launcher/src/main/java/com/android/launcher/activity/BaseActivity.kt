@@ -1,4 +1,4 @@
-package com.android.launcher.base
+package com.android.launcher.activity
 
 
 import android.os.Bundle

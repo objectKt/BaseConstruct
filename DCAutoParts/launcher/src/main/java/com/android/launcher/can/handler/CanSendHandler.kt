@@ -1,6 +1,8 @@
-package dc.library.auto.bus_can
+package com.android.launcher.can.handler
 
 import android.util.Log
+import com.android.launcher.can.util.AutoCanUtil
+import com.android.launcher.can.util.CanSendImpl
 import dc.library.utils.global.ConstVal
 import dc.library.auto.task.XTask
 import dc.library.auto.task.thread.pool.cancel.ICancelable
@@ -17,25 +19,26 @@ object CanSendHandler : CanSendImpl {
     val DATA_HEAD = "AA0000"
 
     override fun sendCan(canId: Int) {
+        val send = AutoCanUtil.CommandSend
         when (canId) {
-            CanCommand.Send.CAN3DC -> {
+            send.CAN3DC -> {
                 // 发动机机油液位
                 doPollingTaskFixedRate()
             }
 
-            CanCommand.Send.CAN3F6 -> {
+            send.CAN3F6 -> {
                 //doCAN3F6TaskFixedRate()
             }
 
-            CanCommand.Send.CAN37C -> {
+            send.CAN37C -> {
 
             }
 
-            CanCommand.Send.CAN045 -> {
+            send.CAN045 -> {
 
             }
 
-            CanCommand.Send.CAN0FD -> {
+            send.CAN0FD -> {
 
             }
         }
