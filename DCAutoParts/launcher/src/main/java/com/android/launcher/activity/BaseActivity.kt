@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
-import com.android.launcher.activity.util.AutoUtilActivityEvent
+import com.android.launcher.activity.util.AutoUtilEvent
 import com.android.launcher.can.util.AutoUtilCan
 import com.drake.channel.receiveEvent
 import dc.library.utils.logcat.LogCat
@@ -34,7 +34,7 @@ abstract class BaseActivity : AppCompatActivity() {
     private fun handleEventFromSteerWheel(event: Lifecycle.Event) {
         when (event) {
             Lifecycle.Event.ON_CREATE -> {
-                mReceive = receiveEvent<AutoUtilActivityEvent.EventSteerWheel>(AutoUtilActivityEvent.Send.tag_event_steer_wheel) {
+                mReceive = receiveEvent<AutoUtilEvent.EventSteerWheel>(AutoUtilEvent.Send.tag_event_steer_wheel) {
                     val type = it.type
                     steerWheelKeyboard(type)
                 }
