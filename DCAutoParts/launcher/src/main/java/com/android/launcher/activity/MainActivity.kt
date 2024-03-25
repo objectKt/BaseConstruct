@@ -19,7 +19,6 @@ import dc.library.auto.bus_usb.UsbDeviceConnectManager
 import dc.library.auto.manager.TTLSerialPortsManager
 import dc.library.utils.ValUtil
 import dc.library.utils.logcat.LogCat
-import java.util.concurrent.LinkedTransferQueue
 
 class MainActivity : BaseActivity() {
 
@@ -72,7 +71,6 @@ class MainActivity : BaseActivity() {
 
     override fun onNewIntent(intent: Intent) {
         if ("android.hardware.usb.action.USB_DEVICE_ATTACHED" == intent.action) {
-            // 通知 USB 管理器是否已经检测到 USB 设备
             LogCat.w("USB device detected")
         }
         super.onNewIntent(intent)

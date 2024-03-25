@@ -21,7 +21,8 @@ object SerialPortTTYS1Decoder {
     private const val FRAME_HEAD: String = "AABB"
     private const val FRAME_END: String = "CDD0"
 
-    fun decodeBytes(bytes: ByteArray): String {
+    fun decodeBytes(receive: ByteArray): String {
+        val bytes = receive + "00".toInt(16).toByte()
         if (bytes.isEmpty()) {
             return ""
         }
