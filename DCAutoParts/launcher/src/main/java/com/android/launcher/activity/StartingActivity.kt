@@ -67,8 +67,8 @@ class StartingActivity : BaseActivity() {
 
     private fun startSomeInitTask() {
         val groupTaskStep = XTask.getConcurrentGroupTask().apply {
-            addTask(1, "任务:初始化常用全局数据量")
-            addTask(2, "任务:初始化声音播放器")
+            addTask("任务:初始化常用全局数据量")
+            addTask("任务:初始化声音播放器")
         }
         val engine = XTask.getTaskChain()
         engine.addTask(SyncStepFindUsb())
@@ -116,7 +116,7 @@ class StartingActivity : BaseActivity() {
         }.start()
     }
 
-    private fun ConcurrentGroupTaskStep.addTask(stepIndex: Int, des: String = "") {
+    private fun ConcurrentGroupTaskStep.addTask(des: String = "") {
         addTask(XTask.getTask(object : TaskCommand() {
             override fun run() {
                 Thread.sleep(500)
@@ -172,6 +172,9 @@ class StartingActivity : BaseActivity() {
                     @Suppress("DEPRECATION")
                     bluetoothAdapter.disable()
                     gotoMainActivity()
+                } else {
+                    LogCat.i("设备蓝牙已处于禁用状态")
+                    gotoMainActivity()
                 }
             }
         } ?: {
@@ -180,7 +183,36 @@ class StartingActivity : BaseActivity() {
         }
     }
 }
-/* 运行日志
+/* 有 USB 设备 + 权限畅通的运行日志
+---------------------------- PROCESS STARTED (13855) for package com.android.launcher ----------------------------
+08:50:15.370  D  生命周期 == 进入了 ON_CREATE ...(StartingActivity.kt:44)
+08:50:15.522  D  生命周期 == 进入了 ON_START ...(StartingActivity.kt:44)
+08:50:15.537  I  === begin ...(StartingActivity.kt:86)
+08:50:15.540  I  === SYNC --- 开始 任务:查找 USB 接口设备 ...(null:7)
+08:50:15.562  I  USB Devices : Ch34x ...(UsbDevicesFinder.kt:48)
+08:50:15.576  I  === ASYNC --- 开始 任务:初始化声音播放器 ...(null:7)
+08:50:15.577  I  === ASYNC --- 开始 任务:初始化常用全局数据量 ...(null:7)
+08:50:15.630  D  生命周期 == 进入了 ON_RESUME ...(StartingActivity.kt:44)
+08:50:16.080  I  === ASYNC --- 开始 任务:初始化串口 TTL ...(null:7)
+08:50:17.082  I  === ASYNC --- 开始 任务:处理必要的权限 ...(null:7)
+08:50:17.086  I  收到事件：请求权限 ...(StartingActivity.kt:48)
+08:50:17.090  I  设备蓝牙已处于禁用状态 ...(StartingActivity.kt:176)
+08:50:17.102  I  === finish 总共耗时: 1565 ms ...(StartingActivity.kt:92)
+08:50:17.143  D  生命周期 == 进入了 ON_PAUSE ...(StartingActivity.kt:44)
+08:50:17.146  I  清除事件：请求蓝牙权限 ...(StartingActivity.kt:59)
+08:50:17.528  D  生命周期 == 进入了 ON_CREATE ...(MainActivity.kt:38)
+08:50:17.628  I  进入了 DashboardFragment ...(DashboardFragment.kt:23)
+08:50:17.714  D  生命周期 == 进入了 ON_START ...(MainActivity.kt:38)
+08:50:17.726  D  生命周期 == 进入了 ON_RESUME ...(MainActivity.kt:38)
+08:50:17.767  W  USB init Auth /dev/bus/usb/002/002 ...(UsbDeviceConnectManager.kt:114)
+08:50:18.040  D  生命周期 == 进入了 ON_PAUSE ...(MainActivity.kt:38)
+08:50:18.240  D  生命周期 == 进入了 ON_RESUME ...(MainActivity.kt:38)
+08:50:18.316  D  生命周期 == 进入了 ON_STOP ...(StartingActivity.kt:44)
+08:50:18.348  D  生命周期 == 进入了 ON_DESTROY ...(StartingActivity.kt:44)
+08:50:18.412  I  --- USB connected --- ...(UsbDeviceConnectManager.kt:137)
+ */
+
+/* 无 USB 设备 + 被用户禁止了的权限的运行日志
 ---------------------------- PROCESS STARTED (7560) for package com.android.launcher ----------------------------
 10:53:59.550  D  生命周期 == 进入了 ON_CREATE ...(StartingActivity.kt:44)
 10:53:59.734  D  生命周期 == 进入了 ON_START ...(StartingActivity.kt:44)
