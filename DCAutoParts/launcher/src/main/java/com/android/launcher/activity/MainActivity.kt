@@ -16,7 +16,7 @@ import com.android.launcher.base.BaseActivity
 import com.android.launcher.fragment.DashboardFragment
 import com.github.fragivity.loadRoot
 import dc.library.auto.bus_usb.UsbDeviceConnectManager
-import dc.library.auto.manager.TTLSerialPortsManager
+import dc.library.auto.manager.ManagerTTLSerialPorts
 import dc.library.utils.ValUtil
 import dc.library.utils.logcat.LogCat
 
@@ -64,7 +64,7 @@ class MainActivity : BaseActivity() {
 
             Lifecycle.Event.ON_STOP -> unregisterReceiver(mBroadcastReceiver);
 
-            Lifecycle.Event.ON_DESTROY -> TTLSerialPortsManager.closeAllPorts()
+            Lifecycle.Event.ON_DESTROY -> ManagerTTLSerialPorts.closeAllPorts()
             else -> {}
         }
     }

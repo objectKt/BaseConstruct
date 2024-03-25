@@ -56,4 +56,5 @@ dependencies {
     implementation(libs.github.glide)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.navigation.fragment)
+    implementation("com.github.liangjingkanji:Interval:1.0.3")
 }

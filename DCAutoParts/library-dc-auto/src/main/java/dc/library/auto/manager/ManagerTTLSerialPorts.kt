@@ -1,26 +1,31 @@
 package dc.library.auto.manager
 
 import android.util.Log
-import dc.library.utils.global.ConstVal
-import dc.library.utils.global.ScreenCarType
-import dc.library.utils.global.ScreenWhichSide
+import dc.library.auto.manager.impl.TTLImpl
 import dc.library.auto.serial.SerialPortFinder
 import dc.library.auto.serial.SerialPortManager
 import dc.library.auto.serial.listener.OnSerialPortDataListener
 import dc.library.auto.serial.listener.OnSerialPortOpenListener
 import dc.library.auto.task.logger.TaskLogger
-import dc.library.utils.decoder.SerialPortTTYS1Decoder
 import dc.library.utils.ByteArrayUtil
+import dc.library.utils.ValUtil
+import dc.library.utils.decoder.SerialPortTTYS1Decoder
+import dc.library.utils.global.ConstVal
+import dc.library.utils.global.ScreenCarType
+import dc.library.utils.global.ScreenWhichSide
 import dc.library.utils.logcat.LogCat
 import java.io.File
+import java.util.concurrent.LinkedTransferQueue
 
 /**
  * 串口模块统一管理类
  */
-object TTLSerialPortsManager {
+object ManagerTTLSerialPorts {
 
     // 储存所有串口
     private val mSerialPortManagerMapper: MutableMap<String, SerialPortManager> = mutableMapOf()
+    private var mSendQueueTtyS1: LinkedTransferQueue<ByteArray> = LinkedTransferQueue<ByteArray>()
+    private var mSendQueueTtyS3: LinkedTransferQueue<ByteArray> = LinkedTransferQueue<ByteArray>()
 
     fun initSerialPorts() {
         val portDevices: TTLImpl = object : TTLImpl {
@@ -29,6 +34,43 @@ object TTLSerialPortsManager {
         }
         val ports = portDevices.portToBaudRate
         startSearchSerialDevices(ports)
+        startSendThread(ValUtil.Ttl.ttys1)
+        startSendThread(ValUtil.Ttl.ttys3)
+    }
+
+    fun putBytesToTtys1(bytes: ByteArray?) {
+        if (bytes != null && bytes.isNotEmpty()) {
+            mSendQueueTtyS1.add(bytes)
+        }
+    }
+
+    fun putBytesToTtys3(bytes: ByteArray?) {
+        if (bytes != null && bytes.isNotEmpty()) {
+            mSendQueueTtyS3.add(bytes)
+        }
+    }
+
+
+    private fun startSendThread(portName: String) {
+        mSendQueueTtyS1.clear()
+        mSendQueueTtyS3.clear()
+        Thread {
+            while (mSerialPortManagerMapper.isNotEmpty() && mSerialPortManagerMapper.containsKey(portName)) {
+                try {
+                    val bytes: ByteArray? = when (portName) {
+                        ValUtil.Ttl.ttys1 -> mSendQueueTtyS1.take()
+                        ValUtil.Ttl.ttys3 -> mSendQueueTtyS3.take()
+                        else -> null
+                    }
+                    if (bytes != null) {
+                        mSerialPortManagerMapper[portName]?.send(bytes)
+                    } else {
+                        LogCat.e("startSendThread bytes == null")
+                    }
+                } catch (_: Exception) {
+                }
+            }
+        }
     }
 
     private fun startSearchSerialDevices(ports: Map<String, Int>) {
@@ -108,16 +150,6 @@ object TTLSerialPortsManager {
                 }
                 TaskLogger.e("OnSerialPortOpenListener 连接失败原因： $failureReason")
             }
-        }
-    }
-
-    /**
-     * 关闭串口名对应的串口设备，例如 ttyS1
-     */
-    fun closeSerialPortByName(portName: String) {
-        if (mSerialPortManagerMapper.containsKey(portName)) {
-            mSerialPortManagerMapper[portName]?.closeSerialPort()
-            mSerialPortManagerMapper.remove(portName)
         }
     }
 

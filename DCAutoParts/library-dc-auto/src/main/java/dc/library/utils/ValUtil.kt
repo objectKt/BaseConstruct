@@ -14,4 +14,12 @@ interface ValUtil {
     object Log {
         const val TAG: String = "dc-auto-parts"
     }
+
+    @Suppress("ConstPropertyName")
+    object Ttl {
+        const val ttys1: String = "ttyS1"
+        const val ttys1BaudRate: Int = 115200
+        const val ttys3: String = "ttyS3"
+        const val ttys3BaudRate: Int = 9600
+    }
 }

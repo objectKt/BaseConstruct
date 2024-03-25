@@ -1,5 +1,6 @@
-package dc.library.auto.manager
+package dc.library.auto.manager.impl
 
+import dc.library.utils.ValUtil
 import dc.library.utils.global.ScreenCarType
 import dc.library.utils.global.ScreenWhichSide
 
@@ -18,5 +19,5 @@ interface TTLImpl {
      * 串口名称（ttyS1,ttyS3）to 对应的波特率
      */
     val portToBaudRate: Map<String, Int>
-        get() = mapOf("ttyS1" to 115200, "ttyS3" to 9600)
+        get() = mapOf(ValUtil.Ttl.ttys1 to ValUtil.Ttl.ttys1BaudRate, ValUtil.Ttl.ttys3 to ValUtil.Ttl.ttys3BaudRate)
 }

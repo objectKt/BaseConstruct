@@ -1,6 +1,6 @@
 package dc.library.auto.init
 
-import dc.library.auto.manager.TTLSerialPortsManager
+import dc.library.auto.manager.ManagerTTLSerialPorts
 import dc.library.auto.task.api.step.SimpleTaskStep
 import dc.library.auto.task.core.ThreadType
 
@@ -16,7 +16,7 @@ class AsyncStepSerialPort : SimpleTaskStep() {
             } catch (_: Exception) {
             }
         } else {
-            TTLSerialPortsManager.initSerialPorts()
+            ManagerTTLSerialPorts.initSerialPorts()
         }
     }
 
