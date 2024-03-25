@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="NumberProgressBar">
+        <attr name="progress_current" format="integer" />
+        <attr name="progress_max" format="integer" />
+        <attr name="progress_unreached_color" format="color" />
+        <attr name="progress_reached_color" format="color" />
+        <attr name="progress_reached_bar_height" format="dimension" />
+        <attr name="progress_unreached_bar_height" format="dimension" />
+        <attr name="progress_text_size" format="dimension" />
+        <attr name="progress_text_color" format="color" />
+        <attr name="progress_text_offset" format="dimension" />
+        <attr name="progress_text_visibility" format="enum">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="1" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="Themes">
+        <attr name="numberProgressBarStyle" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="SpeedCenterView">
+        <attr name="speed_tv_text" format="string" />
+    </declare-styleable>
+
+    <!--SmoothCheckBox-->
+    <declare-styleable name="SmoothCheckBox">
+        <attr name="duration" format="integer" />
+        <attr name="stroke_width" format="dimension" />
+        <attr name="color_tick" format="color" />
+        <attr name="color_checked" format="color" />
+        <attr name="color_unchecked" format="color" />
+        <attr name="color_unchecked_stroke" format="color" />
+    </declare-styleable>
+
+
+    <!--链接文本-->
+    <declare-styleable name="LinkTextView">
+        <attr name="qmui_linkBackgroundColor" format="color" />
+        <attr name="qmui_linkTextColor" format="color" />
+    </declare-styleable>
+
+
+    <!--密码框-->
+    <declare-styleable name="gridPasswordView">
+        <attr name="gpvTextColor" format="color|reference" />
+        <attr name="gpvTextSize" format="dimension" />
+        <attr name="gpvLineColor" format="color" />
+        <attr name="gpvGridColor" format="color" />
+        <attr name="gpvLineWidth" format="dimension" />
+        <attr name="gpvPasswordLength" format="integer" />
+        <attr name="gpvPasswordTransformation" format="string" />
+        <attr name="gpvPasswordType" format="enum">
+            <enum name="numberPassword" value="0" />
+            <enum name="textPassword" value="1" />
+            <enum name="textVisiblePassword" value="2" />
+            <enum name="textWebPassword" value="3" />
+        </attr>
+    </declare-styleable>
+
+
+    <declare-styleable name="ScrollPickerView">
+        <!--行数-->
+        <attr name="scrollPicker_rows" format="integer" />
+        <!--行间距-->
+        <attr name="scrollPicker_spacing" format="float" />
+        <!--字体大小-->
+        <attr name="scrollPicker_textSize" format="float" />
+        <!--字体格式，宽度为wrap_content时用于计算宽度-->
+        <attr name="scrollPicker_textFormat" format="string" />
+        <!--字体放大倍数-->
+        <attr name="scrollPicker_textRatio" format="float" />
+        <!--选中时字体颜色-->
+        <attr name="scrollPicker_textColor_center" format="integer" />
+        <!--未选中时字体颜色-->
+        <attr name="scrollPicker_textColor_outside" format="integer" />
+        <!--文本对齐方式（左、中、右）-->
+        <attr name="scrollPicker_gravity" format="integer" />
+        <!--是否开启循环-->
+        <attr name="scrollPicker_loop" format="boolean" />
+
+    </declare-styleable>
+
+    <declare-styleable name="FixedViewPager">
+        <!--是否可以滑动切换页面-->
+        <attr name="pager_scrollable" format="boolean" />
+        <!--是否高度为wrap_content-->
+        <attr name="wrap_height" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="FilterCheckBox">
+        <!--是否可选-->
+        <attr name="filter_checkable" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="FilterSeekBar">
+        <!--是否可划动进度-->
+        <attr name="filter_stroke" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="VerificationCodeEditText">
+        <!--验证码数量-->
+        <attr name="codeLength" format="integer" />
+        <!---每个验证码的宽度-->
+        <attr name="codeWidth" format="dimension" />
+        <!---验证码之间的间隔-->
+        <attr name="codeMargin" format="dimension" />
+        <!--每个验证码的背景-->
+        <attr name="codeBackground" format="reference" />
+        <!--是否显示光标-->
+        <attr name="codeCursorVisible" format="boolean" />
+        <!--光标背景-->
+        <attr name="codeCursorDrawable" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="MaxHeightScrollView">
+        <attr name="scroll_maxHeight" format="dimension" />
+    </declare-styleable>
+
+</resources>

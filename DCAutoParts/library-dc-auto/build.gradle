@@ -1,0 +1,59 @@
+plugins {
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("io.objectbox")
+}
+
+apply plugin: "kotlin-parcelize"
+apply plugin: "kotlin-kapt"
+
+android {
+    namespace 'dc.library.auto'
+    compileSdk libs.versions.compileVersion.get().toInteger()
+
+    defaultConfig {
+        minSdk libs.versions.minSdkVersion.get().toInteger()
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildFeatures {dataBinding = true}
+    kotlinOptions { jvmTarget = '1.8' }
+    externalNativeBuild { cmake { path "CMakeLists.txt" } }
+}
+
+dependencies {
+    implementation(libs.permission)
+    implementation(libs.io.netty)
+    implementation(libs.apache.commons.lang)
+    implementation(libs.liangjingkanji.event)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.material)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.recyclerview)
+    implementation(libs.recyclerviewSelection)
+    implementation(libs.eventbus)
+    implementation(libs.library)
+    implementation(libs.squareup.okhttp)
+    implementation(libs.free.reflection)
+    implementation(libs.popup)
+    implementation(libs.rxandroid)
+    implementation(libs.rxjava)
+    implementation(libs.github.usb)
+    implementation(libs.baseRecyclerViewAdapterHelper)
+    implementation(libs.mapNav)
+    implementation(libs.mapSearch)
+    implementation(libs.roomRuntime)
+    annotationProcessor(libs.roomCompiler)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.startup)
+    implementation(libs.androidx.viewpager)
+    implementation(libs.github.glide)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.navigation.fragment)
+}
