@@ -52,7 +52,7 @@ class StartingActivity : BaseActivity() {
 
             Lifecycle.Event.ON_START -> startSomeInitTask()
 
-            Lifecycle.Event.ON_PAUSE -> {
+            Lifecycle.Event.ON_DESTROY -> {
                 if (eventReceiveList.isNotEmpty()) {
                     eventReceiveList.forEach {
                         it.cancel()
