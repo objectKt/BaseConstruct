@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootCL"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <TextView
+        android:id="@+id/currentMileTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/mileUnitTV"
+        android:layout_marginBottom="8dp"
+        android:textSize="22sp"
+        android:textColor="@android:color/white"
+        android:text="0.0"
+        />
+
+    <TextView
+        android:id="@+id/mileUnitTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="77dp"
+        android:text="km"
+        android:textColor="@color/ffffff"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
+    <View
+        android:id="@+id/speedLeftLineV"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        app:layout_constraintTop_toTopOf="@id/mileUnitTV"
+        app:layout_constraintBottom_toBottomOf="@id/mileUnitTV"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/mileUnitTV"
+        android:background="@drawable/ic_red_line"
+        android:layout_marginStart="60dp"
+        />
+
+    <View
+        android:id="@+id/speedRightLineV"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        app:layout_constraintTop_toTopOf="@id/mileUnitTV"
+        app:layout_constraintBottom_toBottomOf="@id/mileUnitTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/mileUnitTV"
+        android:background="@drawable/ic_red_line"
+        android:rotation="180"
+        android:layout_marginEnd="60dp"
+        />
+
+    <TextView
+        android:id="@+id/totalMileTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mileUnitTV"
+        android:layout_marginTop="8dp"
+        android:textSize="22sp"
+        android:textColor="@android:color/white"
+        android:text="0"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

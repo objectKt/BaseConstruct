@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/titleTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="20sp"
+        android:layout_marginTop="40dp"
+        android:textColor="@color/ffffff"
+        android:text="@string/fm"
+        />
+
+    <ImageView
+        android:id="@+id/fmIV"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleTV"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/radio"
+        />
+
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintEnd_toStartOf="@id/fmIV"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintTop_toTopOf="@id/fmIV"
+        app:layout_constraintBottom_toBottomOf="@id/fmIV"
+        android:src="@drawable/up"
+        />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintStart_toEndOf="@id/fmIV"
+        android:layout_marginStart="10dp"
+        app:layout_constraintTop_toTopOf="@id/fmIV"
+        app:layout_constraintBottom_toBottomOf="@id/fmIV"
+        android:src="@drawable/next"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

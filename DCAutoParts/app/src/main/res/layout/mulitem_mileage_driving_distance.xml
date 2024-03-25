@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:id="@+id/drivingDistanceTitleTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/potential_driving_distance"
+        android:textColor="@color/colorWhite"
+        android:textSize="24sp"
+        android:maxLines="3"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/potentialDrivingDistanceTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="@color/colorWhite"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/drivingDistanceTitleTV"
+        android:layout_marginTop="60dp"
+        />
+
+
+    <TextView
+        android:id="@+id/energyConsumptionTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/energy_consumption"
+        android:textColor="@color/colorWhite"
+        android:textSize="30px"
+        app:layout_constraintBottom_toTopOf="@id/afterAveragingTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/afterAveragingTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/after_averaging"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toTopOf="@id/averageQtripSeekBar"
+        app:layout_constraintStart_toStartOf="@id/averageQtripSeekBar" />
+
+    <com.android.launcher.view.OilSeekBar
+        android:id="@+id/averageQtripSeekBar"
+        android:layout_width="0dp"
+        android:layout_height="30px"
+        app:layout_constraintBottom_toTopOf="@id/scale0TV"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintStart_toStartOf="@id/drivingDistanceQtripTV" />
+
+
+
+    <TextView
+        android:id="@+id/scale0TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintStart_toStartOf="@id/averageQtripSeekBar"
+        app:layout_constraintBottom_toTopOf="@id/drivingDistanceQtripTV"
+        android:layout_marginBottom="@dimen/dp_4"
+        android:layout_marginStart="2dp"
+        android:textSize="12sp" />
+
+
+    <TextView
+        android:id="@+id/scale5TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintStart_toEndOf="@id/scale0TV"
+        app:layout_constraintTop_toTopOf="@id/scale0TV"
+        app:layout_constraintBottom_toBottomOf="@id/scale0TV"
+        android:layout_marginStart="36dp"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/scale10TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintStart_toEndOf="@id/scale5TV"
+        app:layout_constraintTop_toTopOf="@id/scale0TV"
+        app:layout_constraintBottom_toBottomOf="@id/scale0TV"
+        android:layout_marginStart="40dp"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/scale15TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="15"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintStart_toEndOf="@id/scale10TV"
+        app:layout_constraintTop_toTopOf="@id/scale0TV"
+        app:layout_constraintBottom_toBottomOf="@id/scale0TV"
+        android:layout_marginStart="40dp"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/scale20TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="20"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintStart_toEndOf="@id/scale15TV"
+        app:layout_constraintTop_toTopOf="@id/scale0TV"
+        app:layout_constraintBottom_toBottomOf="@id/scale0TV"
+        android:layout_marginStart="36dp"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/drivingDistanceQtripTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0.0"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="10dp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_marginRight="50px"
+    android:gravity="center"
+    android:layout_weight="1">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:layout_marginTop="70px"
+            android:layout_marginRight="100px"
+            android:layout_width="596px"
+            android:layout_height="600px">
+            <TextView
+                android:layout_width="596px"
+                android:layout_height="600px"
+                android:background="@drawable/right_borad"/>
+        </FrameLayout>
+        <FrameLayout
+            android:layout_marginTop="70px"
+            android:layout_marginRight="100px"
+            android:layout_width="596px"
+            android:layout_height="600px">
+            <FrameLayout
+                android:layout_width="596px"
+                android:layout_height="594px">
+                <ImageView
+                    android:id="@+id/right_pointer"
+                    android:layout_centerInParent="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/pointer"/>
+            </FrameLayout>
+
+            <com.android.launcher.view.EnergySpeedView
+                android:id="@+id/energy_speed_view"
+                android:layout_width="596px"
+                android:layout_height="600px" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+<!--            android:visibility="invisible"-->
+            <View
+                android:id="@+id/water_temp_icon_alert"
+
+                android:layout_width="48px"
+                android:layout_height="30px"
+                android:layout_marginTop="560px"
+                android:layout_marginLeft="290px"
+                android:background="@drawable/tmp_alert" />
+<!--            android:visibility="visible"-->
+            <View
+                android:id="@+id/water_temp_icon"
+                android:layout_width="48px"
+                android:layout_height="30px"
+                android:layout_marginTop="560px"
+                android:layout_marginLeft="280px"
+                android:background="@drawable/tmp" />
+
+            <View
+                android:id="@+id/esp"
+                android:visibility="invisible"
+                android:layout_width="50px"
+                android:layout_height="50px"
+                android:layout_marginTop="510px"
+                android:layout_marginLeft="560px"
+                android:background="@drawable/esp" />
+            <View
+                android:id="@+id/espoff"
+                android:visibility="invisible"
+                android:layout_width="50px"
+                android:layout_height="50px"
+                android:layout_marginTop="510px"
+                android:layout_marginLeft="560px"
+                android:background="@drawable/espoff" />
+            <!--   安全气囊 gassafe-->
+            <View
+                android:id="@+id/gassafe"
+                android:visibility="invisible"
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_marginLeft="650px"
+                android:layout_marginTop="510px"
+                android:background="@drawable/gas" />
+        </FrameLayout>
+    </FrameLayout>
+</LinearLayout>

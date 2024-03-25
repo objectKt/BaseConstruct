@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/nav_frame_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.android.launcher.nav.HorizontalView
+        android:id="@+id/forecast_city_picker"
+        android:layout_marginTop="100px"
+        android:background="@drawable/meter_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/backgline"
+        android:layout_marginTop="255px"
+        android:layout_height="5px">
+    </FrameLayout>
+</FrameLayout>

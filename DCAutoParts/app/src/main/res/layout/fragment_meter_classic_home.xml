@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <ImageView
+        android:id="@+id/speedMeterV"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="40dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/left_borad"
+        />
+
+
+
+    <ImageView
+        android:id="@+id/speedPointIV"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/speedMeterV"
+        android:src="@drawable/pointer"
+        app:layout_constraintTop_toTopOf="@id/speedMeterV"
+        app:layout_constraintEnd_toEndOf="@id/speedMeterV"
+        app:layout_constraintBottom_toBottomOf="@id/speedMeterV"
+        />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/menuVP"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toEndOf="@id/speedMeterV"
+        app:layout_constraintEnd_toStartOf="@id/engineSpeedV"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:overScrollMode="never"
+        />
+
+
+
+
+    <ImageView
+        android:id="@+id/engineSpeedV"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintDimensionRatio="h,1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/right_borad"
+        android:scaleType="centerInside"
+        />
+
+    <ImageView
+        android:id="@+id/engineSpeedPointIV"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/engineSpeedV"
+        android:src="@drawable/pointer_right"
+        app:layout_constraintTop_toTopOf="@id/engineSpeedV"
+        app:layout_constraintEnd_toEndOf="@id/engineSpeedV"
+        app:layout_constraintBottom_toBottomOf="@id/engineSpeedV"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

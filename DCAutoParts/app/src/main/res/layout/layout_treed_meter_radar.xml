@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <ImageView
+        android:id="@+id/radar_left_1"
+        style="@style/radarStyle"
+        android:src="@drawable/radar_y"
+        app:layout_constraintStart_toStartOf="@id/radar_framelayout"
+        app:layout_constraintTop_toTopOf="@id/radar_framelayout"
+        app:layout_constraintBottom_toBottomOf="@id/radar_framelayout"
+        android:layout_marginBottom="0.5dp"
+        android:layout_marginStart="6dp"
+        android:scaleType="fitCenter"
+        />
+
+    <ImageView
+        android:id="@+id/radar_left_2"
+        style="@style/radarStyle"
+        android:src="@drawable/radar_y"
+        android:layout_marginStart="30dp"
+        app:layout_constraintStart_toStartOf="@id/radar_framelayout"
+        app:layout_constraintTop_toTopOf="@id/radar_left_1"
+        app:layout_constraintBottom_toBottomOf="@id/radar_left_1"
+        android:scaleType="fitCenter"
+        />
+
+    <ImageView
+        android:id="@+id/radar_left_3"
+        style="@style/radarStyle"
+        android:src="@drawable/radar_y"
+        android:layout_marginStart="54dp"
+        app:layout_constraintStart_toStartOf="@id/radar_framelayout"
+        app:layout_constraintTop_toTopOf="@id/radar_left_1"
+        app:layout_constraintBottom_toBottomOf="@id/radar_left_1"
+        android:scaleType="fitCenter"
+        />
+
+    <ImageView
+        android:id="@+id/radar_left_4"
+        style="@style/radarStyle"
+        android:src="@drawable/radar_y"
+        android:layout_marginStart="78dp"
+        app:layout_constraintStart_toStartOf="@id/radar_framelayout"
+        app:layout_constraintTop_toTopOf="@id/radar_left_1"
+        app:layout_constraintBottom_toBottomOf="@id/radar_left_1"
+        android:scaleType="fitCenter"
+        />
+
+    <ImageView
+        android:id="@+id/radar_left_5"
+        style="@style/radarStyle"
+        android:src="@drawable/radar_y"
+        android:layout_marginStart="101dp"
+        app:layout_constraintStart_toStartOf="@id/radar_framelayout"
+        app:layout_constraintTop_toTopOf="@id/radar_left_1"
+        app:layout_constraintBottom_toBottomOf="@id/radar_left_1"
+        android:scaleType="fitCenter"
+        />
+
+    <ImageView
+        android:id="@+id/radar_left_6"
+        style="@style/radarStyle"
+        android:src="@drawable/radar_r"
+        android:layout_marginStart="125dp"
+        app:layout_constraintStart_toStartOf="@id/radar_framelayout"
+        app:layout_constraintTop_toTopOf="@id/radar_left_1"
+        app:layout_constraintBottom_toBottomOf="@id/radar_left_1"
+        android:scaleType="fitCenter"
+        />
+
+    <ImageView
+        android:id="@+id/radar_left_7"
+        style="@style/radarStyle"
+        android:src="@drawable/radar_r"
+        android:layout_marginStart="150dp"
+        app:layout_constraintStart_toStartOf="@id/radar_framelayout"
+        app:layout_constraintTop_toTopOf="@id/radar_left_1"
+        app:layout_constraintBottom_toBottomOf="@id/radar_left_1"
+        android:scaleType="fitCenter"
+        />
+
+
+    <ImageView
+        android:id="@+id/radar_right_1"
+        style="@style/radarStyle"
+        android:src="@drawable/radar_y"
+        app:layout_constraintEnd_toEndOf="@id/radar_framelayout"
+        app:layout_constraintTop_toTopOf="@id/radar_framelayout"
+        app:layout_constraintBottom_toBottomOf="@id/radar_framelayout"
+        android:layout_marginBottom="0.5dp"
+        android:layout_marginEnd="6dp"
+        android:scaleType="fitCenter"
+        />
+
+    <ImageView
+        android:id="@+id/radar_right_2"
+        style="@style/radarStyle"
+        android:src="@drawable/radar_y"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintEnd_toEndOf="@id/radar_framelayout"
+        app:layout_constraintTop_toTopOf="@id/radar_right_1"
+        app:layout_constraintBottom_toBottomOf="@id/radar_right_1"
+        android:scaleType="fitCenter"
+        />
+
+    <ImageView
+        android:id="@+id/radar_right_3"
+        style="@style/radarStyle"
+        android:src="@drawable/radar_y"
+        android:layout_marginEnd="54dp"
+        app:layout_constraintEnd_toEndOf="@id/radar_framelayout"
+        app:layout_constraintTop_toTopOf="@id/radar_right_1"
+        app:layout_constraintBottom_toBottomOf="@id/radar_right_1"
+        android:scaleType="fitCenter"
+        />
+
+
+    <ImageView
+        android:id="@+id/radar_right_4"
+        style="@style/radarStyle"
+        android:src="@drawable/radar_y"
+        android:layout_marginEnd="78dp"
+        app:layout_constraintEnd_toEndOf="@id/radar_framelayout"
+        app:layout_constraintTop_toTopOf="@id/radar_right_1"
+        app:layout_constraintBottom_toBottomOf="@id/radar_right_1"
+        android:scaleType="fitCenter"
+        />
+
+
+    <ImageView
+        android:id="@+id/radar_right_5"
+        style="@style/radarStyle"
+        android:src="@drawable/radar_y"
+        android:layout_marginEnd="101dp"
+        app:layout_constraintEnd_toEndOf="@id/radar_framelayout"
+        app:layout_constraintTop_toTopOf="@id/radar_right_1"
+        app:layout_constraintBottom_toBottomOf="@id/radar_right_1"
+        android:scaleType="fitCenter"
+        />
+
+    <ImageView
+        android:id="@+id/radar_right_6"
+        style="@style/radarStyle"
+        android:src="@drawable/radar_r"
+        android:layout_marginEnd="125dp"
+        app:layout_constraintEnd_toEndOf="@id/radar_framelayout"
+        app:layout_constraintTop_toTopOf="@id/radar_right_1"
+        app:layout_constraintBottom_toBottomOf="@id/radar_right_1"
+        android:scaleType="fitCenter"
+        />
+
+    <ImageView
+        android:id="@+id/radar_right_7"
+        style="@style/radarStyle"
+        android:src="@drawable/radar_r"
+        android:layout_marginEnd="150dp"
+        app:layout_constraintEnd_toEndOf="@id/radar_framelayout"
+        app:layout_constraintTop_toTopOf="@id/radar_right_1"
+        app:layout_constraintBottom_toBottomOf="@id/radar_right_1"
+        android:scaleType="fitCenter"
+        />
+
+    <ImageView
+        android:id="@+id/radar_framelayout"
+        android:layout_width="392dp"
+        android:layout_height="18dp"
+        android:src="@drawable/radar_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="centerInside"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/leftMeterRootCL"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    android:layout_marginBottom="12dp"
+    android:layout_marginStart="10dp"
+    >
+
+    <ImageView
+        android:id="@+id/leftMeterBgV"
+        android:layout_width="633px"
+        android:layout_height="633px"
+        android:src="@drawable/ic_classic_left"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+    <TextView
+        android:id="@+id/mileUnitTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="130dp"
+        android:text="@string/left_mile_unit"
+        android:textColor="@color/ffffff"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="@id/leftMeterBgV"
+        app:layout_constraintStart_toStartOf="@id/leftMeterBgV"
+        app:layout_constraintTop_toTopOf="@id/leftMeterBgV" />
+
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/leftMeterBgV"
+        app:layout_constraintEnd_toEndOf="@id/leftMeterBgV"
+        app:layout_constraintStart_toStartOf="@id/leftMeterBgV"
+        app:layout_constraintTop_toTopOf="@id/leftMeterBgV">
+
+        <ImageView
+            android:id="@+id/oil_icon"
+            android:layout_width="40px"
+            android:layout_height="40px"
+            android:layout_marginLeft="390px"
+            android:layout_marginTop="550px"
+            android:visibility="visible" />
+
+
+        <!--                暂时没用-->
+        <ImageView
+            android:id="@+id/zhidongpoint"
+            android:layout_width="50px"
+            android:layout_height="50px"
+            android:layout_marginLeft="90px"
+            android:layout_marginTop="560px"
+            android:visibility="invisible" />
+
+
+        <FrameLayout
+            android:id="@+id/frame_dingsu"
+            android:layout_width="200px"
+            android:layout_height="50px"
+            android:layout_marginLeft="550px"
+            android:layout_marginTop="620px"
+            android:visibility="invisible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="40px"
+                    android:layout_height="40px"
+                    android:layout_gravity="center"
+                    android:background="@drawable/dingsu"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/frame_dingsu_speed"
+                    android:layout_width="150px"
+                    android:layout_height="50px"
+                    android:layout_marginLeft="10px"
+                    android:gravity="center|left"
+                    android:text=""
+                    android:textColor="@color/colorWhite"
+                    android:textSize="25px" />
+            </LinearLayout>
+        </FrameLayout>
+    </FrameLayout>
+
+
+    <TextView
+        android:id="@+id/distanceToEmptyTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="42dp"
+        android:text="0"
+        android:textColor="@color/ffffff"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="@id/leftMeterBgV"
+        app:layout_constraintEnd_toEndOf="@id/leftMeterBgV"
+        app:layout_constraintStart_toStartOf="@id/leftMeterBgV" />
+
+
+    <TextView
+        android:id="@+id/distanceToEmptyUnitTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:text="km"
+        android:textColor="@color/ffffff"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@id/distanceToEmptyTV"
+        app:layout_constraintStart_toEndOf="@id/distanceToEmptyTV" />
+
+    <ImageView
+        android:id="@+id/distanceToEmptyIV"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="43dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_oilbox"
+        app:layout_constraintBottom_toBottomOf="@id/leftMeterBgV"
+        app:layout_constraintEnd_toStartOf="@id/distanceToEmptyTV"/>
+
+
+    <com.android.launcher.meter.view.OilMeterView
+        android:id="@+id/oilMeterView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/leftMeterBgV"
+        app:layout_constraintEnd_toEndOf="@id/leftMeterBgV"
+        app:layout_constraintStart_toStartOf="@id/leftMeterBgV"
+        app:layout_constraintTop_toTopOf="@id/leftMeterBgV" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="1/2"
+        android:textColor="@color/ffffff"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/leftMeterBgV"
+        app:layout_constraintEnd_toEndOf="@id/leftMeterBgV"
+        app:layout_constraintStart_toStartOf="@id/leftMeterBgV" />
+
+
+    <ImageView
+        android:id="@+id/left_pointer"
+        android:layout_width="650px"
+        android:layout_height="650px"
+        android:src="@drawable/ic_classic_left_pointer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+    <TextView
+    android:id="@+id/car_info_icon"
+    android:layout_width="40px"
+    android:layout_height="40px"
+    android:layout_marginLeft="20px"
+    android:layout_gravity="center"
+    android:gravity="center"  />
+    <TextView
+        android:id="@+id/car_info_name"
+        android:layout_width="400px"
+        android:layout_height="66px"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="10px"
+        android:textSize="25px"
+        android:textColor="@color/colorWhite"/>
+</LinearLayout>

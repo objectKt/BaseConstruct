@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/titleTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="20sp"
+        android:layout_marginTop="60dp"
+        android:textColor="@color/ffffff"
+        android:text="@string/attention_assist_system"
+        />
+
+
+    <com.android.launcher.meter.view.AttentionAidSysView
+        android:id="@+id/attentionAidSysView"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleTV"
+        android:layout_marginTop="10dp"
+        />
+
+
+    <TextView
+        android:id="@+id/systemStandbyTV"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/attentionAidSysView"
+        android:layout_marginBottom="40dp"
+        android:textColor="@color/ffffff"
+        android:textSize="18sp"
+        android:gravity="center_horizontal"
+        android:text="@string/system_standby"
+        android:visibility="invisible"
+        android:background="@drawable/bg_system_standby"
+        />
+
+    <TextView
+        android:id="@+id/restTimeTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/attentionAidSysView"
+        android:textSize="18sp"
+        android:textColor="@color/ffffff"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/attention_assist_system_not_activate"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

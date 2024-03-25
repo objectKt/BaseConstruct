@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <com.amap.api.maps.MapView
+        android:id="@+id/aMapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <com.android.launcher.meter.view.MapMeterBgView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
+<!--    &lt;!&ndash; 左侧&ndash;&gt;-->
+<!--    <include layout="@layout/layout_map_meter_left" />-->
+
+<!--    &lt;!&ndash; 右侧 &ndash;&gt;-->
+<!--    <include layout="@layout/layout_map_meter_right" />-->
+
+    <View
+        android:id="@+id/leftMeterBgV"
+        android:layout_width="633px"
+        android:layout_height="633px"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="12dp"
+        android:layout_marginStart="10dp"/>
+
+
+    <TextView
+        android:id="@+id/distanceToEmptyTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="42dp"
+        android:text="0"
+        android:textColor="@color/colorBlack"
+        android:textSize="22sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/leftMeterBgV"
+        app:layout_constraintEnd_toEndOf="@id/leftMeterBgV"
+        app:layout_constraintStart_toStartOf="@id/leftMeterBgV" />
+
+
+    <TextView
+        android:id="@+id/distanceToEmptyUnitTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:text="km"
+        android:visibility="invisible"
+        android:textColor="@color/colorBlack"
+        android:textSize="12sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@id/distanceToEmptyTV"
+        app:layout_constraintStart_toEndOf="@id/distanceToEmptyTV" />
+
+    <ImageView
+        android:id="@+id/distanceToEmptyIV"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="43dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_oilbox"
+        app:layout_constraintBottom_toBottomOf="@id/leftMeterBgV"
+        app:layout_constraintEnd_toStartOf="@id/distanceToEmptyTV" />
+
+
+
+
+    <com.android.launcher.meter.view.OilMeterView
+        android:id="@+id/oilMeterView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/leftMeterBgV"
+        app:layout_constraintEnd_toEndOf="@id/leftMeterBgV"
+        app:layout_constraintStart_toStartOf="@id/leftMeterBgV"
+        app:layout_constraintTop_toTopOf="@id/leftMeterBgV" />
+
+
+    <com.android.launcher.meter.view.WaterTempMeterView
+        android:id="@+id/watertempMeterView"
+        android:layout_width="625px"
+        android:layout_height="625px"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="10dp" />
+
+    <ImageView
+        android:id="@+id/waterTempIV"
+        android:layout_width="30dp"
+        android:layout_height="28dp"
+        android:layout_marginBottom="20dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/tmp"
+        app:layout_constraintBottom_toBottomOf="@id/watertempMeterView"
+        app:layout_constraintEnd_toEndOf="@id/watertempMeterView"
+        app:layout_constraintStart_toStartOf="@id/watertempMeterView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="106dp"
+        android:layout_marginBottom="45dp"
+        android:text="50"
+        android:textColor="@color/colorBlack"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/watertempMeterView"
+        app:layout_constraintStart_toStartOf="@id/watertempMeterView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="98dp"
+        android:layout_marginBottom="45dp"
+        android:text="130"
+        android:textColor="@color/colorBlack"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/watertempMeterView"
+        app:layout_constraintEnd_toEndOf="@id/watertempMeterView" />
+
+
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:layout_width="260dp"
+        android:layout_height="0dp"
+        android:id="@+id/menuVP"
+        app:layout_constraintStart_toStartOf="@id/rightMeterRootCL"
+        app:layout_constraintEnd_toEndOf="@id/rightMeterRootCL"
+        app:layout_constraintBottom_toTopOf="@id/rightMeterRootCL"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/bg_map_menu"
+        android:visibility="invisible"
+        />
+
+    <com.android.launcher.meter.view.MenuPointView
+        android:id="@+id/menuPointView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/menuVP"
+        app:layout_constraintBottom_toBottomOf="@id/menuVP"
+        app:layout_constraintStart_toEndOf="@id/menuVP"
+        />
+
+
+    <com.android.launcher.meter.view.CruiseControlView
+        android:id="@+id/cruiseControlV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="30dp"
+        />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

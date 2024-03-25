@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            >
+            <TextView
+                android:id="@+id/titleTV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center|bottom"
+                android:gravity="center|bottom"
+                android:text="@string/tire_pressure_display"
+                android:textColor="@color/colorWhite"
+                android:textSize="40px" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.6" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/frontLeftTV"
+                        android:layout_width="0dp"
+                        android:layout_height="50px"
+                        android:layout_gravity="bottom"
+                        android:layout_marginLeft="150px"
+                        android:layout_weight="1"
+                        android:text="@string/front_left"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="20px" />
+
+                    <TextView
+                        android:id="@+id/frontRightTV"
+                        android:layout_width="0dp"
+                        android:layout_height="50px"
+
+                        android:layout_marginRight="150px"
+                        android:layout_weight="1"
+                        android:gravity="right"
+                        android:layout_gravity="right|bottom"
+                        android:text="@string/front_right"
+                        android:textSize="20px"
+                        android:textColor="@color/colorWhite"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tv_1"
+                        android:layout_width="50px"
+                        android:layout_height="50px"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="5dip"
+                        android:layout_marginRight="5dip"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:id="@+id/textView1_1"
+                        android:layout_width="150dp"
+                        android:layout_height="3dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@id/tv_1"
+                        android:background="@drawable/seperate_left_green" />
+
+                    <TextView
+                        android:id="@+id/textView2_1"
+                        android:layout_width="150dp"
+                        android:layout_height="3dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/tv_1"
+                        android:background="@drawable/seperate_right_green" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1" >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/rearLeftTV"
+                        android:layout_width="0dp"
+                        android:layout_height="50px"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="150px"
+                        android:text="@string/rear_left"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="20px" />
+
+                    <TextView
+                        android:id="@+id/rearRightTV"
+                        android:layout_width="0dp"
+                        android:layout_height="50px"
+                        android:layout_weight="1"
+                        android:layout_marginRight="150px"
+                        android:gravity="right"
+                        android:layout_gravity="right"
+                        android:text="@string/rear_right"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="20px" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

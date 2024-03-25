@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <TextView
+        android:id="@+id/speedTV"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="60sp"
+        android:gravity="center"
+        android:textColor="@color/ffffff"
+        android:textStyle="italic"
+        android:text="0"
+        />
+
+
+    <TextView
+        android:id="@+id/speedUnitTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/ffffff"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        android:text="km/h"
+        app:layout_constraintTop_toTopOf="@id/speedTV"
+        android:layout_marginTop="62dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <View
+        android:id="@+id/speedLeftLineV"
+        android:layout_width="200dp"
+        android:layout_height="3dp"
+        app:layout_constraintEnd_toStartOf="@id/speedUnitTV"
+        app:layout_constraintBottom_toBottomOf="@id/speedUnitTV"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/backgline"
+        />
+
+    <View
+        android:id="@+id/speedRightLineV"
+        android:layout_width="200dp"
+        android:layout_height="3dp"
+        app:layout_constraintStart_toEndOf="@id/speedUnitTV"
+        app:layout_constraintBottom_toBottomOf="@id/speedUnitTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/backgline"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

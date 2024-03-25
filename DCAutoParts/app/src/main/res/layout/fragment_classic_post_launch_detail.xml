@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <TextView
+        android:id="@+id/titleTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:maxLines="3"
+        android:text="@string/after_starting_up"
+        android:textColor="@color/colorWhite"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/centerIV"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/yezi"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/leftIV"
+        android:layout_width="100dp"
+        android:layout_height="3dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/seperate_left_green"
+        app:layout_constraintBottom_toBottomOf="@id/centerIV"
+        app:layout_constraintEnd_toStartOf="@id/centerIV"
+        app:layout_constraintTop_toTopOf="@id/centerIV" />
+
+    <ImageView
+        android:id="@+id/rightIV"
+        android:layout_width="100dp"
+        android:layout_height="3dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/seperate_right_green"
+        app:layout_constraintBottom_toBottomOf="@id/centerIV"
+        app:layout_constraintStart_toEndOf="@id/centerIV"
+        app:layout_constraintTop_toTopOf="@id/centerIV" />
+
+
+    <TextView
+        android:id="@+id/userMileTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="0.00km"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/leftIV"
+        app:layout_constraintEnd_toEndOf="@id/leftIV"
+        app:layout_constraintStart_toStartOf="@id/leftIV" />
+
+    <TextView
+        android:id="@+id/userTimeTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="0:00h"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/userMileTV"
+        app:layout_constraintEnd_toEndOf="@id/rightIV"
+        app:layout_constraintStart_toStartOf="@id/rightIV"
+        app:layout_constraintTop_toTopOf="@id/userMileTV" />
+
+
+    <TextView
+        android:id="@+id/totalMileTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="000.00km"
+        android:textColor="@color/colorGreen"
+        app:layout_constraintStart_toStartOf="@id/leftIV"
+        app:layout_constraintEnd_toEndOf="@id/leftIV"
+        app:layout_constraintTop_toBottomOf="@id/leftIV"
+        android:layout_marginTop="30dp"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/totalTimeTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="0:00h"
+        android:textColor="@color/colorGreen"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/rightIV"
+        app:layout_constraintEnd_toEndOf="@id/rightIV"
+        app:layout_constraintTop_toTopOf="@id/totalMileTV"
+        app:layout_constraintBottom_toBottomOf="@id/totalMileTV"
+        />
+
+
+    <TextView
+        android:id="@+id/qtripTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/totalMileTV"
+        android:layout_marginTop="20dp"
+        android:text="0.0l/100km"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/averageSpeedTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="0km/h"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/qtripTV"
+        android:layout_marginTop="10dp"
+        android:textSize="18sp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

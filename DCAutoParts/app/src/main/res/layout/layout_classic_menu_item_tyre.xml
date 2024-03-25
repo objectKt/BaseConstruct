@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/titleTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="@string/tire_pressure_display"
+        android:textColor="@color/ffffff"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/centerV"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleTV" />
+
+    <ImageView
+        android:id="@+id/leftLineIV"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="20dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/seperate_left_green"
+        app:layout_constraintEnd_toStartOf="@id/centerV"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleTV" />
+
+    <ImageView
+        android:id="@+id/rightLineIV"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="40dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/seperate_right_green"
+        app:layout_constraintBottom_toBottomOf="@id/leftLineIV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/centerV"
+        app:layout_constraintTop_toTopOf="@id/leftLineIV" />
+
+
+    <TextView
+        android:id="@+id/frontLeftTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/front_left"
+        android:textColor="@color/colorWhite"
+        android:textSize="13sp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toTopOf="@id/leftLineIV"
+        app:layout_constraintStart_toStartOf="@id/leftLineIV" />
+
+    <TextView
+        android:id="@+id/frontRightTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/front_right"
+        android:textColor="@color/colorWhite"
+        android:textSize="13sp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/frontLeftTV"
+        app:layout_constraintEnd_toEndOf="@id/rightLineIV"
+        app:layout_constraintTop_toTopOf="@id/frontLeftTV" />
+
+
+    <TextView
+        android:id="@+id/rearLeftTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/rear_left"
+        android:textColor="@color/colorWhite"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="@id/frontLeftTV"
+        app:layout_constraintTop_toBottomOf="@id/leftLineIV" />
+
+    <TextView
+        android:id="@+id/rearRightTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rear_right"
+        android:textColor="@color/colorWhite"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@id/rearLeftTV"
+        app:layout_constraintEnd_toEndOf="@id/frontRightTV"
+        app:layout_constraintTop_toTopOf="@id/rearLeftTV" />
+</androidx.constraintlayout.widget.ConstraintLayout>

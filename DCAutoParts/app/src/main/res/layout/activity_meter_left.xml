@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="50px"
+    android:layout_weight="1">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_marginTop="70px"
+            android:layout_marginLeft="100px"
+            android:layout_width="600px"
+            android:layout_height="590px">
+            <TextView
+                android:layout_width="600px"
+                android:layout_height="590px"
+                android:background="@drawable/left_borad"/>
+        </FrameLayout>
+
+        <include layout="@layout/meter_left_gear"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <View
+                android:id="@+id/oil_icon"
+                android:visibility="visible"
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:layout_marginLeft="390px"
+                android:layout_marginTop="550px"
+                android:background="@drawable/oil_icon" />
+            <!-- 红色的p -->
+            <View
+                android:id="@+id/electricalparkbrake"
+                android:visibility="invisible"
+                android:layout_width="50px"
+                android:layout_height="40px"
+                android:layout_marginLeft="90px"
+                android:layout_marginTop="510px"
+                android:background="@drawable/electricalparkbrake" />
+            <View
+                android:id="@+id/zhidongpoint"
+                android:visibility="invisible"
+                android:layout_width="50px"
+                android:layout_height="50px"
+                android:layout_marginLeft="90px"
+                android:layout_marginTop="560px"
+                android:background="@drawable/dianzishousha" />
+
+            <!--   安全气囊 gassafe-->
+            <View
+                android:id="@+id/gassafe"
+                android:visibility="invisible"
+                android:layout_width="50px"
+                android:layout_height="50px"
+                android:layout_marginLeft="140px"
+                android:layout_marginTop="570px"
+                android:background="@drawable/gas_red" />
+
+            <!-- 发动机故障 -->
+            <View
+                android:id="@+id/enginefailure"
+                android:visibility="invisible"
+                android:layout_width="50px"
+                android:layout_height="50px"
+                android:layout_marginLeft="70px"
+                android:layout_marginTop="610px"
+                android:background="@drawable/enginefailure" />
+            <!-- 右下角 -->
+
+
+            <!-- 黄色的p -->
+            <View
+                android:id="@+id/electricalparkbrakewarning"
+                android:visibility="invisible"
+                android:layout_width="50px"
+                android:layout_height="40px"
+                android:layout_marginLeft="240px"
+                android:layout_marginTop="300px"
+                android:background="@drawable/electricalparkbrakewarning" />
+
+
+            <!-- abs报警-->
+            <View
+                android:id="@+id/abs"
+                android:visibility="invisible"
+                android:layout_width="50px"
+                android:layout_height="50px"
+                android:layout_marginTop="360px"
+                android:layout_marginLeft="240px"
+                android:background="@drawable/absbaojing" />
+
+            <!-- 胎压报警 -->
+            <View
+                android:id="@+id/taiya"
+                android:visibility="invisible"
+                android:layout_width="50px"
+                android:layout_height="50px"
+                android:layout_marginTop="410px"
+                android:layout_marginLeft="260px"
+                android:background="@drawable/taiya" />
+
+            <!-- 安全带报警 -->
+            <View
+                android:id="@+id/beltsafe"
+                android:visibility="invisible"
+                android:layout_width="50px"
+                android:layout_height="50px"
+                android:layout_marginTop="400px"
+                android:layout_marginLeft="420px"
+                android:background="@drawable/safe" />
+
+            <!--动力转向 -->
+            <View
+                android:id="@+id/powersteer"
+                android:visibility="invisible"
+                android:layout_width="50px"
+                android:layout_height="50px"
+                android:layout_marginLeft="480px"
+                android:layout_marginTop="300px"
+                android:background="@drawable/powersteer" />
+
+            <View
+                android:id="@+id/distancewarning"
+                android:visibility="invisible"
+                android:layout_width="50px"
+                android:layout_height="50px"
+                android:layout_marginLeft="475px"
+                android:layout_marginTop="360px"
+                android:background="@drawable/distancewarning" />
+            <View
+                android:id="@+id/zhidongalarm"
+                android:visibility="invisible"
+                android:layout_width="50px"
+                android:layout_height="50px"
+                android:layout_marginLeft="475px"
+                android:layout_marginTop="430px"
+                android:background="@drawable/ic_brake_system_failure" />
+
+            <FrameLayout
+                android:id="@+id/frame_dingsu"
+                android:visibility="invisible"
+                android:layout_width="200px"
+                android:layout_height="50px"
+                android:layout_marginLeft="550px"
+                android:layout_marginTop="620px"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="40px"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:background="@drawable/dingsu"
+                        android:layout_height="40px" />
+                    <TextView
+                        android:id="@+id/frame_dingsu_speed"
+                        android:layout_width="150px"
+                        android:text=""
+                        android:textSize="25px"
+                        android:gravity="center|left"
+                        android:layout_marginLeft="10px"
+                        android:textColor="@color/colorWhite"
+                        android:layout_height="50px" />
+                </LinearLayout>
+            </FrameLayout>
+        </FrameLayout>
+        <FrameLayout
+            android:layout_marginTop="70px"
+            android:layout_marginLeft="100px"
+            android:layout_width="600px"
+            android:layout_height="590px">
+            <FrameLayout
+                android:layout_width="596px"
+                android:layout_height="594px">
+                <TextView
+                    android:id="@+id/left_pointer"
+                    android:layout_centerInParent="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/pointer"
+                     />
+<!--                pointer-->
+<!--                android:src="@drawable/pointer"-->
+            </FrameLayout>
+            <com.android.launcher.view.CarSpeedView
+                android:id="@+id/car_speed_view"
+                android:layout_width="580px"
+                android:layout_height="580px" />
+        </FrameLayout>
+    </FrameLayout>
+</LinearLayout>

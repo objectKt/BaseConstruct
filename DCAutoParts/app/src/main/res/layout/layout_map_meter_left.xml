@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/leftMeterRootCL"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    android:layout_marginStart="80dp"
+    android:visibility="invisible"
+    >
+
+    <View
+        android:layout_width="351px"
+        android:layout_height="351px"
+        app:layout_constraintStart_toStartOf="@id/leftMeterBgV"
+        app:layout_constraintEnd_toEndOf="@id/leftMeterBgV"
+        app:layout_constraintTop_toTopOf="@id/leftMeterBgV"
+        android:background="@drawable/bg_map_meter"
+        app:layout_constraintBottom_toBottomOf="@id/leftMeterBgV"/>
+
+    <ImageView
+        android:id="@+id/leftMeterBgV"
+        android:layout_width="351px"
+        android:layout_height="351px"
+        android:src="@drawable/ic_classic_left"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+    <TextView
+        android:id="@+id/mileUnitTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="60dp"
+        android:text="@string/left_mile_unit"
+        android:textColor="@color/ffffff"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="@id/leftMeterBgV"
+        app:layout_constraintStart_toStartOf="@id/leftMeterBgV"
+        app:layout_constraintTop_toTopOf="@id/leftMeterBgV" />
+
+
+
+    <com.android.launcher.meter.view.OilMeterView
+        android:id="@+id/oilMeterView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/leftMeterBgV"
+        app:layout_constraintEnd_toEndOf="@id/leftMeterBgV"
+        app:layout_constraintStart_toStartOf="@id/leftMeterBgV"
+        app:layout_constraintTop_toTopOf="@id/leftMeterBgV" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="1/2"
+        android:textColor="@color/ffffff"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/leftMeterBgV"
+        app:layout_constraintEnd_toEndOf="@id/leftMeterBgV"
+        app:layout_constraintStart_toStartOf="@id/leftMeterBgV" />
+
+
+    <ImageView
+        android:id="@+id/left_pointer"
+        android:layout_width="361px"
+        android:layout_height="361px"
+        android:src="@drawable/ic_classic_left_pointer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <com.amap.api.navi.AMapNaviView
+        android:id="@+id/aMapNaviView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/zoomInCrossIv"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="120dp"
+        android:scaleType="centerCrop"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.amap.api.navi.view.DriveWayView
+        android:id="@+id/driveWayView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="80dp"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/navInfoCL"
+        android:layout_width="260dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="120dp"
+        android:background="#a0000000"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/nextWayTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/ffffff"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/retainDistanceTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:textColor="@color/ffffff"
+            android:textSize="40sp"
+            app:layout_constraintBottom_toTopOf="@id/nextWayTv"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/kilometreTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/kilometre"
+            android:textColor="@color/ffffff"
+            android:textSize="20sp"
+            app:layout_constraintTop_toTopOf="@id/retainDistanceTv"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toEndOf="@id/retainDistanceTv" />
+
+        <TextView
+            android:id="@+id/stepTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/enter_into"
+            android:textColor="#cccccc"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/kilometreTv"
+            app:layout_constraintStart_toEndOf="@id/kilometreTv" />
+
+
+        <ImageView
+            android:id="@+id/indicateIv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/surplusTv"
+            app:layout_constraintBottom_toTopOf="@id/kilometreTv"
+            android:layout_marginBottom="20dp"
+            android:scaleType="centerInside"
+            />
+
+
+        <TextView
+            android:id="@+id/surplusTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:textSize="16sp"
+            android:textColor="@color/ffffff"
+            android:text="@string/surplus"
+            />
+
+        <TextView
+            android:id="@+id/surplusKmTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/surplusTv"
+            app:layout_constraintStart_toEndOf="@id/surplusTv"
+            android:textColor="@color/ffffff"
+            android:textSize="16sp"
+            android:text="0"
+            />
+
+        <TextView
+            android:id="@+id/surplusKmUnitTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/surplusTv"
+            app:layout_constraintStart_toEndOf="@id/surplusKmTv"
+            android:textColor="@color/ffffff"
+            android:textSize="16sp"
+            android:text="@string/kilometre"
+            />
+
+        <TextView
+            android:id="@+id/surplusTimeTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/ffffff"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toEndOf="@id/surplusKmUnitTv"
+            app:layout_constraintBottom_toBottomOf="@id/surplusTv"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="10dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.amap.api.navi.view.TrafficProgressBar
+        android:id="@+id/trafficProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="110dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="1225px"
+        android:layout_height="165px"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_nav_meter_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="158px"
+        android:background="@drawable/ic_nav_meter_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!--    &lt;!&ndash; 左侧&ndash;&gt;-->
+    <!--    <include layout="@layout/layout_map_meter_left" />-->
+
+    <!--    &lt;!&ndash; 右侧 &ndash;&gt;-->
+    <!--    <include layout="@layout/layout_map_meter_right" />-->
+
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/menuVP"
+        android:layout_width="260dp"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_map_menu"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/rightMeterRootCL"
+        app:layout_constraintEnd_toEndOf="@id/rightMeterRootCL"
+        app:layout_constraintStart_toStartOf="@id/rightMeterRootCL"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.android.launcher.meter.view.MenuPointView
+        android:id="@+id/menuPointView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/menuVP"
+        app:layout_constraintStart_toEndOf="@id/menuVP"
+        app:layout_constraintTop_toTopOf="@id/menuVP" />
+
+
+    <com.android.launcher.meter.view.CruiseControlView
+        android:id="@+id/cruiseControlV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="58dp"
+        android:layout_marginStart="218dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="colorBlack">#000000</color>
+    <color name="coloroil">#00000000</color>
+    <color name="colorRed">#EC0D0D</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorGreen">#6DED1B</color>
+    <color name="colorYellow">#F1B70A</color>
+    <!-- 测试-->
+    <color name="dkgray">#FF444444</color>
+    <color name="weatherInfo">#20EC0D0D</color>
+    <color name="white">#FFF</color>
+
+
+    <color name="arc_progress_finished_color">#FFF</color>
+    <color name="arc_progress_unfinished_color">#FFF</color>
+    <color name="cl_67e712">#67E712</color>
+    <color name="attention_aid_sys_green">#2AB59D</color>
+
+    <color name="cl_30b3b5">#30b3b5</color>
+    <color name="cl_2030b3b5">#2030b3b5</color>
+    <color name="cl_80000000">#80000000</color>
+    <color name="cl_ccfffff">#ccffffff</color>
+    <color name="cl_bce5ff">#BCE5FF</color>
+    <color name="cl_f1f1f1">#f1f1f1</color>
+    <color name="cl_89a3ba">#89A3BA</color>
+    <color name="cl_oil_box">#E7DC51</color>
+    <color name="oilLineSelect">#F3E648</color>
+    <color name="drive_mode_bg">#0391D2</color>
+    <color name="cl_21c1fe">#21C1FE</color>
+    <color name="textColor">#B5D4FD</color>
+    <color name="cl_50000000">#50000000</color>
+    <color name="cl_666666">#666666</color>
+    <color name="cl_indicator">#5E9FF8</color>
+
+</resources>
