@@ -32,6 +32,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "DCAutoParts"
-include ':launcher'
+include ':launcher', ':serialize'
 include ':library-dc-auto'
-include ':serialize'
