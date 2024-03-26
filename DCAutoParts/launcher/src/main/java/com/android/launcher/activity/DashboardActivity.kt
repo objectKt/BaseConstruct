@@ -14,7 +14,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.amap.api.maps.offlinemap.OfflineMapManager.OfflineMapDownloadListener
 import com.android.launcher.R
 import com.android.launcher.can.util.AutoUtilCan
-import com.android.launcher.fragment.DashboardFragment
+import com.android.launcher.fragment.DashboardClassicFragment
 import com.github.fragivity.loadRoot
 import dc.library.auto.bus_usb.UsbDeviceConnectManager
 import dc.library.auto.manager.ManagerTTLSerialPorts
@@ -22,22 +22,22 @@ import dc.library.utils.ValUtil
 import dc.library.utils.logcat.LogCat
 import dc.library.utils.serialize.intent.bundle
 
-class MainActivity : BaseActivity(), OfflineMapDownloadListener {
+class DashboardActivity : BaseActivity(), OfflineMapDownloadListener {
 
     private val pageName: String by bundle()
     private val pageType: Int by bundle()
 
     private lateinit var viewModel: ViewModelMain
     private var mBroadcastReceiver: BroadcastReceiver? = null
-    private val mUsbDeviceManager = UsbDeviceConnectManager.getInit(this@MainActivity)
+    private val mUsbDeviceManager = UsbDeviceConnectManager.getInit(this@DashboardActivity)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         proxyFragmentFactory()
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_lefts223)
+        setContentView(R.layout.activity_dashboard_left_223)
         LogCat.i("pageType = $pageType pageName = $pageName")
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.idNavHostLeft223) as NavHostFragment
-        navHostFragment.loadRoot(DashboardFragment::class)
+        navHostFragment.loadRoot(DashboardClassicFragment::class)
     }
 
     // <editor-fold desc="# 处理方向盘下发的操作">
@@ -80,7 +80,7 @@ class MainActivity : BaseActivity(), OfflineMapDownloadListener {
             }
 
             Lifecycle.Event.ON_START -> ContextCompat.registerReceiver(
-                this@MainActivity,
+                this@DashboardActivity,
                 mBroadcastReceiver,
                 IntentFilter(ValUtil.Action.INTENT_ACTION_GRANT_USB),
                 ContextCompat.RECEIVER_NOT_EXPORTED
@@ -110,6 +110,10 @@ class MainActivity : BaseActivity(), OfflineMapDownloadListener {
         viewModel.loginStatus.observe(this) {
             LogCat.i("observe loginStatus $it")
         }
+    }
+
+    private fun goToMenuHome() {
+
     }
 
     // <editor-fold desc="# 地图相关接口回调">

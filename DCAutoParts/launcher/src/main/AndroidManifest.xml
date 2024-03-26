@@ -52,7 +52,7 @@
         </activity>
 
         <activity
-            android:name="com.android.launcher.activity.MainActivity"
+            android:name="com.android.launcher.activity.DashboardActivity"
             android:exported="true"
             android:hardwareAccelerated="false"
             android:launchMode="singleTask" />

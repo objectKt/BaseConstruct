@@ -12,7 +12,10 @@ import com.drake.brv.utils.setup
 import dc.library.ui.base.EngineFragment
 import dc.library.utils.logcat.LogCat
 
-class DashboardFragment : EngineFragment<FragmentDashboardBinding>(R.layout.fragment_dashboard) {
+/**
+ * 经典仪表盘
+ */
+class DashboardClassicFragment : EngineFragment<FragmentDashboardBinding>(R.layout.fragment_dashboard) {
 
     private val viewModel: ViewModelDashboard by viewModels()
 
@@ -21,7 +24,7 @@ class DashboardFragment : EngineFragment<FragmentDashboardBinding>(R.layout.frag
     }
 
     override fun initView() {
-        LogCat.i("进入了 DashboardFragment")
+        LogCat.i("进入了 DashboardClassicFragment")
     }
 
     override fun initData() {

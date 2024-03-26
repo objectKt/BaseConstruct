@@ -81,7 +81,7 @@ class OneActivity : AppCompatActivity() {
     }
 
     private fun gotoMainActivity() {
-        val intent = Intent(this@OneActivity, MainActivity::class.java)
+        val intent = Intent(this@OneActivity, DashboardActivity::class.java)
         intent.putExtra("screenWhich", "left")
         intent.putExtra("carType", "s223")
         startActivity(intent)

@@ -3,7 +3,6 @@ package com.android.launcher.activity
 import android.Manifest
 import android.bluetooth.BluetoothManager
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.app.ActivityCompat
@@ -25,7 +24,6 @@ import dc.library.auto.task.core.step.impl.TaskCommand
 import dc.library.auto.task.thread.pool.cancel.ICanceller
 import dc.library.utils.logcat.LogCat
 import dc.library.utils.serialize.intent.openActivity
-import kotlinx.coroutines.Job
 import java.util.concurrent.TimeUnit
 
 /**
@@ -99,7 +97,7 @@ class StartingActivity : BaseActivity() {
             }
         }.finish {
             if (mTaskIsFinishSucceed) {
-                openActivity<MainActivity>(
+                openActivity<DashboardActivity>(
                     "pageType" to 1,
                     "pageName" to "LeftS223"
                 )
