@@ -3,31 +3,17 @@ package com.drake.serialize.sample
 import android.os.SystemClock
 import android.util.Log
 import android.view.View
-import androidx.lifecycle.MutableLiveData
-import dc.library.utils.serialize.intent.openActivity
 import com.drake.serialize.sample.constant.AppConfig
 import com.drake.serialize.sample.databinding.ActivityMainBinding
 import com.drake.serialize.sample.model.KotlinSerializableModel
 import com.drake.serialize.sample.model.ParcelableModel
 import com.drake.serialize.sample.model.SerializableModel
-import dc.library.utils.serialize.serialize.annotation.SerializeConfig
-import dc.library.utils.serialize.serialize.serial
-import dc.library.utils.serialize.serialize.serialLazy
-import dc.library.utils.serialize.serialize.serialLiveData
 import com.drake.tooltip.toast
 import dc.library.ui.base.EngineActivity
+import dc.library.utils.serialize.intent.openActivity
 import kotlin.system.measureTimeMillis
 
-
-@SerializeConfig(mmapID = "main")
 class MainActivity : EngineActivity<ActivityMainBinding>(R.layout.activity_main) {
-
-    private var name: String by serial()
-    private var data: KotlinSerializableModel? by serialLazy()
-    private var amount: String by serial("默认值", "自定义键名")
-    private val liveData: MutableLiveData<String> by serialLiveData("默认值")
-    private var userId: String = "0123"
-    private var balance: String by serial("0.0", { "balance-$userId" })
 
     override fun initView() {
         binding.v = this
@@ -35,7 +21,7 @@ class MainActivity : EngineActivity<ActivityMainBinding>(R.layout.activity_main)
 
     override fun initData() {
         // 监听本地数据变化
-        liveData.observe(this) {
+        ManageVarsSerialize.liveData.observe(this) {
             toast("观察到本地数据: $it")
         }
     }
@@ -44,16 +30,16 @@ class MainActivity : EngineActivity<ActivityMainBinding>(R.layout.activity_main)
         when (v) {
             // 可观察本地数据
             binding.llObserve -> {
-                liveData.value = SystemClock.elapsedRealtime().toString()
+                ManageVarsSerialize.liveData.value = SystemClock.elapsedRealtime().toString()
             }
             // 写入
             binding.cardWriteField -> {
-                name = "https://github.com/liangjingkanji/Serialize"
-                toast("写入数据: $name 到磁盘")
+                ManageVarsSerialize.name = "https://github.com/liangjingkanji/Serialize"
+                toast("写入数据: ${ManageVarsSerialize.name} 到磁盘")
             }
             // 读取
             binding.cardReadField -> {
-                toast("读取本地数据为: $name")
+                toast("读取本地数据为: ${ManageVarsSerialize.name}")
             }
             // 打开页面
             binding.cardOpenPage -> {
@@ -76,19 +62,19 @@ class MainActivity : EngineActivity<ActivityMainBinding>(R.layout.activity_main)
             binding.cardBigRead -> {
                 val measureTimeMillis = measureTimeMillis {
                     repeat(100000) {
-                        val name = data?.name
+                        val name = ManageVarsSerialize.data?.name
                     }
                 }
-                binding.tvBigReadTime.text = "${measureTimeMillis}ms"
+                binding.tvBigReadTime.text = "${measureTimeMillis} ms"
             }
             // 写入100w次
             binding.cardBigWrite -> {
                 val measureTimeMillis = measureTimeMillis {
                     repeat(100000) {
-                        data = KotlinSerializableModel("第${it}次")
+                        ManageVarsSerialize.data = KotlinSerializableModel("第${it}次")
                     }
                 }
-                binding.tvBigWriteTime.text = "${measureTimeMillis}ms"
+                binding.tvBigWriteTime.text = "${measureTimeMillis} ms"
             }
         }
     }
