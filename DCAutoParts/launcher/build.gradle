@@ -4,6 +4,9 @@ plugins {
 }
 
 apply plugin: "kotlin-kapt"
+apply plugin: "kotlin-parcelize"
+apply plugin: "kotlinx-serialization"
+
 def ver = libs.versions
 
 android {
@@ -56,5 +59,8 @@ dependencies {
     implementation libs.androidx.fragment.ktx
     implementation libs.androidx.navigation.fragment
     implementation libs.permission
+    implementation libs.mapNav
+    implementation libs.liangjingkanji.toolKit
+    implementation libs.serialization.json
     implementation project(":library-dc-auto")
 }

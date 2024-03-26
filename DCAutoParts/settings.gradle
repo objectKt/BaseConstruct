@@ -34,3 +34,4 @@ dependencyResolutionManagement {
 rootProject.name = "DCAutoParts"
 include ':launcher'
 include ':library-dc-auto'
+include ':appSerialLize'

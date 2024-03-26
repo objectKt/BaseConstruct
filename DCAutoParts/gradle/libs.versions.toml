@@ -10,8 +10,6 @@ kotlin = "1.9.0"
 recyclerview = "1.3.0"
 recyclerviewSelection = "1.1.0"
 eventbus = "3.1.1"
-greendao = "3.3.0"
-fastjson = "1.2.75"
 library = "2.1.3"
 free_reflection = "3.0.1"
 xPopup = "2.9.19"
@@ -21,13 +19,12 @@ baseRecyclerViewAdapterHelper = "3.0.6"
 mapNav = "9.8.3_3dmap9.8.3"
 mapSearch = "9.7.0"
 room = "2.5.1"
-usb = "3.5.1"
 anrwatchdog = "1.4.0"
 coreprogress = "1.0.2"
 legacySupportV4 = "1.0.0"
 
+#"com.alibaba:fastjson:1.2.47"
 [libraries]
-#noinspection GradleDependency
 androidx-core-ktx = "androidx.core:core-ktx:1.9.0"
 androidx-appcompat = "androidx.appcompat:appcompat:1.6.1"
 androidx-material = "com.google.android.material:material:1.10.0"
@@ -42,21 +39,18 @@ io-netty = "io.netty:netty-all:4.1.52.Final"
 liangjingkanji-net = "com.github.liangjingkanji:Net:3.6.4"
 liangjingkanji-list = "com.github.liangjingkanji:BRV:1.5.8"
 liangjingkanji-event = "com.github.liangjingkanji:Channel:1.1.5"
-#noinspection GradleDependency
+liangjingkanji-toolKit = "com.github.liangjingkanji:Tooltip:1.2.3"
 squareup-okhttp = "com.squareup.okhttp3:okhttp:4.10.0"
-#noinspection GradleDependency
 androidx-navigation-fragment = "androidx.navigation:navigation-fragment-ktx:2.5.3"
-#noinspection GradleDependency
 androidx-fragment-ktx = "androidx.fragment:fragment-ktx:1.5.5"
-#noinspection GradleDependency
-fastjson = "com.alibaba:fastjson:1.2.47"
 permission = "com.guolindev.permissionx:permissionx:1.7.1"
+serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0"
+mapNav = { module = "com.amap.api:navi-3dmap", version.ref = "mapNav" }
 
 # Old need be changed.
 recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
 recyclerviewSelection = { module = "androidx.recyclerview:recyclerview-selection", version.ref = "recyclerviewSelection" }
 eventbus = { module = "org.greenrobot:eventbus", version.ref = "eventbus" }
-greendao = { module = "org.greenrobot:greendao", version.ref = "greendao" }
 roomRuntime = { module = "androidx.room:room-runtime", version.ref = "room" }
 roomCompiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 library = { module = "com.wang.avi:library", version.ref = "library" }
@@ -65,9 +59,8 @@ popup = { module = "com.github.li-xiaojun:XPopup", version.ref = "xPopup" }
 rxandroid = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rxandroid" }
 rxjava = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjava" }
 baseRecyclerViewAdapterHelper = { module = "com.github.CymChad:BaseRecyclerViewAdapterHelper", version.ref = "baseRecyclerViewAdapterHelper" }
-mapNav = { module = "com.amap.api:navi-3dmap", version.ref = "mapNav" }
+
 mapSearch = { module = "com.amap.api:search", version.ref = "mapSearch" }
-usb = { module = "com.github.mik3y:usb-serial-for-android", version.ref = "usb" }
 anrwatchdog = { module = "com.github.anrwatchdog:anrwatchdog", version.ref = "anrwatchdog" }
 coreprogress = { module = "io.github.lizhangqu:coreprogress", version.ref = "coreprogress" }
 androidx-legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support-v4", version.ref = "legacySupportV4" }
@@ -75,5 +68,6 @@ androidx-legacy-support-v4 = { group = "androidx.legacy", name = "legacy-support
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+jetbrainsKotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
 

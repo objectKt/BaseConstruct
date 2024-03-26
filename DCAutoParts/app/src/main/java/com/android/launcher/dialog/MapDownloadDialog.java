@@ -58,5 +58,4 @@ public class MapDownloadDialog extends CenterPopupView {
         }
         numberProgressBar.setProgress(progress);
     }
-
 }

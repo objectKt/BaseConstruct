@@ -490,7 +490,6 @@ public class MeterActivity extends ActivityBase<MeterPresenter> implements IView
         }
     }
 
-
     //关闭底盘升降对话框
     private void closeChassisShowDialog() {
         LogUtils.printI(TAG, "closeChassisShowDialog----currentMessage=" + currentMessage);

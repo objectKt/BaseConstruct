@@ -11,6 +11,7 @@ import androidx.fragment.app.proxyFragmentFactory
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
+import com.amap.api.maps.offlinemap.OfflineMapManager.OfflineMapDownloadListener
 import com.android.launcher.R
 import com.android.launcher.can.util.AutoUtilCan
 import com.android.launcher.fragment.DashboardFragment
@@ -20,7 +21,7 @@ import dc.library.auto.manager.ManagerTTLSerialPorts
 import dc.library.utils.ValUtil
 import dc.library.utils.logcat.LogCat
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), OfflineMapDownloadListener {
 
     private lateinit var viewModel: ViewModelMain
     private var mBroadcastReceiver: BroadcastReceiver? = null
@@ -34,14 +35,14 @@ class MainActivity : BaseActivity() {
         navHostFragment.loadRoot(DashboardFragment::class)
     }
 
-    /**
-     * 处理方向盘传下来的操作
-     */
+    // <editor-fold desc="# 处理方向盘下发的操作">
+
     override fun steerWheelKeyboard(type: AutoUtilCan.Type) {
         when (type) {
             AutoUtilCan.Type.UP -> {
 
             }
+
             AutoUtilCan.Type.DOWN -> {
 
             }
@@ -55,6 +56,8 @@ class MainActivity : BaseActivity() {
             AutoUtilCan.Type.BACK -> {}
         }
     }
+
+    // </editor-fold>
 
     override fun stateChangeLogic(event: Lifecycle.Event) {
         LogCat.d("生命周期 == 进入了 ${event.name}")
@@ -80,13 +83,12 @@ class MainActivity : BaseActivity() {
 
             Lifecycle.Event.ON_RESUME -> mUsbDeviceManager.resumeConnect()
 
-            Lifecycle.Event.ON_PAUSE -> {
-                mUsbDeviceManager.pauseDisconnect()
-            }
+            Lifecycle.Event.ON_PAUSE -> mUsbDeviceManager.pauseDisconnect()
 
             Lifecycle.Event.ON_STOP -> unregisterReceiver(mBroadcastReceiver);
 
             Lifecycle.Event.ON_DESTROY -> ManagerTTLSerialPorts.closeAllPorts()
+
             else -> {}
         }
     }
@@ -104,4 +106,23 @@ class MainActivity : BaseActivity() {
             LogCat.i("observe loginStatus $it")
         }
     }
+
+    // <editor-fold desc="# 地图相关接口回调">
+
+    // status: 0:正在下载， 4：下载成功， 1： 解压中
+    override fun onDownload(status: Int, completeCode: Int, name: String) {
+        LogCat.d("Map onDownload --- status=$status, completeCode=$completeCode, name=$name")
+    }
+
+    // newVersion - true 表示有更新，说明官方有新版或者本地未下载
+    // name - 被检测更新的城市的名字
+    override fun onCheckUpdate(newVersion: Boolean, name: String) {
+        LogCat.d("Map onCheckUpdate --- newVersion=$newVersion, name=$name")
+    }
+
+    override fun onRemove(success: Boolean, name: String, describe: String) {
+        LogCat.d("Map onRemove --- name=$name, describe=$describe")
+    }
+
+    // </editor-fold>
 }

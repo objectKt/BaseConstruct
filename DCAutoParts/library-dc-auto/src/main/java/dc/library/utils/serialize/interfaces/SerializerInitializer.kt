@@ -1,17 +1,12 @@
-package dc.library.ui.interfaces
+package dc.library.utils.serialize.interfaces
 
-import android.app.Application
 import android.content.Context
 import androidx.startup.Initializer
 import com.tencent.mmkv.MMKV
 import com.tencent.mmkv.MMKVLogLevel
-import dc.library.ui.base.Engine
-import dc.library.ui.base.app
 
-internal class EngineInitializer : Initializer<Unit> {
+internal class SerializerInitializer : Initializer<Unit> {
     override fun create(context: Context) {
-        app = context
-        (app as? Application)?.registerActivityLifecycleCallbacks(Engine.activityCallbacks)
         MMKV.initialize(context, MMKVLogLevel.LevelNone)
     }
 
