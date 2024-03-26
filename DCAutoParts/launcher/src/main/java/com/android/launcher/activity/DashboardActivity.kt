@@ -7,6 +7,7 @@ import android.content.IntentFilter
 import android.hardware.usb.UsbManager
 import android.os.Bundle
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.proxyFragmentFactory
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +15,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.amap.api.maps.offlinemap.OfflineMapManager.OfflineMapDownloadListener
 import com.android.launcher.R
 import com.android.launcher.can.util.AutoUtilCan
+import com.android.launcher.databinding.ActivityDashboardLeft223Binding
 import com.android.launcher.fragment.DashboardClassicFragment
 import com.github.fragivity.loadRoot
 import dc.library.auto.bus_usb.UsbDeviceConnectManager
@@ -28,6 +30,7 @@ class DashboardActivity : BaseActivity(), OfflineMapDownloadListener {
     private val pageType: Int by bundle()
 
     private lateinit var viewModel: ViewModelMain
+    private lateinit var binding: ActivityDashboardLeft223Binding
     private var mBroadcastReceiver: BroadcastReceiver? = null
     private val mUsbDeviceManager = UsbDeviceConnectManager.getInit(this@DashboardActivity)
 
@@ -35,6 +38,7 @@ class DashboardActivity : BaseActivity(), OfflineMapDownloadListener {
         proxyFragmentFactory()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard_left_223)
+        binding = DataBindingUtil.bind(window.decorView)!!
         LogCat.i("pageType = $pageType pageName = $pageName")
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.idNavHostLeft223) as NavHostFragment
         navHostFragment.loadRoot(DashboardClassicFragment::class)
