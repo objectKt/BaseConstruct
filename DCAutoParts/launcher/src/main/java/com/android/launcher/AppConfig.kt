@@ -7,16 +7,29 @@ import dc.library.utils.serialize.serialize.serialLazy
 import dc.library.utils.serialize.serialize.serialLiveData
 
 /**
- * 统一配置整个 App 的各类状态变量
+ * 统一配置整个 App 基本数据的单例对象
+ * 且线程安全
+ * 在某些场景下比数据库更方便(支持集合 / 主线程读取)
+ * 比 SharePreference 更快速(内部使用 MKV 开源库)
  */
 @SerializeConfig(mmapID = "dc_app_config_object")
 object AppConfig {
-    var name: String by serial()
+
+    /** 懒读取, 每次写入都会更新内存/磁盘, 但是读取仅第一次会读取磁盘, 后续一直使用内存中, 有效减少ANR */
+    var userId: String by serialLazy()
+
+    /** 每次都读写磁盘 */
+    var isFirstLaunch: Boolean by serial(false)
+
+    /** 保存集合 */
+    var host: List<String> by serial(emptyList())
+
+    /** 只要集合元素属于可序列化对象 Serializable/Parcelable 即可保存到本地 */
+    var users: List<KotlinSerializableModel> by serial(emptyList())
+
     var data: KotlinSerializableModel? by serialLazy()
-    var amount: String by serial("默认值", "自定义键名")
+
     val liveData: MutableLiveData<String> by serialLiveData("默认值")
-    var userId: String = "0123"
-    var balance: String by serial("0.0", { "balance-$userId" })
 }
 
 /**
