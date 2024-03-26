@@ -7,6 +7,11 @@ import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.View
 
+/**
+ * 实现光圈从远到近扩大的动画特效
+ * 使用 ValueAnimator 来改变一个圆形View的半径
+ * 从而产生光圈扩大的效果
+ */
 class CircleView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -17,7 +22,8 @@ class CircleView @JvmOverloads constructor(
         color = Color.RED
         style = Paint.Style.FILL
     }
-    private var radius = 0f
+
+    var radius = 0f
 
     init {
         isFocusable = true
