@@ -20,8 +20,12 @@ import dc.library.auto.bus_usb.UsbDeviceConnectManager
 import dc.library.auto.manager.ManagerTTLSerialPorts
 import dc.library.utils.ValUtil
 import dc.library.utils.logcat.LogCat
+import dc.library.utils.serialize.intent.bundle
 
 class MainActivity : BaseActivity(), OfflineMapDownloadListener {
+
+    private val pageName: String by bundle()
+    private val pageType: Int by bundle()
 
     private lateinit var viewModel: ViewModelMain
     private var mBroadcastReceiver: BroadcastReceiver? = null
@@ -31,6 +35,7 @@ class MainActivity : BaseActivity(), OfflineMapDownloadListener {
         proxyFragmentFactory()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_lefts223)
+        LogCat.i("pageType = $pageType pageName = $pageName")
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.idNavHostLeft223) as NavHostFragment
         navHostFragment.loadRoot(DashboardFragment::class)
     }

@@ -24,6 +24,7 @@ import dc.library.auto.task.core.step.impl.TaskChainCallbackAdapter
 import dc.library.auto.task.core.step.impl.TaskCommand
 import dc.library.auto.task.thread.pool.cancel.ICanceller
 import dc.library.utils.logcat.LogCat
+import dc.library.utils.serialize.intent.openActivity
 import kotlinx.coroutines.Job
 import java.util.concurrent.TimeUnit
 
@@ -98,8 +99,10 @@ class StartingActivity : BaseActivity() {
             }
         }.finish {
             if (mTaskIsFinishSucceed) {
-                val intent = Intent(this@StartingActivity, MainActivity::class.java)
-                startActivity(intent)
+                openActivity<MainActivity>(
+                    "pageType" to 1,
+                    "pageName" to "LeftS223"
+                )
                 this@StartingActivity.finish()
             } else {
                 restartApp(this@StartingActivity)

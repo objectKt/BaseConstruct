@@ -3,11 +3,14 @@ package com.android.launcher.activity
 import android.app.Application
 import com.android.launcher.BR
 import com.drake.brv.utils.BRV
+import com.tencent.mmkv.MMKV
 import dc.library.auto.task.logger.TaskLogger
 import dc.library.ui.base.Engine
 import dc.library.utils.logcat.LogCat
 import dc.library.utils.logcat.LogHook
 import dc.library.utils.logcat.LogInfo
+import dc.library.utils.serialize.hook.JsonSerializeHook
+import dc.library.utils.serialize.serialize.Serialize
 
 class App : Application() {
 
@@ -17,10 +20,9 @@ class App : Application() {
     }
 
     private fun initLibraries() {
-        // 是否隐藏串口
-        //Config.setHideSerialPort(true)
-        // 任务系统日志
-        TaskLogger.setDebug(false)
+        MMKV.initialize(this)
+        // 本地序列化存储的数据结构为Json
+        Serialize.hook = JsonSerializeHook()
         // 初始化基础库
         Engine.initialize(this)
         // 初始化 BindingAdapter 的默认绑定 ID
