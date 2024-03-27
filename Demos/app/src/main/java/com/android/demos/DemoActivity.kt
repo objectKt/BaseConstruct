@@ -5,6 +5,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
@@ -147,6 +148,48 @@ class MultiPageTransformer : ViewPager2.PageTransformer {
             page.visibility = View.INVISIBLE
         } else {
             page.visibility = View.VISIBLE
+        }
+    }
+}
+
+class ScalePageTransformer(
+    private val isFill: Boolean
+) : ViewPager2.PageTransformer {
+
+    companion object {
+        const val MAX_SCALE = 1.0f
+        const val MIN_SCALE = 0.9f
+    }
+
+    private var isScaling = false
+
+    override fun transformPage(view: View, position: Float) {
+        var pos = position
+        if (position < -1) {
+            pos = -1.0f
+        } else if (position > 1) {
+            pos = 1.0f
+        }
+
+        val tempScale = if (pos < 0) 1 + pos else 1 - pos
+        val slope = (MAX_SCALE - MIN_SCALE) / 1
+        val scaleValue = MIN_SCALE + tempScale * slope
+
+        if (!isScaling) {
+            view.scaleX = scaleValue
+            view.scaleY = scaleValue
+            isScaling = true
+        } else {
+            val animation = AnimationUtils.loadAnimation(view.context, R.anim.scale_anim)
+            animation.duration = 300
+            animation.fillAfter = true
+            view.startAnimation(animation)
+            isScaling = false
+        }
+
+        if (isFill) {
+            view.setScaleX(scaleValue)
+            view.setScaleY(scaleValue)
         }
     }
 }
