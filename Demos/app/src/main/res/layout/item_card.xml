@@ -3,15 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="8dp"
-    android:background="@android:color/transparent"
+    app:cardBackgroundColor="@android:color/transparent"
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp">
 
     <!-- 在这里添加卡片内容，例如TextView -->
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/idImg"
-        android:scaleType="fitCenter"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:scaleType="fitCenter" />
 
 </androidx.cardview.widget.CardView>
