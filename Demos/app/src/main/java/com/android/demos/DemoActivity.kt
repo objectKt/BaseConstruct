@@ -158,18 +158,19 @@ class ScalePageTransformer(
 ) : ViewPager2.PageTransformer {
 
     companion object {
-        const val MAX_SCALE = 1.0f
+        const val MAX_SCALE = 1.2f
         const val MIN_SCALE = 0.9f
     }
 
     private var isScaling = false
 
     override fun transformPage(view: View, position: Float) {
-        var pos = position
-        if (position < -1) {
-            pos = -1.0f
+        var pos = if (position < -1) {
+            -1.0f
         } else if (position > 1) {
-            pos = 1.0f
+            1.0f
+        } else {
+            position
         }
 
         val tempScale = if (pos < 0) 1 + pos else 1 - pos
