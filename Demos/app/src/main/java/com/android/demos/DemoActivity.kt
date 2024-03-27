@@ -25,6 +25,7 @@ class DemoActivity : AppCompatActivity() {
         viewPager.adapter = mAdapter
         viewPager.offscreenPageLimit = 5
         viewPager.setPageTransformer { page, position ->
+            ScalePageTransformer(true)
 //            val scale = 1 - abs(position)
 //            val alpha = (scale * 255).toInt()
 //            page.scaleX = scale
@@ -37,21 +38,21 @@ class DemoActivity : AppCompatActivity() {
             //page.alpha = alpha / 255.0f
 
 //            LogUtils.printI(TAG, "PageTransformer---position="+position);
-            page.pivotX = page.width.toFloat() / 2
-            page.pivotY = page.height.toFloat() / 2.0f
-            if (position == 0f) {
-                page.scaleX = 1.3f
-                page.scaleY = 1.3f
-                Handler(Looper.myLooper()!!).postDelayed({
-                    page.scaleX = 1.0f
-                    page.scaleY = 1.0f
-                    page.elevation = 0f
-                }, 500)
-            } else {
-                page.scaleX = 1.0f
-                page.scaleY = 1.0f
-                page.elevation = 0f
-            }
+//            page.pivotX = page.width.toFloat() / 2
+//            page.pivotY = page.height.toFloat() / 2.0f
+//            if (position == 0f) {
+//                page.scaleX = 1.3f
+//                page.scaleY = 1.3f
+//                Handler(Looper.myLooper()!!).postDelayed({
+//                    page.scaleX = 1.0f
+//                    page.scaleY = 1.0f
+//                    page.elevation = 0f
+//                }, 500)
+//            } else {
+//                page.scaleX = 1.0f
+//                page.scaleY = 1.0f
+//                page.elevation = 0f
+//            }
 
             // 如果页面在可见阈值之内，则显示
 //            if (abs(position) <= 3.5f) {
