@@ -1,60 +1,47 @@
 package com.android.demos
 
-import android.animation.ValueAnimator
 import android.os.Bundle
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.LinearInterpolator
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.android.demos.ui.CircleView
-import com.android.demos.ui.UltrasonicWaveView
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.card.MaterialCardView
 
 class DemoActivity : AppCompatActivity() {
+
+    private lateinit var mAdapter: CardAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_demo)
-        testAnimation2()
+        val viewPager = findViewById<ViewPager2>(R.id.view_pager)
+        val cards = (1..10).toList() // 假设有10张卡片
+
+        // 创建Adapter
+        mAdapter = CardAdapter(cards)
+
+        // 设置ViewPager2的Adapter
+        viewPager.adapter = mAdapter
+
+        // 设置布局管理器，这里使用 LinearLayoutManager 作为示例
+        viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
+        // 添加页面变换监听器，用于处理选中效果
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                // 处理选中效果
+                updateCardElevation(position)
+            }
+        })
     }
 
-    private fun testAnimation() {
-        val ultrasonicWaveView = findViewById<UltrasonicWaveView>(R.id.ultrasonic_wave_view)
-        createUltrasonicWaveAnimation(ultrasonicWaveView)
-    }
+    private fun updateCardElevation(position: Int) {
+        // 获取当前页面的卡片
+        val cardView = mAdapter.getViewHolderAtPosition(position)?.itemView as? MaterialCardView
+        // 设置卡片的 elevation 属性，增加立体感
+        cardView?.elevation = 8f
 
-    private fun testAnimation2() {
-        val circleView = findViewById<CircleView>(R.id.circle_view)
-        // 假设初始半径为50dp，结束半径为200dp
-        val initialRadius = resources.getDimension(R.dimen.initial_radius)
-        val endRadius = resources.getDimension(R.dimen.end_radius)
-        // 启动动画
-        startCircleExpandAnimation(circleView, initialRadius, endRadius)
-    }
-
-    private fun startCircleExpandAnimation(circleView: CircleView, startRadius: Float, endRadius: Float, duration: Long = 1000) {
-        val animator = ValueAnimator.ofFloat(startRadius, endRadius)
-        animator.interpolator = AccelerateDecelerateInterpolator()
-        animator.duration = duration
-        animator.addUpdateListener { animation ->
-            val newRadius = animation.animatedValue as Float
-            circleView.radius = newRadius
-            circleView.invalidate()
-        }
-        animator.start()
-    }
-
-    private fun createUltrasonicWaveAnimation(view: UltrasonicWaveView, duration: Long = 2000) {
-        val animator = ValueAnimator.ofFloat(0f, 1f)
-        animator.interpolator = LinearInterpolator()
-        animator.duration = duration
-        animator.addUpdateListener { animation ->
-            val scale = animation.animatedValue as Float
-            view.waveRadius = scale * (view.waveRadius * 2 - view.waveRadius)
-            view.invalidate()
-        }
-        animator.repeatCount = ValueAnimator.INFINITE
-        animator.start()
+        // 获取中间位置的卡片
+        val middlePage = mAdapter.getViewHolderAtPosition(mAdapter.itemCount / 2) ?: return
+        // 设置中间卡片的 elevation 属性，增加投影效果
+        (middlePage.itemView as MaterialCardView).elevation = 12f
     }
 }

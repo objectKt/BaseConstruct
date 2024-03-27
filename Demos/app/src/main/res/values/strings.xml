@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Demos</string>
+    <string name="app_single">单个</string>
+    <string name="app_muti">多个</string>
 </resources>
