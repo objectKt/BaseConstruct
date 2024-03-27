@@ -6,6 +6,8 @@ import android.os.Looper
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.view.animation.AnticipateInterpolator
+import android.view.animation.ScaleAnimation
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
@@ -25,7 +27,14 @@ class DemoActivity : AppCompatActivity() {
         viewPager.adapter = mAdapter
         viewPager.offscreenPageLimit = 5
         viewPager.setPageTransformer { page, position ->
-            ScalePageTransformer(true)
+//            ScalePageTransformer(false)
+
+            val scale = 1 - Math.abs(position)
+            val translate = position * page.width / 2
+            val transform = ScaleAnimation(scale, scale, scale, translate)
+            transform.interpolator = AnticipateInterpolator()
+//    page.applyAnimation(R.anim.scale_anim, true)
+            page.startAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_anim))
 //            val scale = 1 - abs(position)
 //            val alpha = (scale * 255).toInt()
 //            page.scaleX = scale
