@@ -6,17 +6,21 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.AnticipateInterpolator
 import android.view.animation.LinearInterpolator
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
+import androidx.core.view.setPadding
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import kotlin.math.abs
+import kotlin.math.roundToInt
 
 class DemoActivity : AppCompatActivity() {
 
@@ -26,7 +30,7 @@ class DemoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_demo)
         val viewPager = findViewById<ViewPager2>(R.id.view_pager)
-        val cards = arrayOf(R.mipmap.ic_menu_bg, R.mipmap.ic_menu_sport, R.mipmap.ic_menu_bg, R.mipmap.ic_menu_sport) // 假设有10张卡片
+        val cards = arrayOf(R.mipmap.ic_menu_bg, R.mipmap.ic_menu_sport, R.mipmap.ic_menu_bg, R.mipmap.ic_menu_sport, R.mipmap.ic_menu_bg) // 假设有10张卡片
         mAdapter = CardAdapter(cards)
         viewPager.adapter = mAdapter
         viewPager.offscreenPageLimit = 5
@@ -40,22 +44,13 @@ class DemoActivity : AppCompatActivity() {
             page.startAnimation(transform)
         }
 
-        // 定义一个ValueAnimator来控制CardView的动画
-
         // 添加页面变换监听器，用于处理选中效果
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
 
-            private lateinit var cardView: CardView
-            private lateinit var borderFlashAnimator: ValueAnimator
-
             // 处理选中效果
             override fun onPageSelected(position: Int) {
-                val cardView = findViewById<CardView>(R.id.idCardView)
-//                // 获取当前页面的卡片
-//                val cardView = mAdapter.getViewHolderAtPosition(position)?.itemView as? CardView
-//                val borderColorStateList = ContextCompat.getColorStateList(this@DemoActivity, R.color.border_flash_color)
-//                cardView?.setCardBackgroundColor(borderColorStateList)
-                // 定义边框闪烁的动画
+                Log.e("大川汽配", "position selected = $position")
+                //mAdapter.getViewHolderAtPosition(position)
             }
 
             override fun onPageScrollStateChanged(state: Int) {
@@ -74,8 +69,7 @@ class DemoActivity : AppCompatActivity() {
             }
         })
 
-
-        val padding = (DensityUtil.getScreenWidth(this) / 2.65f).toInt()
+        val padding = (DensityUtil.getScreenWidth(this) / 2.65f).roundToInt()
 
         //一屏多页
         val recyclerView: View = viewPager.getChildAt(0)

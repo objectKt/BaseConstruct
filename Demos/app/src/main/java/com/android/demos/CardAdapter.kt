@@ -1,10 +1,13 @@
 package com.android.demos
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.button.MaterialButton
 
 class CardAdapter(private val cards: Array<Int>) : RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
 
@@ -26,7 +29,13 @@ class CardAdapter(private val cards: Array<Int>) : RecyclerView.Adapter<CardAdap
         return cards.size
     }
 
-    fun getViewHolderAtPosition(position: Int): CardViewHolder? {
-        return viewHolders.firstOrNull { it.adapterPosition == position }
+    fun getViewHolderAtPosition(position: Int) {
+        viewHolders.forEach { holder ->
+            if (holder.adapterPosition != position) {
+                holder.itemView.findViewById<TextView>(R.id.idBorder)?.visibility = View.GONE
+            } else {
+                holder.itemView.findViewById<TextView>(R.id.idBorder)?.visibility = View.VISIBLE
+            }
+        }
     }
 }

@@ -11,12 +11,18 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipChildren="false"
-        android:clipToPadding="false"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.android.launcher.menu.SelectedMenuView
+        android:layout_width="350dp"
+        android:layout_height="170dp"
+        app:layout_constraintBottom_toBottomOf="@id/view_pager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/view_pager" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

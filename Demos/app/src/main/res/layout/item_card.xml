@@ -3,19 +3,23 @@
     android:id="@+id/idCardView"
     style="@style/CustomCardViewStyle"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clipChildren="false"
-    android:clipToPadding="false">
+    android:layout_height="match_parent">
 
-    <!-- 在这里添加卡片内容，例如TextView -->
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/idImg"
         android:layout_width="match_parent"
         android:layout_height="146dp"
         android:layout_gravity="center"
-        android:background="@android:color/white"
-        android:padding="2dp"
+        android:background="@android:color/transparent"
         android:scaleType="fitXY"
         app:srcCompat="@mipmap/ic_menu_bg" />
+
+    <TextView
+        android:id="@+id/idBorder"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="146dp"
+        android:layout_gravity="center"
+        android:background="@drawable/shape_border_stroke" />
 
 </androidx.cardview.widget.CardView>
