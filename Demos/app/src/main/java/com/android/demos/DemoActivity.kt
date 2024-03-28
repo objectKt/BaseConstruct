@@ -1,25 +1,15 @@
 package com.android.demos
 
-import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
-import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.AnticipateInterpolator
-import android.view.animation.LinearInterpolator
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatImageView
-import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
-import androidx.core.view.setPadding
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import kotlin.math.abs
 import kotlin.math.roundToInt
 
 class DemoActivity : AppCompatActivity() {
@@ -69,8 +59,9 @@ class DemoActivity : AppCompatActivity() {
             }
         })
 
-        val padding = (DensityUtil.getScreenWidth(this) / 2.65f).roundToInt()
-
+        //val padding = (DensityUtil.getScreenWidth(this) / 2.65f).roundToInt()
+        val padding = 720
+        Log.e("大川汽配", "padding $padding")
         //一屏多页
         val recyclerView: View = viewPager.getChildAt(0)
         if (recyclerView is RecyclerView) {

@@ -107,7 +107,6 @@ public final class ImageUtil {
     /**
      * Bitmap转字节数组
      *
-     * @param byteArray
      * @return
      */
     public static byte[] bitmapToBytes(Bitmap bm) {

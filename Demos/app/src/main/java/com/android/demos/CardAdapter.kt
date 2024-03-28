@@ -23,16 +23,9 @@ class CardAdapter(private val cards: Array<Int>) : RecyclerView.Adapter<CardAdap
     }
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
-        // 设置卡片内容
         holder.cardView.findViewById<AppCompatImageView>(R.id.idImg).setImageResource(cards[position])
         val idImgShadow = holder.cardView.findViewById<ImageView>(R.id.idImgShadow)
-//        imageView.setImageResource(cards[position])
-        // 设置图片倾斜45度
-        idImgShadow.setImageBitmap(
-            ImageUtil.createReflectionImageWithOrigin(
-                ImageUtil.drawableToBitmap(getDrawable(holder.cardView.context, cards[position]))
-            )
-        );
+        idImgShadow.setImageResource(cards[position])
     }
 
     override fun getItemCount(): Int {
