@@ -9,6 +9,7 @@ interface Ctrl {
 
     /**
      * 可分离写出的通用方法
+     * @author hf
      */
     object Functions {
 

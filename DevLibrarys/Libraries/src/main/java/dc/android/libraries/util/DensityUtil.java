@@ -65,9 +65,8 @@ public class DensityUtil {
     }
 
 
-
     //获取屏幕原始尺寸高度，包括虚拟功能键高度
-    public static int getScreenRealHeight(Context context){
+    public static int getScreenRealHeight(Context context) {
         int dpi = 0;
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = windowManager.getDefaultDisplay();
@@ -77,10 +76,10 @@ public class DensityUtil {
         try {
             c = Class.forName("android.view.Display");
             @SuppressWarnings("unchecked")
-            Method method = c.getMethod("getRealMetrics",DisplayMetrics.class);
+            Method method = c.getMethod("getRealMetrics", DisplayMetrics.class);
             method.invoke(display, displayMetrics);
-            dpi=displayMetrics.heightPixels;
-        }catch(Exception e){
+            dpi = displayMetrics.heightPixels;
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return dpi;
