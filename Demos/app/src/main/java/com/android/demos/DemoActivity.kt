@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.animation.AnticipateInterpolator
-import android.view.animation.ScaleAnimation
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
@@ -27,48 +26,13 @@ class DemoActivity : AppCompatActivity() {
         viewPager.adapter = mAdapter
         viewPager.offscreenPageLimit = 5
         viewPager.setPageTransformer { page, position ->
-//            ScalePageTransformer(false)
-
-            val scale = 1 - Math.abs(position)
-            val translate = position * page.width / 2
-            val transform = ScaleAnimation(scale, scale, scale, translate)
+            val transform = if (position == 0F) {
+                AnimationUtils.loadAnimation(this, R.anim.scale_anim_menu_bigger)
+            } else {
+                AnimationUtils.loadAnimation(this, R.anim.scale_anim_menu_smaller)
+            }
             transform.interpolator = AnticipateInterpolator()
-//    page.applyAnimation(R.anim.scale_anim, true)
-            page.startAnimation(AnimationUtils.loadAnimation(this, R.anim.scale_anim))
-//            val scale = 1 - abs(position)
-//            val alpha = (scale * 255).toInt()
-//            page.scaleX = scale
-//            page.scaleY = scale
-//            page.alpha = alpha / 255.0f
-//            val scale = 1 - abs(position)
-            //val alpha = (scale * 255).toInt()
-//            page.scaleX = scale
-//            page.scaleY = scale
-            //page.alpha = alpha / 255.0f
-
-//            LogUtils.printI(TAG, "PageTransformer---position="+position);
-//            page.pivotX = page.width.toFloat() / 2
-//            page.pivotY = page.height.toFloat() / 2.0f
-//            if (position == 0f) {
-//                page.scaleX = 1.3f
-//                page.scaleY = 1.3f
-//                Handler(Looper.myLooper()!!).postDelayed({
-//                    page.scaleX = 1.0f
-//                    page.scaleY = 1.0f
-//                    page.elevation = 0f
-//                }, 500)
-//            } else {
-//                page.scaleX = 1.0f
-//                page.scaleY = 1.0f
-//                page.elevation = 0f
-//            }
-
-            // 如果页面在可见阈值之内，则显示
-//            if (abs(position) <= 3.5f) {
-//                page.visibility = View.VISIBLE
-//            } else {
-//                page.visibility = View.INVISIBLE
-//            }
+            page.startAnimation(transform)
         }
         // 添加页面变换监听器，用于处理选中效果
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -135,33 +99,6 @@ class MultiPageTransformer2 : ViewPager2.PageTransformer {
     }
 }
 
-class MultiPageTransformer : ViewPager2.PageTransformer {
-    private val NUM_PAGES = 5 // 同时显示的页面数量
-
-    override fun transformPage(page: View, position: Float) {
-        val scale: Float = 1 - abs(position) * 0.3f // 缩放比例
-        val alpha: Float = (scale * 255).toInt() / 255.0f // 透明度
-
-        // 设置页面的缩放
-        page.scaleX = scale
-        page.scaleY = scale
-
-        // 设置页面的透明度
-        page.alpha = alpha
-
-        // 根据位置调整页面的 X 坐标，使其偏移屏幕
-        val offset = (position * page.width * (1 - scale)).toInt()
-        page.translationX = offset.toFloat()
-
-        // 如果页面完全在屏幕左侧或右侧，设置其不可见
-        if (position.coerceIn(-1f, 1f) < 0) {
-            page.visibility = View.INVISIBLE
-        } else {
-            page.visibility = View.VISIBLE
-        }
-    }
-}
-
 class ScalePageTransformer(
     private val isFill: Boolean
 ) : ViewPager2.PageTransformer {
@@ -191,7 +128,7 @@ class ScalePageTransformer(
             view.scaleY = scaleValue
             isScaling = true
         } else {
-            val animation = AnimationUtils.loadAnimation(view.context, R.anim.scale_anim)
+            val animation = AnimationUtils.loadAnimation(view.context, R.anim.scale_anim_menu_smaller)
             animation.duration = 300
             animation.fillAfter = true
             view.startAnimation(animation)
