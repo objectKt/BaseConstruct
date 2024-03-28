@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.animation.AnimationUtils
 import android.view.animation.AnticipateInterpolator
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewbinding.BuildConfig
 import androidx.viewpager2.widget.ViewPager2
 import dc.android.libraries.R
 import dc.android.libraries.adapter.CardAdapter

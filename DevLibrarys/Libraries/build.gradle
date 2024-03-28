@@ -30,13 +30,17 @@ android {
 }
 
 dependencies {
+    /* 官方 */
     implementation libs.androidx.core.ktx
     implementation libs.androidx.appcompat
     implementation libs.google.material
+    //
     api libs.squareup.okhttp
     api libs.github.net
     api libs.github.event
     api libs.github.list
+    api libs.github.serialize
+    api libs.github.logcat
     /* ViewPager2 */
     api libs.androidx.viewpager2
     /* StringUtils */

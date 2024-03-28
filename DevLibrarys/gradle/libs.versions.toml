@@ -17,6 +17,8 @@ squareup-okhttp = "com.squareup.okhttp3:okhttp:4.10.0"
 github-net = "com.github.liangjingkanji:Net:3.6.4"
 github-list = "com.github.liangjingkanji:BRV:1.5.8"
 github-event = "com.github.liangjingkanji:Channel:1.1.5"
+github-serialize = "com.github.liangjingkanji:Serialize:3.0.1"
+github-logcat = "com.github.liangjingkanji:LogCat:1.2.4"
 com-permission = "com.guolindev.permissionx:permissionx:1.7.1"
 
 [plugins]
