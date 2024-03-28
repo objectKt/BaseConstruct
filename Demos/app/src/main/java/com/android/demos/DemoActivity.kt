@@ -30,7 +30,7 @@ class DemoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_demo)
         val viewPager = findViewById<ViewPager2>(R.id.view_pager)
-        val cards = arrayOf(R.mipmap.ic_menu_bg, R.mipmap.ic_menu_sport, R.mipmap.ic_menu_bg, R.mipmap.ic_menu_sport, R.mipmap.ic_menu_bg) // 假设有10张卡片
+        val cards = arrayOf(R.mipmap.ic_menu_classic, R.mipmap.ic_menu_sport, R.mipmap.ic_menu_tech, R.mipmap.ic_menu_map, R.mipmap.ic_menu_maintain) // 假设有10张卡片
         mAdapter = CardAdapter(cards)
         viewPager.adapter = mAdapter
         viewPager.offscreenPageLimit = 5
