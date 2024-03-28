@@ -23,7 +23,7 @@ interface Ctrl {
                         cardAdapter.getViewHolderAtPosition(position)
                     }
                 })
-                setCurrentItem(1, true)
+                setCurrentItem(3, true)
             }
             oneScreenSomePager(recyclerView, padding)
         }

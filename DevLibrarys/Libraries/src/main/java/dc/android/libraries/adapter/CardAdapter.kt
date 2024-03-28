@@ -37,7 +37,7 @@ class CardAdapter(private val cardImgResIds: Array<Int>) : RecyclerView.Adapter<
 
     fun getViewHolderAtPosition(position: Int) {
         viewHolders.forEach { holder ->
-            if (holder.adapterPosition != position) {
+            if (holder.bindingAdapterPosition != position) {
                 holder.itemView.findViewById<TextView>(R.id.idBorder)?.visibility = View.GONE
                 holder.cardView.findViewById<ImageView>(R.id.idImgShadow)?.visibility = View.GONE
             } else {
