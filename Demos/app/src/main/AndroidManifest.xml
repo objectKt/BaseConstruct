@@ -16,7 +16,6 @@
         <activity
             android:name=".DemoViewPagerCardViewAnimationMenuActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.Demos">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
