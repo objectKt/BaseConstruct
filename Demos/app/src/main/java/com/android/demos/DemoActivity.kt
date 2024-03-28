@@ -59,8 +59,7 @@ class DemoActivity : AppCompatActivity() {
             }
         })
 
-        //val padding = (DensityUtil.getScreenWidth(this) / 2.65f).roundToInt()
-        val padding = 720
+        val padding = (DensityUtil.getScreenWidth(this) / 2.65f).roundToInt()
         Log.e("大川汽配", "padding $padding")
         //一屏多页
         val recyclerView: View = viewPager.getChildAt(0)
@@ -68,7 +67,6 @@ class DemoActivity : AppCompatActivity() {
             recyclerView.setPadding(padding, 0, padding, 0)
             recyclerView.setClipToPadding(false)
         }
-
 
 //        menuAdapter.setOnItemClickListener((adapter, view, position) -> {
 //            currentPosition = position;
