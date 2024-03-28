@@ -33,8 +33,18 @@ dependencies {
     implementation libs.androidx.core.ktx
     implementation libs.androidx.appcompat
     implementation libs.google.material
+    api libs.squareup.okhttp
+    api libs.github.net
+    api libs.github.event
+    api libs.github.list
     /* ViewPager2 */
     api libs.androidx.viewpager2
     /* StringUtils */
     api libs.apache.commons.lang3
+    /* TCP/UDP/ByteBufUtil */
+    api libs.io.netty
+    /* Users Permission */
+    api libs.com.permission
+    /* 序列化工具 */
+    api libs.kotlinx.serialization.json
 }

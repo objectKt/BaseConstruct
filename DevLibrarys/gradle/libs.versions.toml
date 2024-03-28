@@ -3,13 +3,21 @@ agp = "8.3.0"
 kotlin = "1.9.0"
 
 [libraries]
-apache-commons-lang3 = "org.apache.commons:commons-lang3:3.12.0"
 androidx-core-ktx = "androidx.core:core-ktx:1.12.0"
 androidx-lifecycle-runtime-ktx = "androidx.lifecycle:lifecycle-runtime-ktx:2.7.0"
 androidx-appcompat = "androidx.appcompat:appcompat:1.6.1"
-google-material = "com.google.android.material:material:1.10.0"
 androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.4"
 androidx-viewpager2 = "androidx.viewpager2:viewpager2:1.0.0"
+google-material = "com.google.android.material:material:1.10.0"
+apache-commons-lang3 = "org.apache.commons:commons-lang3:3.12.0"
+io-netty = "io.netty:netty-all:4.1.52.Final"
+kotlinx-serialization-json = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0"
+#noinspection GradleDependency
+squareup-okhttp = "com.squareup.okhttp3:okhttp:4.10.0"
+github-net = "com.github.liangjingkanji:Net:3.6.4"
+github-list = "com.github.liangjingkanji:BRV:1.5.8"
+github-event = "com.github.liangjingkanji:Channel:1.1.5"
+com-permission = "com.guolindev.permissionx:permissionx:1.7.1"
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
