@@ -1,25 +1,51 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/idCardView"
     style="@style/CustomCardViewStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/idImg"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="146dp"
-        android:layout_gravity="center"
-        android:background="@android:color/transparent"
-        android:scaleType="fitXY"
-        app:srcCompat="@mipmap/ic_menu_bg" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/idBorder"
-        android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="146dp"
-        android:layout_gravity="center"
-        android:background="@drawable/shape_border_stroke" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/idImg"
+            android:layout_width="match_parent"
+            android:layout_height="146dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/ic_menu_bg" />
+
+        <TextView
+            android:id="@+id/idBorder"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/shape_border_stroke"
+            app:layout_constraintBottom_toBottomOf="@id/idImg"
+            app:layout_constraintEnd_toEndOf="@id/idImg"
+            app:layout_constraintStart_toStartOf="@id/idImg"
+            app:layout_constraintTop_toTopOf="@id/idImg" />
+
+        <ImageView
+            android:id="@+id/idImgShadow"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:layout_gravity="bottom"
+            android:alpha="0.4"
+            android:background="@android:color/transparent"
+            android:scaleType="centerCrop"
+            android:scaleY="-1"
+            app:layout_constraintEnd_toEndOf="@id/idImg"
+            app:layout_constraintStart_toStartOf="@id/idImg"
+            app:layout_constraintTop_toBottomOf="@id/idImg"
+            tools:ignore="ContentDescription" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

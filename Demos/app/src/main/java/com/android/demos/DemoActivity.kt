@@ -50,7 +50,7 @@ class DemoActivity : AppCompatActivity() {
             // 处理选中效果
             override fun onPageSelected(position: Int) {
                 Log.e("大川汽配", "position selected = $position")
-                //mAdapter.getViewHolderAtPosition(position)
+                mAdapter.getViewHolderAtPosition(position)
             }
 
             override fun onPageScrollStateChanged(state: Int) {

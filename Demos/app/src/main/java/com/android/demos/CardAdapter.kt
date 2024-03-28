@@ -3,11 +3,13 @@ package com.android.demos
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat.getDrawable
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.button.MaterialButton
+
 
 class CardAdapter(private val cards: Array<Int>) : RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
 
@@ -23,6 +25,14 @@ class CardAdapter(private val cards: Array<Int>) : RecyclerView.Adapter<CardAdap
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
         // 设置卡片内容
         holder.cardView.findViewById<AppCompatImageView>(R.id.idImg).setImageResource(cards[position])
+        val imageView = holder.cardView.findViewById<ImageView>(R.id.idImgShadow)
+        imageView.setImageResource(cards[position])
+        // 设置图片倾斜45度
+        imageView.setImageBitmap(
+            ImageUtil.createReflectionImageWithOrigin(
+                ImageUtil.drawableToBitmap(getDrawable(holder.cardView.context, cards[position]))
+            )
+        );
     }
 
     override fun getItemCount(): Int {
