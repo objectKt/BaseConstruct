@@ -8,11 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 
 class CardAdapter(private val cards: Array<Int>) : RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
 
+    private val viewHolders = mutableListOf<CardViewHolder>()
+
     inner class CardViewHolder(val cardView: CardView) : RecyclerView.ViewHolder(cardView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
         val cardView: CardView = LayoutInflater.from(parent.context).inflate(R.layout.item_card, parent, false) as CardView
-        return CardViewHolder(cardView)
+        return CardViewHolder(cardView).also { viewHolders.add(it) }
     }
 
     override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
@@ -25,6 +27,6 @@ class CardAdapter(private val cards: Array<Int>) : RecyclerView.Adapter<CardAdap
     }
 
     fun getViewHolderAtPosition(position: Int): CardViewHolder? {
-        return null
+        return viewHolders.firstOrNull { it.adapterPosition == position }
     }
 }

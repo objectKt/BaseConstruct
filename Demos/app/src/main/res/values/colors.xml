@@ -13,4 +13,8 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="ripple_color">#82B9FF</color>
+
+    <color name="border_flash_color">#FF0000</color>
+    <color name="ffffff">#FFFFFF</color>
+
 </resources>

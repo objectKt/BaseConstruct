@@ -1,17 +1,21 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/idCardView"
+    style="@style/CustomCardViewStyle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="8dp"
-    app:cardBackgroundColor="@android:color/transparent"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    android:clipChildren="false"
+    android:clipToPadding="false">
 
     <!-- 在这里添加卡片内容，例如TextView -->
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/idImg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="fitCenter" />
+        android:layout_height="146dp"
+        android:layout_gravity="center"
+        android:background="@android:color/white"
+        android:padding="2dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@mipmap/ic_menu_bg" />
 
 </androidx.cardview.widget.CardView>
