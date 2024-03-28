@@ -1,22 +1,15 @@
 [versions]
 agp = "8.3.0"
 kotlin = "1.9.0"
-coreKtx = "1.12.0"
-lifecycleRuntimeKtx = "2.7.0"
-appcompat = "1.6.1"
-material = "1.10.0"
-activity = "1.8.2"
-constraintlayout = "2.1.4"
-androidxViewpager2 = "1.0.0"
 
 [libraries]
-androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
-androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
-androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
-androidx-viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "androidxViewpager2" }
+apache-commons-lang3 = "org.apache.commons:commons-lang3:3.12.0"
+androidx-core-ktx = "androidx.core:core-ktx:1.12.0"
+androidx-lifecycle-runtime-ktx = "androidx.lifecycle:lifecycle-runtime-ktx:2.7.0"
+androidx-appcompat = "androidx.appcompat:appcompat:1.6.1"
+google-material = "com.google.android.material:material:1.10.0"
+androidx-constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.4"
+androidx-viewpager2 = "androidx.viewpager2:viewpager2:1.0.0"
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
