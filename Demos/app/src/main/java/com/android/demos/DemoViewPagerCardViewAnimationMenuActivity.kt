@@ -8,12 +8,11 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.AnticipateInterpolator
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import kotlin.math.roundToInt
 
-class DemoActivity : AppCompatActivity() {
+class DemoViewPagerCardViewAnimationMenuActivity : AppCompatActivity() {
 
     private lateinit var mAdapter: CardAdapter
 
