@@ -7,9 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat.getDrawable
 import androidx.recyclerview.widget.RecyclerView
-
 
 class CardAdapter(private val cards: Array<Int>) : RecyclerView.Adapter<CardAdapter.CardViewHolder>() {
 
@@ -36,8 +34,10 @@ class CardAdapter(private val cards: Array<Int>) : RecyclerView.Adapter<CardAdap
         viewHolders.forEach { holder ->
             if (holder.adapterPosition != position) {
                 holder.itemView.findViewById<TextView>(R.id.idBorder)?.visibility = View.GONE
+                //holder.cardView.findViewById<ImageView>(R.id.idImgShadow)?.visibility = View.GONE
             } else {
                 holder.itemView.findViewById<TextView>(R.id.idBorder)?.visibility = View.VISIBLE
+                //holder.cardView.findViewById<ImageView>(R.id.idImgShadow)?.visibility = View.VISIBLE
             }
         }
     }
