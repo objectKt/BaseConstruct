@@ -13,6 +13,24 @@ interface Ctrl {
      */
     object Functions {
 
+        fun initViewPagerMenu(cardAdapter: CardAdapter, viewPager: ViewPager2, recyclerView: View, padding: Int) {
+            with(recyclerView) {
+                if (this is RecyclerView) {
+                    setPadding(padding, 0, padding, 0)
+                    setClipToPadding(false)
+                }
+            }
+            with(viewPager) {
+                adapter = cardAdapter
+                offscreenPageLimit = 5
+                registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                    override fun onPageSelected(position: Int) {
+                        cardAdapter.getViewHolderAtPosition(position)
+                    }
+                })
+            }
+        }
+
         fun initViewPagerMenu(cardAdapter: CardAdapter, viewPager: ViewPager2, recyclerView: View, padding: Int, animationTransform: ViewPager2.PageTransformer) {
             with(recyclerView) {
                 if (this is RecyclerView) {
