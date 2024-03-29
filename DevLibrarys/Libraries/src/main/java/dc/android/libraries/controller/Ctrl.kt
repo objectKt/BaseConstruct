@@ -14,6 +14,12 @@ interface Ctrl {
     object Functions {
 
         fun initViewPagerMenu(cardAdapter: CardAdapter, viewPager: ViewPager2, recyclerView: View, padding: Int, animationTransform: ViewPager2.PageTransformer) {
+            with(recyclerView) {
+                if (this is RecyclerView) {
+                    setPadding(padding, 0, padding, 0)
+                    setClipToPadding(false)
+                }
+            }
             with(viewPager) {
                 adapter = cardAdapter
                 offscreenPageLimit = 5
@@ -24,14 +30,6 @@ interface Ctrl {
                     }
                 })
                 setCurrentItem(3, true)
-            }
-            oneScreenSomePager(recyclerView, padding)
-        }
-
-        private fun oneScreenSomePager(recyclerView: View, padding: Int) {
-            if (recyclerView is RecyclerView) {
-                recyclerView.setPadding(padding, 0, padding, 0)
-                recyclerView.setClipToPadding(false)
             }
         }
     }
