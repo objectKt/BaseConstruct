@@ -29,7 +29,6 @@ interface Ctrl {
                         cardAdapter.getViewHolderAtPosition(position)
                     }
                 })
-                setCurrentItem(3, true)
             }
         }
     }

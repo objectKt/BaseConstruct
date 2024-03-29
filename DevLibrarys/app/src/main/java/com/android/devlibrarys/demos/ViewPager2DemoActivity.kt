@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.animation.AnimationUtils
 import android.view.animation.AnticipateInterpolator
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewbinding.BuildConfig
 import androidx.viewpager2.widget.ViewPager2
 import dc.android.libraries.R
 import dc.android.libraries.adapter.CardAdapter
 import dc.android.libraries.controller.Ctrl
 import dc.android.libraries.util.DensityUtil
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
 class ViewPager2DemoActivity : AppCompatActivity() {
@@ -30,6 +33,10 @@ class ViewPager2DemoActivity : AppCompatActivity() {
                 this.interpolator = AnticipateInterpolator()
                 page.startAnimation(this)
             }
+        }
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(100)
+            viewPager.setCurrentItem(3, true)
         }
     }
 }
