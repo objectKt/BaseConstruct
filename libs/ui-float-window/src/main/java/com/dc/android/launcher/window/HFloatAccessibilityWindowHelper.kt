@@ -1,5 +1,6 @@
 package com.dc.android.launcher.window
 
+import android.accessibilityservice.AccessibilityService
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.PixelFormat
@@ -14,6 +15,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
+import com.dc.android.launcher.serialize.data.ConfigDataActivity
 import kotlin.math.abs
 
 /**
@@ -56,9 +58,25 @@ class HFloatAccessibilityWindowHelper(context: Context) {
         idMenuSettings = mViewRoot?.findViewById(R.id.idMenuSettings)
         mViewRoot?.setOnTouchListener(FloatingOnTouchListener())
         idMenuRoot?.setOnTouchListener { _, _ -> false } // 允许触摸事件继续传递
-        idMenuHome?.setOnClickListener { hideSubMenus() }
-        idMenuBack?.setOnClickListener { hideSubMenus() }
-        idMenuSettings?.setOnClickListener { hideSubMenus() }
+        idMenuHome?.setOnClickListener {
+            hideSubMenus()
+            if (mFloatWindowLayoutDelegate != null)
+                mFloatWindowLayoutDelegate?.onHome()
+        }
+        idMenuBack?.setOnClickListener {
+            hideSubMenus()
+            if (ConfigDataActivity.isHomeActVisible) {
+                // 当前处于应用内
+                if (mFloatWindowLayoutDelegate != null)
+                    mFloatWindowLayoutDelegate?.onBackInside()
+            } else {
+                val accessService = HAccessibilityService.mAccessibilityService
+                accessService?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK) ?: Toast.makeText(mContext, "未开启无障碍服务，无法使用系统返回键接口", Toast.LENGTH_LONG).show()
+            }
+        }
+        idMenuSettings?.setOnClickListener {
+            hideSubMenus()
+        }
         idMenuRoot?.visibility = View.VISIBLE
         initFloatWindow()
     }
@@ -70,12 +88,12 @@ class HFloatAccessibilityWindowHelper(context: Context) {
             return false
         }
         try {
+            mViewRoot?.visibility = View.VISIBLE
             mWindowParams?.width = 400
-            mWindowParams?.height = 600
+            mWindowParams?.height = 500
             mWindowManager!!.addView(mViewRoot, mWindowParams)
         } catch (e: Exception) {
             e.printStackTrace()
-            Toast.makeText(mContext, "悬浮失败", Toast.LENGTH_SHORT).show()
             return false
         }
         mWindowMode = WINDOW_MODE_FLOAT
@@ -88,9 +106,6 @@ class HFloatAccessibilityWindowHelper(context: Context) {
         }
         if (mViewRoot?.isAttachedToWindow == true) {
             mWindowManager?.removeView(mViewRoot)
-        }
-        if (mFloatWindowLayoutDelegate != null) {
-            mFloatWindowLayoutDelegate!!.onClose()
         }
         mWindowMode = WINDOW_MODE_FULL
         return true
@@ -185,14 +200,10 @@ class HFloatAccessibilityWindowHelper(context: Context) {
 
 
     interface FloatWindowLayoutDelegate {
-        /**
-         * 点击悬浮窗中的关闭按钮等会回调该通知
-         */
-        fun onClose()
 
-        fun onBackPage()
+        fun onBackInside()
 
-        fun onReturnHome()
+        fun onHome()
 
         fun onSetSysVolume()
 

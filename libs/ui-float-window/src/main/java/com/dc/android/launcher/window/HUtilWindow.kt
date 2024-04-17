@@ -6,14 +6,20 @@ import android.provider.Settings
 
 object HUtilWindow {
 
-    fun accessShow(context: Context) {
+    fun accessShow(context: Context, listener: HFloatAccessibilityWindowHelper.FloatWindowLayoutDelegate? = null) {
         if (HAccessibilityService.mAccessibilityService == null) {
             Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 context.startActivity(this)
             }
         } else {
-            HFloatAccessibilityWindowHelper.getInstance(context)?.showFloatWindow()
+            val floatHelper = HFloatAccessibilityWindowHelper.getInstance(context)
+            floatHelper?.setFloatWindowLayoutDelegate(listener)
+            floatHelper?.showFloatWindow()
+            Intent(Settings.ACTION_SETTINGS).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                context.startActivity(this)
+            }
         }
     }
 }
