@@ -21,7 +21,7 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':util-global')
+    implementation project(path: ':lib-utils-global')
     implementation libs.androidx.startup
     implementation libs.tencent.mmkv
     implementation libs.drake.serialize

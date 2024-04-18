@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  倒车视频轨迹  -->
+    <integer-array name="trajectory_array">
+        <item>@mipmap/trajectory_00</item>
+        <item>@mipmap/trajectory_01</item>
+        <item>@mipmap/trajectory_02</item>
+        <item>@mipmap/trajectory_03</item>
+        <item>@mipmap/trajectory_04</item>
+        <item>@mipmap/trajectory_05</item>
+        <item>@mipmap/trajectory_06</item>
+        <item>@mipmap/trajectory_07</item>
+        <item>@mipmap/trajectory_08</item>
+        <item>@mipmap/trajectory_09</item>
+        <item>@mipmap/trajectory_10</item>
+        <item>@mipmap/trajectory_11</item>
+        <item>@mipmap/trajectory_12</item>
+        <item>@mipmap/trajectory_13</item>
+        <item>@mipmap/trajectory_14</item>
+        <item>@mipmap/trajectory_15</item>
+        <item>@mipmap/trajectory_16</item>
+        <item>@mipmap/trajectory_17</item>
+        <item>@mipmap/trajectory_18</item>
+        <item>@mipmap/trajectory_19</item>
+        <item>@mipmap/trajectory_20</item>
+        <item>@mipmap/trajectory_21</item>
+        <item>@mipmap/trajectory_22</item>
+        <item>@mipmap/trajectory_23</item>
+        <item>@mipmap/trajectory_24</item>
+        <item>@mipmap/trajectory_25</item>
+        <item>@mipmap/trajectory_26</item>
+        <item>@mipmap/trajectory_27</item>
+        <item>@mipmap/trajectory_28</item>
+        <item>@mipmap/trajectory_29</item>
+        <item>@mipmap/trajectory_30</item>
+        <item>@mipmap/trajectory_31</item>
+        <item>@mipmap/trajectory_32</item>
+        <item>@mipmap/trajectory_33</item>
+        <item>@mipmap/trajectory_34</item>
+    </integer-array>
+
+    <!--  氛围灯 64 个单色  -->
+    <string-array name="lin_single_colors">
+        <item>#0000ff</item>
+        <item>#1000ff</item>
+        <item>#2600ff</item>
+        <item>#3000ff</item>
+        <item>#4330ff</item>
+        <item>#6900c0</item>
+        <item>#8018ff</item>
+        <item>#da08ff</item>
+        <item>#ff10e0</item>
+        <item>#ff00a0</item>
+        <item>#ff1070</item>
+        <item>#ff0068</item>
+        <item>#ff0040</item>
+        <item>#ff1328</item>
+        <item>#ff1c28</item>
+        <item>#fb2021</item>
+        <item>#ff0000</item>
+        <item>#ff2c00</item>
+        <item>#ff6000</item>
+        <item>#ff7000</item>
+        <item>#ff7800</item>
+        <item>#f9c600</item>
+        <item>#ebac09</item>
+        <item>#e5a009</item>
+        <item>#efbc12</item>
+        <item>#ffd018</item>
+        <item>#A09515</item>
+        <item>#A09920</item>
+        <item>#A09C29</item>
+        <item>#A09C2E</item>
+        <item>#60661C</item>
+        <item>#606620</item>
+        <item>#607020</item>
+        <item>#607825</item>
+        <item>#608025</item>
+        <item>#60A925</item>
+        <item>#70e025</item>
+        <item>#80ff10</item>
+        <item>#a0ff08</item>
+        <item>#90FF08</item>
+        <item>#98FF06</item>
+        <item>#6AFF05</item>
+        <item>#50FF05</item>
+        <item>#10FF10</item>
+        <item>#40F920</item>
+        <item>#20b920</item>
+        <item>#28b028</item>
+        <item>#20B030</item>
+        <item>#20A030</item>
+        <item>#20A050</item>
+        <item>#20A055</item>
+        <item>#10B05C</item>
+        <item>#10A060</item>
+        <item>#10A070</item>
+        <item>#108075</item>
+        <item>#109095</item>
+        <item>#30F0F0</item>
+        <item>#20C0D0</item>
+        <item>#17b0d0</item>
+        <item>#10b0d0</item>
+        <item>#10A0D0</item>
+        <item>#10A0D0</item>
+        <item>#1810cc</item>
+        <item>#1090F0</item>
+    </string-array>
+
+    <integer-array name="lin_mul_array">
+        <item>@mipmap/ic_mul_color0</item>
+        <item>@mipmap/ic_mul_color1</item>
+        <item>@mipmap/ic_mul_color2</item>
+        <item>@mipmap/ic_mul_color3</item>
+        <item>@mipmap/ic_mul_color4</item>
+        <item>@mipmap/ic_mul_color5</item>
+        <item>@mipmap/ic_mul_color6</item>
+        <item>@mipmap/ic_mul_color7</item>
+        <item>@mipmap/ic_mul_color8</item>
+        <item>@mipmap/ic_mul_color9</item>
+    </integer-array>
+
+    <string name="mul_color_type1">湖滨晴雨</string>
+    <string name="mul_color_type2">曲院风荷</string>
+    <string name="mul_color_type3">雷峰夕照</string>
+    <string name="mul_color_type4">月泉晓彻</string>
+    <string name="mul_color_type5">琼岛春阴</string>
+    <string name="mul_color_type6">西山晴雪</string>
+    <string name="mul_color_type7">平湖秋月</string>
+    <string name="mul_color_type8">云栖竹径</string>
+    <string name="mul_color_type9">洞庭秋月</string>
+    <string name="mul_color_type10">苏提春晓</string>
+
+    <string-array name="lin_mul_color_type">
+        <item>@string/mul_color_type1</item>
+        <item>@string/mul_color_type2</item>
+        <item>@string/mul_color_type3</item>
+        <item>@string/mul_color_type4</item>
+        <item>@string/mul_color_type5</item>
+        <item>@string/mul_color_type6</item>
+        <item>@string/mul_color_type7</item>
+        <item>@string/mul_color_type8</item>
+        <item>@string/mul_color_type9</item>
+        <item>@string/mul_color_type10</item>
+    </string-array>
+
+</resources>

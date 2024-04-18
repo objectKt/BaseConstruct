@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'com.dc.android.launcher.util'
+    namespace 'com.dc.android.launcher.protocol'
     compileSdk libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
@@ -21,7 +21,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.appcompat)
-    api(libs.threeten)
-    api(libs.apache.commons.lang)
+    implementation project(path: ':lib-utils-global')
+    implementation project(path: ':lib-data-serialize')
 }

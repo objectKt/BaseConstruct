@@ -1,10 +1,9 @@
 plugins {
     alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.jetbrainsKotlinAndroid)
 }
 
 android {
-    namespace 'com.dc.android.launcher.util'
+    namespace 'dc.res'
     compileSdk libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
@@ -16,12 +15,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
-    kotlinOptions { jvmTarget = '1.8' }
 }
 
 dependencies {
-    implementation(libs.androidx.appcompat)
-    api(libs.threeten)
-    api(libs.apache.commons.lang)
+    implementation project(path: ':lib-utils-global')
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.material
 }
