@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="accessibility_description">开启无障碍悬浮菜单功能后，返回应用就可以重新进入设置</string>
-    <string name="accessibility_service_description">悬浮菜单功能</string>
+    <string name="accessibility_description">⚠️⚠️⚠️注意：上述快捷方式不用开启，只需要开启第一项。开启后原路返回应用，可重新进入真正的系统设置页面</string>
+    <string name="accessibility_service_description">此处开启悬浮菜单功能(必须)</string>
 </resources>

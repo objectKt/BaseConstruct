@@ -24,10 +24,8 @@ import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.FileWriter
 import java.io.IOException
-import java.math.BigInteger
 import java.net.URLDecoder
 import java.net.URLEncoder
-import java.nio.charset.Charset
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -41,44 +39,63 @@ interface HUtils {
         fun getStringArray(@ArrayRes resId: Int): Array<out String> = AppGet.appContext().resources.getStringArray(resId)
     }
 
-    object Byte {
-        /**
-         * 单字节转十进制数字，输出转换后的无符号整数值
-         */
-        fun byteToUInt(byte: kotlin.Byte): Int = (byte.toInt() and 0xFF)
-
-        /**
-         * 单字节转十六进制字符
-         */
-        fun byteToHex(byte: kotlin.Byte): String = String.format("%02X", byte)
-
-        /**
-         * 无汉字十六进制字符串 转 字节数组
-         */
-        fun heXXToBytes(str: String): ByteArray = ByteArray(str.length / 2) { str.substring(it * 2, it * 2 + 2).toInt(16).toByte() }
-
-        /**
-         * 单字节转二进制字符串
-         */
-        fun byteToBinaryString(byte: kotlin.Byte): String = Integer.toBinaryString(byte.toInt()).padStart(8, '0')
-
-        /**
-         * 字节数组转十六进制字符串，没有空格，XX 大写
-         * 用于传输
-         */
-        @Suppress("LocalVariableName")
-        fun bytesToHeXX(bytes: ByteArray): String = buildString {
-            for (XX in bytes) {
-                append(String.format("%02X", XX))
-            }
+    object MathX {
+        /* 随机选择 eg：mutableListOf("0", "1", "2", "3", "4", "5", "6", "7", "8") */
+        fun randomSelect(lst: List<String>): String {
+            var result = ""
+            lst.shuffled().take(1).forEach { result = it }
+            return result
         }
 
-        fun byteArrayToBitmap(bytesArray: ByteArray?): Bitmap? {
-            if (bytesArray == null) {
-                return null
+        fun formatNumber(number: Int): String = if (number in 0..9) "0$number" else number.toString()
+    }
+
+    // import com.ta pa doo.alerter.Alerter
+    object StringX {
+        /* Iterable 类型和 Array 类型 */
+        /* 将一个可迭代对象（如列表、集合或数组）中的所有元素转换成一个由指定分隔符分隔的字符串 */
+        fun listToString(strLst: List<String>, sep: String = "") = strLst.joinToString(separator = sep)
+
+        fun utf8StringToHex(utf8String: String): String = utf8String.map { it.code.toString(16).padStart(2, '0') }.joinToString(separator = "")
+
+        /* 解决中文字符串的显示乱码问题(MySQL出现过) */
+        fun handleChineseCharsets(content: String): String = URLDecoder.decode(URLEncoder.encode(content, "ISO-8859-1"), "UTF-8")
+    }
+
+    object Byte {
+        /* 字节数组 转16进制字符串，没有空格，XX 大写, 用于传输 */
+        fun bytesToHeXX(bytes: ByteArray): String = buildString { bytes.forEach { append(String.format("%02X", it)) } }
+
+        /* 无汉字16进制字符串转  字节数组 */
+        fun heXXToBytes(str: String): ByteArray = ByteArray(str.length / 2) { str.substring(it * 2, it * 2 + 2).toInt(16).toByte() }
+
+        /* 单字节  转十进制数字，输出转换后的无符号整数值 */
+        fun byteToUInt(byte: kotlin.Byte): Int = (byte.toInt() and 0xFF)
+
+        /* 单字节  转16进制字符 */
+        fun byteToHex(byte: kotlin.Byte): String = String.format("%02X", byte)
+
+        /* 单字节  转二进制字符串 */
+        fun byteToBinaryString(byte: kotlin.Byte): String = Integer.toBinaryString(byte.toInt()).padStart(8, '0')
+
+        /* 4字节长度：16进制字符串 转整数 */
+        fun hexOf4BytesToInt(hex: String): Int = heXXToBytes(hex).let { it[3].toInt() and 0xFF or (it[2].toInt() and 0xFF shl 8) or (it[1].toInt() and 0xFF shl 16) or (it[0].toInt() and 0xFF shl 24) }
+
+        // 2字节长度：16进制字符串 转整数
+        fun hexOf2BytesToInt(strHex: String): Int = strHex.toInt(16)
+
+        /* 字节流转 Bitmap */
+        fun byteArrayToBitmap(bytesArray: ByteArray?): Bitmap? = bytesArray?.let { BitmapFactory.decodeStream(ByteArrayInputStream(it)) }
+
+        /* char 字母数组 转化为 16进制字符串 */
+        fun charsToHex(chars: CharArray): String = bytesToHeXX(charsToBytes(chars))
+
+        private fun charsToBytes(chars: CharArray): ByteArray {
+            val bytes = ByteArray(chars.size)
+            for (i in chars.indices) {
+                bytes[i] = (chars[i].code - 48).toByte()
             }
-            val inputStream = ByteArrayInputStream(bytesArray)
-            return BitmapFactory.decodeStream(inputStream)
+            return bytes
         }
 
         fun hexToString(hex: String): String {
@@ -102,31 +119,18 @@ interface HUtils {
          * @param b2 ByteArray
          * @return Boolean
          */
-        fun equals(b1 : ByteArray , b2 : ByteArray) : Boolean
-        {
-            if (b1.size == b2.size)
-            {
-                for (i in b1.indices)
-                {
-                    if (b1[i] != b2[i])
-                    {
+        fun equals(b1: ByteArray, b2: ByteArray): Boolean {
+            if (b1.size == b2.size) {
+                for (i in b1.indices) {
+                    if (b1[i] != b2[i]) {
                         return false
                     }
                 }
                 return true
-            }
-            else
-            {
+            } else {
                 return false
             }
         }
-
-        fun hexOf4BytesToInt(hex : String) : Int
-        {
-            val b = heXXToBytes(hex)
-            return b[3].toInt() and 0xFF or (b[2].toInt() and 0xFF shl 8) or (b[1].toInt() and 0xFF shl 16) or (b[0].toInt() and 0xFF shl 24)
-        }
-
         /**
          * 将Base16进制数字解密成明文（包括中文）
          * public static String decodeHex2ChineseStr(String hexStr, Charset charsetName) {
@@ -199,36 +203,9 @@ interface HUtils {
          *     }
          *
          */
-        fun decodeHex2ChineseStr(hexStr: String, charsetName: Charset?): String {
-            var hexStr = hexStr
-            val tmpStr: String
-            if (hexStr.length <= 4) {
-                return hexStr
-            }
-            try {
-                if (hexStr.length % 2 != 0) {
-                    hexStr += "00"
-                }
-                val byteLength = hexStr.length / 2
-                val bytes = ByteArray(byteLength)
-                var temp: Int
-                for (i in 0 until byteLength) {
-                    val tmpInt = BigInteger(hexStr[2 * i].toString() + "", 16).toString(10).toInt()
-                    val tmpInt2 = BigInteger(hexStr[2 * i + 1].toString() + "", 16).toString(10).toInt()
-                    temp = tmpInt * 16 + tmpInt2
-                    bytes[i] = (if (temp < 128) temp else temp - 256).toByte()
-                }
-                tmpStr = String(bytes, charsetName!!)
-                return tmpStr
-            } catch (ex: java.lang.Exception) {
-                Log.e("error", "decodeHexToStr try error")
-            }
-            return "-1"
-        }
-
     }
 
-    object FileX{
+    object FileX {
 
         fun getFileSize(file: File?): Int {
             val fis: FileInputStream
@@ -320,37 +297,11 @@ interface HUtils {
     }
 
     object Str {
-        /** import com.tapadoo.alerter.Alerter
-         * 解决中文字符串的显示乱码问题(MySQL出现过)
-         */
-        fun handleChineseCharsets(content: String): String {
-            val encode = URLEncoder.encode(content, "ISO-8859-1")
-            return URLDecoder.decode(encode, "UTF-8")
-        }
-
-        fun randomSelect(): String {
-            val array = mutableListOf("0", "1", "2", "3", "4", "5", "6", "7", "8")
-            var result = ""
-            array.shuffled().take(1).forEach {
-                result = it
-            }
-            return result
-        }
-
-        fun formatNumber(number: Int): String {
-            if (number in 0..9) {
-                return "0$number"
-            }
-            return number.toString()
-        }
-
         fun replaceBlanks(str: String): String = str.replace(" ", "")
     }
 
-    object Date {
-        /**
-         * 日期转时间戳
-         */
+    object DateX {
+        /* 指定日期转时间戳 */
         fun dataTimeToSecondsTimeStamp(time: String?, pattern: String = "yyyy-MM-dd HH:mm:ss"): Long {
             try {
                 val date: LocalDateTime = LocalDateTime.parse(time, DateTimeFormatter.ofPattern(pattern))
@@ -362,6 +313,15 @@ interface HUtils {
             return 0L
         }
 
+        /* 时间戳转 16进制 */
+        fun timestampToHex(): String = java.lang.Long.toHexString(System.currentTimeMillis()).uppercase()
+
+        /* 16进制转时间戳 */
+        fun hexToTimestamp(hexString: String): Long = java.lang.Long.parseLong(hexString, 16)
+
+        fun timestampToClock(): String = getCurrentTime("HH:mm:ss  yy-MM-dd")
+
+        // 将十进制字符串转换为十六进制字符串
         /**
          * 時間戳轉日期
          */
@@ -429,33 +389,5 @@ interface HUtils {
 //        fun jsonToHex(jsonStr: String): String {
 //            return ByteArrayUtil.toHeX(jsonStr.toByteArray(Charsets.UTF_8))
 //        }
-
-        /**
-         * char字母数组 转化为 16进制字符串
-         */
-        fun charsToHex(chars: CharArray): String {
-            val bytes = charsToBytes(chars)
-            return HUtils.Byte.bytesToHeXX(bytes)
-        }
-
-        /**
-         * 16进制字符串 转化为 字节数组
-         */
-        fun hexToBytes(hex: String): ByteArray {
-            return ByteArray(hex.length / 2) { hex.substring(it * 2, it * 2 + 2).toInt(16).toByte() }
-        }
-
-        private fun charsToBytes(chars: CharArray): ByteArray {
-            val bytes = ByteArray(chars.size)
-            for (i in chars.indices) {
-                bytes[i] = (chars[i].code - 48).toByte()
-            }
-            return bytes
-        }
-
-        // 16进制转10进制
-        fun hexOf2BytesToInt(substring: String): Int {
-            return substring.toInt(16)
-        }
     }
 }

@@ -7,7 +7,7 @@ import com.drake.serialize.serialize.serialLazy
  * LIN 通信数据
  * @author hf
  */
-@SerializeConfig(mmapID = "dc_config_lin_data")
+@SerializeConfig(mmapID = MAP_ID_CONFIG_DATA_LIN_PROTOCOL)
 object ConfigDataLinProtocol {
     var singleColorSelected: String by serialLazy(default = "#ff7800") // 单色颜色
     var polychromeType: Int by serialLazy(default = 4) // 0 ~ 9 // 多色模式

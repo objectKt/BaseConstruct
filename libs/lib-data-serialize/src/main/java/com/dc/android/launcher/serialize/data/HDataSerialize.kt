@@ -3,11 +3,6 @@ package com.dc.android.launcher.serialize.data
 import com.drake.serialize.serialize.annotation.SerializeConfig
 import com.drake.serialize.serialize.serialLazy
 
-@SerializeConfig(mmapID = "dc_lin_atmosphere_light")
-object LinAtmosphereLight {
-    var lightLevel: Int by serialLazy(default = 20)
-}
-
 @SerializeConfig(mmapID = "dc_model_application")
 object ModelApplication {
     var propCar: Boolean by serialLazy(default = false) // 暂时无用，双系统使用
