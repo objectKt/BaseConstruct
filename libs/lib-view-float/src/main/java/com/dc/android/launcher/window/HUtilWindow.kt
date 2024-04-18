@@ -7,8 +7,8 @@ import android.provider.Settings
 object HUtilWindow {
 
     fun accessSettings(context: Context, targetActivityClass: Class<*>) {
-        val floatHelper = HFloatAccessibilityWindowHelper.getInit(context)
-        floatHelper.setFloatWindowLayoutDelegate(object : HFloatAccessibilityWindowHelper.FloatWindowLayoutDelegate {
+        val floatHelper = AccessFloatWindowHelper.getInit(context)
+        floatHelper.setFloatWindowLayoutDelegate(object : AccessFloatWindowHelper.FloatWindowLayoutDelegate {
             override fun onHome() {
                 val intent = Intent(context, targetActivityClass)
                 context.startActivity(intent)
@@ -28,7 +28,7 @@ object HUtilWindow {
     }
 
     fun showFloatWindow(context: Context) {
-        val floatHelper = HFloatAccessibilityWindowHelper.getInit(context)
+        val floatHelper = AccessFloatWindowHelper.getInit(context)
         floatHelper.let {
             if (!it.isFloatWindowShowing()) {
                 it.showFloatWindow()
@@ -37,7 +37,7 @@ object HUtilWindow {
     }
 
     fun hideFloatWindow(context: Context) {
-        val floatHelper = HFloatAccessibilityWindowHelper.getInit(context)
+        val floatHelper = AccessFloatWindowHelper.getInit(context)
         floatHelper.closeFloatWindow()
     }
 }

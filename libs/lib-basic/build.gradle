@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'com.dc.android.launcher.window'
+    namespace 'com.dc.android.launcher.basic'
     compileSdk libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
@@ -21,9 +21,4 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':lib-basic')
-    implementation project(path: ':lib-data-serialize')
-    implementation libs.androidx.appcompat
-    implementation libs.androidx.material
-    implementation libs.androidx.constraintlayout
 }

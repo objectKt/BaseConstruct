@@ -1,3 +1,5 @@
+@file:Suppress("PrivatePropertyName")
+
 package com.dc.android.launcher.window
 
 import android.accessibilityservice.AccessibilityService
@@ -16,22 +18,19 @@ import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
+import com.dc.android.launcher.basic.singleton.ActivitySingleton
 import kotlin.math.abs
 
 /**
  * 悬浮窗(使用无障碍服务)
  */
-class HFloatAccessibilityWindowHelper private constructor(private val context: Context) {
+class AccessFloatWindowHelper private constructor(private val context: Context) {
 
-    companion object : ActivitySingleton<HFloatAccessibilityWindowHelper, Context>(::HFloatAccessibilityWindowHelper)
+    companion object : ActivitySingleton<AccessFloatWindowHelper, Context>(::AccessFloatWindowHelper)
 
-    private val TAG = "HFloatWindowHelper"
+    private val TAG = "AccessFloatWindowHelper"
 
-    val WINDOW_MODE_FULL = 1 // 全屏播放
-
-    val WINDOW_MODE_FLOAT = 2 // 悬浮窗播放
-
-    private  val sEnableFloatWindow = true
+    private val sEnableFloatWindow = true
 
     private var mViewRoot: ConstraintLayout? = null
     private var idMenuRoot: AppCompatImageView? = null
@@ -59,12 +58,18 @@ class HFloatAccessibilityWindowHelper private constructor(private val context: C
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initView() {
-        Log.w("HAccessibilityService", "initView")
+        val accessibilityService = HAccessibilityService.mAccessibilityService
+        if (accessibilityService == null) {
+            Toast.makeText(context, "无障碍未开启", Toast.LENGTH_SHORT).show()
+            isFloatWindowShowing = false
+            return
+        }
         mViewRoot = LayoutInflater.from(context).inflate(R.layout.layout_float_menu, null) as ConstraintLayout
         idMenuRoot = mViewRoot?.findViewById(R.id.idMenuRoot)
         idMenuHome = mViewRoot?.findViewById(R.id.idMenuHome)
         idMenuBack = mViewRoot?.findViewById(R.id.idMenuBack)
         idMenuSettings = mViewRoot?.findViewById(R.id.idMenuSettings)
+        idMenuRoot?.visibility = View.VISIBLE
         mViewRoot?.setOnTouchListener(FloatingOnTouchListener())
         idMenuRoot?.setOnTouchListener { _, _ -> false } // 允许触摸事件继续传递
         idMenuHome?.setOnClickListener {
@@ -75,13 +80,9 @@ class HFloatAccessibilityWindowHelper private constructor(private val context: C
         }
         idMenuBack?.setOnClickListener {
             hideSubMenus()
-            val accessService = HAccessibilityService.mAccessibilityService
-            accessService?.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK) ?: Toast.makeText(context, "未开启无障碍服务，无法使用系统返回键接口", Toast.LENGTH_LONG).show()
+            accessibilityService.performGlobalAction(AccessibilityService.GLOBAL_ACTION_BACK)
         }
-        idMenuSettings?.setOnClickListener {
-            hideSubMenus()
-        }
-        idMenuRoot?.visibility = View.VISIBLE
+        idMenuSettings?.setOnClickListener { hideSubMenus() }
         initFloatWindow()
     }
 
@@ -89,25 +90,15 @@ class HFloatAccessibilityWindowHelper private constructor(private val context: C
 
     fun showFloatWindow(): Boolean {
         initView()
-        val mAccessibilityService = HAccessibilityService.mAccessibilityService
-        if (mAccessibilityService == null) {
-            Toast.makeText(context, "无障碍未开启", Toast.LENGTH_SHORT).show()
-            isFloatWindowShowing = false
-            return false
-        }
         try {
             mViewRoot?.visibility = View.VISIBLE
             mWindowParams?.width = 400
             mWindowParams?.height = 500
             if (mViewRoot?.isAttachedToWindow == false) {
-                if (mWindowManager == null) {
-                    Log.e("HAccessibilityService", "mWindowManager = null")
-                } else {
-                    mWindowManager?.addView(mViewRoot, mWindowParams)
-                }
+                mWindowManager?.addView(mViewRoot, mWindowParams)
             }
         } catch (e: Exception) {
-            Log.e("HAccessibilityService", "e ${e.message}")
+            Log.e(TAG, "e ${e.message}")
             e.printStackTrace()
             isFloatWindowShowing = false
             return false
@@ -127,16 +118,6 @@ class HFloatAccessibilityWindowHelper private constructor(private val context: C
         return true
     }
 
-    fun updateFloatWindowSize(rect: FloatWindowRect) {
-        if (mViewRoot != null) {
-            mWindowParams?.x = rect.x
-            mWindowParams?.y = rect.y
-            mWindowParams?.width = rect.width
-            mWindowParams?.height = rect.height
-            mWindowManager?.updateViewLayout(mViewRoot, mWindowParams)
-        }
-    }
-
     private fun getScreenWidth(): Int {
         val metric = DisplayMetrics()
         val wm = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
@@ -145,15 +126,10 @@ class HFloatAccessibilityWindowHelper private constructor(private val context: C
     }
 
     private fun initFloatWindow() {
-        Log.w("HAccessibilityService", "initFloatWindow")
-        val mAccessibilityService = HAccessibilityService.mAccessibilityService
-        if (mAccessibilityService == null) {
-            Toast.makeText(context, "无障碍未开启", Toast.LENGTH_SHORT).show()
-            return
-        }
+        val accessibilityService = HAccessibilityService.mAccessibilityService
         val screenWidth: Int = getScreenWidth()
         val rect = FloatWindowRect(screenWidth - 400, 0, 400, 600)
-        mWindowManager = mAccessibilityService.getSystemService(Context.WINDOW_SERVICE) as WindowManager//mContext?.applicationContext?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        mWindowManager = accessibilityService?.getSystemService(Context.WINDOW_SERVICE) as WindowManager//mContext?.applicationContext?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         mWindowParams = WindowManager.LayoutParams()
         mWindowParams?.let {
             it.type = WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY

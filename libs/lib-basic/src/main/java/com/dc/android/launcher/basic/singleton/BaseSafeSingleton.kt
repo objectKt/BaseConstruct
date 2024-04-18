@@ -1,4 +1,14 @@
-package com.dc.android.launcher.window
+package com.dc.android.launcher.basic.singleton
+
+open class ActivitySingleton<out T, in A>(private val constructor: (A) -> T) {
+
+    @Volatile
+    private var init: T? = null
+
+    fun getInit(a: A): T = init ?: synchronized(this) {
+        init ?: constructor(a).also { init = it }
+    }
+}
 
 /**
  * 线程安全的单例模式，在同步块中使用双重检查锁定来实例化实例，以消除多线程环境中竞争条件的可能性。
@@ -16,14 +26,4 @@ open class BaseSafeSingleton<out T, in A, in B, in C, in D>(private val construc
         instance ?: synchronized(this) {
             instance ?: constructor(a, b, c, d).also { instance = it }
         }
-}
-
-open class ActivitySingleton<out T, in A>(private val constructor: (A) -> T) {
-
-    @Volatile
-    private var init: T? = null
-
-    fun getInit(a: A): T = init ?: synchronized(this) {
-        init ?: constructor(a).also { init = it }
-    }
 }
