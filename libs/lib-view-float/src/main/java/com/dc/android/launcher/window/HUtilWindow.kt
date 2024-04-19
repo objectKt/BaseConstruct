@@ -6,12 +6,11 @@ import android.provider.Settings
 
 object HUtilWindow {
 
-    fun accessSettings(context: Context, targetActivityClass: Class<*>) {
+    fun accessSettings(context: Context, callback: ICallbackEnter?) {
         val floatHelper = AccessFloatWindowHelper.getInit(context)
         floatHelper.setFloatWindowLayoutDelegate(object : AccessFloatWindowHelper.FloatWindowLayoutDelegate {
             override fun onHome() {
-                val intent = Intent(context, targetActivityClass)
-                context.startActivity(intent)
+                callback?.onHome()
             }
         })
         if (HAccessibilityService.mAccessibilityService == null) {
@@ -20,10 +19,7 @@ object HUtilWindow {
                 context.startActivity(this)
             }
         } else {
-            Intent(Settings.ACTION_SETTINGS).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                context.startActivity(this)
-            }
+            callback?.enterOtherApp()
         }
     }
 
@@ -40,4 +36,9 @@ object HUtilWindow {
         val floatHelper = AccessFloatWindowHelper.getInit(context)
         floatHelper.closeFloatWindow()
     }
+}
+
+interface ICallbackEnter {
+    fun enterOtherApp()
+    fun onHome()
 }

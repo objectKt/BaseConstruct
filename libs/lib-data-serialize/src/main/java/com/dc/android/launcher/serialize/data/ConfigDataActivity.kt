@@ -6,6 +6,7 @@ import com.drake.serialize.serialize.serialLazy
 const val MAP_ID_CONFIG_DATA_ACTIVITY: String = "dc_cfg_activity"
 const val MAP_ID_CONFIG_DATA_LIN_PROTOCOL: String = "dc_cfg_lin"
 const val MAP_ID_CONFIG_DATA_SYSTEM: String = "dc_cfg_sys"
+const val MAP_ID_CONFIG_DATA_BLUETOOTH: String = "dc_cfg_blue"
 
 /**
  * 互动页面数据

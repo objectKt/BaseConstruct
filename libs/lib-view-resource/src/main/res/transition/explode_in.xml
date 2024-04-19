@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/transition/my_transition_set.xml -->
+<transitionSet xmlns:android="http://schemas.android.com/apk/res/android">
+    <fade android:duration="100" />
+    <slide android:duration="100" />
+    <!-- Add more transitions here as needed -->
+</transitionSet>

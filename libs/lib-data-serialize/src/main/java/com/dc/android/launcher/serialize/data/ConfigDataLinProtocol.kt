@@ -13,4 +13,6 @@ object ConfigDataLinProtocol {
     var polychromeType: Int by serialLazy(default = 4) // 0 ~ 9 // 多色模式
     var selectedColorMode: Int by serialLazy(default = 0) // 颜色模式：单色彩-0  多色彩-1
     var brightLevel: Int by serialLazy(default = 20) // 修改氛围灯亮度等级 0 ~20
+    var welcome: Boolean by serialLazy(default = true) // 氛围灯 欢迎模式
+    var blindSpot: Boolean by serialLazy(default = true) // 氛围灯 盲点辅助模式
 }
