@@ -314,12 +314,14 @@ interface HUtils {
         }
 
         /* 时间戳转 16进制 */
-        fun timestampToHex(): String = java.lang.Long.toHexString(System.currentTimeMillis()).uppercase()
+        fun timestampToHex(): String = needSureDoubleSize(java.lang.Long.toHexString(System.currentTimeMillis()).uppercase())
 
         /* 16进制转时间戳 */
         fun hexToTimestamp(hexString: String): Long = java.lang.Long.parseLong(hexString, 16)
 
         fun timestampToClock(): String = getCurrentTime("HH:mm:ss  yy-MM-dd")
+
+        private fun needSureDoubleSize(content: String): String = if (content.length % 2 != 0) "0$content" else content
 
         // 将十进制字符串转换为十六进制字符串
         /**
