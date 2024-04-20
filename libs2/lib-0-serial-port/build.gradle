@@ -1,0 +1,65 @@
+plugins {
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.jetbrainsKotlinAndroid)
+}
+
+apply plugin: "kotlinx-serialization"
+apply plugin: "kotlin-parcelize"
+apply plugin: "kotlin-kapt"
+
+android {
+    namespace 'lib.dc'
+    compileSdk libs.versions.compileSdk.get().toInteger()
+
+    defaultConfig {
+        minSdk libs.versions.minSdk.get().toInteger()
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildFeatures { dataBinding = true }
+    kotlinOptions { jvmTarget = '1.8' }
+    externalNativeBuild { cmake { path "CMakeLists.txt" } }
+}
+
+dependencies {
+    implementation project(path: ':lib-basic')
+    implementation project(path: ':lib-utils-global')
+    implementation project(path: ':lib-protocol-ctrl')
+    api(libs.androidx.startup)
+    api(libs.androidx.material)
+    api(libs.androidx.fragment)
+    api(libs.androidx.appcompat)
+    api(libs.androidx.viewpager)
+    api(libs.androidx.recyclerview)
+    api(libs.androidx.constraintlayout)
+    api(libs.androidx.recyclerview.selection)
+    api(libs.com.usb)
+    api(libs.com.xtask)
+    api(libs.com.permission)
+    api(libs.com.okhttp)
+    api(libs.com.fastjson)
+    api(libs.com.amap.navi)
+    api(libs.com.amap.search)
+    api(libs.netty)
+    api(libs.rxjava)
+    api(libs.rxandroid)
+    api(libs.reflection)
+    api(libs.drake.net)
+    api(libs.drake.list)
+    api(libs.drake.event)
+    api(libs.drake.logcat)
+    api(libs.drake.toolKit)
+    api(libs.drake.tabLayout)
+    api(libs.drake.serialize)
+    api(libs.tencent.mmkv)
+    api(libs.tencent.bugly)
+    api(libs.serialization.json)
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
+    api(libs.glide)
+}

@@ -1,0 +1,29 @@
+plugins {
+    alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.jetbrainsKotlinAndroid)
+}
+
+android {
+    namespace 'dc.res'
+    compileSdk libs.versions.compileSdk.get().toInteger()
+
+    defaultConfig {
+        minSdk libs.versions.minSdk.get().toInteger()
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions { jvmTarget = '1.8' }
+}
+
+dependencies {
+    implementation project(path: ':lib-basic')
+    implementation project(path: ':lib-utils-global')
+    implementation project(path: ':lib-data-serialize')
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.material
+}

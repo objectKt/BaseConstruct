@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="accessibility_description">⚠️为了允许悬浮弹窗的显示便于快捷操作，需要您开启上方 [使用 ：悬浮菜单功能] 选项，然后返回即可。⚠️</string>
-    <string name="accessibility_service_description">悬浮菜单功能</string>
-</resources>
