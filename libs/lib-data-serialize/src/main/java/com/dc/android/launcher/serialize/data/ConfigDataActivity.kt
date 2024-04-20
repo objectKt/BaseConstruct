@@ -14,4 +14,5 @@ const val MAP_ID_CONFIG_DATA_BLUETOOTH: String = "dc_cfg_blue"
 @SerializeConfig(mmapID = MAP_ID_CONFIG_DATA_ACTIVITY)
 object ConfigDataActivity {
     var isHomeActVisible: Boolean by serialLazy(default = false)
+    var isNavigation: Boolean by serialLazy(default = false) // 是否正在导航
 }

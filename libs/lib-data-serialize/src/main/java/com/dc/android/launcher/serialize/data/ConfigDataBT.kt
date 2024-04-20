@@ -8,6 +8,8 @@ import com.drake.serialize.serialize.serialLazy
  */
 @SerializeConfig(mmapID = MAP_ID_CONFIG_DATA_BLUETOOTH)
 object ConfigDataBT {
+    var currentEquipName: String by serialLazy(default = "currentEquipName")
+
     var blueVersion: String by serialLazy(default = "")
 
     // 通讯录下载状态：1、开始下载，2，下载完成，-1、停止下载
