@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'com.dc.android.launcher.protocol'
+    namespace 'com.dc.android.launcher.data'
     compileSdk libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
@@ -21,6 +21,12 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':lib-utils-global')
-    implementation project(path: ':lib-data-serialize')
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.material
+
+    implementation project(path: ':lib-2-utils-global')
+    implementation libs.androidx.startup
+    implementation libs.tencent.mmkv
+    implementation libs.drake.serialize
+    implementation libs.serialization.json
 }

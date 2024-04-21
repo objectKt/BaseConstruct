@@ -20,8 +20,11 @@ android {
     kotlinOptions { jvmTarget = '1.8' }
 }
 
+
 dependencies {
-    implementation(libs.androidx.appcompat)
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.material
+
     api(libs.threeten)
     api(libs.apache.commons.lang)
 }

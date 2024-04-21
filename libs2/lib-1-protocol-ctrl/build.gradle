@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'dc.res'
+    namespace 'com.dc.android.launcher.protocol'
     compileSdk libs.versions.compileSdk.get().toInteger()
 
     defaultConfig {
@@ -20,10 +20,11 @@ android {
     kotlinOptions { jvmTarget = '1.8' }
 }
 
+
 dependencies {
-    implementation project(path: ':lib-basic')
-    implementation project(path: ':lib-utils-global')
-    implementation project(path: ':lib-data-serialize')
     implementation libs.androidx.appcompat
     implementation libs.androidx.material
+
+    implementation project(path: ':lib-1-data-serialize')
+    implementation project(path: ':lib-2-utils-global')
 }

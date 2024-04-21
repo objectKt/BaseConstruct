@@ -27,9 +27,9 @@ android {
 }
 
 dependencies {
+    implementation project(path: ':lib-1-protocol-ctrl')
     implementation project(path: ':lib-basic')
-    implementation project(path: ':lib-utils-global')
-    implementation project(path: ':lib-protocol-ctrl')
+    implementation project(path: ':lib-2-utils-global')
     api(libs.androidx.startup)
     api(libs.androidx.material)
     api(libs.androidx.fragment)
